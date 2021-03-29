@@ -5,6 +5,6 @@ import javax.persistence.Entity;
 
 @Entity
 @Table(name = "INTERVIEW_FEEDBACK")
-public class InterviewFeedback {
+public class InterviewFeedbackEntity {
 
 }

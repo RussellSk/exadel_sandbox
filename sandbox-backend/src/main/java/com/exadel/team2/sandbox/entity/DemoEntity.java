@@ -26,7 +26,7 @@ public class DemoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
-    @Column(name = "ID")
+    @Column(name = "IFB_ID")
     private Long id;
 
     @Column(name = "SOME_FIELD")
