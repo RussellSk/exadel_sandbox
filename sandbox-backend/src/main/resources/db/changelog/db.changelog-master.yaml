@@ -1,5 +1,9 @@
 databaseChangeLog:
   - include:
+      file: db/changelog/changes/create-demo-table.yaml
+  - include:
+      file: db/changelog/changes/20210329_drop_demo_table.yaml
+  - include:
       file: db/changelog/changes/20210326_create_table_role.yaml
   - include:
       file: db/changelog/changes/20210326_create_table_employee.yaml
