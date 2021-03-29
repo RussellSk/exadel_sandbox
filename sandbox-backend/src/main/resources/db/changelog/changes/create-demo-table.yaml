@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: crate-demo-table
+      author: akarzhaneuski
+      changes:
+        - createTable:
+            tableName: DEMO_TABLE
+            columns:
+              - column:
+                  name: ID
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: SOME_FIELD
+                  type: VARCHAR(255)
