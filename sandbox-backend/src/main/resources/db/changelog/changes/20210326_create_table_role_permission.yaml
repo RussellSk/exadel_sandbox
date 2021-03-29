@@ -26,6 +26,7 @@ databaseChangeLog:
               - column:
                   name: RP_CREATED_AT
                   type: DATETIME
+                  defaultValue: now()
                   constraints:
                     nullable: true
               - column:

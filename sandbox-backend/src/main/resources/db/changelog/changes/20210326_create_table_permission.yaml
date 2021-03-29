@@ -21,6 +21,7 @@ databaseChangeLog:
               - column:
                   name: PMN_CREATED_AT
                   type: DATETIME
+                  defaultValue: now()
                   constraints:
                     nullable: true
               - column:

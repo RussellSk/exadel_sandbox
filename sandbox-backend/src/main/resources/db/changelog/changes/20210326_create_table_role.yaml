@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: "20210326_create_table_role"
+      id: 20210326_create_table_role
       author: skaldin
       changes:
         - createTable:
@@ -26,6 +26,7 @@ databaseChangeLog:
               - column:
                   name: RL_CREATED_AT
                   type: DATETIME
+                  defaultValue: now()
                   constraints:
                     nullable: true
               - column:
