@@ -29,6 +29,7 @@ databaseChangeLog:
               - column:
                   name: IMG_CREATED_AT
                   type: DATETIME
+                  defaultValue: now()
   - changeSet:
       id: table_event_type
       author: vadblagiy@gmail.com
@@ -55,6 +56,7 @@ databaseChangeLog:
               - column:
                   name: EVT_CREATED_AT
                   type: DATETIME
+                  defaultValue: now()
               - column:
                   name: EVT_UPDATED_AT
                   type: DATETIME
@@ -119,6 +121,7 @@ databaseChangeLog:
               - column:
                   name: EV_CREATED_AT
                   type: DATETIME
+                  defaultValue: now()
               - column:
                   name: EV_UPDATED_AT
                   type: DATETIME
