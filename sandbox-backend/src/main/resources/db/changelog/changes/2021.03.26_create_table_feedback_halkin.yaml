@@ -16,14 +16,11 @@ databaseChangeLog:
                   name: CN_ID
                   type: INT
                   constraints:
-                    foreignKeyName: fk_INTERVIEW-FEEDBACK_contact_CANDIDATE
-                    references: INTERVIEW-FEEDBACK(IFB_ID)
+                    nullable: false
               - column:
                   name: EMP_ID
                   type: INT
-                  constraints:
-                    foreignKeyName: fk_INTERVIEW-FEEDBACK_contact_EMPLOYEE
-                    references: INTERVIEW-FEEDBACK(IFB_ID)
+                  defaultValue: null
               - column:
                   name: IFB_FEEDBACK
                   type: TEXT(2000)
@@ -39,3 +36,29 @@ databaseChangeLog:
                   type: DATETIME
                   constraints:
                     nullable: false
+        - addForeignKeyConstraint:
+            baseColumnNames: CN_ID
+            baseTableCatalogName: sandbox
+            baseTableName: INTERVIEW-FEEDBACK
+            baseTableSchemaName: sandbox
+            constraintName: fk_INTERVIEW-FEEDBACK_contact_CANDIDATE
+            onDelete: cascade
+            onUpdate: cascade
+            referencedColumnNames: CN_ID
+            referencedTableCatalogName: sandbox
+            referencedTableName: CANDIDATE
+            referencedTableSchemaName: sandbox
+            validate: true
+        - addForeignKeyConstraint:
+            baseColumnNames: EMP_ID
+            baseTableCatalogName: sandbox
+            baseTableName: INTERVIEW-FEEDBACK
+            baseTableSchemaName: sandbox
+            constraintName: fk_INTERVIEW-FEEDBACK_contact_EMPLOYEE
+            onDelete: cascade
+            onUpdate: cascade
+            referencedColumnNames: EMP_ID
+            referencedTableCatalogName: sandbox
+            referencedTableName: EMPLOYEE
+            referencedTableSchemaName: sandbox
+            validate: true
