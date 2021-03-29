@@ -45,6 +45,8 @@ public class ImageEntity {
     @Column(name = "IMG_CREATED_AT")
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    private Date imgCreatedAt;          //datetime
+    private Date imgCreatedAt;
+
+    
 
 }

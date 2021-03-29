@@ -47,7 +47,7 @@ public class EventEntity {
     private Date evStartDate;         
 
     @Column(name = "EV_DURATION")
-    private String evDuration;          //datetime ЧИ СТРИНГ???????
+    private String evDuration;          //date or String?
 
     @Column(name = "EV_DEADLINE")
     @Temporal(TemporalType.DATE)
@@ -68,5 +68,6 @@ public class EventEntity {
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date evUpdatedAt;
+
 
 }

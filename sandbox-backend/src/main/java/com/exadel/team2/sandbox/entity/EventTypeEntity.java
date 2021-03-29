@@ -42,4 +42,6 @@ public class EventTypeEntity {
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date evtUpdatedAt;
+
+
 }
