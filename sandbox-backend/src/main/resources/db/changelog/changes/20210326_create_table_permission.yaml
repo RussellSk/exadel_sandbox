@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20210326_create_table_permission
+      author: skaldin
+      changes:
+        - createTable:
+            tableName: PERMISSION
+            columns:
+              - column:
+                  name: PMN_ID
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: PMN_NAME
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: PMN_CREATED_AT
+                  type: DATETIME
+                  defaultValue: now()
+                  constraints:
+                    nullable: true
+              - column:
+                  name: PMN_UPDATED_AT
+                  type: DATETIME
+                  constraints:
+                    nullable: true
