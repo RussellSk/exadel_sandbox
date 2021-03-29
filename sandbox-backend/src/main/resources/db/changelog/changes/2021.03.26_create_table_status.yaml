@@ -12,6 +12,7 @@ databaseChangeLog:
                   autoIncrement: true
                   constraints:
                     primaryKey: true
+                    nullable: false
               - column:
                   name: ST_NAME
                   type: VARCHAR(55)
@@ -27,8 +28,7 @@ databaseChangeLog:
                   type: DATETIME
                   constraints:
                     nullable: false
+                  defaultValue: now()
               - column:
                   name: ST_UPDATED_AT
                   type: DATETIME
-                  constraints:
-                    nullable: false

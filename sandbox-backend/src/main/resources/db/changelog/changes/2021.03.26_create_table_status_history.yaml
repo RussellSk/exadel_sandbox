@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: table_status
+      id: table_status_history
       author: butenko
       changes:
         - createTable:
@@ -12,36 +12,37 @@ databaseChangeLog:
                   autoIncrement: true
                   constraints:
                     primaryKey: true
+                    nullable: false
               - column:
                   name: ST_ID
                   type: INT
                   constraints:
                     foreignKeyName: fk_STATUS_HISTORY_contact_STATUS
                     references: STATUS_HISTORY(STH_ID)
+                    nullable: false
               - column:
                   name: CN_ID
                   type: INT
                   constraints:
                     foreignKeyName: fk_STATUS_HISTORY_contact_CANDITATE
                     references: STATUS_HISTORY(STH_ID)
+                    nullable: false
               - column:
                   name: EMP_ID
                   type: INT
                   constraints:
                     foreignKeyName: fk_STATUS_HISTORY_contact_EMPLOYEE
                     references: STATUS_HISTORY(STH_ID)
+                    nullable: false
               - column:
                   name: STH_CHANGE_NOTE
                   type: TEXT(500)
-                  constraints:
-                    nullable: false
               - column:
                   name: STH_CREATED_AT
                   type: DATETIME
                   constraints:
                     nullable: false
+                  defaultValue: now()
               - column:
                   name: STH_UPDATED_AT
                   type: DATETIME
-                  constraints:
-                    nullable: false
