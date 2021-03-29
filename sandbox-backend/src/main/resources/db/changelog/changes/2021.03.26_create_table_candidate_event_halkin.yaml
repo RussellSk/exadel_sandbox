@@ -27,5 +27,6 @@ databaseChangeLog:
               - column:
                   name: CNV_CREATED_AT
                   type: DATETIME
+                  defaultValue: CURRENT_TIMESTAMP
                   constraints:
                     nullable: false

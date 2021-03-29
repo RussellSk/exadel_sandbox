@@ -4,7 +4,7 @@ databaseChangeLog:
       author: aliaksei_halkin
       changes:
         - createTable:
-            tableName: INTERVIEW-FEEDBACK
+            tableName: INTERVIEW_FEEDBACK
             columns:
               - column:
                   name: IFB_ID
@@ -29,19 +29,21 @@ databaseChangeLog:
               - column:
                   name: IFB_CREATED_AT
                   type: DATETIME
+                  defaultValue: CURRENT_TIMESTAMP
                   constraints:
                     nullable: false
               - column:
                   name: IFB_UPDATED_AT
                   type: DATETIME
+                  defaultValue: CURRENT_TIMESTAMP
                   constraints:
                     nullable: false
         - addForeignKeyConstraint:
             baseColumnNames: CN_ID
             baseTableCatalogName: sandbox
-            baseTableName: INTERVIEW-FEEDBACK
+            baseTableName: INTERVIEW_FEEDBACK
             baseTableSchemaName: sandbox
-            constraintName: fk_INTERVIEW-FEEDBACK_contact_CANDIDATE
+            constraintName: fk_INTERVIEW_FEEDBACK_contact_CANDIDATE
             onDelete: cascade
             onUpdate: cascade
             referencedColumnNames: CN_ID
@@ -52,9 +54,9 @@ databaseChangeLog:
         - addForeignKeyConstraint:
             baseColumnNames: EMP_ID
             baseTableCatalogName: sandbox
-            baseTableName: INTERVIEW-FEEDBACK
+            baseTableName: INTERVIEW_FEEDBACK
             baseTableSchemaName: sandbox
-            constraintName: fk_INTERVIEW-FEEDBACK_contact_EMPLOYEE
+            constraintName: fk_INTERVIEW_FEEDBACK_contact_EMPLOYEE
             onDelete: cascade
             onUpdate: cascade
             referencedColumnNames: EMP_ID
