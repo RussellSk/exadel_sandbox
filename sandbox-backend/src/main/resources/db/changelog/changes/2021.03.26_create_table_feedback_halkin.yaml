@@ -2,11 +2,6 @@ databaseChangeLog:
   - changeSet:
       id: table_interview_feedback
       author: aliaksei_halkin
-      preConditions:
-        onFail: CONTINUE
-        not:
-          tableExists:
-            tableName: INTERVIEW_FEEDBACK
       changes:
         - createTable:
             tableName: INTERVIEW_FEEDBACK
