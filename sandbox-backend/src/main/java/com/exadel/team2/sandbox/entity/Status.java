@@ -1,23 +1,17 @@
 package com.exadel.team2.sandbox.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 
 @Entity
-@Table(name = "STATUS", schema = "sandbox")
+@Table(name = "STATUS")
 public class Status {
 
     @Id
@@ -33,12 +27,11 @@ public class Status {
     private String description;
 
     @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "ST_CREATED_AT", nullable = false)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @UpdateTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "ST_UPDATED_AT")
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
 }
+
