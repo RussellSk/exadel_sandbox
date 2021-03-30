@@ -2,11 +2,6 @@ databaseChangeLog:
   - changeSet:
       id: table_candidate event
       author: aliaksei_halkin
-      preConditions:
-        onFail: CONTINUE
-        not:
-          tableExists:
-            tableName: CANDIDATE_EVENT
       changes:
         - createTable:
             tableName: CANDIDATE_EVENT
