@@ -2,6 +2,11 @@ databaseChangeLog:
   - changeSet:
       id: table_interview_feedback
       author: aliaksei_halkin
+      preConditions:
+        onFail: CONTINUE
+        not:
+          tableExists:
+            tableName: INTERVIEW_FEEDBACK
       changes:
         - createTable:
             tableName: INTERVIEW_FEEDBACK
@@ -29,13 +34,13 @@ databaseChangeLog:
               - column:
                   name: IFB_CREATED_AT
                   type: DATETIME
-                  defaultValue: CURRENT_TIMESTAMP
+                  defaultValue: now()
                   constraints:
                     nullable: false
               - column:
                   name: IFB_UPDATED_AT
                   type: DATETIME
-                  defaultValue: CURRENT_TIMESTAMP
+                  defaultValue: now()
                   constraints:
                     nullable: false
         - addForeignKeyConstraint:
