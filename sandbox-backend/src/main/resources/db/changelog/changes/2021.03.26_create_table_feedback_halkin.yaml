@@ -29,13 +29,13 @@ databaseChangeLog:
               - column:
                   name: IFB_CREATED_AT
                   type: DATETIME
-                  defaultValue: CURRENT_TIMESTAMP
+                  defaultValue: now()
                   constraints:
                     nullable: false
               - column:
                   name: IFB_UPDATED_AT
                   type: DATETIME
-                  defaultValue: CURRENT_TIMESTAMP
+                  defaultValue: now()
                   constraints:
                     nullable: false
         - addForeignKeyConstraint:
