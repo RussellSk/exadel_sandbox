@@ -1,0 +1,45 @@
+databaseChangeLog:
+   - changeSet:
+      id: table_interview_feedback
+      author: aliaksei_halkin
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+          -tableExists:
+            tableName: INTERVIEW_FEEDBACK
+      changes:
+        - createTable:
+            tableName: INTERVIEW_FEEDBACK
+            columns:
+              - column:
+                  name: IFB_ID
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: CN_ID
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: EMP_ID
+                  type: INT
+                  defaultValue: null
+              - column:
+                  name: IFB_FEEDBACK
+                  type: TEXT(2000)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: IFB_CREATED_AT
+                  type: DATETIME
+                  defaultValue: now()
+                  constraints:
+                    nullable: false
+              - column:
+                  name: IFB_UPDATED_AT
+                  type: DATETIME
+                  defaultValue: now()
+                  constraints:
+                    nullable: false
