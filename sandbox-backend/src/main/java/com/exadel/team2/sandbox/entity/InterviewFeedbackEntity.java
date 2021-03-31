@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -31,12 +32,12 @@ public class InterviewFeedbackEntity {
     @Column(name = "IFB_CREATED_AT")
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dateOfCreate;
+    private LocalDateTime dateOfCreate;
 
     @Column(name = "IFB_UPDATED_AT")
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    private Date dateOfUpdate;
+    private LocalDateTime dateOfUpdate;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "EMP_ID")

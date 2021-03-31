@@ -8,9 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -39,7 +37,7 @@ public class CandidateEventEntity {
     @Column(name = "CNV_CREATED_AT")
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
 
 }
