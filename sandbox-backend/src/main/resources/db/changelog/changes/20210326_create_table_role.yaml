@@ -1,36 +1,36 @@
-databaseChangeLog:
-  - changeSet:
-      id: 20210326_create_table_role
-      author: skaldin
-      changes:
-        - createTable:
-            tableName: ROLE
-            columns:
-              - column:
-                  name: RL_ID
-                  type: INT
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-                    nullable: false
-              - column:
-                  name: RL_NAME
-                  type: VARCHAR(255)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: RL_DESCRIPTION
-                  type: VARCHAR(255)
-                  constraints:
-                    nullable: true
-              - column:
-                  name: RL_CREATED_AT
-                  type: DATETIME
-                  defaultValue: now()
-                  constraints:
-                    nullable: true
-              - column:
-                  name: RL_UPDATED_AT
-                  type: DATETIME
-                  constraints:
-                    nullable: true
+#databaseChangeLog:
+#  - changeSet:
+#      id: 20210326_create_table_role
+#      author: skaldin
+#      changes:
+#        - createTable:
+#            tableName: ROLE
+#            columns:
+#              - column:
+#                  name: RL_ID
+#                  type: INT
+#                  autoIncrement: true
+#                  constraints:
+#                    primaryKey: true
+#                    nullable: false
+#              - column:
+#                  name: RL_NAME
+#                  type: VARCHAR(255)
+#                  constraints:
+#                    nullable: false
+#              - column:
+#                  name: RL_DESCRIPTION
+#                  type: VARCHAR(255)
+#                  constraints:
+#                    nullable: true
+#              - column:
+#                  name: RL_CREATED_AT
+#                  type: DATETIME
+#                  defaultValue: now()
+#                  constraints:
+#                    nullable: true
+#              - column:
+#                  name: RL_UPDATED_AT
+#                  type: DATETIME
+#                  constraints:
+#                    nullable: true

@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - changeSet:
+      id:  rename_column_requirements_1
+      author:  vadblagiy@gmail.com
+      preConditions:
+        onFail: CONTINUE
+        tableExists:
+          tableName: EVENT
+      changes:
+        - renameColumn:
+            columnDataType:  TEXT(2000)
+            newColumnName:  EV_CANDIDATE_REQUIREMENTS
+            oldColumnName:  EV_CANDIDATE_REQUIREMENT
+            remarks:  A_String
+            schemaName:  sandbox
+            tableName:  EVENT

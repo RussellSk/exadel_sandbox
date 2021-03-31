@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: table_image
+      id: table_image_5
       author: vadblagiy@gmail.com
       changes:
         - createTable:
@@ -31,7 +31,7 @@ databaseChangeLog:
                   type: DATETIME
                   defaultValue: now()
   - changeSet:
-      id: table_event_type
+      id: table_event_type_5
       author: vadblagiy@gmail.com
       changes:
         - createTable:
@@ -61,7 +61,7 @@ databaseChangeLog:
                   name: EVT_UPDATED_AT
                   type: DATETIME
   - changeSet:
-      id: table_event
+      id: table_event_5
       author: vadblagiy@gmail.com
       changes:
         - createTable:
