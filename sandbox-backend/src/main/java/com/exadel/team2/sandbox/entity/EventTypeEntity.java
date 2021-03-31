@@ -1,22 +1,15 @@
 package com.exadel.team2.sandbox.entity;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-
 @Entity
 @Table(name = "EVENT_TYPE")
 public class EventTypeEntity {
@@ -27,21 +20,22 @@ public class EventTypeEntity {
     @Column(name = "EVT_ID")
     private Long evtId;
 
+    @OneToOne(mappedBy = "eventType", cascade = {CascadeType.PERSIST, CascadeType.REFRESH} )
+    private EventEntity event;
+
     @Column(name = "EVT_NAME")
     private String evtName;
 
     @Column(name = "EVT_DESCRIPTION")
     private String evtDescription;
 
-    @Column(name = "EVT_CREATED_AT")
     @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date evtCreatedAt;
+    @Column(name = "EVT_CREATED_AT")
+    private LocalDate evtCreatedAt;
 
-    @Column(name = "EVT_UPDATED_AT")
     @UpdateTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date evtUpdatedAt;
+    @Column(name = "EVT_UPDATED_AT")
+    private LocalDate evtUpdatedAt;
 
 
 }

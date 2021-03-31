@@ -2,22 +2,14 @@ package com.exadel.team2.sandbox.entity;
 
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-
 @Entity
 @Table(name = "Image")
 public class ImageEntity {
@@ -28,6 +20,8 @@ public class ImageEntity {
     @Column(name = "IMG_ID")
     private Long imgId;
 
+    @OneToOne(mappedBy = "image", cascade = {CascadeType.PERSIST, CascadeType.REFRESH} )
+    private EventEntity event;
 
     @Column(name = "IMG_PATH")
     private String imgPath;
@@ -41,11 +35,9 @@ public class ImageEntity {
     @Column(name = "IMG_SIZE")
     private Integer imgSize;
 
-
-    @Column(name = "IMG_CREATED_AT")
     @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date imgCreatedAt;
+    @Column(name = "IMG_CREATED_AT")
+    private LocalDate imgCreatedAt;
 
     
 
