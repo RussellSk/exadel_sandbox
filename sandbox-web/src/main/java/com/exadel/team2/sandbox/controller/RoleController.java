@@ -22,18 +22,17 @@ public class RoleController {
     private final PermissionService permissionService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<RoleEntity> getRoleById(@PathVariable Long id) {
-        RoleEntity roleEntity = roleService.getById(id);
-        return ResponseEntity.ok(roleEntity);
+    public RoleEntity getRoleById(@PathVariable Long id) {
+        return roleService.getById(id);
     }
 
     @GetMapping
-    public ResponseEntity<List<RoleEntity>> getRoles() {
-        return ResponseEntity.ok(roleService.getAll());
+    public List<RoleEntity> getRoles() {
+        return roleService.getAll();
     }
 
     @PostMapping
-    public ResponseEntity<RoleEntity> createRole(@RequestBody RoleDTO roleDTO) {
+    public RoleEntity createRole(@RequestBody RoleDTO roleDTO) {
         RoleEntity roleEntity = new RoleEntity();
         roleEntity.setRlName(roleDTO.getRlName());
         roleEntity.setRlDescription(roleDTO.getRlDescription());
@@ -48,15 +47,12 @@ public class RoleController {
         roleEntity.setRlCreatedAt(LocalDateTime.now());
         roleEntity.setRlUpdatedAt(LocalDateTime.now());
         roleEntity = roleService.save(roleEntity);
-        return ResponseEntity.ok(roleEntity);
+        return roleEntity;
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RoleEntity> updateRole(@PathVariable Long id, @RequestBody RoleDTO roleDTO) {
+    public RoleEntity updateRole(@PathVariable Long id, @RequestBody RoleDTO roleDTO) {
         RoleEntity roleEntity = roleService.getById(id);
-        if (roleEntity == null) {
-            return ResponseEntity.notFound().build();
-        }
         roleEntity.setRlName(roleDTO.getRlName());
         roleEntity.setRlDescription(roleDTO.getRlDescription());
 
@@ -73,7 +69,7 @@ public class RoleController {
         roleEntity.setRlUpdatedAt(LocalDateTime.now());
         roleEntity = roleService.update(roleEntity);
 
-        return ResponseEntity.ok(roleEntity);
+        return roleEntity;
     }
 
     @DeleteMapping("/{id}")

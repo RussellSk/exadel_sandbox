@@ -8,7 +8,6 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
-@ToString
 @Entity
 @Table(name = "EMPLOYEE")
 public class EmployeeEntity {

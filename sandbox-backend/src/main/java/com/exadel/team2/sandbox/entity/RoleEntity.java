@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@ToString
 @Entity
 @Table(name = "ROLE")
 public class RoleEntity {

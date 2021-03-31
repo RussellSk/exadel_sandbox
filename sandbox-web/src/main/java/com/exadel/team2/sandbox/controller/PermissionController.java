@@ -19,17 +19,12 @@ public class PermissionController {
     private final PermissionService permissionService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<PermissionEntity> getPermissionById(@PathVariable Long id) {
-        PermissionEntity permissionEntity = permissionService.getById(id);
-        if (permissionEntity == null) {
-            return ResponseEntity.noContent().build();
-        }
-
-        return ResponseEntity.ok(permissionEntity);
+    public PermissionEntity getPermissionById(@PathVariable Long id) {
+        return permissionService.getById(id);
     }
 
     @GetMapping
-    public ResponseEntity<List<PermissionEntity>> getPermissions() {
-        return ResponseEntity.ok(permissionService.getAll());
+    public List<PermissionEntity> getPermissions() {
+        return permissionService.getAll();
     }
 }
