@@ -23,16 +23,16 @@ public class CandidateEventEntity {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     @Column(name = "CNEV_ID")
-    private int id;
+    private long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CN_ID")
     @Column(name = "CN_ID")
-    private int cnId;
+    private long cnId;
 
     @OneToMany
     @Column(name = "EV_ID")
-    private int evId;
+    private long evId;
 
     @Column(name = "CNV_CREATED_AT")
     @CreationTimestamp

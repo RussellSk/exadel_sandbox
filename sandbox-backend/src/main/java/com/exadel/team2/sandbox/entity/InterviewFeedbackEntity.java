@@ -24,7 +24,7 @@ public class InterviewFeedbackEntity {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     @Column(name = "IFB_ID")
-    private int id;
+    private long id;
 
     @Column(name = "IFB_FEEDBACK")
     private String feedback;
@@ -42,12 +42,12 @@ public class InterviewFeedbackEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "EMP_ID")
     @Column(name = "EMP_ID")
-    private int empId;
+    private long empId;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CN_ID")
     @Column(name = "CN_ID")
-    private int cnId;
+    private long cnId;
 
 
 }
