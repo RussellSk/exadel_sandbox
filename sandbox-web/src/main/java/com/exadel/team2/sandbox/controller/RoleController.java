@@ -33,43 +33,12 @@ public class RoleController {
 
     @PostMapping
     public RoleEntity createRole(@RequestBody RoleDTO roleDTO) {
-        RoleEntity roleEntity = new RoleEntity();
-        roleEntity.setRlName(roleDTO.getRlName());
-        roleEntity.setRlDescription(roleDTO.getRlDescription());
-        if (!roleDTO.getPermissions().isEmpty()) {
-            List<PermissionEntity> permissionEntities = new ArrayList<>();
-            for (Long permissionId : roleDTO.getPermissions()) {
-                PermissionEntity permissionEntity = permissionService.getById(permissionId);
-                permissionEntities.add(permissionEntity);
-            }
-            roleEntity.setPermissions(permissionEntities);
-        }
-        roleEntity.setRlCreatedAt(LocalDateTime.now());
-        roleEntity.setRlUpdatedAt(LocalDateTime.now());
-        roleEntity = roleService.save(roleEntity);
-        return roleEntity;
+        return roleService.save(roleDTO);
     }
 
     @PutMapping("/{id}")
     public RoleEntity updateRole(@PathVariable Long id, @RequestBody RoleDTO roleDTO) {
-        RoleEntity roleEntity = roleService.getById(id);
-        roleEntity.setRlName(roleDTO.getRlName());
-        roleEntity.setRlDescription(roleDTO.getRlDescription());
-
-        if (!roleDTO.getPermissions().isEmpty()) {
-            List<PermissionEntity> permissionEntities = new ArrayList<>();
-            for (Long permissionId : roleDTO.getPermissions()) {
-                PermissionEntity permissionEntity = permissionService.getById(permissionId);
-                permissionEntities.add(permissionEntity);
-            }
-            roleEntity.setPermissions(permissionEntities);
-        }
-
-        roleEntity.setRlCreatedAt(LocalDateTime.now());
-        roleEntity.setRlUpdatedAt(LocalDateTime.now());
-        roleEntity = roleService.update(roleEntity);
-
-        return roleEntity;
+        return roleService.update(id, roleDTO);
     }
 
     @DeleteMapping("/{id}")

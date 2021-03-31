@@ -2,11 +2,15 @@ package com.exadel.team2.sandbox.service.impl;
 
 import com.exadel.team2.sandbox.dao.EmployeeDAO;
 import com.exadel.team2.sandbox.entity.EmployeeEntity;
+import com.exadel.team2.sandbox.entity.RoleEntity;
 import com.exadel.team2.sandbox.service.EmployeeService;
+import com.exadel.team2.sandbox.service.RoleService;
+import com.exadel.team2.sandbox.web.EmployeeDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -15,6 +19,7 @@ import java.util.List;
 public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeDAO employeeDAO;
+    private final RoleService roleService;
 
     @Override
     public EmployeeEntity getById(Long id) {
@@ -27,12 +32,30 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public EmployeeEntity save(EmployeeEntity employeeEntity) {
+    public EmployeeEntity save(EmployeeDTO employeeDTO) {
+        EmployeeEntity employeeEntity = new EmployeeEntity();
+        employeeEntity.setEmpFirstName(employeeDTO.getEmpFirstName());
+        employeeEntity.setEmpLastName(employeeDTO.getEmpLastName());
+
+        RoleEntity roleEntity = roleService.getById(employeeDTO.getRoleId());
+        if (roleEntity != null) {
+            employeeEntity.setRole(roleEntity);
+        }
+
+        employeeEntity.setEmpCreatedAt(LocalDateTime.now());
+        employeeEntity.setEmpUpdatedAt(LocalDateTime.now());
+
         return employeeDAO.save(employeeEntity);
     }
 
     @Override
-    public EmployeeEntity update(EmployeeEntity employeeEntity) {
+    public EmployeeEntity update(Long id, EmployeeDTO employeeDTO) {
+        EmployeeEntity employeeEntity = getById(id);
+        employeeEntity.setEmpFirstName(employeeDTO.getEmpFirstName());
+        employeeEntity.setEmpLastName(employeeDTO.getEmpLastName());
+        RoleEntity roleEntity = roleService.getById(employeeDTO.getRoleId());
+        employeeEntity.setRole(roleEntity);
+        employeeEntity.setEmpUpdatedAt(LocalDateTime.now());
         return employeeDAO.save(employeeEntity);
     }
 
