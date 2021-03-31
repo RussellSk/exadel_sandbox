@@ -38,19 +38,19 @@ databaseChangeLog:
                   defaultValue: now()
                   constraints:
                     nullable: false
-        - addForeignKeyConstraint:
-            baseColumnNames: CN_ID
-            baseTableCatalogName: sandbox
-            baseTableName: INTERVIEW_FEEDBACK
-            baseTableSchemaName: sandbox
-            constraintName: fk_INTERVIEW_FEEDBACK_contact_CANDIDATE
-            onDelete: cascade
-            onUpdate: cascade
-            referencedColumnNames: CN_ID
-            referencedTableCatalogName: sandbox
-            referencedTableName: CANDIDATE
-            referencedTableSchemaName: sandbox
-            validate: true
+#        - addForeignKeyConstraint:
+#            baseColumnNames: CN_ID
+#            baseTableCatalogName: sandbox
+#            baseTableName: INTERVIEW_FEEDBACK
+#            baseTableSchemaName: sandbox
+#            constraintName: fk_INTERVIEW_FEEDBACK_contact_CANDIDATE
+#            onDelete: cascade
+#            onUpdate: cascade
+#            referencedColumnNames: CN_ID
+#            referencedTableCatalogName: sandbox
+#            referencedTableName: CANDIDATE
+#            referencedTableSchemaName: sandbox
+#            validate: true
         - addForeignKeyConstraint:
             baseColumnNames: EMP_ID
             baseTableCatalogName: sandbox
