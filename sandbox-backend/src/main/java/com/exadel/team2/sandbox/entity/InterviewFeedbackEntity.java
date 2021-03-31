@@ -39,12 +39,12 @@ public class InterviewFeedbackEntity {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime dateOfUpdate;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "EMP_ID")
     @Column(name = "EMP_ID")
     private long empId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "CN_ID")
     @Column(name = "CN_ID")
     private long cnId;

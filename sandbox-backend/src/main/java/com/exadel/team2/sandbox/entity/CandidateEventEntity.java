@@ -25,13 +25,12 @@ public class CandidateEventEntity {
     @Column(name = "CNEV_ID")
     private long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CN_ID")
+    @OneToMany
     @Column(name = "CN_ID")
     private long cnId;
 
-    @OneToMany
-    @Column(name = "EV_ID")
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "EV_ID")
     private long evId;
 
     @Column(name = "CNV_CREATED_AT")
