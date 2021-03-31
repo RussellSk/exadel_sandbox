@@ -1,66 +1,45 @@
-#databaseChangeLog:
-#  - changeSet:
-#      id: table_interview_feedback
-#      author: aliaksei_halkin
-#      changes:
-#        - createTable:
-#            tableName: INTERVIEW_FEEDBACK
-#            columns:
-#              - column:
-#                  name: IFB_ID
-#                  type: INT
-#                  autoIncrement: true
-#                  constraints:
-#                    primaryKey: true
-#              - column:
-#                  name: CN_ID
-#                  type: INT
-#                  constraints:
-#                    nullable: false
-#              - column:
-#                  name: EMP_ID
-#                  type: INT
-#                  defaultValue: null
-#              - column:
-#                  name: IFB_FEEDBACK
-#                  type: TEXT(2000)
-#                  constraints:
-#                    nullable: false
-#              - column:
-#                  name: IFB_CREATED_AT
-#                  type: DATETIME
-#                  defaultValue: now()
-#                  constraints:
-#                    nullable: false
-#              - column:
-#                  name: IFB_UPDATED_AT
-#                  type: DATETIME
-#                  defaultValue: now()
-#                  constraints:
-#                    nullable: false
-#        - addForeignKeyConstraint:
-#            baseColumnNames: CN_ID
-#            baseTableCatalogName: sandbox
-#            baseTableName: INTERVIEW_FEEDBACK
-#            baseTableSchemaName: sandbox
-#            constraintName: fk_INTERVIEW_FEEDBACK_contact_CANDIDATE
-#            onDelete: cascade
-#            onUpdate: cascade
-#            referencedColumnNames: CN_ID
-#            referencedTableCatalogName: sandbox
-#            referencedTableName: CANDIDATE
-#            referencedTableSchemaName: sandbox
-#            validate: true
-#        - addForeignKeyConstraint:
-#            baseColumnNames: EMP_ID
-#            baseTableCatalogName: sandbox
-#            baseTableName: INTERVIEW_FEEDBACK
-#            baseTableSchemaName: sandbox
-#            constraintName: fk_INTERVIEW_FEEDBACK_contact_EMPLOYEE
-#            onDelete: cascade
-#            onUpdate: cascade
-#            referencedColumnNames: EMP_ID
-#            referencedTableCatalogName: sandbox
-#            referencedTableName: EMPLOYEE
-#            referencedTableSchemaName: sandbox
-#            validate: true
+databaseChangeLog:
+   - changeSet:
+      id: table_interview_feedback
+      author: aliaksei_halkin
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+          -tableExists:
+            tableName: INTERVIEW_FEEDBACK
+      changes:
+        - createTable:
+            tableName: INTERVIEW_FEEDBACK
+            columns:
+              - column:
+                  name: IFB_ID
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: CN_ID
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: EMP_ID
+                  type: INT
+                  defaultValue: null
+              - column:
+                  name: IFB_FEEDBACK
+                  type: TEXT(2000)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: IFB_CREATED_AT
+                  type: DATETIME
+                  defaultValue: now()
+                  constraints:
+                    nullable: false
+              - column:
+                  name: IFB_UPDATED_AT
+                  type: DATETIME
+                  defaultValue: now()
+                  constraints:
+                    nullable: false
