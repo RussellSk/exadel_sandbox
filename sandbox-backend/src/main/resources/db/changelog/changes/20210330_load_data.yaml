@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20210330_load_data
+      author: skaldin
+      changes:
+        - sqlFile:
+            path: db/changelog/data/20210330_role_data.sql
+        - sqlFile:
+            path: db/changelog/data/20210330_permission_data.sql
+        - sqlFile:
+            path: db/changelog/data/20210330_employee_data.sql
+        - sqlFile:
+            path: db/changelog/data/20210330_role_permission_data.sql
