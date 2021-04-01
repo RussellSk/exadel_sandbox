@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id:  rename_column_requirements_1
+      id:  rename_column_requirements
       author:  vadblagiy@gmail.com
       preConditions:
         onFail: CONTINUE

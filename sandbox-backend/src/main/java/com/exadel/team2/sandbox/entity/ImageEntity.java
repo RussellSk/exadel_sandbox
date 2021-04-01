@@ -7,7 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -37,7 +37,7 @@ public class ImageEntity {
 
     @CreationTimestamp
     @Column(name = "IMG_CREATED_AT")
-    private LocalDate imgCreatedAt;
+    private LocalDateTime imgCreatedAt;
 
     
 

@@ -41,13 +41,13 @@ public class EventEntity {
     private String evFullDescription;
 
     @Column(name = "EV_START_DATE")
-    private LocalDateTime evStartDate;
+    private LocalDate evStartDate;
 
     @Column(name = "EV_DURATION")
     private Duration evDuration;
 
     @Column(name = "EV_DEADLINE")
-    private LocalDateTime evDeadline;
+    private LocalDate evDeadline;
 
     @Column(name = "EV_LOCATION")
     private String evLocation;
@@ -57,10 +57,10 @@ public class EventEntity {
 
     @CreationTimestamp
     @Column(name = "EV_CREATED_AT")
-    private LocalDate evCreatedAt;
+    private LocalDateTime evCreatedAt;
 
     @UpdateTimestamp
     @Column(name = "EV_UPDATED_AT")
-    private LocalDate evUpdatedAt;
+    private LocalDateTime evUpdatedAt;
 
 }

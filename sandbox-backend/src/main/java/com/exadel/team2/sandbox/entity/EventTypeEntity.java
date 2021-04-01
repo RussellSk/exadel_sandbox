@@ -7,7 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -31,11 +31,11 @@ public class EventTypeEntity {
 
     @CreationTimestamp
     @Column(name = "EVT_CREATED_AT")
-    private LocalDate evtCreatedAt;
+    private LocalDateTime evtCreatedAt;
 
     @UpdateTimestamp
     @Column(name = "EVT_UPDATED_AT")
-    private LocalDate evtUpdatedAt;
+    private LocalDateTime evtUpdatedAt;
 
 
 }

@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: crate-demo-table_1
+      id: crate-demo-table
       author: akarzhaneuski
       changes:
         - createTable:
