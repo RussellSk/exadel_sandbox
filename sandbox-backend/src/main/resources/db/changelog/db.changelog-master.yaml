@@ -17,4 +17,8 @@ databaseChangeLog:
       file: db/changelog/changes/2021.03.26_create_table_feedback_halkin.yaml
   - include:
       file: db/changelog/changes/2021.03.26_create_table_blagiy.yml    
-
+  - include:
+      file: db/changelog/changes/2021.03.26_create_table_status.yaml
+  - include:
+      file: db/changelog/changes/2021.03.26_create_table_status_history.yaml
+      
