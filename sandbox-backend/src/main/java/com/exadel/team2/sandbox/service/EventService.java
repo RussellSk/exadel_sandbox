@@ -1,5 +1,6 @@
 package com.exadel.team2.sandbox.service;
 
+import com.exadel.team2.sandbox.dto.EventDto;
 import com.exadel.team2.sandbox.entity.EventEntity;
 import java.util.List;
 
@@ -9,9 +10,9 @@ public interface EventService {
 
     List <EventEntity> getAll();
 
-    EventEntity save(EventEntity eventEntity);
+    EventEntity save(EventDto eventDto);
 
-    EventEntity update(EventEntity eventEntity);
+    EventEntity update(Long id, EventDto eventDto);
 
     void delete(Long evId);
 

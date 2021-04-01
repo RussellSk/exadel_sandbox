@@ -25,7 +25,7 @@ public class ImageController {
     }
 
     @PostMapping
-    public ImageEntity saveImage(@PathVariable Long id, ImageEntity imageEntity) {
+    public ImageEntity saveImage(@RequestBody ImageEntity imageEntity) {
         return imageService.save(imageEntity);
     }
 
