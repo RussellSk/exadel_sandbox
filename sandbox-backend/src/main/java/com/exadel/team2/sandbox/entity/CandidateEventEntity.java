@@ -1,5 +1,6 @@
 package com.exadel.team2.sandbox.entity;
 
+import jdk.jfr.Event;
 import liquibase.pro.packaged.T;
 import lombok.*;
 
@@ -9,6 +10,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -25,17 +28,17 @@ public class CandidateEventEntity {
     @Column(name = "CNEV_ID")
     private long id;
 
-    @OneToMany
-    @Column(name = "CN_ID")
-    private long cnId;
+//    @OneToMany
+//    @JoinTable(name = "CANDIDATE_EVENT", joinColumns = @JoinColumn(name = "EV_ID"),
+//            inverseJoinColumns = @JoinColumn(name = "CN_ID"))
+//    private List<CANDIDATE> candidates= new ArrayList();
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})//exception: references an unknown entity
     @JoinColumn(name = "EV_ID")
-    private long evId;
+    private Event event;
 
     @Column(name = "CNV_CREATED_AT")
     @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createdAt;
 
 

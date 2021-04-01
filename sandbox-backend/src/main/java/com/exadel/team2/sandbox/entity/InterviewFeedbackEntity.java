@@ -6,10 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -29,25 +29,19 @@ public class InterviewFeedbackEntity {
     @Column(name = "IFB_FEEDBACK")
     private String feedback;
 
-    @Column(name = "IFB_CREATED_AT")
+    @Column(name = "IFB_CREATED_AT", nullable = false)
     @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime dateOfCreate;
 
     @Column(name = "IFB_UPDATED_AT")
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
+    @UpdateTimestamp
     private LocalDateTime dateOfUpdate;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "EMP_ID")
-    @Column(name = "EMP_ID")
-    private long empId;
+    private EmployeeEntity employee ;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "CN_ID")
-    @Column(name = "CN_ID")
-    private long cnId;
-
-
+//    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+//    @JoinColumn(name = "CN_ID")
+//    private CandidateEntity candidate;
 }
