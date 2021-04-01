@@ -1,5 +1,5 @@
 databaseChangeLog:
-   - changeSet:
+  - changeSet:
       id: table_interview_feedback
       author: aliaksei_halkin
       preConditions:
