@@ -22,6 +22,7 @@ import java.util.List;
 @Table(name = "CANDIDATE_EVENT")
 public class CandidateEventEntity {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
@@ -40,6 +41,4 @@ public class CandidateEventEntity {
     @Column(name = "CNV_CREATED_AT")
     @CreationTimestamp
     private LocalDateTime createdAt;
-
-
 }
