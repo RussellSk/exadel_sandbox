@@ -2,6 +2,11 @@ databaseChangeLog:
   - changeSet:
       id: 20210326_create_table_role
       author: skaldin
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          tableExists:
+            tableName: ROLE
       changes:
         - createTable:
             tableName: ROLE
