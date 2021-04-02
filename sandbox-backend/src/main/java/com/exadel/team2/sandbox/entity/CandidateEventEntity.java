@@ -32,7 +32,7 @@ public class CandidateEventEntity {
 //    @OneToMany
 //    @JoinTable(name = "CANDIDATE_EVENT", joinColumns = @JoinColumn(name = "EV_ID"),
 //            inverseJoinColumns = @JoinColumn(name = "CN_ID"))
-//    private List<CANDIDATE> candidates= new ArrayList();
+//    private List<CandidateEntity> candidates= new ArrayList();
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "EV_ID")
