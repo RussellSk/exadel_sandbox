@@ -7,6 +7,8 @@ import com.exadel.team2.sandbox.service.EmployeeService;
 import com.exadel.team2.sandbox.service.RoleService;
 import com.exadel.team2.sandbox.web.EmployeeDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -29,6 +31,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<EmployeeEntity> getAll() {
         return employeeDAO.findAll();
+    }
+
+    @Override
+    public Page<EmployeeEntity> getAllPageable(Pageable pageable) {
+        return employeeDAO.findAll(pageable);
     }
 
     @Override

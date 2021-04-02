@@ -1,16 +1,14 @@
 package com.exadel.team2.sandbox.controller;
 
-import com.exadel.team2.sandbox.web.EmployeeDTO;
 import com.exadel.team2.sandbox.entity.EmployeeEntity;
-import com.exadel.team2.sandbox.entity.RoleEntity;
 import com.exadel.team2.sandbox.service.EmployeeService;
-import com.exadel.team2.sandbox.service.RoleService;
+import com.exadel.team2.sandbox.web.EmployeeDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "employees")
@@ -25,8 +23,10 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public List<EmployeeEntity> getEmployees() {
-        return employeeService.getAll();
+    public Page<EmployeeEntity> getEmployees(
+            @RequestParam(defaultValue = "0", name = "page") Integer page,
+            @RequestParam(defaultValue = "15", name = "itemsPerPage") Integer itemsPerPage) {
+        return employeeService.getAllPageable(PageRequest.of(page, itemsPerPage));
     }
 
     @PostMapping

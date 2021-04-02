@@ -1,11 +1,12 @@
 package com.exadel.team2.sandbox.controller;
 
-import com.exadel.team2.sandbox.entity.PermissionEntity;
 import com.exadel.team2.sandbox.entity.RoleEntity;
 import com.exadel.team2.sandbox.service.PermissionService;
 import com.exadel.team2.sandbox.service.RoleService;
 import com.exadel.team2.sandbox.web.RoleDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,8 +28,11 @@ public class RoleController {
     }
 
     @GetMapping
-    public List<RoleEntity> getRoles() {
-        return roleService.getAll();
+    public Page<RoleEntity> getRoles(
+            @RequestParam(defaultValue = "0", name = "page") Integer page,
+            @RequestParam(defaultValue = "15", name = "itemsPerPage") Integer itemsPerPage
+    ) {
+        return roleService.getAllPageable(PageRequest.of(page, itemsPerPage));
     }
 
     @PostMapping

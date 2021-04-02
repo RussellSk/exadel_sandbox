@@ -7,6 +7,8 @@ import com.exadel.team2.sandbox.service.PermissionService;
 import com.exadel.team2.sandbox.service.RoleService;
 import com.exadel.team2.sandbox.web.RoleDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -30,6 +32,11 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<RoleEntity> getAll() {
         return roleDAO.findAll();
+    }
+
+    @Override
+    public Page<RoleEntity> getAllPageable(Pageable pageable) {
+        return roleDAO.findAll(pageable);
     }
 
     @Override
