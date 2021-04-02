@@ -1,0 +1,142 @@
+databaseChangeLog:
+  - changeSet:
+      id: table_image
+      author: vadblagiy@gmail.com
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          tableExists:
+            tableName: IMAGE
+      changes:
+        - createTable:
+            tableName: IMAGE
+            columns:
+              - column:
+                  name: IMG_ID
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: IMG_PATH
+                  type: VARCHAR(250)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: IMG_NAME
+                  type: VARCHAR(20)
+              - column:
+                  name: IMG_EXT
+                  type: VARCHAR(15)
+              - column:
+                  name: IMG_SIZE
+                  type: INT
+              - column:
+                  name: IMG_CREATED_AT
+                  type: DATETIME
+                  defaultValue: now()
+  - changeSet:
+      id: table_event_type
+      author: vadblagiy@gmail.com
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          tableExists:
+            tableName: EVENT_TYPE
+      changes:
+        - createTable:
+            tableName: EVENT_TYPE
+            columns:
+              - column:
+                  name: EVT_ID
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: EVT_NAME
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: EVT_DESCRIPTION
+                  type: TEXT(500)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: EVT_CREATED_AT
+                  type: DATETIME
+                  defaultValue: now()
+              - column:
+                  name: EVT_UPDATED_AT
+                  type: DATETIME
+  - changeSet:
+      id: table_event
+      author: vadblagiy@gmail.com
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          tableExists:
+            tableName: EVENT
+      changes:
+        - createTable:
+            tableName: EVENT
+            columns:
+              - column:
+                  name: EV_ID
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: IMG_ID
+                  type: INT
+                  constraints:
+                    foreignKeyName: fk_EVENT_contact_IMAGE
+                    references: EVENT(EV_ID)
+              - column:
+                  name: EMP_ID
+                  type: INT
+                  constraints:
+                    foreignKeyName: fk_EVENT_contact_EMPLOYEE
+                    references: EVENT(EV_ID)
+              - column:
+                  name: EVT_ID
+                  type: INT
+                  constraints:
+                    foreignKeyName: fk_EVENT_contact_EVENT_TYPE
+                    references: EVENT(EV_ID)
+              - column:
+                  name: EV_SHORT_DESCRIPTION
+                  type: VARCHAR(250)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: EV_FULL_DESCRIPTION
+                  type: TEXT(2000)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: EV_START_DATE
+                  type: DATETIME
+              - column:
+                  name: EV_DURATION
+                  type: DATETIME
+              - column:
+                  name: EV_DEADLINE
+                  type: DATETIME
+              - column:
+                  name: EV_LOCATION
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: EV_CANDIDATE_REQUIREMENT
+                  type: TEXT(2000)
+              - column:
+                  name: EV_CREATED_AT
+                  type: DATETIME
+                  defaultValue: now()
+              - column:
+                  name: EV_UPDATED_AT
+                  type: DATETIME
