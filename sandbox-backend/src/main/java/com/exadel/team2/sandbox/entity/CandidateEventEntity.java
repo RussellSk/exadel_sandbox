@@ -34,9 +34,9 @@ public class CandidateEventEntity {
 //            inverseJoinColumns = @JoinColumn(name = "CN_ID"))
 //    private List<CANDIDATE> candidates= new ArrayList();
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})//exception: references an unknown entity
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "EV_ID")
-    private Event event;
+    private EventEntity event;
 
     @Column(name = "CNV_CREATED_AT")
     @CreationTimestamp
