@@ -40,24 +40,6 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public RoleEntity save(CreateRoleDto createRoleDto) {
-        RoleEntity roleEntity = new RoleEntity();
-        roleEntity.setRlName(createRoleDto.getRlName());
-        roleEntity.setRlDescription(createRoleDto.getRlDescription());
-        if (!createRoleDto.getPermissions().isEmpty()) {
-            List<PermissionEntity> permissionEntities = new ArrayList<>();
-            for (Long permissionId : createRoleDto.getPermissions()) {
-                PermissionEntity permissionEntity = permissionService.getById(permissionId);
-                permissionEntities.add(permissionEntity);
-            }
-            roleEntity.setPermissions(permissionEntities);
-        }
-        roleEntity.setRlCreatedAt(LocalDateTime.now());
-        roleEntity.setRlUpdatedAt(LocalDateTime.now());
-        return roleDAO.save(roleEntity);
-    }
-
-    @Override
     public RoleEntity update(Long id, CreateRoleDto createRoleDto) {
         RoleEntity roleEntity = getById(id);
         roleEntity.setRlName(createRoleDto.getRlName());
@@ -78,8 +60,4 @@ public class RoleServiceImpl implements RoleService {
         return roleDAO.save(roleEntity);
     }
 
-    @Override
-    public void delete(Long id) {
-        roleDAO.deleteById(id);
-    }
 }

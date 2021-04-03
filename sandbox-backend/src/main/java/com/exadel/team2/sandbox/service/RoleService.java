@@ -11,7 +11,5 @@ public interface RoleService {
     RoleEntity getById(Long id);
     List<RoleEntity> getAll();
     Page<RoleEntity> getAllPageable(Pageable pageable);
-    RoleEntity save(CreateRoleDto createRoleDto);
     RoleEntity update(Long id, CreateRoleDto createRoleDto);
-    void delete(Long id);
 }

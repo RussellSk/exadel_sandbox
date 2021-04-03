@@ -26,18 +26,4 @@ public class PermissionServiceImpl implements PermissionService {
         return permissionDAO.findAll();
     }
 
-    @Override
-    public PermissionEntity save(PermissionEntity permissionEntity) {
-        return permissionDAO.save(permissionEntity);
-    }
-
-    @Override
-    public PermissionEntity update(PermissionEntity permissionEntity) {
-        return permissionDAO.save(permissionEntity);
-    }
-
-    @Override
-    public void delete(Long id) {
-        permissionDAO.deleteById(id);
-    }
 }

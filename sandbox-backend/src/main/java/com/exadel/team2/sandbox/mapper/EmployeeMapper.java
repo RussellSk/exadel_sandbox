@@ -6,7 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EmployeeMapper {
+public class EmployeeMapper implements Mapper<EmployeeEntity, ResponseEmployeeDto> {
 
     private final ModelMapper modelMapper = new ModelMapper();
 

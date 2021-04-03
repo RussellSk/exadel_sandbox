@@ -30,24 +30,9 @@ public class RoleController {
         return roleService.getAllPageable(PageRequest.of(page, itemsPerPage));
     }
 
-    @PostMapping
-    public RoleEntity createRole(@RequestBody CreateRoleDto createRoleDto) {
-        return roleService.save(createRoleDto);
-    }
-
     @PutMapping("/{id}")
     public RoleEntity updateRole(@PathVariable Long id, @RequestBody CreateRoleDto createRoleDto) {
         return roleService.update(id, createRoleDto);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteRole(@PathVariable Long id) {
-        RoleEntity roleEntity = roleService.getById(id);
-        if (roleEntity == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        roleService.delete(id);
-        return ResponseEntity.ok().build();
-    }
 }

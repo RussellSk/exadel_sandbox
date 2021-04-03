@@ -7,7 +7,4 @@ import java.util.List;
 public interface PermissionService {
     PermissionEntity getById(Long id);
     List<PermissionEntity> getAll();
-    PermissionEntity save(PermissionEntity permissionEntity);
-    PermissionEntity update(PermissionEntity permissionEntity);
-    void delete(Long id);
 }
