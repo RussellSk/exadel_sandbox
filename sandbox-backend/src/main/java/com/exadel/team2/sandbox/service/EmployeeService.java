@@ -1,6 +1,5 @@
 package com.exadel.team2.sandbox.service;
 
-import com.exadel.team2.sandbox.entity.EmployeeEntity;
 import com.exadel.team2.sandbox.web.employee.CreateEmployeeDto;
 import com.exadel.team2.sandbox.web.employee.ResponseEmployeeDto;
 import com.exadel.team2.sandbox.web.employee.UpdateEmployeeDto;

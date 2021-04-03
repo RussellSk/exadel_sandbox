@@ -1,6 +1,5 @@
 package com.exadel.team2.sandbox.controller;
 
-import com.exadel.team2.sandbox.entity.RoleEntity;
 import com.exadel.team2.sandbox.service.PermissionService;
 import com.exadel.team2.sandbox.service.RoleService;
 import com.exadel.team2.sandbox.web.role.ResponseRoleDto;

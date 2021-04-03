@@ -1,6 +1,5 @@
 package com.exadel.team2.sandbox.service;
 
-import com.exadel.team2.sandbox.entity.RoleEntity;
 import com.exadel.team2.sandbox.web.role.ResponseRoleDto;
 import com.exadel.team2.sandbox.web.role.UpdateRoleDto;
 import org.springframework.data.domain.Page;
