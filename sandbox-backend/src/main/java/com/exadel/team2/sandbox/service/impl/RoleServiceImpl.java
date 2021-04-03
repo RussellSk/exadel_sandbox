@@ -45,7 +45,7 @@ public class RoleServiceImpl implements RoleService {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No Content");
         }
 
-        return roleEntities.parallelStream()
+        return roleEntities.stream()
                 .map(roleMapper::convertEntityToDto)
                 .collect(Collectors.toList());
     }

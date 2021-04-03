@@ -32,7 +32,7 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public List<ResponsePermissionDto> getAll() {
-        return permissionDAO.findAll().parallelStream()
+        return permissionDAO.findAll().stream()
                 .map(permissionMapper::convertEntityToDto)
                 .collect(Collectors.toList());
     }

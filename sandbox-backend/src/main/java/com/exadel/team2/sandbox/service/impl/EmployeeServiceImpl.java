@@ -46,7 +46,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No Content");
         }
 
-        return employeeEntities.parallelStream()
+        return employeeEntities.stream()
                 .map(employeeMapper::convertEntityToDto)
                 .collect(Collectors.toList());
     }
