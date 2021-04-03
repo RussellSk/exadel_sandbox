@@ -5,7 +5,7 @@ import com.exadel.team2.sandbox.entity.PermissionEntity;
 import com.exadel.team2.sandbox.entity.RoleEntity;
 import com.exadel.team2.sandbox.service.PermissionService;
 import com.exadel.team2.sandbox.service.RoleService;
-import com.exadel.team2.sandbox.web.RoleDTO;
+import com.exadel.team2.sandbox.web.role.CreateRoleDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,13 +40,13 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public RoleEntity save(RoleDTO roleDTO) {
+    public RoleEntity save(CreateRoleDto createRoleDto) {
         RoleEntity roleEntity = new RoleEntity();
-        roleEntity.setRlName(roleDTO.getRlName());
-        roleEntity.setRlDescription(roleDTO.getRlDescription());
-        if (!roleDTO.getPermissions().isEmpty()) {
+        roleEntity.setRlName(createRoleDto.getRlName());
+        roleEntity.setRlDescription(createRoleDto.getRlDescription());
+        if (!createRoleDto.getPermissions().isEmpty()) {
             List<PermissionEntity> permissionEntities = new ArrayList<>();
-            for (Long permissionId : roleDTO.getPermissions()) {
+            for (Long permissionId : createRoleDto.getPermissions()) {
                 PermissionEntity permissionEntity = permissionService.getById(permissionId);
                 permissionEntities.add(permissionEntity);
             }
@@ -58,14 +58,14 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public RoleEntity update(Long id, RoleDTO roleDTO) {
+    public RoleEntity update(Long id, CreateRoleDto createRoleDto) {
         RoleEntity roleEntity = getById(id);
-        roleEntity.setRlName(roleDTO.getRlName());
-        roleEntity.setRlDescription(roleDTO.getRlDescription());
+        roleEntity.setRlName(createRoleDto.getRlName());
+        roleEntity.setRlDescription(createRoleDto.getRlDescription());
 
-        if (!roleDTO.getPermissions().isEmpty()) {
+        if (!createRoleDto.getPermissions().isEmpty()) {
             List<PermissionEntity> permissionEntities = new ArrayList<>();
-            for (Long permissionId : roleDTO.getPermissions()) {
+            for (Long permissionId : createRoleDto.getPermissions()) {
                 PermissionEntity permissionEntity = permissionService.getById(permissionId);
                 permissionEntities.add(permissionEntity);
             }

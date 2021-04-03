@@ -1,19 +1,27 @@
 package com.exadel.team2.sandbox.service.impl;
 
 import com.exadel.team2.sandbox.dao.EmployeeDAO;
+import com.exadel.team2.sandbox.dao.RoleDAO;
 import com.exadel.team2.sandbox.entity.EmployeeEntity;
 import com.exadel.team2.sandbox.entity.RoleEntity;
+import com.exadel.team2.sandbox.mapper.EmployeeMapper;
 import com.exadel.team2.sandbox.service.EmployeeService;
 import com.exadel.team2.sandbox.service.RoleService;
-import com.exadel.team2.sandbox.web.EmployeeDTO;
+import com.exadel.team2.sandbox.web.employee.CreateEmployeeDto;
+import com.exadel.team2.sandbox.web.employee.ResponseEmployeeDto;
+import com.exadel.team2.sandbox.web.employee.UpdateEmployeeDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -21,49 +29,63 @@ import java.util.List;
 public class EmployeeServiceImpl implements EmployeeService {
 
     private final EmployeeDAO employeeDAO;
-    private final RoleService roleService;
+    private final RoleDAO roleDAO;
+    private final EmployeeMapper employeeMapper;
 
     @Override
-    public EmployeeEntity getById(Long id) {
-        return employeeDAO.findById(id).orElse(null);
+    public ResponseEmployeeDto getById(Long id) {
+        EmployeeEntity employeeEntity = employeeDAO.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee Not Found"));
+        return employeeMapper.convertEntityToDto(employeeEntity);
     }
 
     @Override
-    public List<EmployeeEntity> getAll() {
-        return employeeDAO.findAll();
-    }
-
-    @Override
-    public Page<EmployeeEntity> getAllPageable(Pageable pageable) {
-        return employeeDAO.findAll(pageable);
-    }
-
-    @Override
-    public EmployeeEntity save(EmployeeDTO employeeDTO) {
-        EmployeeEntity employeeEntity = new EmployeeEntity();
-        employeeEntity.setEmpFirstName(employeeDTO.getEmpFirstName());
-        employeeEntity.setEmpLastName(employeeDTO.getEmpLastName());
-
-        RoleEntity roleEntity = roleService.getById(employeeDTO.getRoleId());
-        if (roleEntity != null) {
-            employeeEntity.setRole(roleEntity);
+    public List<ResponseEmployeeDto> getAll() {
+        List<EmployeeEntity> employeeEntities = employeeDAO.findAll();
+        if (employeeEntities.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No Content");
         }
 
+        return employeeEntities.parallelStream()
+                .map(employeeMapper::convertEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<ResponseEmployeeDto> getAllPageable(Pageable pageable) {
+        return employeeDAO.findAll(pageable)
+                .map(employeeMapper::convertEntityToDto);
+    }
+
+    @Override
+    public ResponseEmployeeDto save(CreateEmployeeDto createEmployeeDTO) {
+        EmployeeEntity employeeEntity = employeeMapper.convertDtoToEntity(createEmployeeDTO);
+        RoleEntity roleEntity = roleDAO.findById(createEmployeeDTO.getRoleId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Role Not Found"));
+
+        employeeEntity.setRole(roleEntity);
         employeeEntity.setEmpCreatedAt(LocalDateTime.now());
         employeeEntity.setEmpUpdatedAt(LocalDateTime.now());
 
-        return employeeDAO.save(employeeEntity);
+        employeeDAO.save(employeeEntity);
+
+        return employeeMapper.convertEntityToDto(employeeEntity);
     }
 
     @Override
-    public EmployeeEntity update(Long id, EmployeeDTO employeeDTO) {
-        EmployeeEntity employeeEntity = getById(id);
-        employeeEntity.setEmpFirstName(employeeDTO.getEmpFirstName());
-        employeeEntity.setEmpLastName(employeeDTO.getEmpLastName());
-        RoleEntity roleEntity = roleService.getById(employeeDTO.getRoleId());
+    public ResponseEmployeeDto update(Long id, UpdateEmployeeDto updateEmployeeDto) {
+        EmployeeEntity employeeEntity = employeeDAO.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee Not Found"));
+
+        RoleEntity roleEntity = roleDAO.findById(updateEmployeeDto.getRoleId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Role Not Found"));
+
+        employeeEntity.setEmpLastName(updateEmployeeDto.getEmpLastName());
+        employeeEntity.setEmpFirstName(updateEmployeeDto.getEmpFirstName());
         employeeEntity.setRole(roleEntity);
         employeeEntity.setEmpUpdatedAt(LocalDateTime.now());
-        return employeeDAO.save(employeeEntity);
+
+        return employeeMapper.convertEntityToDto(employeeDAO.save(employeeEntity));
     }
 
     @Override
