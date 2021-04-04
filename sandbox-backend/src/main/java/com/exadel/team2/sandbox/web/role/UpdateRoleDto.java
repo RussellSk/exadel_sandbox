@@ -9,5 +9,4 @@ import java.util.List;
 public class UpdateRoleDto {
     private String rlName;
     private String rlDescription;
-    private List<Long> permissions = new ArrayList<>();
 }
