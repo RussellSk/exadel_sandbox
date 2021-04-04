@@ -23,4 +23,10 @@ databaseChangeLog:
       file: db/changelog/changes/2021.03.26_create_table_status_history.yaml
   - include:
       file: db/changelog/changes/2021.03.31_rename_column.yaml
+  - include:
+      file: db/changelog/changes/2021.04.02_drop_foreign_key_event.yml
+  - include:
+      file: db/changelog/changes/2021.04.02_add_foreign_key_event.yml
+
+
 

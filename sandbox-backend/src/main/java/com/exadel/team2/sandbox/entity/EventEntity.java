@@ -59,7 +59,8 @@ public class EventEntity {
     @Column(name = "EV_CREATED_AT")
     private LocalDateTime evCreatedAt;
 
-    @UpdateTimestamp
+//    @UpdateTimestamp
+    @CreationTimestamp
     @Column(name = "EV_UPDATED_AT")
     private LocalDateTime evUpdatedAt;
 

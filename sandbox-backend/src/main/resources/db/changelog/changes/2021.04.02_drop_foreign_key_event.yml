@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id:  dropForeignKeyConstraint-image
+      author:  vadblagiy@gmail.com
+      preConditions:
+        - onFail: MARK_RAN
+        - foreignKeyConstraintExists:
+             foreignKeyName:  fk_EVENT_contact_IMAGE
+      changes:
+      - dropForeignKeyConstraint:
+          baseTableName:  EVENT
+          baseTableSchemaName:  sandbox
+          constraintName:  fk_EVENT_contact_IMAGE
+  - changeSet:
+      id:  dropForeignKeyConstraint-eventType
+      author:  vadblagiy@gmail.com
+      preConditions:
+        - onFail: MARK_RAN
+        - foreignKeyConstraintExists:
+            foreignKeyName:  fk_EVENT_contact_EVENT_TYPE
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName:  EVENT
+            baseTableSchemaName:  sandbox
+            constraintName:  fk_EVENT_contact_EVENT_TYPE
+  - changeSet:
+      id:  dropForeignKeyConstraint-employee
+      author:  vadblagiy@gmail.com
+      preConditions:
+        - onFail: MARK_RAN
+        - foreignKeyConstraintExists:
+            foreignKeyName:  fk_EVENT_contact_EMPLOYEE
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName:  EVENT
+            baseTableSchemaName:  sandbox
+            constraintName:  fk_EVENT_contact_EMPLOYEE

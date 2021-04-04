@@ -1,7 +1,7 @@
 package com.exadel.team2.sandbox.service.impl;
 
 import com.exadel.team2.sandbox.dao.EventDAO;
-import com.exadel.team2.sandbox.dto.EventDto;
+import com.exadel.team2.sandbox.dto.EventСreateDTO;
 import com.exadel.team2.sandbox.entity.EventEntity;
 import com.exadel.team2.sandbox.entity.EventTypeEntity;
 import com.exadel.team2.sandbox.entity.ImageEntity;
@@ -25,8 +25,8 @@ public class EventServiceImpl implements EventService {
     private final EventTypeService eventTypeService;
 
     @Override
-    public EventEntity getById(Long evId) {
-        return eventDAO.findById(evId).orElse(null);
+    public EventEntity getById(Long id) {
+        return eventDAO.findById(id).orElse(null);
     }
 
     @Override
@@ -35,51 +35,31 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public EventEntity save(EventDto eventDto) {
-        EventEntity eventEntity = new EventEntity();
-
-        ImageEntity imageEntity = imageService.getById(eventDto.getImageId());
-        if (eventEntity != null){
-            eventEntity.setImage(imageEntity);
-        }
-
-        EventTypeEntity eventTypeEntity = eventTypeService.getById(eventDto.getEventTypeId());
-        if (eventEntity != null){
-            eventEntity.setEventType(eventTypeEntity);
-        }
-
-        eventEntity.setEvShortDescription(eventDto.getEvShortDescription());
-        eventEntity.setEvFullDescription(eventDto.getEvFullDescription());
-        eventEntity.setEvStartDate(eventDto.getEvStartDate());
-        eventEntity.setEvDeadline(eventDto.getEvDeadline());
-        eventEntity.setEvLocation(eventDto.getEvLocation());
-        eventEntity.setEvCandidateRequirements(eventDto.getEvCandidateRequirements());
-        eventEntity.setEvCreatedAt(LocalDateTime.now());
-
+    public EventEntity save(EventEntity eventEntity) {
         return eventDAO.save(eventEntity);
     }
 
+//    @Override
+//    public EventEntity update(Long id, EventСreateDTO EventСreateDto) {
+//
+//        EventEntity eventEntity = getById(id);
+//        ImageEntity imageEntity = imageService.getById(EventСreateDto.getImageId());
+//        eventEntity.setImage(imageEntity);
+//        EventTypeEntity eventTypeEntity = eventTypeService.getById(EventСreateDto.getEventTypeId());
+//        eventEntity.setEventType(eventTypeEntity);
+//        eventEntity.setEvShortDescription(EventСreateDto.getEvShortDescription());
+//        eventEntity.setEvFullDescription(EventСreateDto.getEvFullDescription());
+//        eventEntity.setEvStartDate(EventСreateDto.getEvStartDate());
+//        eventEntity.setEvDeadline(EventСreateDto.getEvDeadline());
+//        eventEntity.setEvLocation(EventСreateDto.getEvLocation());
+//        eventEntity.setEvCandidateRequirements(EventСreateDto.getEvCandidateRequirements());
+//        eventEntity.setEvUpdatedAt(LocalDateTime.now());
+//
+//        return eventDAO.save(eventEntity);
+//    }
+
     @Override
-    public EventEntity update(Long id, EventDto eventDto) {
-
-        EventEntity eventEntity = getById(id);
-        ImageEntity imageEntity = imageService.getById(eventDto.getImageId());
-        eventEntity.setImage(imageEntity);
-        EventTypeEntity eventTypeEntity = eventTypeService.getById(eventDto.getEventTypeId());
-        eventEntity.setEventType(eventTypeEntity);
-        eventEntity.setEvShortDescription(eventDto.getEvShortDescription());
-        eventEntity.setEvFullDescription(eventDto.getEvFullDescription());
-        eventEntity.setEvStartDate(eventDto.getEvStartDate());
-        eventEntity.setEvDeadline(eventDto.getEvDeadline());
-        eventEntity.setEvLocation(eventDto.getEvLocation());
-        eventEntity.setEvCandidateRequirements(eventDto.getEvCandidateRequirements());
-        eventEntity.setEvUpdatedAt(LocalDateTime.now());
-
-        return eventDAO.save(eventEntity);
-    }
-
-    @Override
-    public void delete(Long evId) {
-        eventDAO.deleteById(evId);
+    public void delete(Long id) {
+        eventDAO.deleteById(id);
     }
 }
