@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20210401_add_constraint_interview_feedback
+      author: skaldin
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - foreignKeyConstraintExists:
+                foreignKeyName: fk_INTERVIEW_FEEDBACK_contact_EMPLOYEE
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: EMP_ID
+            baseTableCatalogName: sandbox
+            baseTableName: INTERVIEW_FEEDBACK
+            baseTableSchemaName: sandbox
+            constraintName: fk_INTERVIEW_FEEDBACK_contact_EMPLOYEE
+            onDelete: cascade
+            onUpdate: cascade
+            referencedColumnNames: EMP_ID
+            referencedTableCatalogName: sandbox
+            referencedTableName: EMPLOYEE
+            referencedTableSchemaName: sandbox
+            validate: true

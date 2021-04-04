@@ -2,6 +2,11 @@ databaseChangeLog:
   - changeSet:
       id: 20210326_create_table_role_permission
       author: skaldin
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          tableExists:
+            tableName: ROLE_PERMISSION
       changes:
         - createTable:
             tableName: ROLE_PERMISSION

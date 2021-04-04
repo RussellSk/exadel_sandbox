@@ -2,6 +2,11 @@ databaseChangeLog:
   - changeSet:
       id: table_candidate event
       author: aliaksei_halkin
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          tableExists:
+            tableName: CANDIDATE_EVENT
       changes:
         - createTable:
             tableName: CANDIDATE_EVENT
