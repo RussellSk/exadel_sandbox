@@ -2,12 +2,20 @@ package com.exadel.team2.sandbox.service.impl;
 
 import com.exadel.team2.sandbox.dao.ImageDAO;
 import com.exadel.team2.sandbox.entity.ImageEntity;
+import com.exadel.team2.sandbox.mapper.ImageMapper;
 import com.exadel.team2.sandbox.service.ImageService;
+import com.exadel.team2.sandbox.web.ImageCreateDTO;
+import com.exadel.team2.sandbox.web.ImageResponseDTO;
+import com.exadel.team2.sandbox.web.ImageUpdateDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -15,29 +23,57 @@ import java.util.List;
 public class ImageServiceImpl implements ImageService {
 
     private final ImageDAO imageDAO;
+    private final ImageMapper imageMapper;
 
     @Override
-    public ImageEntity getById(Long imgId) {
-        return imageDAO.findById(imgId).orElse(null);
+    public ImageResponseDTO getById(Long id) {
+        ImageEntity imageEntity = imageDAO.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Image not found"));
+        return imageMapper.convertEntityToDto(imageEntity);
+    }
+
+
+    @Override
+    public List<ImageResponseDTO> getAll() {
+        List<ImageEntity> imageEntities = imageDAO.findAll();
+        if (imageEntities.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Sorry, however haven't content");
+        }
+        return imageEntities.stream()
+                .map(imageMapper::convertEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<ImageEntity> getAll() {
-        return imageDAO.findAll();
+    public ImageResponseDTO save(ImageCreateDTO imageCreateDTO) {
+        ImageEntity imageEntity = imageMapper.convertDtoToEntity(imageCreateDTO);
+
+        imageEntity.setImageName(imageCreateDTO.getName());
+        imageEntity.setImgPath(imageCreateDTO.getPath());
+        imageEntity.setImgExt(imageCreateDTO.getExt());
+        imageEntity.setImgSize(imageCreateDTO.getSize());
+
+        imageEntity.setImgCreatedAt(LocalDateTime.now());
+        imageDAO.save(imageEntity);
+        return imageMapper.convertEntityToDto(imageEntity);
     }
 
     @Override
-    public ImageEntity save(ImageEntity imageEntity) {
-        return imageDAO.save(imageEntity);
+    public ImageResponseDTO update(Long id, ImageUpdateDTO imageUpdateDTO) {
+        ImageEntity imageEntity = imageDAO.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Image not found"));
+
+        imageEntity.setImageName(imageUpdateDTO.getName());
+        imageEntity.setImgPath(imageUpdateDTO.getPath());
+        imageEntity.setImgExt(imageUpdateDTO.getExt());
+        imageEntity.setImgSize(imageUpdateDTO.getSize());
+
+        return imageMapper.convertEntityToDto(imageDAO.save(imageEntity));
     }
 
-    @Override
-    public ImageEntity update(ImageEntity imageEntity) {
-        return imageDAO.save(imageEntity);
-    }
 
     @Override
-    public void delete(Long imgId) {
-        imageDAO.deleteById(imgId);
+    public void delete(Long id) {
+        imageDAO.deleteById(id);
     }
 }

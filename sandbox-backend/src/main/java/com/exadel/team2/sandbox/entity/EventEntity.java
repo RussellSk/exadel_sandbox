@@ -23,15 +23,20 @@ public class EventEntity {
     private Long evId;
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH} )
-    @JoinColumn(name = "IMG_ID")
-    private ImageEntity image; 
+    @JoinColumn(name = "IMG_ID", referencedColumnName = "IMG_ID")
+    private ImageEntity image;
 
-//    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH} )
-//    @JoinColumn(name = "EMP_ID")
-//    private Employee employee;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH} )
+    @JoinColumn(name = "EMP_ID")
+    private EmployeeEntity employee;
+
+//    @OneToOne
+//    @JoinColumn(name = "RL_ID", referencedColumnName = "RL_ID")
+//    private RoleEntity role;
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH} )
-    @JoinColumn(name = "EVT_ID")
+    @JoinColumn(name = "EVT_ID", referencedColumnName = "EVT_ID")
     private EventTypeEntity eventType;
 
     @Column(name = "EV_SHORT_DESCRIPTION")

@@ -1,8 +1,11 @@
 package com.exadel.team2.sandbox.controller;
 
-import com.exadel.team2.sandbox.entity.ImageEntity;
 import com.exadel.team2.sandbox.service.ImageService;
+import com.exadel.team2.sandbox.web.ImageCreateDTO;
+import com.exadel.team2.sandbox.web.ImageResponseDTO;
+import com.exadel.team2.sandbox.web.ImageUpdateDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,29 +18,32 @@ public class ImageController {
     private final ImageService imageService;
 
     @GetMapping("/{id}")
-    public ImageEntity getImage(@PathVariable Long id) {
+    public ImageResponseDTO getImageById(@PathVariable Long id) {
         return imageService.getById(id);
     }
 
     @GetMapping("/all")
-    public List<ImageEntity> gelAllImage() {
+    public List<ImageResponseDTO> gelAllImages() {
         return imageService.getAll();
     }
 
     @PostMapping
-    public ImageEntity saveImage(@RequestBody ImageEntity imageEntity) {
-        return imageService.save(imageEntity);
+    public ImageResponseDTO saveImage(@RequestBody ImageCreateDTO imageCreateDTO) {
+        return imageService.save(imageCreateDTO);
     }
 
     @PutMapping("/{id}")
-    public ImageEntity updateImage(@PathVariable Long id, @RequestBody ImageEntity imageEntity) {
-        imageEntity.setImgId(id);
-        return imageService.update(imageEntity);
+    public ImageResponseDTO updateImage(@PathVariable Long id, @RequestBody ImageUpdateDTO imageUpdateDTO) {
+        return imageService.update(id, imageUpdateDTO);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteImage(@PathVariable Long id) {
+    public ResponseEntity<?> deleteImage(@PathVariable Long id) {
+        if (imageService.getById(id) == null) {
+            return ResponseEntity.notFound().build();
+        }
         imageService.delete(id);
+        return ResponseEntity.ok().build();
     }
 
 }

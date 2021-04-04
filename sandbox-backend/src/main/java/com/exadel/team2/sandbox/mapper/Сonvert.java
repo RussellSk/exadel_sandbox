@@ -1,6 +1,6 @@
 //package com.exadel.team2.sandbox.mapper;
 //
-//import com.exadel.team2.sandbox.dto.EventСreateDTO;
+//import com.exadel.team2.sandbox.web.EventСreateDTO;
 //import com.exadel.team2.sandbox.entity.EventEntity;
 //import com.exadel.team2.sandbox.service.EventService;
 //import lombok.RequiredArgsConstructor;

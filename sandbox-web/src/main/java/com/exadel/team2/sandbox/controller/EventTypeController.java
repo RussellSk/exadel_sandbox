@@ -2,7 +2,11 @@ package com.exadel.team2.sandbox.controller;
 
 import com.exadel.team2.sandbox.entity.EventTypeEntity;
 import com.exadel.team2.sandbox.service.EventTypeService;
+import com.exadel.team2.sandbox.web.EventTypeCreateDTO;
+import com.exadel.team2.sandbox.web.EventTypeResponseDTO;
+import com.exadel.team2.sandbox.web.EventTypeUpdateDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,29 +19,32 @@ public class EventTypeController {
     private final EventTypeService eventTypeService;
 
     @GetMapping("/{id}")
-    public EventTypeEntity getEventType(@PathVariable Long id) {
+    public EventTypeResponseDTO getEventTypeById(@PathVariable Long id) {
         return eventTypeService.getById(id);
     }
 
     @GetMapping("/all")
-    public List<EventTypeEntity> getAllEventType() {
+    public List<EventTypeResponseDTO> getAllEventType() {
         return eventTypeService.getAll();
     }
 
     @PostMapping
-    public EventTypeEntity saveEventType(@RequestBody EventTypeEntity eventTypeEntity) {
-        return eventTypeService.save(eventTypeEntity);
+    public EventTypeResponseDTO saveEventType(@RequestBody EventTypeCreateDTO eventTypeCreateDTO) {
+        return eventTypeService.save(eventTypeCreateDTO);
     }
 
     @PutMapping("/{id}")
-    public EventTypeEntity updateEventType(@PathVariable Long id, @RequestBody EventTypeEntity eventTypeEntity) {
-        eventTypeEntity.setEvtId(id);
-        return eventTypeService.update(eventTypeEntity);
+    public EventTypeResponseDTO updateEventType(@PathVariable Long id, @RequestBody EventTypeUpdateDTO eventTypeUpdateDTO) {
+        return eventTypeService.update(id, eventTypeUpdateDTO);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteEventType(@PathVariable Long id) {
+    public ResponseEntity<?> deleteEventType(@PathVariable Long id) {
+        if (eventTypeService.getById(id) == null) {
+            return ResponseEntity.notFound().build();
+        }
         eventTypeService.delete(id);
+        return ResponseEntity.ok().build();
     }
 
 }

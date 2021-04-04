@@ -20,8 +20,8 @@ public class ImageEntity {
     @Column(name = "IMG_ID")
     private Long imgId;
 
-    @OneToOne(mappedBy = "image", cascade = {CascadeType.PERSIST, CascadeType.REFRESH} )
-    private EventEntity event;
+//    @OneToOne(mappedBy = "image", cascade = {CascadeType.PERSIST, CascadeType.REFRESH} )
+//    private EventEntity event;
 
     @Column(name = "IMG_PATH")
     private String imgPath;

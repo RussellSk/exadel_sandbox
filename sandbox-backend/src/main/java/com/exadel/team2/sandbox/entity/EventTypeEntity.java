@@ -20,8 +20,8 @@ public class EventTypeEntity {
     @Column(name = "EVT_ID")
     private Long evtId;
 
-    @OneToOne(mappedBy = "eventType", cascade = {CascadeType.PERSIST, CascadeType.REFRESH} )
-    private EventEntity event;
+//    @OneToOne(mappedBy = "eventType", cascade = {CascadeType.PERSIST, CascadeType.REFRESH} )
+//    private EventEntity event;
 
     @Column(name = "EVT_NAME")
     private String evtName;
