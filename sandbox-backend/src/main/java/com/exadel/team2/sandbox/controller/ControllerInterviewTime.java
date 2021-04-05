@@ -16,7 +16,7 @@ public class ControllerInterviewTime {
     private final InterviewTimeServiceImpl interviewTimeService;
 
     @GetMapping(value = "get/{ITM_ID}")
-    public InterviewTimeEntity setInterviewTime(@PathVariable Long ITM_ID) {
+    public InterviewTimeEntity getInterviewTime(@PathVariable Long ITM_ID) {
         return interviewTimeService.findById(ITM_ID);
     }
 
@@ -32,7 +32,7 @@ public class ControllerInterviewTime {
         return interviewTimeService.save(interviewTimeEntity);
     }
 
-    @PostMapping(value = "update")
+    @PutMapping(value = "update")
     public InterviewTimeEntity updateInterviewTime(
             InterviewTimeEntity interviewTimeEntity) {
         return interviewTimeService.update(interviewTimeEntity);

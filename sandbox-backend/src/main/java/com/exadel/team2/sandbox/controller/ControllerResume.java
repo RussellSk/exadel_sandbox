@@ -31,7 +31,7 @@ public class ControllerResume {
         return resumeService.save(resumeEntity);
     }
 
-    @PostMapping(value = "update")
+    @PutMapping(value = "update")
     public ResumeEntity updateResume(ResumeEntity resumeEntity) {
         return resumeService.update(resumeEntity);
     }

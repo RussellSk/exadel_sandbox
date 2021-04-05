@@ -18,6 +18,8 @@ databaseChangeLog:
                       type: INT UNSIGNED
                       constraints:
                         foreignKeyName: fk_candidate_resume
+                        onDelete: cascade
+                        onUpdate: cascade
                         references: RESUME(RSM_ID)
                         nullable: false
                   - column:

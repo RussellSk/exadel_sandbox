@@ -1,6 +1,7 @@
 package com.exadel.team2.sandbox.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,8 +11,9 @@ import java.time.LocalDateTime;
 
 @Setter
 @Getter
+@Builder
 
-public class CandidateUpdateDAO {
+public class CandidateUpdateDTO {
 
     @Id
     @NotNull
@@ -32,6 +34,7 @@ public class CandidateUpdateDAO {
     @NotNull
     private String cn_email;
 
+    @NotNull
     private String cn_skype;
 
     @NotNull
@@ -46,5 +49,5 @@ public class CandidateUpdateDAO {
     private String cn_location;
 
     @JsonIgnore
-    private LocalDateTime cn_updated_at = LocalDateTime.now();
+    private final LocalDateTime cn_updated_at = LocalDateTime.now();
 }
