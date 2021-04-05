@@ -37,7 +37,7 @@ public class InterviewFeedbackEntity {
     @UpdateTimestamp
     private LocalDateTime dateOfUpdate;
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "EMP_ID")
     private EmployeeEntity employee ;
 
