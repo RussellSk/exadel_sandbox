@@ -1,7 +1,9 @@
 package com.exadel.team2.sandbox.service.impl;
 
 import com.exadel.team2.sandbox.dao.CandidateDAO;
+import com.exadel.team2.sandbox.dto.CandidateCreateDTO;
 import com.exadel.team2.sandbox.dto.CandidateResponseDTO;
+import com.exadel.team2.sandbox.dto.CandidateUpdateDTO;
 import com.exadel.team2.sandbox.entity.CandidateEntity;
 import com.exadel.team2.sandbox.mapper.Release;
 import com.exadel.team2.sandbox.service.CandidateService;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -21,23 +24,30 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     public CandidateResponseDTO findById(Long id) {
-//        System.out.println(candidateDAO.findById(id).orElse(null));
-        return release.convertTo(candidateDAO.findById(id).orElse(null), CandidateResponseDTO.class);
+        return release.convertTo(candidateDAO.findById(id).orElse(null),
+                CandidateResponseDTO.class);
     }
 
     @Override
-    public List<CandidateEntity> getAll() {
-        return candidateDAO.findAll();
+    public List<CandidateResponseDTO> getAll() {
+        return candidateDAO.findAll().stream()
+                .map((CandidateEntity candidateEntity) ->
+                        (CandidateResponseDTO) release.convertTo(
+                                candidateEntity, CandidateResponseDTO.class))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public CandidateEntity save(CandidateEntity candidateEntity) {
-        return candidateDAO.save(candidateEntity);
+    public CandidateCreateDTO save(CandidateCreateDTO candidateCreateDTO) {
+        return release.convertTo(candidateDAO.save(release.convertTo(candidateCreateDTO, CandidateEntity.class)),
+                CandidateCreateDTO.class);
     }
 
     @Override
-    public CandidateEntity update(CandidateEntity candidateEntity) {
-        return candidateDAO.save(candidateEntity);
+    public CandidateUpdateDTO update(CandidateUpdateDTO candidateUpdateDTO) {
+        return release.convertTo(candidateDAO.save(
+                release.convertTo(candidateUpdateDTO, CandidateEntity.class)),
+                CandidateUpdateDTO.class);
     }
 
     @Override

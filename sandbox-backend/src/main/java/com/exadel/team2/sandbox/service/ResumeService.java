@@ -1,18 +1,21 @@
 package com.exadel.team2.sandbox.service;
 
+import com.exadel.team2.sandbox.dto.ResumeCreateDTO;
+import com.exadel.team2.sandbox.dto.ResumeResponseDTO;
+import com.exadel.team2.sandbox.dto.ResumeUpdateDTO;
 import com.exadel.team2.sandbox.entity.ResumeEntity;
 
 import java.util.List;
 
 public interface ResumeService {
 
-    ResumeEntity getById(Long id);
+    ResumeResponseDTO getById(Long id);
 
-    List<ResumeEntity> getAll();
+    List<ResumeResponseDTO> getAll();
 
-    ResumeEntity save(ResumeEntity resumeEntity);
+    ResumeCreateDTO save(ResumeCreateDTO resumeCreateDTO);
 
-    ResumeEntity update(ResumeEntity resumeEntity);
+    ResumeUpdateDTO update(ResumeUpdateDTO resumeUpdateDTO);
 
     void delete(Long id);
 }

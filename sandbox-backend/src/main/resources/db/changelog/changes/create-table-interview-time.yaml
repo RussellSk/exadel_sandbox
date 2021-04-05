@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 2021.03.26-create-table-candidate.yaml
+      id: 2021.03.26-create-table-interview-time.yaml
       author: saranchuk_vadim
       changes:
         - createTable:
@@ -26,7 +26,8 @@ databaseChangeLog:
                   constraints:
                     foreignKeyName: fk_interview_time_candidate
                     references: CANDIDATE(CN_ID)
-                    nullable: false
+                    onDelete: cascade
+                    onUpdate: cascade
               - column:
                   name: EMP_ID
                   type: INT UNSIGNED

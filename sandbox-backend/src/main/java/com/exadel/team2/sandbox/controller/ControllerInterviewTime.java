@@ -1,6 +1,9 @@
 package com.exadel.team2.sandbox.controller;
 
 
+import com.exadel.team2.sandbox.dto.InterviewTimeCreateDTO;
+import com.exadel.team2.sandbox.dto.InterviewTimeResponseDTO;
+import com.exadel.team2.sandbox.dto.InterviewTimeUpdateDTO;
 import com.exadel.team2.sandbox.entity.InterviewTimeEntity;
 import com.exadel.team2.sandbox.service.impl.InterviewTimeServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -9,37 +12,37 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/interviewTime")
+@RequestMapping("/interviewtime")
 @RequiredArgsConstructor
 public class ControllerInterviewTime {
 
     private final InterviewTimeServiceImpl interviewTimeService;
 
-    @GetMapping(value = "get/{ITM_ID}")
-    public InterviewTimeEntity getInterviewTime(@PathVariable Long ITM_ID) {
-        return interviewTimeService.findById(ITM_ID);
+    @GetMapping(value = "/{id}")
+    public InterviewTimeResponseDTO getInterviewTime(@PathVariable Long id) {
+        return interviewTimeService.findById(id);
     }
 
-    @GetMapping(value = "getAll")
-    public List<InterviewTimeEntity> getAllInterviewTime() {
+    @GetMapping
+    public List<InterviewTimeResponseDTO> getAllInterviewTime() {
         return interviewTimeService.getAll();
     }
 
 
-    @PostMapping(value = "add")
-    public InterviewTimeEntity addInterviewTime(
-            InterviewTimeEntity interviewTimeEntity) {
-        return interviewTimeService.save(interviewTimeEntity);
+    @PostMapping
+    public InterviewTimeCreateDTO addInterviewTime(
+            @RequestBody InterviewTimeCreateDTO interviewTimeCreateDTO) {
+        return interviewTimeService.save(interviewTimeCreateDTO);
     }
 
-    @PutMapping(value = "update")
-    public InterviewTimeEntity updateInterviewTime(
-            InterviewTimeEntity interviewTimeEntity) {
-        return interviewTimeService.update(interviewTimeEntity);
+    @PutMapping
+    public InterviewTimeUpdateDTO updateInterviewTime(
+            @RequestBody InterviewTimeUpdateDTO interviewTimeUpdateDTO) {
+        return interviewTimeService.update(interviewTimeUpdateDTO);
     }
 
-    @DeleteMapping(value = "delete/{ITM_ID}")
-    public void delete(Long ITM_ID) {
-        interviewTimeService.delete(ITM_ID);
+    @DeleteMapping(value = "/{id}")
+    public void delete(@PathVariable Long id) {
+        interviewTimeService.delete(id);
     }
 }

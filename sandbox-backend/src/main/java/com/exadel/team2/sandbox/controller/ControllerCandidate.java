@@ -1,7 +1,8 @@
 package com.exadel.team2.sandbox.controller;
 
+import com.exadel.team2.sandbox.dto.CandidateCreateDTO;
 import com.exadel.team2.sandbox.dto.CandidateResponseDTO;
-import com.exadel.team2.sandbox.entity.CandidateEntity;
+import com.exadel.team2.sandbox.dto.CandidateUpdateDTO;
 import com.exadel.team2.sandbox.service.impl.CandidateServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,37 +16,32 @@ public class ControllerCandidate {
 
     private final CandidateServiceImpl candidateService;
 
-//    @GetMapping(value = "get/{CN_ID}")
-//    public CandidateEntity getCandidate1(@PathVariable Long CN_ID) {
-//        return candidateService.findById(CN_ID);
-//    }
-
-    @GetMapping(value = "get/{CN_ID}")
-    public CandidateResponseDTO getCandidate(@PathVariable Long CN_ID) {
-        return candidateService.findById(CN_ID);
+    @GetMapping(value = "/{id}")
+    public CandidateResponseDTO getCandidate(@PathVariable Long id) {
+        return candidateService.findById(id);
     }
 
-    @GetMapping(value = "getAll")
-    public List<CandidateEntity> getAllCandidates() {
+    @GetMapping
+    public List<CandidateResponseDTO> getAllCandidates() {
         return candidateService.getAll();
     }
 
 
-    @PostMapping(value = "add")
-    public CandidateEntity addCandidate(
-            CandidateEntity candidateEntity) {
-        return candidateService.save(candidateEntity);
+    @PostMapping
+    public CandidateCreateDTO addCandidate(
+            @RequestBody CandidateCreateDTO candidateCreateDTO) {
+        return candidateService.save(candidateCreateDTO);
     }
 
-    @PutMapping(value = "update")
-    public CandidateEntity updateUpdateCandidate(
-            CandidateEntity candidateEntity) {
-        return candidateService.update(candidateEntity);
+    @PutMapping
+    public CandidateUpdateDTO updateUpdateCandidate(
+            @RequestBody CandidateUpdateDTO candidateUpdateDTO) {
+        return candidateService.update(candidateUpdateDTO);
     }
 
-    @DeleteMapping(value = "delete/{CN_ID}")
-    public void delete(Long CN_ID) {
-        candidateService.delete(CN_ID);
+    @DeleteMapping(value = "/{id}")
+    public void delete(@PathVariable Long id) {
+        candidateService.delete(id);
     }
 
 

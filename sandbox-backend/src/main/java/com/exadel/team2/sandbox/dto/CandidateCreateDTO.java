@@ -1,22 +1,14 @@
 package com.exadel.team2.sandbox.dto;
 
+import lombok.*;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
+@AllArgsConstructor
 
-public class CandidateResponseDTO {
-
-    @Id
-    @NotNull
-    private Long id;
+public class CandidateCreateDTO {
 
     @NotNull
     private Long rsmId;
@@ -50,5 +42,4 @@ public class CandidateResponseDTO {
 
     @NotNull
     private String location;
-
 }

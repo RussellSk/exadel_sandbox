@@ -1,6 +1,8 @@
 package com.exadel.team2.sandbox.controller;
 
-import com.exadel.team2.sandbox.entity.ResumeEntity;
+import com.exadel.team2.sandbox.dto.ResumeCreateDTO;
+import com.exadel.team2.sandbox.dto.ResumeResponseDTO;
+import com.exadel.team2.sandbox.dto.ResumeUpdateDTO;
 import com.exadel.team2.sandbox.service.impl.ResumeServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,30 +16,28 @@ public class ControllerResume {
 
     private final ResumeServiceImpl resumeService;
 
-    @GetMapping(value = "get/{RSM_ID}")
-    public ResumeEntity getResume(@PathVariable Long RSM_ID) {
-        ResumeEntity resumeEntity = resumeService.getById(RSM_ID);
-        System.out.println(resumeEntity);
-        return resumeEntity;
+    @GetMapping(value = "/{id}")
+    public ResumeResponseDTO getResume(@PathVariable Long id) {
+        return resumeService.getById(id);
     }
 
-    @GetMapping(value = "getAll")
-    public List<ResumeEntity> getAll() {
+    @GetMapping
+    public List<ResumeResponseDTO> getAll() {
         return resumeService.getAll();
     }
 
-    @PostMapping(value = "add")
-    public ResumeEntity addResume(ResumeEntity resumeEntity) {
-        return resumeService.save(resumeEntity);
+    @PostMapping
+    public ResumeCreateDTO addResume(@RequestBody ResumeCreateDTO resumeCreateDTO) {
+        return resumeService.save(resumeCreateDTO);
     }
 
-    @PutMapping(value = "update")
-    public ResumeEntity updateResume(ResumeEntity resumeEntity) {
-        return resumeService.update(resumeEntity);
+    @PutMapping
+    public ResumeUpdateDTO updateResume(@RequestBody ResumeUpdateDTO resumeUpdateDTO) {
+        return resumeService.update(resumeUpdateDTO);
     }
 
-    @DeleteMapping(value = "delete/{RSM_ID}")
-    public void deleteResume(@PathVariable Long RSM_ID) {
-        resumeService.delete(RSM_ID);
+    @DeleteMapping(value = "/{id}")
+    public void deleteResume(@PathVariable Long id) {
+        resumeService.delete(id);
     }
 }

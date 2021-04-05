@@ -20,12 +20,11 @@ import java.util.Collection;
 public class CandidateEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CN_ID")
     private Long id;
 
-    @ManyToOne
-//    @JsonManagedReference
+    @ManyToOne(fetch = FetchType.LAZY)
     @ToString.Exclude
     @JoinColumn(name = "CN_ID", insertable = false, updatable = false)
     private InterviewTimeEntity interviewTimeEntity;
@@ -37,45 +36,44 @@ public class CandidateEntity {
     private Long rsm_id;
 
     @OneToOne(cascade = CascadeType.ALL)
-//    @JsonManagedReference
     @JoinColumn(name = "RSM_ID", insertable = false, updatable = false)
     private ResumeEntity resumeEntity;
 
     @Column(name = "CN_FIRST_NAME", nullable = false)
-    private String cn_first_name;
+    private String firstName;
 
     @Column(name = "CN_LAST_NAME", nullable = false)
-    private String cn_last_name;
+    private String lastName;
 
     @Column(name = "CN_PHONE", nullable = false)
-    private String cn_phone;
+    private String phone;
 
     @Column(name = "CN_EMAIL", nullable = false)
-    private String cn_email;
+    private String email;
 
     @Column(name = "CN_SKYPE")
-    private String cn_skype;
+    private String skype;
 
     @Column(name = "CN_ENGLISH_LEVEL", nullable = false)
-    private String cn_english_level;
+    private String englishLevel;
 
     @Column(name = "CN_EXPERTISE")
-    private String cn_expertise;
+    private String expertise;
 
     @Column(name = "CN_EXPERIENCE")
-    private String cn_experience;
+    private String experience;
 
     @Column(name = "CN_EDUCATION")
-    private String cn_education;
+    private String education;
 
     @Column(name = "CN_LOCATION")
-    private String cn_location;
+    private String location;
 
     @CreationTimestamp
-    @Column(name = "CN_CREATED_AT", nullable = false)
-    private LocalDateTime cn_created_at;
+    @Column(name = "CN_CREATED_AT")
+    private LocalDateTime createdAt;
 
     @UpdateTimestamp
     @Column(name = "CN_UPDATED_AT", nullable = false)
-    private LocalDateTime cn_updated_at;
+    private LocalDateTime updatedAt;
 }

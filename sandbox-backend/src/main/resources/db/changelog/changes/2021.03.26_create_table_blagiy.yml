@@ -13,7 +13,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: IMG_ID
-                  type: INT
+                  type: INT UNSIGNED
                   autoIncrement: true
                   constraints:
                     primaryKey: true
@@ -30,7 +30,7 @@ databaseChangeLog:
                   type: VARCHAR(15)
               - column:
                   name: IMG_SIZE
-                  type: INT
+                  type: INT UNSIGNED
               - column:
                   name: IMG_CREATED_AT
                   type: DATETIME
@@ -49,7 +49,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: EVT_ID
-                  type: INT
+                  type: INT UNSIGNED
                   autoIncrement: true
                   constraints:
                     primaryKey: true
@@ -84,25 +84,25 @@ databaseChangeLog:
             columns:
               - column:
                   name: EV_ID
-                  type: INT
+                  type: INT UNSIGNED
                   autoIncrement: true
                   constraints:
                     primaryKey: true
               - column:
                   name: IMG_ID
-                  type: INT
+                  type: INT UNSIGNED
                   constraints:
                     foreignKeyName: fk_EVENT_contact_IMAGE
                     references: EVENT(EV_ID)
               - column:
                   name: EMP_ID
-                  type: INT
+                  type: INT UNSIGNED
                   constraints:
                     foreignKeyName: fk_EVENT_contact_EMPLOYEE
                     references: EVENT(EV_ID)
               - column:
                   name: EVT_ID
-                  type: INT
+                  type: INT UNSIGNED
                   constraints:
                     foreignKeyName: fk_EVENT_contact_EVENT_TYPE
                     references: EVENT(EV_ID)

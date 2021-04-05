@@ -21,7 +21,6 @@ databaseChangeLog:
                         onDelete: cascade
                         onUpdate: cascade
                         references: RESUME(RSM_ID)
-                        nullable: false
                   - column:
                       name: CN_FIRST_NAME
                       type: VARCHAR(50)
@@ -78,8 +77,6 @@ databaseChangeLog:
                       name: CN_CREATED_AT
                       type: DATETIME
                       defaultValue: NOW()
-                      constraints:
-                        nullable: false
                   - column:
                       name: CN_UPDATED_AT
                       type: DATETIME

@@ -3,6 +3,7 @@ package com.exadel.team2.sandbox.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Id;
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 
 @Setter
 @Getter
-@Builder
+@NoArgsConstructor
 
 public class CandidateUpdateDTO {
 
@@ -19,35 +20,36 @@ public class CandidateUpdateDTO {
     @NotNull
     private Long id;
 
-    @NotNull
-    private Long rsm_id;
+    private Long rsmId;
 
     @NotNull
-    private String cn_first_name;
+    private String firstName;
 
     @NotNull
-    private String cn_last_name;
+    private String lastName;
 
     @NotNull
-    private String cn_phone;
+    private String phone;
 
     @NotNull
-    private String cn_email;
+    private String email;
 
     @NotNull
-    private String cn_skype;
+    private String skype;
 
     @NotNull
-    private String cn_english_level;
+    private String englishLevel;
 
-    private String cn_expertise;
+    private String expertise;
 
-    private String cn_experience;
+    @NotNull
+    private String experience;
 
-    private String cn_education;
+    private String education;
 
-    private String cn_location;
+    @NotNull
+    private String location;
 
     @JsonIgnore
-    private final LocalDateTime cn_updated_at = LocalDateTime.now();
+    private final LocalDateTime updatedAt = LocalDateTime.now();
 }

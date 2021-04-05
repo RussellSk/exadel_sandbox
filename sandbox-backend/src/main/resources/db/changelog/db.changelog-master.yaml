@@ -29,8 +29,8 @@ databaseChangeLog:
       file: db/changelog/changes/create-table-candidate.yaml
   - include:
       file: db/changelog/changes/create-table-interview-time.yaml
-#  - include:
-#      file: db/changelog/changes/configure-sql-file.yaml
+  - include:
+      file: db/changelog/changes/configure-sql-file.yaml
 
 #  - include:
 #      file: db/changelog/changes/20210401_add_constraint_interview_feedback.yaml

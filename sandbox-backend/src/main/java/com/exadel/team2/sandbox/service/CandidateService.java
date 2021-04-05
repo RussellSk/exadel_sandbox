@@ -1,6 +1,8 @@
 package com.exadel.team2.sandbox.service;
 
+import com.exadel.team2.sandbox.dto.CandidateCreateDTO;
 import com.exadel.team2.sandbox.dto.CandidateResponseDTO;
+import com.exadel.team2.sandbox.dto.CandidateUpdateDTO;
 import com.exadel.team2.sandbox.entity.CandidateEntity;
 
 import java.util.List;
@@ -9,11 +11,11 @@ public interface CandidateService {
 
     CandidateResponseDTO findById(Long id);
 
-    List<CandidateEntity> getAll();
+    List<CandidateResponseDTO> getAll();
 
-    CandidateEntity save(CandidateEntity candidateEntity);
+    CandidateCreateDTO save(CandidateCreateDTO candidateCreateDTO);
 
-    CandidateEntity update(CandidateEntity candidateEntity);
+    CandidateUpdateDTO update(CandidateUpdateDTO candidateUpdateDTO);
 
     void delete(Long id);
 

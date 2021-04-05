@@ -1,6 +1,5 @@
 package com.exadel.team2.sandbox.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,37 +21,36 @@ import java.util.Collection;
 public class InterviewTimeEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ITM_ID", nullable = false)
-    private Long itm_id;
+    private Long itmId;
 
     @Column(name = "EV_ID")
-    private Long ev_id;
+    private Long evId;
 
 //    @OneToMany (mappedBy = "interviewTime", fetch = FetchType.EAGER)
 //    private Collection<EventEntity> events;
 
     @Column(name = "CN_ID", nullable = false)
-    private Long cn_id;
+    private Long cnId;
 
-//    @JsonBackReference
-    @OneToMany(mappedBy = "interviewTimeEntity", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "interviewTimeEntity")
     private Collection<CandidateEntity> candidateEntity;
 
     @Column(name = "EMP_ID")
-    private Long emp_id;
+    private Long empId;
 
 //    @OneToOne(mappedBy = "employee")
 //    private EmployeeEntity employeeEntity;
 
     @Column(name = "ITM_BEGIN_DATE")
-    private LocalDateTime itm_begin_date;
+    private LocalDateTime beginDate;
 
     @CreationTimestamp
     @Column(name = "ITM_CREATED_AT", nullable = false)
-    private LocalDateTime itm_created_at;
+    private LocalDateTime createdAt;
 
     @UpdateTimestamp
     @Column(name = "ITM_UPDATED_AT")
-    private LocalDateTime itm_updated_at;
+    private LocalDateTime updatedAt;
 }
