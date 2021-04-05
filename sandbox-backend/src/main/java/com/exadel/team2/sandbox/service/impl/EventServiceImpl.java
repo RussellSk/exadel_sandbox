@@ -79,7 +79,6 @@ public class EventServiceImpl implements EventService {
 
 
         eventEntity.setEvCreatedAt(LocalDateTime.now());
-//        eventEntity.setEvUpdatedAt(LocalDateTime.now());
         eventDAO.save(eventEntity);
 
         return eventMapper.convertEntityToDto(eventEntity);

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -17,11 +18,16 @@ public class EventResponseDTO {
     private ImageCreateDTO image;
     private EmployeeDTO employee;
     private EventTypeCreateDTO eventType;
+
+    @NotNull
     private String shortDescription;
     //    duration +
+    @NotNull
     private String fullDescription;
     private LocalDate startDate;
     private LocalDate deadline;
+
+    @NotNull
     private String location;
     private String candidateRequirements;
     private LocalDateTime createdAt;
