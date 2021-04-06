@@ -1,6 +1,5 @@
 package com.exadel.team2.sandbox.service;
 
-import com.exadel.team2.sandbox.entity.InterviewFeedbackEntity;
 import com.exadel.team2.sandbox.web.interview_feedback.CreateInterviewFeedbackDTO;
 import com.exadel.team2.sandbox.web.interview_feedback.ResponseInterviewFeedbackDto;
 import com.exadel.team2.sandbox.web.interview_feedback.UpdateInterviewFeedbackDto;
@@ -16,7 +15,7 @@ public interface InterviewFeedbackService {
 
     ResponseInterviewFeedbackDto save(CreateInterviewFeedbackDTO createInterviewFeedbackDTO);
 
-    InterviewFeedbackEntity update(long id, UpdateInterviewFeedbackDto updateInterviewFeedbackDto);
+    ResponseInterviewFeedbackDto update(long id, UpdateInterviewFeedbackDto updateInterviewFeedbackDto);
 
     void delete(Long id);
 

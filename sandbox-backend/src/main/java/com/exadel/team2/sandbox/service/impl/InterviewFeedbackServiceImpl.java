@@ -9,6 +9,7 @@ import com.exadel.team2.sandbox.mapper.InterviewFeedbackMapper;
 import com.exadel.team2.sandbox.service.InterviewFeedbackService;
 import com.exadel.team2.sandbox.web.interview_feedback.CreateInterviewFeedbackDTO;
 import com.exadel.team2.sandbox.web.interview_feedback.ResponseInterviewFeedbackDto;
+import com.exadel.team2.sandbox.web.interview_feedback.UpdateInterviewFeedbackDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,19 +30,19 @@ public class InterviewFeedbackServiceImpl implements InterviewFeedbackService {
     private final InterviewFeedbackDAO interviewFeedbackDAO;
     private final InterviewFeedbackMapper interviewFeedbackMapper;
     private final EmployeeDAO employeeDAO;
-    //private final CandidateDAO candidateDAO;
+    private final CandidateDAO candidateDAO;
 
     @Override
     public ResponseInterviewFeedbackDto getById(Long id) {
-        InterviewFeedbackEntity interviewFeedbackEntity=interviewFeedbackDAO.findById(id)
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Feedback Not Found"));
+        InterviewFeedbackEntity interviewFeedbackEntity = interviewFeedbackDAO.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Feedback Not Found"));
         return interviewFeedbackMapper.convertEntityToDto(interviewFeedbackEntity);
     }
 
     @Override
     public List<ResponseInterviewFeedbackDto> getAll() {
-        List<InterviewFeedbackEntity> interviewFeedbackEntities=interviewFeedbackDAO.findAll();
-        if (interviewFeedbackEntities.isEmpty()){
+        List<InterviewFeedbackEntity> interviewFeedbackEntities = interviewFeedbackDAO.findAll();
+        if (interviewFeedbackEntities.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No Content");
         }
         return interviewFeedbackEntities.stream()
@@ -58,10 +59,9 @@ public class InterviewFeedbackServiceImpl implements InterviewFeedbackService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found"));
         interviewFeedbackEntity.setEmployee(employeeEntity);
 
-
-
-
-
+        CandidateEntity candidateEntity = candidateDAO.findById(createInterviewFeedbackDTO.getIdCandidate())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Candidate not found"));
+        interviewFeedbackEntity.setCandidate(candidateEntity);
 
         interviewFeedbackEntity.setFeedback(createInterviewFeedbackDTO.getFeedback());
         interviewFeedbackEntity.setDateOfCreate(LocalDateTime.now());
@@ -72,17 +72,33 @@ public class InterviewFeedbackServiceImpl implements InterviewFeedbackService {
     }
 
     @Override
-    public InterviewFeedbackEntity update(InterviewFeedbackEntity interviewFeedbackEntity) {
-        return dao.save(interviewFeedbackEntity);
+    public ResponseInterviewFeedbackDto update(long id, UpdateInterviewFeedbackDto updateInterviewFeedbackDto) {
+        InterviewFeedbackEntity interviewFeedbackEntity = interviewFeedbackDAO.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "InterviewFeedback not found"));
+
+        EmployeeEntity employeeEntity = employeeDAO.findById(updateInterviewFeedbackDto.getIdEmployee())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found"));
+        interviewFeedbackEntity.setEmployee(employeeEntity);
+
+        CandidateEntity candidateEntity = candidateDAO.findById(updateInterviewFeedbackDto.getIdCandidate())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Candidate not found"));
+        interviewFeedbackEntity.setCandidate(candidateEntity);
+
+
+        interviewFeedbackEntity.setFeedback(updateInterviewFeedbackDto.getFeedback());
+        interviewFeedbackEntity.setDateOfUpdate(LocalDateTime.now());
+
+        return interviewFeedbackMapper.convertEntityToDto(interviewFeedbackDAO.save(interviewFeedbackEntity));
     }
 
     @Override
     public void delete(Long id) {
-        dao.deleteById(id);
+        interviewFeedbackDAO.deleteById(id);
     }
 
     @Override
     public Page<ResponseInterviewFeedbackDto> getAllPageable(Pageable pageable) {
-        return null;
+        return interviewFeedbackDAO.findAll(pageable)
+                .map(interviewFeedbackMapper::convertEntityToDto);
     }
 }

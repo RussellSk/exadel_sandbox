@@ -41,7 +41,7 @@ public class InterviewFeedbackEntity {
     @JoinColumn(name = "EMP_ID")
     private EmployeeEntity employee ;
 
-//    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
-//    @JoinColumn(name = "CN_ID")
-//    private CandidateEntity candidate;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "CN_ID")
+    private CandidateEntity candidate;
 }
