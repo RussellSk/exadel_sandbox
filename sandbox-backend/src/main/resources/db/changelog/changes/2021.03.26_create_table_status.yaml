@@ -2,6 +2,11 @@ databaseChangeLog:
   - changeSet:
       id: table_status
       author: butenko
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          tableExists:
+            tableName: STATUS
       changes:
         - createTable:
             tableName: STATUS
