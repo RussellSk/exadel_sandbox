@@ -7,7 +7,7 @@ import com.exadel.team2.sandbox.entity.EmployeeEntity;
 import com.exadel.team2.sandbox.entity.InterviewFeedbackEntity;
 import com.exadel.team2.sandbox.mapper.InterviewFeedbackMapper;
 import com.exadel.team2.sandbox.service.InterviewFeedbackService;
-import com.exadel.team2.sandbox.web.interview_feedback.CreateInterviewFeedbackDTO;
+import com.exadel.team2.sandbox.web.interview_feedback.CreateInterviewFeedbackDto;
 import com.exadel.team2.sandbox.web.interview_feedback.ResponseInterviewFeedbackDto;
 import com.exadel.team2.sandbox.web.interview_feedback.UpdateInterviewFeedbackDto;
 import lombok.RequiredArgsConstructor;
@@ -51,7 +51,7 @@ public class InterviewFeedbackServiceImpl implements InterviewFeedbackService {
     }
 
     @Override
-    public ResponseInterviewFeedbackDto save(CreateInterviewFeedbackDTO createInterviewFeedbackDTO) {
+    public ResponseInterviewFeedbackDto save(CreateInterviewFeedbackDto createInterviewFeedbackDTO) {
 
         InterviewFeedbackEntity interviewFeedbackEntity = interviewFeedbackMapper.convertDtoToEntity(createInterviewFeedbackDTO);
 

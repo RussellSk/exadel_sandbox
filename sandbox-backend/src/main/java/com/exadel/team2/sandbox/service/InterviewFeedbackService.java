@@ -1,6 +1,6 @@
 package com.exadel.team2.sandbox.service;
 
-import com.exadel.team2.sandbox.web.interview_feedback.CreateInterviewFeedbackDTO;
+import com.exadel.team2.sandbox.web.interview_feedback.CreateInterviewFeedbackDto;
 import com.exadel.team2.sandbox.web.interview_feedback.ResponseInterviewFeedbackDto;
 import com.exadel.team2.sandbox.web.interview_feedback.UpdateInterviewFeedbackDto;
 import org.springframework.data.domain.Page;
@@ -13,7 +13,7 @@ public interface InterviewFeedbackService {
 
     List<ResponseInterviewFeedbackDto> getAll();
 
-    ResponseInterviewFeedbackDto save(CreateInterviewFeedbackDTO createInterviewFeedbackDTO);
+    ResponseInterviewFeedbackDto save(CreateInterviewFeedbackDto createInterviewFeedbackDTO);
 
     ResponseInterviewFeedbackDto update(long id, UpdateInterviewFeedbackDto updateInterviewFeedbackDto);
 
