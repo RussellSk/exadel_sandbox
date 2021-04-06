@@ -30,7 +30,7 @@ public class ResumeResponseDTO {
     private String ext;
 
     @NotNull
-    private int size;
+    private Integer size;
 
     @NotNull
     private LocalDateTime createdAt;

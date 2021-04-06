@@ -25,7 +25,7 @@ public class ResumeCreateDTO {
     private String ext;
 
     @NotNull
-    private int size;
+    private Integer size;
 
     @JsonIgnore
     private final LocalDateTime createdAt = LocalDateTime.now();

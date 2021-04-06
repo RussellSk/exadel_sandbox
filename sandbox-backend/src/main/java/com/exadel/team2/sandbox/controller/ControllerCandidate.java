@@ -33,10 +33,11 @@ public class ControllerCandidate {
         return candidateService.save(candidateCreateDTO);
     }
 
-    @PutMapping
+    @PutMapping(value = "/{id}")
     public CandidateUpdateDTO updateUpdateCandidate(
+            @PathVariable Long id,
             @RequestBody CandidateUpdateDTO candidateUpdateDTO) {
-        return candidateService.update(candidateUpdateDTO);
+        return candidateService.update(id, candidateUpdateDTO);
     }
 
     @DeleteMapping(value = "/{id}")

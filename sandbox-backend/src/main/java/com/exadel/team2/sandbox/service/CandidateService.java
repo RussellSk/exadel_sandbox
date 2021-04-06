@@ -15,7 +15,7 @@ public interface CandidateService {
 
     CandidateCreateDTO save(CandidateCreateDTO candidateCreateDTO);
 
-    CandidateUpdateDTO update(CandidateUpdateDTO candidateUpdateDTO);
+    CandidateUpdateDTO update(Long id, CandidateUpdateDTO candidateUpdateDTO);
 
     void delete(Long id);
 

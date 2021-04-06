@@ -19,6 +19,8 @@ databaseChangeLog:
                   defaultValue: null
                   constraints:
                     foreignKeyName: fk_interview_time_event
+                    onDelete: cascade
+                    onUpdate: cascade
                     references: EVENT(EV_ID)
               - column:
                   name: CN_ID
@@ -34,6 +36,8 @@ databaseChangeLog:
                   defaultValue: null
                   constraints:
                     foreignKeyName: fk_interview_time_employee
+                    onDelete: cascade
+                    onUpdate: cascade
                     references: EMPLOYEE(EMP_ID)
               - column:
                   name: ITM_BEGIN_DATE

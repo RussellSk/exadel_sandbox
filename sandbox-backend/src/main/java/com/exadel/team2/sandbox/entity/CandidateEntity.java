@@ -33,7 +33,7 @@ public class CandidateEntity {
 //    private Collection<Event> events;
 
     @Column(name = "RSM_ID", nullable = false)
-    private Long rsm_id;
+    private Long rsmId;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "RSM_ID", insertable = false, updatable = false)

@@ -14,7 +14,7 @@ public interface InterviewTimeServer {
 
     InterviewTimeCreateDTO save(InterviewTimeCreateDTO interviewTimeCreateDTO);
 
-    InterviewTimeUpdateDTO update(InterviewTimeUpdateDTO interviewTimeUpdateDTO);
+    InterviewTimeUpdateDTO update(Long id, InterviewTimeUpdateDTO interviewTimeUpdateDTO);
 
     void delete(Long id);
 }

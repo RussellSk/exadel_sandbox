@@ -31,9 +31,11 @@ public class ControllerResume {
         return resumeService.save(resumeCreateDTO);
     }
 
-    @PutMapping
-    public ResumeUpdateDTO updateResume(@RequestBody ResumeUpdateDTO resumeUpdateDTO) {
-        return resumeService.update(resumeUpdateDTO);
+    @PutMapping(value = "/{id}")
+    public ResumeUpdateDTO updateResume(
+            @PathVariable Long id,
+            @RequestBody ResumeUpdateDTO resumeUpdateDTO) {
+        return resumeService.update(id, resumeUpdateDTO);
     }
 
     @DeleteMapping(value = "/{id}")

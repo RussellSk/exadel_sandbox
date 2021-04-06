@@ -35,10 +35,11 @@ public class ControllerInterviewTime {
         return interviewTimeService.save(interviewTimeCreateDTO);
     }
 
-    @PutMapping
+    @PutMapping(value = "/{id}")
     public InterviewTimeUpdateDTO updateInterviewTime(
+            @PathVariable Long id,
             @RequestBody InterviewTimeUpdateDTO interviewTimeUpdateDTO) {
-        return interviewTimeService.update(interviewTimeUpdateDTO);
+        return interviewTimeService.update(id, interviewTimeUpdateDTO);
     }
 
     @DeleteMapping(value = "/{id}")

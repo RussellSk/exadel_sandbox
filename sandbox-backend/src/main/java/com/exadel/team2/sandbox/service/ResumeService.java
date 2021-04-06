@@ -15,7 +15,7 @@ public interface ResumeService {
 
     ResumeCreateDTO save(ResumeCreateDTO resumeCreateDTO);
 
-    ResumeUpdateDTO update(ResumeUpdateDTO resumeUpdateDTO);
+    ResumeUpdateDTO update(Long id, ResumeUpdateDTO resumeUpdateDTO);
 
     void delete(Long id);
 }

@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20210329_drop_demo_table
+      author: skaldin
+      preConditions:
+        onFail: CONTINUE
+        tableExists:
+          tableName: DEMO_TABLE
+      changes:
+        - dropTable:
+            tableName: DEMO_TABLE

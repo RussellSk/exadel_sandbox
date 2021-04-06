@@ -17,37 +17,28 @@ import java.time.LocalDateTime;
 public class CandidateUpdateDTO {
 
     @Id
-    @NotNull
     private Long id;
 
     private Long rsmId;
 
-    @NotNull
     private String firstName;
 
-    @NotNull
     private String lastName;
 
-    @NotNull
     private String phone;
 
-    @NotNull
     private String email;
 
-    @NotNull
     private String skype;
 
-    @NotNull
     private String englishLevel;
 
     private String expertise;
 
-    @NotNull
     private String experience;
 
     private String education;
 
-    @NotNull
     private String location;
 
     @JsonIgnore

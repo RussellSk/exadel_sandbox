@@ -38,7 +38,7 @@ public class ResumeEntity {
     private String ext;
 
     @Column(name = "RSM_SIZE", nullable = false)
-    private int size;
+    private Integer size;
 
     @CreationTimestamp
     @Column(name = "RSM_CREATED_AT", nullable = false)

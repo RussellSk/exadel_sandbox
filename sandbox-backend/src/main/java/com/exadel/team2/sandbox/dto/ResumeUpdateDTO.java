@@ -17,21 +17,17 @@ import java.time.LocalDateTime;
 public class ResumeUpdateDTO {
 
     @Id
-    @NotNull
     private Long id;
 
     private String path;
 
     private String link;
 
-    @NotNull
     private String name;
 
-    @NotNull
     private String ext;
 
-    @NotNull
-    private int size;
+    private Integer size;
 
     @JsonIgnore
     private final LocalDateTime createdAt = LocalDateTime.now();

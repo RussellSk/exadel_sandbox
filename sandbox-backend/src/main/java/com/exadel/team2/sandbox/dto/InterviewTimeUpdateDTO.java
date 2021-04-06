@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Data
@@ -15,7 +14,6 @@ import java.time.LocalDateTime;
 public class InterviewTimeUpdateDTO {
 
     @Id
-    @NotNull
     private Long itmId;
 
     private Long evId;
