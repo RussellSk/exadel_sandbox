@@ -61,11 +61,16 @@ public class RoleServiceImpl implements RoleService {
         RoleEntity roleEntity = roleDAO.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Role Not Found"));
 
-        roleEntity.setRlName(updateRoleDto.getRlName());
-        roleEntity.setRlDescription(updateRoleDto.getRlDescription());
+        if (updateRoleDto.getRlName() != null) {
+            roleEntity.setRlName(updateRoleDto.getRlName());
+        }
 
-        roleEntity.setRlCreatedAt(LocalDateTime.now());
+        if (updateRoleDto.getRlDescription() != null) {
+            roleEntity.setRlDescription(updateRoleDto.getRlDescription());
+        }
+
         roleEntity.setRlUpdatedAt(LocalDateTime.now());
+
         roleDAO.save(roleEntity);
 
         return roleMapper.convertEntityToDto(roleEntity);

@@ -7,6 +7,7 @@ import com.exadel.team2.sandbox.web.role.UpdateRoleDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -30,7 +31,7 @@ public class RoleController {
     }
 
     @PutMapping("/{id}")
-    public ResponseRoleDto updateRole(@PathVariable Long id, @RequestBody UpdateRoleDto updateRoleDto) {
+    public ResponseRoleDto updateRole(@PathVariable Long id, @Validated @RequestBody UpdateRoleDto updateRoleDto) {
         return roleService.update(id, updateRoleDto);
     }
 

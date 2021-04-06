@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -31,12 +32,12 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public ResponseEmployeeDto createEmployee(@RequestBody CreateEmployeeDto createEmployeeDTO) {
+    public ResponseEmployeeDto createEmployee(@Validated @RequestBody CreateEmployeeDto createEmployeeDTO) {
         return employeeService.save(createEmployeeDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEmployeeDto updateEmployee(@PathVariable Long id, @RequestBody UpdateEmployeeDto updateEmployeeDto) {
+    public ResponseEmployeeDto updateEmployee(@PathVariable Long id, @Validated @RequestBody UpdateEmployeeDto updateEmployeeDto) {
         return employeeService.update(id, updateEmployeeDto);
     }
 

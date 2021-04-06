@@ -77,12 +77,32 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeEntity employeeEntity = employeeDAO.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee Not Found"));
 
-        RoleEntity roleEntity = roleDAO.findById(updateEmployeeDto.getRoleId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Role Not Found"));
+        if (updateEmployeeDto.getRoleId() != null) {
+            RoleEntity roleEntity = roleDAO.findById(updateEmployeeDto.getRoleId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Role Not Found"));
+            employeeEntity.setRole(roleEntity);
+        }
 
-        employeeEntity.setEmpLastName(updateEmployeeDto.getEmpLastName());
-        employeeEntity.setEmpFirstName(updateEmployeeDto.getEmpFirstName());
-        employeeEntity.setRole(roleEntity);
+        if (updateEmployeeDto.getEmpLastName() != null) {
+            employeeEntity.setEmpLastName(updateEmployeeDto.getEmpLastName());
+        }
+
+        if (updateEmployeeDto.getEmpFirstName() != null) {
+            employeeEntity.setEmpFirstName(updateEmployeeDto.getEmpFirstName());
+        }
+
+        if (updateEmployeeDto.getEmpPhone() != null) {
+            employeeEntity.setEmpPhone(updateEmployeeDto.getEmpPhone());
+        }
+
+        if (updateEmployeeDto.getEmpEmail() != null) {
+            employeeEntity.setEmpEmail(updateEmployeeDto.getEmpEmail());
+        }
+
+        if (updateEmployeeDto.getEmpSkype() != null) {
+            employeeEntity.setEmpSkype(updateEmployeeDto.getEmpSkype());
+        }
+
         employeeEntity.setEmpUpdatedAt(LocalDateTime.now());
 
         return employeeMapper.convertEntityToDto(employeeDAO.save(employeeEntity));
