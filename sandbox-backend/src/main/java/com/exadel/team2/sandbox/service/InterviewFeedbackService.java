@@ -1,17 +1,25 @@
 package com.exadel.team2.sandbox.service;
 
 import com.exadel.team2.sandbox.entity.InterviewFeedbackEntity;
+import com.exadel.team2.sandbox.web.interview_feedback.CreateInterviewFeedbackDTO;
+import com.exadel.team2.sandbox.web.interview_feedback.ResponseInterviewFeedbackDto;
+import com.exadel.team2.sandbox.web.interview_feedback.UpdateInterviewFeedbackDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface InterviewFeedbackService {
-    InterviewFeedbackEntity getById(Long id);
+    ResponseInterviewFeedbackDto getById(Long id);
 
-    List<InterviewFeedbackEntity> getAll();
+    List<ResponseInterviewFeedbackDto> getAll();
 
-    InterviewFeedbackEntity save(InterviewFeedbackEntity interviewFeedbackEntity);
+    ResponseInterviewFeedbackDto save(CreateInterviewFeedbackDTO createInterviewFeedbackDTO);
 
-    InterviewFeedbackEntity update(InterviewFeedbackEntity interviewFeedbackEntity);
+    InterviewFeedbackEntity update(long id, UpdateInterviewFeedbackDto updateInterviewFeedbackDto);
 
     void delete(Long id);
+
+    Page<ResponseInterviewFeedbackDto> getAllPageable(Pageable pageable);
+
 }
