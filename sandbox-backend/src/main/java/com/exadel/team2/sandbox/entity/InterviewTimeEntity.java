@@ -28,7 +28,7 @@ public class InterviewTimeEntity {
     @Column(name = "EV_ID")
     private Long evId;
 
-//    @OneToMany (mappedBy = "interviewTime", fetch = FetchType.EAGER)
+//    @OneToMany (mappedBy = "interviewTimeEntity", fetch = FetchType.EAGER)
 //    private Collection<EventEntity> events;
 
     @Column(name = "CN_ID", nullable = false)
@@ -40,7 +40,7 @@ public class InterviewTimeEntity {
     @Column(name = "EMP_ID")
     private Long empId;
 
-//    @OneToOne(mappedBy = "employee")
+//    @OneToOne(mappedBy = "interviewTimeEntity")
 //    private EmployeeEntity employeeEntity;
 
     @Column(name = "ITM_BEGIN_DATE")

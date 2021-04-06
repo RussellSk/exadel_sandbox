@@ -29,8 +29,8 @@ public class CandidateEntity {
     @JoinColumn(name = "CN_ID", insertable = false, updatable = false)
     private InterviewTimeEntity interviewTimeEntity;
 
-//    @OneToMany(mappedBy = "eventEntity", fetch = FetchType.EAGER)
-//    private Collection<Event> events;
+//    @OneToMany(mappedBy = "candidateEntity", fetch = FetchType.EAGER)
+//    private Collection<EventEntity> eventEntities;
 
     @Column(name = "RSM_ID", nullable = false)
     private Long rsmId;
