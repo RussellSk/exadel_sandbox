@@ -2,6 +2,11 @@ databaseChangeLog:
   - changeSet:
       id: crate-demo-table
       author: akarzhaneuski
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          tableExists:
+            tableName: DEMO_TABLE
       changes:
         - createTable:
             tableName: DEMO_TABLE
