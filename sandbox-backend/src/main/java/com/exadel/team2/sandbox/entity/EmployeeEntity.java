@@ -28,6 +28,15 @@ public class EmployeeEntity {
     @Column(name = "EMP_LAST_NAME")
     private String empLastName;
 
+    @Column(name = "EMP_PHONE")
+    private String empPhone;
+
+    @Column(name = "EMP_EMAIL")
+    private String empEmail;
+
+    @Column(name = "EMP_SKYPE")
+    private String empSkype;
+
     @Column(name = "EMP_CREATED_AT")
     private LocalDateTime empCreatedAt;
 

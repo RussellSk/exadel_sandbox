@@ -2,8 +2,8 @@ package com.exadel.team2.sandbox.controller;
 
 import com.exadel.team2.sandbox.entity.PermissionEntity;
 import com.exadel.team2.sandbox.service.PermissionService;
+import com.exadel.team2.sandbox.web.permission.ResponsePermissionDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,12 +19,12 @@ public class PermissionController {
     private final PermissionService permissionService;
 
     @GetMapping("/{id}")
-    public PermissionEntity getPermissionById(@PathVariable Long id) {
+    public ResponsePermissionDto getPermissionById(@PathVariable Long id) {
         return permissionService.getById(id);
     }
 
     @GetMapping
-    public List<PermissionEntity> getPermissions() {
+    public List<ResponsePermissionDto> getPermissions() {
         return permissionService.getAll();
     }
 }
