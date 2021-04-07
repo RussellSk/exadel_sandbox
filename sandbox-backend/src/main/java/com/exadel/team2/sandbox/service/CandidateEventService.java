@@ -1,17 +1,20 @@
 package com.exadel.team2.sandbox.service;
 
-import com.exadel.team2.sandbox.entity.CandidateEventEntity;
+import com.exadel.team2.sandbox.web.candidate_event.CreateCandidateEventDto;
+import com.exadel.team2.sandbox.web.candidate_event.ResponseCandidateEventDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface CandidateEventService {
-    CandidateEventEntity getById(Long id);
+    ResponseCandidateEventDto getById(Long id);
 
-    List<CandidateEventEntity> getAll();
+    List<ResponseCandidateEventDto> getAll();
 
-    CandidateEventEntity save(CandidateEventEntity candidateEventEntity);
-
-    CandidateEventEntity update(CandidateEventEntity candidateEventEntity);
+    ResponseCandidateEventDto save(CreateCandidateEventDto candidateEventDto);
 
     void delete(Long id);
+
+    Page<ResponseCandidateEventDto> getAllPageable(Pageable pageable);
 }

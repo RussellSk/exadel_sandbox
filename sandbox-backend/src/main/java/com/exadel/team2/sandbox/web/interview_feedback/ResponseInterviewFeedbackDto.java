@@ -17,7 +17,7 @@ public class ResponseInterviewFeedbackDto {
     @NotNull
     private LocalDateTime dateOfUpdate;
     @NotNull
-    private ResponseEmployeeDTO employee;
+    private ResponseEmployeeDto employee;
     @NotNull
-    private ResponseCandidateDTO candidate;
+    private ResponseCandidateDto candidate;
 }
