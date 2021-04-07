@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 
 public class InterviewTimeResponseDTO {
 
-    @Id
     @NotNull
     private Long id;
 

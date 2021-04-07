@@ -14,7 +14,6 @@ import javax.validation.constraints.NotNull;
 
 public class CandidateResponseDTO {
 
-    @Id
     @NotNull
     private Long id;
 

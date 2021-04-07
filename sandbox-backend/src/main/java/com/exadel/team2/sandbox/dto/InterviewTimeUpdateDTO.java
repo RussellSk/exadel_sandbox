@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 
 public class InterviewTimeUpdateDTO {
 
-    @Id
     private Long itmId;
 
     private Long evId;

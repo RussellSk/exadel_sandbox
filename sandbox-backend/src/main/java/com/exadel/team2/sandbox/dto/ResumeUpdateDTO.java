@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 
 public class ResumeUpdateDTO {
 
-    @Id
     private Long id;
 
     private String path;

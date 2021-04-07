@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 
 public class CandidateUpdateDTO {
 
-    @Id
     private Long id;
 
     private Long rsmId;
