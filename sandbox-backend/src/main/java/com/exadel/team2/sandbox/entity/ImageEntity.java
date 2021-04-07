@@ -7,11 +7,11 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "Image")
+@Table(name = "IMAGE")
 public class ImageEntity {
 
     @Id
@@ -19,9 +19,6 @@ public class ImageEntity {
     @GenericGenerator(name = "native", strategy = "native")
     @Column(name = "IMG_ID")
     private Long imgId;
-
-    @OneToOne(mappedBy = "image", cascade = {CascadeType.PERSIST, CascadeType.REFRESH} )
-    private EventEntity event;
 
     @Column(name = "IMG_PATH")
     private String imgPath;
@@ -37,8 +34,6 @@ public class ImageEntity {
 
     @CreationTimestamp
     @Column(name = "IMG_CREATED_AT")
-    private LocalDate imgCreatedAt;
-
-    
+    private LocalDateTime imgCreatedAt;
 
 }
