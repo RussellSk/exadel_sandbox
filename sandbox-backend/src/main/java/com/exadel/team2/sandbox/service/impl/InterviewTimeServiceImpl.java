@@ -5,7 +5,7 @@ import com.exadel.team2.sandbox.dto.InterviewTimeCreateDTO;
 import com.exadel.team2.sandbox.dto.InterviewTimeResponseDTO;
 import com.exadel.team2.sandbox.dto.InterviewTimeUpdateDTO;
 import com.exadel.team2.sandbox.entity.InterviewTimeEntity;
-import com.exadel.team2.sandbox.mapper.Mapper;
+import com.exadel.team2.sandbox.mapper.ModelMapper;
 import com.exadel.team2.sandbox.service.InterviewTimeServer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,11 +22,11 @@ import java.util.stream.Collectors;
 public class InterviewTimeServiceImpl implements InterviewTimeServer {
 
     private final InterviewTimeDAO interviewTimeDAO;
-    private final Mapper mapper;
+    private final ModelMapper modelMapper;
 
     @Override
     public InterviewTimeResponseDTO findById(Long id) {
-        return mapper.convertTo(interviewTimeDAO.findById(id).orElse(null),
+        return modelMapper.convertTo(interviewTimeDAO.findById(id).orElse(null),
                 InterviewTimeResponseDTO.class);
     }
 
@@ -34,15 +34,15 @@ public class InterviewTimeServiceImpl implements InterviewTimeServer {
     public List<InterviewTimeResponseDTO> getAll() {
         return interviewTimeDAO.findAll()
                 .stream().map((InterviewTimeEntity interviewTimeEntity) ->
-                        (InterviewTimeResponseDTO) mapper
+                        (InterviewTimeResponseDTO) modelMapper
                                 .convertTo(interviewTimeEntity, InterviewTimeResponseDTO.class))
                 .collect(Collectors.toList());
     }
 
     @Override
     public InterviewTimeCreateDTO save(InterviewTimeCreateDTO interviewTimeCreateDTO) {
-        return mapper.convertTo(interviewTimeDAO
-                .save(mapper.convertTo(interviewTimeCreateDTO, InterviewTimeEntity.class)),
+        return modelMapper.convertTo(interviewTimeDAO
+                .save(modelMapper.convertTo(interviewTimeCreateDTO, InterviewTimeEntity.class)),
                 InterviewTimeCreateDTO.class);
     }
 
@@ -69,7 +69,7 @@ public class InterviewTimeServiceImpl implements InterviewTimeServer {
 
         interviewTimeEntity.setUpdatedAt(interviewTimeUpdateDTO.getUpdatedAt());
 
-        return mapper.convertTo(interviewTimeDAO
+        return modelMapper.convertTo(interviewTimeDAO
                         .save(interviewTimeEntity), InterviewTimeUpdateDTO.class);
     }
 

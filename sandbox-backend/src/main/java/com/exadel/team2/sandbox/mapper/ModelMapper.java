@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 //@RequiredArgsConstructor
 @Component
 @NoArgsConstructor
-public class Mapper implements Convertor {
+public class ModelMapper implements Convertor {
     private final ModelMapper modelMapper = new ModelMapper();
 
     @Override
