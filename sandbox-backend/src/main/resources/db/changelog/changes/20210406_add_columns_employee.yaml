@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20210406_add_columns_employee
+      author: skaldin
+      preConditions:
+        onFail: CONTINUE
+        tableExists:
+          tableName: EMPLOYEE
+      changes:
+        - addColumn:
+            tableName: EMPLOYEE
+            columns:
+              name: EMP_PHONE
+              type: VARCHAR(255)
+              constraints:
+                nullable: true
+        - addColumn:
+            tableName: EMPLOYEE
+            columns:
+              name: EMP_EMAIL
+              type: VARCHAR(255)
+              constraints:
+                nullable: false
+        - addColumn:
+            tableName: EMPLOYEE
+            columns:
+              name: EMP_SKYPE
+              type: VARCHAR(255)
+              constraints:
+                nullable: true
