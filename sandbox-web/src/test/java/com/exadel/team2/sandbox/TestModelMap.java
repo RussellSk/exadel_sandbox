@@ -8,7 +8,7 @@ import org.modelmapper.ModelMapper;
 
 import javax.persistence.*;
 
-public class TestModelMapper {
+public class TestModelMap {
     private final static ModelMapper modelMapper = new ModelMapper();
 
     @Test

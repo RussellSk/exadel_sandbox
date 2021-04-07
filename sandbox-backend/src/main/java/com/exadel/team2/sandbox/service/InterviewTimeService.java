@@ -6,7 +6,7 @@ import com.exadel.team2.sandbox.dto.InterviewTimeUpdateDTO;
 
 import java.util.List;
 
-public interface InterviewTimeServer {
+public interface InterviewTimeService {
 
     InterviewTimeResponseDTO findById(Long id);
 

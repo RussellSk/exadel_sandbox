@@ -5,7 +5,7 @@ import com.exadel.team2.sandbox.dto.CandidateCreateDTO;
 import com.exadel.team2.sandbox.dto.CandidateResponseDTO;
 import com.exadel.team2.sandbox.dto.CandidateUpdateDTO;
 import com.exadel.team2.sandbox.entity.CandidateEntity;
-import com.exadel.team2.sandbox.mapper.ModelMapper;
+import com.exadel.team2.sandbox.mapper.ModelMap;
 import com.exadel.team2.sandbox.service.CandidateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,11 +22,11 @@ import java.util.stream.Collectors;
 public class CandidateServiceImpl implements CandidateService {
 
     private final CandidateDAO candidateDAO;
-    private final ModelMapper modelMapper;
+    private final ModelMap modelMap;
 
     @Override
     public CandidateResponseDTO findById(Long id) {
-        return modelMapper.convertTo(candidateDAO.findById(id).orElse(null),
+        return modelMap.convertTo(candidateDAO.findById(id).orElse(null),
                 CandidateResponseDTO.class);
     }
 
@@ -34,14 +34,14 @@ public class CandidateServiceImpl implements CandidateService {
     public List<CandidateResponseDTO> getAll() {
         return candidateDAO.findAll().stream()
                 .map((CandidateEntity candidateEntity) ->
-                        (CandidateResponseDTO) modelMapper.convertTo(
+                        (CandidateResponseDTO) modelMap.convertTo(
                                 candidateEntity, CandidateResponseDTO.class))
                 .collect(Collectors.toList());
     }
 
     @Override
     public CandidateCreateDTO save(CandidateCreateDTO candidateCreateDTO) {
-        return modelMapper.convertTo(candidateDAO.save(modelMapper.convertTo(candidateCreateDTO, CandidateEntity.class)),
+        return modelMap.convertTo(candidateDAO.save(modelMap.convertTo(candidateCreateDTO, CandidateEntity.class)),
                 CandidateCreateDTO.class);
     }
 
@@ -92,7 +92,7 @@ public class CandidateServiceImpl implements CandidateService {
 
         candidateEntity.setUpdatedAt(candidateUpdateDTO.getUpdatedAt());
 
-        return modelMapper.convertTo(candidateDAO.save(candidateEntity), CandidateUpdateDTO.class);
+        return modelMap.convertTo(candidateDAO.save(candidateEntity), CandidateUpdateDTO.class);
     }
 
     @Override

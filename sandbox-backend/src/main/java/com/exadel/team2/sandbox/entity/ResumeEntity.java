@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Builder
 
 @Entity
-@Table(name = "resume")
+@Table(name = "RESUME")
 public class ResumeEntity {
 
     @Id

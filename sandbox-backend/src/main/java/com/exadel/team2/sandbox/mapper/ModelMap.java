@@ -1,14 +1,13 @@
 package com.exadel.team2.sandbox.mapper;
 
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 //@RequiredArgsConstructor
 @Component
 @NoArgsConstructor
-public class ModelMapper implements Convertor {
+public class ModelMap implements Convertor {
     private final ModelMapper modelMapper = new ModelMapper();
 
     @Override

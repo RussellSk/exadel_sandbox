@@ -5,7 +5,7 @@ import com.exadel.team2.sandbox.dto.ResumeCreateDTO;
 import com.exadel.team2.sandbox.dto.ResumeResponseDTO;
 import com.exadel.team2.sandbox.dto.ResumeUpdateDTO;
 import com.exadel.team2.sandbox.entity.ResumeEntity;
-import com.exadel.team2.sandbox.mapper.ModelMapper;
+import com.exadel.team2.sandbox.mapper.ModelMap;
 import com.exadel.team2.sandbox.service.ResumeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,11 +22,11 @@ import java.util.stream.Collectors;
 public class ResumeServiceImpl implements ResumeService {
 
     private final ResumeDAO resumeDAO;
-    private final ModelMapper modelMapper;
+    private final ModelMap modelMap;
 
     @Override
     public ResumeResponseDTO getById(Long id) {
-        return modelMapper.convertTo(
+        return modelMap.convertTo(
                 resumeDAO.findById(id).orElse(null),
                 ResumeResponseDTO.class);
     }
@@ -34,14 +34,14 @@ public class ResumeServiceImpl implements ResumeService {
     @Override
     public List<ResumeResponseDTO> getAll() {
         return resumeDAO.findAll().stream().map((ResumeEntity entity) ->
-                (ResumeResponseDTO) modelMapper.convertTo(entity, ResumeResponseDTO.class))
+                (ResumeResponseDTO) modelMap.convertTo(entity, ResumeResponseDTO.class))
                 .collect(Collectors.toList());
     }
 
     @Override
     public ResumeCreateDTO save(ResumeCreateDTO resumeCreateDTO) {
-        return modelMapper.convertTo(
-                resumeDAO.save(modelMapper.convertTo(resumeCreateDTO, ResumeEntity.class)),
+        return modelMap.convertTo(
+                resumeDAO.save(modelMap.convertTo(resumeCreateDTO, ResumeEntity.class)),
                         ResumeCreateDTO.class);
     }
 
@@ -70,8 +70,8 @@ public class ResumeServiceImpl implements ResumeService {
             resumeEntity.setSize(resumeUpdateDTO.getSize());
         }
 
-        return modelMapper.convertTo(
-                resumeDAO.save(modelMapper.convertTo(resumeUpdateDTO, ResumeEntity.class)),
+        return modelMap.convertTo(
+                resumeDAO.save(modelMap.convertTo(resumeUpdateDTO, ResumeEntity.class)),
                 ResumeUpdateDTO.class);
     }
 
