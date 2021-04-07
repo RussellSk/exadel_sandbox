@@ -13,8 +13,8 @@ import javax.validation.constraints.NotNull;
 public class EventTypeUpdateDTO {
 
     @NotNull
-    private String name;
+    private String evtName;
     @NotNull
-    private String description;
+    private String evtDescription;
 
 }

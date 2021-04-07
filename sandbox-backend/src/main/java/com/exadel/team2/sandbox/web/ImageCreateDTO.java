@@ -12,9 +12,9 @@ import javax.validation.constraints.NotNull;
 public class ImageCreateDTO {
 
     @NotNull
-    private String path;
-    private String name;
-    private String ext;
-    private Integer size;
+    private String imgPath;
+    private String imageName;
+    private String imgExt;
+    private Integer imgSize;
 
 }

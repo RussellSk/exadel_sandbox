@@ -12,12 +12,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class EventTypeResponseDTO {
 
-    private Long id;
+    private Long evtId;
     @NotNull
-    private String name;
+    private String evtName;
     @NotNull
-    private String description;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private String evtDescription;
+    private LocalDateTime evtCreatedAt;
+    private LocalDateTime evtUpdatedAt;
 
 }

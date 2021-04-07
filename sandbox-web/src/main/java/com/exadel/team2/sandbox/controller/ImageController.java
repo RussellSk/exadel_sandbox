@@ -6,6 +6,7 @@ import com.exadel.team2.sandbox.web.ImageResponseDTO;
 import com.exadel.team2.sandbox.web.ImageUpdateDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,12 +29,12 @@ public class ImageController {
     }
 
     @PostMapping
-    public ImageResponseDTO saveImage(@RequestBody ImageCreateDTO imageCreateDTO) {
+    public ImageResponseDTO saveImage(@Validated @RequestBody ImageCreateDTO imageCreateDTO) {
         return imageService.save(imageCreateDTO);
     }
 
     @PutMapping("/{id}")
-    public ImageResponseDTO updateImage(@PathVariable Long id, @RequestBody ImageUpdateDTO imageUpdateDTO) {
+    public ImageResponseDTO updateImage(@Validated @PathVariable Long id, @RequestBody ImageUpdateDTO imageUpdateDTO) {
         return imageService.update(id, imageUpdateDTO);
     }
 

@@ -2,7 +2,6 @@ package com.exadel.team2.sandbox.mapper;
 
 import com.exadel.team2.sandbox.entity.ImageEntity;
 import com.exadel.team2.sandbox.web.ImageResponseDTO;
-import lombok.RequiredArgsConstructor;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-@RequiredArgsConstructor
 public class ImageMapper implements Mapper<ImageEntity, ImageResponseDTO>{
 
     private final ModelMapper modelMapper = new ModelMapper();

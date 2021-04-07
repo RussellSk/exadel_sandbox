@@ -1,12 +1,12 @@
 package com.exadel.team2.sandbox.controller;
 
-import com.exadel.team2.sandbox.entity.EventTypeEntity;
 import com.exadel.team2.sandbox.service.EventTypeService;
 import com.exadel.team2.sandbox.web.EventTypeCreateDTO;
 import com.exadel.team2.sandbox.web.EventTypeResponseDTO;
 import com.exadel.team2.sandbox.web.EventTypeUpdateDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,12 +29,12 @@ public class EventTypeController {
     }
 
     @PostMapping
-    public EventTypeResponseDTO saveEventType(@RequestBody EventTypeCreateDTO eventTypeCreateDTO) {
+    public EventTypeResponseDTO saveEventType(@Validated @RequestBody EventTypeCreateDTO eventTypeCreateDTO) {
         return eventTypeService.save(eventTypeCreateDTO);
     }
 
     @PutMapping("/{id}")
-    public EventTypeResponseDTO updateEventType(@PathVariable Long id, @RequestBody EventTypeUpdateDTO eventTypeUpdateDTO) {
+    public EventTypeResponseDTO updateEventType(@Validated @PathVariable Long id, @RequestBody EventTypeUpdateDTO eventTypeUpdateDTO) {
         return eventTypeService.update(id, eventTypeUpdateDTO);
     }
 

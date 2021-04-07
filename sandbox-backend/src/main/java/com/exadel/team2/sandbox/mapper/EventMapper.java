@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import org.modelmapper.ModelMapper;
 
 @Component
-//@RequiredArgsConstructor
 public class EventMapper implements Mapper<EventEntity, EventResponseDTO> {
 
     private final ModelMapper modelMapper = new ModelMapper();

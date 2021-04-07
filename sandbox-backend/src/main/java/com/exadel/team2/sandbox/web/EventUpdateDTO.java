@@ -16,16 +16,11 @@ public class EventUpdateDTO {
     private Long imageId;
     private Long employeeId;
     private Long eventTypeId;
+    private LocalDate evStartDate;
+    private String evDuration;
+    private LocalDate evDeadline;
     @NotNull
-    private String shortDescription;
-    //    duration +
-    @NotNull
-    private String fullDescription;
-    private LocalDate startDate;
-    private LocalDate deadline;
-
-    @NotNull
-    private String location;
-    private String candidateRequirements;
+    private String evLocation;
+    private String evCandidateRequirements;
 
 }

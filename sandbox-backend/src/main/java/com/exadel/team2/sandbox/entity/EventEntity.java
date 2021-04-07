@@ -7,7 +7,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -26,30 +25,19 @@ public class EventEntity {
     @JoinColumn(name = "IMG_ID", referencedColumnName = "IMG_ID")
     private ImageEntity image;
 
-
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH} )
     @JoinColumn(name = "EMP_ID")
     private EmployeeEntity employee;
 
-//    @OneToOne
-//    @JoinColumn(name = "RL_ID", referencedColumnName = "RL_ID")
-//    private RoleEntity role;
-
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH} )
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH } )
     @JoinColumn(name = "EVT_ID", referencedColumnName = "EVT_ID")
     private EventTypeEntity eventType;
-
-    @Column(name = "EV_SHORT_DESCRIPTION")
-    private String evShortDescription;
-
-    @Column(name = "EV_FULL_DESCRIPTION")
-    private String evFullDescription;
 
     @Column(name = "EV_START_DATE")
     private LocalDate evStartDate;
 
     @Column(name = "EV_DURATION")
-    private Duration evDuration;
+    private String evDuration;
 
     @Column(name = "EV_DEADLINE")
     private LocalDate evDeadline;
@@ -64,8 +52,7 @@ public class EventEntity {
     @Column(name = "EV_CREATED_AT")
     private LocalDateTime evCreatedAt;
 
-//    @UpdateTimestamp
-    @CreationTimestamp
+    @UpdateTimestamp
     @Column(name = "EV_UPDATED_AT")
     private LocalDateTime evUpdatedAt;
 

@@ -12,6 +12,8 @@ import com.exadel.team2.sandbox.mapper.EventMapper;
 import com.exadel.team2.sandbox.service.EventService;
 import com.exadel.team2.sandbox.web.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,6 +52,13 @@ public class EventServiceImpl implements EventService {
                 .collect(Collectors.toList());
     }
 
+//    @Override
+//    public Page<EventResponseDTO> getAllPageable(Pageable pageable) {
+//        return eventDAO.findAll(pageable)
+//                .map(eventMapper::convertEntityToDto);
+//    }
+
+
     @Override
     public EventResponseDTO save(EventCreateDTO eventCreateDTO) {
         EventEntity eventEntity = eventMapper.convertDtoToEntity(eventCreateDTO);
@@ -61,20 +70,19 @@ public class EventServiceImpl implements EventService {
 
         ImageEntity imageEntity = imageDAO.findById(eventCreateDTO.getImageId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Image not found"));
-//
+
         eventEntity.setImage(imageEntity);
 
-        EventTypeEntity eventTypeEntity = eventTypeDAO.findById(eventCreateDTO.getEvenTypeId())
+        EventTypeEntity eventTypeEntity = eventTypeDAO.findById(eventCreateDTO.getEventTypeId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Type not found"));
 
         eventEntity.setEventType(eventTypeEntity);
 
-        eventEntity.setEvShortDescription(eventCreateDTO.getShortDescription());
-        eventEntity.setEvFullDescription(eventCreateDTO.getFullDescription());
-        eventEntity.setEvStartDate(eventCreateDTO.getStartDate());
-        eventEntity.setEvDeadline(eventCreateDTO.getDeadline());
-        eventEntity.setEvLocation((eventCreateDTO.getLocation()));
-        eventEntity.setEvCandidateRequirements((eventCreateDTO.getCandidateRequirements()));
+//        eventEntity.setEvStartDate(eventCreateDTO.getStartDate());
+//        eventEntity.setEvDeadline(eventCreateDTO.getDeadline());
+//        eventEntity.setEvDuration(eventCreateDTO.getDuration());
+//        eventEntity.setEvLocation((eventCreateDTO.getLocation()));
+//        eventEntity.setEvCandidateRequirements((eventCreateDTO.getCandidateRequirements()));
 
 
 
@@ -86,8 +94,11 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public EventResponseDTO update(Long id, EventUpdateDTO eventUpdateDTO) {
-        EventEntity eventEntity = eventDAO.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
+        EventEntity eventEntity = eventMapper.convertDtoToEntity(eventUpdateDTO);
+        eventEntity.setEvId(id);
+//        EventEntity eventEntity = eventDAO.findById(id)
+//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
+
 
         EmployeeEntity employeeEntity = employeeDAO.findById(eventUpdateDTO.getEmployeeId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found"));
@@ -104,15 +115,13 @@ public class EventServiceImpl implements EventService {
 
         eventEntity.setEventType(eventTypeEntity);
 
-        eventEntity.setEvShortDescription(eventUpdateDTO.getShortDescription());
-        eventEntity.setEvFullDescription(eventUpdateDTO.getFullDescription());
-        eventEntity.setEvStartDate(eventUpdateDTO.getStartDate());
-        eventEntity.setEvDeadline(eventUpdateDTO.getDeadline());
-        eventEntity.setEvLocation(eventUpdateDTO.getLocation());
-        eventEntity.setEvCandidateRequirements(eventUpdateDTO.getCandidateRequirements());
+//        eventEntity.setEvStartDate(eventUpdateDTO.getStartDate());
+//        eventEntity.setEvDeadline(eventUpdateDTO.getDeadline());
+//        eventEntity.setEvDuration(eventUpdateDTO.getDuration());
+//        eventEntity.setEvLocation(eventUpdateDTO.getLocation());
+//        eventEntity.setEvCandidateRequirements(eventUpdateDTO.getCandidateRequirements());
         
         eventEntity.setEvUpdatedAt(LocalDateTime.now());
-
         return eventMapper.convertEntityToDto(eventDAO.save(eventEntity));
     }
 

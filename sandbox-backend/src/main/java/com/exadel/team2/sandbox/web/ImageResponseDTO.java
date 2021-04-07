@@ -11,11 +11,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ImageResponseDTO {
 
-    private Long id;
-    private String path;
-    private String name;
-    private String ext;
-    private Integer size;
-    private LocalDateTime createdAt;
+    private Long imgId;
+    private String imgPath;
+    private String imageName;
+    private String imgExt;
+    private Integer imgSize;
+    private LocalDateTime imgCreatedAt;
 
 }

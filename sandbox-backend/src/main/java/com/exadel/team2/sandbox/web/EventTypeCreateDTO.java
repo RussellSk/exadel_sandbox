@@ -12,8 +12,8 @@ import javax.validation.constraints.NotNull;
 public class EventTypeCreateDTO {
     
     @NotNull
-    private String name;
+    private String evtName;
     @NotNull
-    private String description;
+    private String evtDescription;
 
 }

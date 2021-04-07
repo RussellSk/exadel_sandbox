@@ -6,6 +6,7 @@ import com.exadel.team2.sandbox.web.EventResponseDTO;
 import com.exadel.team2.sandbox.web.EventUpdateDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,14 +28,15 @@ public class EventController {
         return eventService.getAll();
     }
 
+
     @PostMapping
-    public EventResponseDTO createEvent(@RequestBody EventCreateDTO eventCreateDTO) {
+    public EventResponseDTO createEvent(@Validated @RequestBody EventCreateDTO eventCreateDTO) {
         return eventService.save(eventCreateDTO);
     }
 
     @PutMapping("/{id}")
 
-    public EventResponseDTO updateEvent(@PathVariable Long id, @RequestBody EventUpdateDTO eventUpdateDTO) {
+    public EventResponseDTO updateEvent(@Validated @PathVariable Long id, @RequestBody EventUpdateDTO eventUpdateDTO) {
         return eventService.update(id, eventUpdateDTO);
     }
 

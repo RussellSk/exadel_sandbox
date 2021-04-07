@@ -14,23 +14,16 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class EventResponseDTO {
 
-    private Long id;
-    private ImageCreateDTO image;
+    private Long evId;
+    private ImageResponseDTO image;
     private EmployeeDTO employee;
-    private EventTypeCreateDTO eventType;
-
+    private EventTypeResponseDTO eventType;
+    private LocalDate evStartDate;
+    private String evDuration;
+    private LocalDate evDeadline;
     @NotNull
-    private String shortDescription;
-    //    duration +
-    @NotNull
-    private String fullDescription;
-    private LocalDate startDate;
-    private LocalDate deadline;
-
-    @NotNull
-    private String location;
-    private String candidateRequirements;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-
+    private String evLocation;
+    private LocalDateTime evCreatedAt;
+    private LocalDateTime evUpdatedAt;
+    private String evCandidateRequirements;
 }
