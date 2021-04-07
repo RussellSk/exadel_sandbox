@@ -12,8 +12,6 @@ import com.exadel.team2.sandbox.mapper.EventMapper;
 import com.exadel.team2.sandbox.service.EventService;
 import com.exadel.team2.sandbox.web.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,12 +50,6 @@ public class EventServiceImpl implements EventService {
                 .collect(Collectors.toList());
     }
 
-//    @Override
-//    public Page<EventResponseDTO> getAllPageable(Pageable pageable) {
-//        return eventDAO.findAll(pageable)
-//                .map(eventMapper::convertEntityToDto);
-//    }
-
 
     @Override
     public EventResponseDTO save(EventCreateDTO eventCreateDTO) {
@@ -78,14 +70,6 @@ public class EventServiceImpl implements EventService {
 
         eventEntity.setEventType(eventTypeEntity);
 
-//        eventEntity.setEvStartDate(eventCreateDTO.getStartDate());
-//        eventEntity.setEvDeadline(eventCreateDTO.getDeadline());
-//        eventEntity.setEvDuration(eventCreateDTO.getDuration());
-//        eventEntity.setEvLocation((eventCreateDTO.getLocation()));
-//        eventEntity.setEvCandidateRequirements((eventCreateDTO.getCandidateRequirements()));
-
-
-
         eventEntity.setEvCreatedAt(LocalDateTime.now());
         eventDAO.save(eventEntity);
 
@@ -96,8 +80,6 @@ public class EventServiceImpl implements EventService {
     public EventResponseDTO update(Long id, EventUpdateDTO eventUpdateDTO) {
         EventEntity eventEntity = eventMapper.convertDtoToEntity(eventUpdateDTO);
         eventEntity.setEvId(id);
-//        EventEntity eventEntity = eventDAO.findById(id)
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
 
 
         EmployeeEntity employeeEntity = employeeDAO.findById(eventUpdateDTO.getEmployeeId())
@@ -115,12 +97,6 @@ public class EventServiceImpl implements EventService {
 
         eventEntity.setEventType(eventTypeEntity);
 
-//        eventEntity.setEvStartDate(eventUpdateDTO.getStartDate());
-//        eventEntity.setEvDeadline(eventUpdateDTO.getDeadline());
-//        eventEntity.setEvDuration(eventUpdateDTO.getDuration());
-//        eventEntity.setEvLocation(eventUpdateDTO.getLocation());
-//        eventEntity.setEvCandidateRequirements(eventUpdateDTO.getCandidateRequirements());
-        
         eventEntity.setEvUpdatedAt(LocalDateTime.now());
         return eventMapper.convertEntityToDto(eventDAO.save(eventEntity));
     }

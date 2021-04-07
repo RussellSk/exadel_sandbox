@@ -48,11 +48,6 @@ public class ImageServiceImpl implements ImageService {
     public ImageResponseDTO save(ImageCreateDTO imageCreateDTO) {
         ImageEntity imageEntity = imageMapper.convertDtoToEntity(imageCreateDTO);
 
-//        imageEntity.setImageName(imageCreateDTO.getName());
-//        imageEntity.setImgPath(imageCreateDTO.getPath());
-//        imageEntity.setImgExt(imageCreateDTO.getExt());
-//        imageEntity.setImgSize(imageCreateDTO.getSize());
-
         imageEntity.setImgCreatedAt(LocalDateTime.now());
         imageDAO.save(imageEntity);
         return imageMapper.convertEntityToDto(imageEntity);
@@ -62,13 +57,6 @@ public class ImageServiceImpl implements ImageService {
     public ImageResponseDTO update(Long id, ImageUpdateDTO imageUpdateDTO) {
         ImageEntity imageEntity = imageMapper.convertDtoToEntity(imageUpdateDTO);
         imageEntity.setImgId(id);
-//        ImageEntity imageEntity = imageDAO.findById(id)
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Image not found"));
-
-//        imageEntity.setImageName(imageUpdateDTO.getName());
-//        imageEntity.setImgPath(imageUpdateDTO.getPath());
-//        imageEntity.setImgExt(imageUpdateDTO.getExt());
-//        imageEntity.setImgSize(imageUpdateDTO.getSize());
 
         return imageMapper.convertEntityToDto(imageDAO.save(imageEntity));
     }

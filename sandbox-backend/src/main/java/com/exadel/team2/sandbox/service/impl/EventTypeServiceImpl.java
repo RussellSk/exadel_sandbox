@@ -48,8 +48,6 @@ public class EventTypeServiceImpl implements EventTypeService {
     public EventTypeResponseDTO save(EventTypeCreateDTO eventTypeCreateDTO) {
         EventTypeEntity eventTypeEntity = eventTypeMapper.convertDtoToEntity(eventTypeCreateDTO);
 
-//        eventTypeEntity.setEvtName(eventTypeCreateDTO.getName());
-//        eventTypeEntity.setEvtDescription(eventTypeCreateDTO.getDescription());
         eventTypeEntity.setEvtCreatedAt(LocalDateTime.now());
         eventTypeDAO.save(eventTypeEntity);
         return eventTypeMapper.convertEntityToDto(eventTypeEntity);
@@ -59,12 +57,6 @@ public class EventTypeServiceImpl implements EventTypeService {
     public EventTypeResponseDTO update(Long id, EventTypeUpdateDTO eventTypeUpdateDTO) {
         EventTypeEntity eventTypeEntity = eventTypeMapper.convertDtoToEntity(eventTypeUpdateDTO);
         eventTypeEntity.setEvtId(id);
-
-//        EventTypeEntity eventTypeEntity = eventTypeDAO.findById(id)
-//                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Type not found"));
-
-//        eventTypeEntity.setEvtName(eventTypeUpdateDTO.getEvtName());
-//        eventTypeEntity.setEvtDescription(eventTypeUpdateDTO.getEvtDescription());
 
         eventTypeEntity.setEvtUpdatedAt(LocalDateTime.now());
 
