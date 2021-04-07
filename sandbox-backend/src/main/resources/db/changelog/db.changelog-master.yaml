@@ -22,6 +22,10 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/2021.03.26_create_table_status_history.yaml
   - include:
+      file: db/changelog/changes/20210401_add_constraint_interview_feedback.yaml
+  - include:
+      file: db/changelog/changes/20210406_add_columns_employee.yaml
+  - include:
       file: db/changelog/changes/create-table-resume.yaml
   - include:
       file: db/changelog/changes/20210330_load_data.yaml
@@ -29,10 +33,6 @@ databaseChangeLog:
       file: db/changelog/changes/create-table-candidate.yaml
   - include:
       file: db/changelog/changes/create-table-interview-time.yaml
-  - include:
-      file: db/changelog/changes/20210401_add_constraint_interview_feedback.yaml
-  - include:
-      file: db/changelog/changes/20210406_add_columns_employee.yaml
   - include:
       file: db/changelog/changes/configure-sql-file.yaml
   - include:
