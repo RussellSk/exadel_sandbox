@@ -51,4 +51,4 @@ databaseChangeLog:
               - column:
                   name: STH_UPDATED_AT
                   type: DATETIME
-                  
+
