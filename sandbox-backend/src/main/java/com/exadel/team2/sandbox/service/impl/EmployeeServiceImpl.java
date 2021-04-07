@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -52,8 +53,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Page<ResponseEmployeeDto> getAllPageable(Pageable pageable) {
-        return employeeDAO.findAll(pageable)
+    public Page<ResponseEmployeeDto> getAllPageable(Pageable pageable, Specification<EmployeeEntity> specification) {
+        return employeeDAO.findAll(specification, pageable)
                 .map(employeeMapper::convertEntityToDto);
     }
 
