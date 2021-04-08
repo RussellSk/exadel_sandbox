@@ -1,6 +1,6 @@
 package com.exadel.team2.sandbox.entity;
 
-import jdk.jfr.Event;
+
 import liquibase.pro.packaged.T;
 import lombok.*;
 
