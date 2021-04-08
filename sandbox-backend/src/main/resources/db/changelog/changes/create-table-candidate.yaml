@@ -1,0 +1,83 @@
+databaseChangeLog:
+      - changeSet:
+          id: 2021.03.26-create-table-candidate.yaml
+          author: saranchuk_vadim
+          changes:
+            - createTable:
+                tableName: CANDIDATE
+                columns:
+                  - column:
+                      name: CN_ID
+                      type: INT
+                      autoIncrement: true
+                      constraints:
+                        primaryKey: true
+                        nullable: false
+                  - column:
+                      name: RSM_ID
+                      type: INT
+                      constraints:
+                        foreignKeyName: fk_candidate_resume
+                        onDelete: cascade
+                        onUpdate: cascade
+                        references: RESUME(RSM_ID)
+                  - column:
+                      name: CN_FIRST_NAME
+                      type: VARCHAR(50)
+                      constraints:
+                        nullable: false
+                  - column:
+                      name: CN_LAST_NAME
+                      type: VARCHAR(50)
+                      constraints:
+                        nullable: false
+                  - column:
+                      name: CN_PHONE
+                      type: VARCHAR(13)
+                      constraints:
+                        unique: true
+                        uniqueContraintName: number_phone_of_candidate
+                        nullable: false
+                  - column:
+                      name: CN_EMAIL
+                      type: VARCHAR(50)
+                      constraints:
+                        unique: true
+                        uniqueContraintName: email_of_candidate
+                        nullable: false
+                  - column:
+                      name: CN_SKYPE
+                      type: VARCHAR(50)
+                      constraints:
+                        nullable: false
+                  - column:
+                      name: CN_ENGLISH_LEVEL
+                      type: VARCHAR(20)
+                      constraints:
+                        nullable: false
+                  - column:
+                      name: CN_EXPERTISE
+                      type: VARCHAR(30)
+                      constraints:
+                        nullable: false
+                  - column:
+                      name: CN_EXPERIENCE
+                      type: TINYTEXT
+                      defaultValue: null
+                  - column:
+                      name: CN_EDUCATION
+                      type: TINYTEXT
+                      defaultValue: null
+                  - column:
+                      name: CN_LOCATION
+                      type: VARCHAR(50)
+                      constraints:
+                        nullable: false
+                  - column:
+                      name: CN_CREATED_AT
+                      type: DATETIME
+                      defaultValue: NOW()
+                  - column:
+                      name: CN_UPDATED_AT
+                      type: DATETIME
+                      defaultValue: null

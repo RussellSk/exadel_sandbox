@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 @Data
 @Entity
@@ -20,6 +21,13 @@ public class EmployeeEntity {
     @OneToOne
     @JoinColumn(name = "RL_ID", referencedColumnName = "RL_ID")
     private RoleEntity role;
+
+    @OneToMany(mappedBy = "employeeEntity", fetch = FetchType.EAGER)
+    private Collection<EventEntity> eventEntities;
+
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "EMP_ID")
+//    private InterviewTimeEntity interviewTimeEntity;
 
     @Column(name = "EMP_FIRST_NAME")
     private String empFirstName;
