@@ -37,13 +37,9 @@ public class EmployeeController {
             @RequestParam(value = "search") String search,
             @RequestParam(defaultValue = "0", name = "page") Integer page,
             @RequestParam(defaultValue = "15", name = "itemsPerPage") Integer itemsPerPage) {
-        try {
-            Node rootNode = new RSQLParser().parse(search);
-            Specification<EmployeeEntity> spec = rootNode.accept(new CustomRsqlVisitor<>());
-            return employeeService.getAllPageable(PageRequest.of(page, itemsPerPage), spec);
-        } catch (Exception ex) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, ex.getMessage());
-        }
+        Node rootNode = new RSQLParser().parse(search);
+        Specification<EmployeeEntity> spec = rootNode.accept(new CustomRsqlVisitor<>());
+        return employeeService.getAllPageable(PageRequest.of(page, itemsPerPage), spec);
     }
 
     @PostMapping
