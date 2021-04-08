@@ -1,7 +1,7 @@
-package com.exadel.team2.sandbox.mappers;
+package com.exadel.team2.sandbox.mapper;
 
 import com.exadel.team2.sandbox.entity.StatusHistory;
-import com.exadel.team2.sandbox.web.ResponseStatusHistoryDTO;
+import com.exadel.team2.sandbox.web.statushistory.ResponseStatusHistoryDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
@@ -11,12 +11,12 @@ public class StatusHistoryMapperDTO implements Mapper<StatusHistory, ResponseSta
 
 
     @Override
-    public StatusHistory convertToEntity(Object dto) {
+    public StatusHistory convertDtoToEntity(Object dto) {
         return mapper.map(dto, StatusHistory.class);
     }
 
     @Override
-    public ResponseStatusHistoryDTO convertToDto(StatusHistory entity) {
+    public ResponseStatusHistoryDTO convertEntityToDto(StatusHistory entity) {
         return mapper.map(entity,ResponseStatusHistoryDTO.class);
     }
 }

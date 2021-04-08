@@ -2,12 +2,13 @@ package com.exadel.team2.sandbox.controller;
 
 
 import com.exadel.team2.sandbox.service.StatusHistoryService;
-import com.exadel.team2.sandbox.web.CreateStatusHistoryDTO;
-import com.exadel.team2.sandbox.web.ResponseStatusHistoryDTO;
-import com.exadel.team2.sandbox.web.UpdateStatusHistoryDTO;
+import com.exadel.team2.sandbox.web.statushistory.CreateStatusHistoryDTO;
+import com.exadel.team2.sandbox.web.statushistory.ResponseStatusHistoryDTO;
+import com.exadel.team2.sandbox.web.statushistory.UpdateStatusHistoryDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,19 +24,19 @@ public class StatusHistoryController {
     }
 
     @GetMapping("/all")
-    public Page<ResponseStatusHistoryDTO> findAllStatusHistory(@RequestParam(defaultValue = "0", name = "page") Integer page,
-                                                               @RequestParam(defaultValue = "15", name = "size") Integer size) {
-        return historyService.findAll(PageRequest.of(page, size));
+    public Page<ResponseStatusHistoryDTO> findAllStatusHistoryPageable(@RequestParam(defaultValue = "0", name = "page") Integer page,
+                                                                       @RequestParam(defaultValue = "15", name = "size") Integer size) {
+        return historyService.findAllPageable(PageRequest.of(page, size));
     }
 
     @PostMapping
-    public ResponseStatusHistoryDTO saveStatusHistory(@RequestBody CreateStatusHistoryDTO statusHistoryDTO) {
+    public ResponseStatusHistoryDTO saveStatusHistory(@Validated @RequestBody CreateStatusHistoryDTO statusHistoryDTO) {
         return historyService.save(statusHistoryDTO);
     }
 
     @PutMapping("/{id}")
     public ResponseStatusHistoryDTO updateStatusHistory(@PathVariable("id") Long id,
-                                                        @RequestBody UpdateStatusHistoryDTO updateStatusHistoryDTO) {
+                                                        @Validated @RequestBody UpdateStatusHistoryDTO updateStatusHistoryDTO) {
         return historyService.update(id, updateStatusHistoryDTO);
     }
 

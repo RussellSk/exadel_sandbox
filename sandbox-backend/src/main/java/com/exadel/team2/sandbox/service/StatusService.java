@@ -1,8 +1,8 @@
 package com.exadel.team2.sandbox.service;
 
-import com.exadel.team2.sandbox.web.CreateStatusDTO;
-import com.exadel.team2.sandbox.web.ResponseStatusDTO;
-import com.exadel.team2.sandbox.web.UpdateStatusDTO;
+import com.exadel.team2.sandbox.web.status.CreateStatusDTO;
+import com.exadel.team2.sandbox.web.status.ResponseStatusDTO;
+import com.exadel.team2.sandbox.web.status.UpdateStatusDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -12,7 +12,7 @@ public interface StatusService {
 
     ResponseStatusDTO findById(Long id);
 
-    Page<ResponseStatusDTO> findAll(Pageable pageable);
+    Page<ResponseStatusDTO> findAllPageable(Pageable pageable);
 
     List<ResponseStatusDTO> findAll();
 
