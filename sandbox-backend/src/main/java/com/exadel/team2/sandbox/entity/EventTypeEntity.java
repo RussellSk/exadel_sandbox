@@ -7,7 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -20,9 +20,6 @@ public class EventTypeEntity {
     @Column(name = "EVT_ID")
     private Long evtId;
 
-    @OneToOne(mappedBy = "eventType", cascade = {CascadeType.PERSIST, CascadeType.REFRESH} )
-    private EventEntity event;
-
     @Column(name = "EVT_NAME")
     private String evtName;
 
@@ -31,11 +28,10 @@ public class EventTypeEntity {
 
     @CreationTimestamp
     @Column(name = "EVT_CREATED_AT")
-    private LocalDate evtCreatedAt;
+    private LocalDateTime evtCreatedAt;
 
     @UpdateTimestamp
     @Column(name = "EVT_UPDATED_AT")
-    private LocalDate evtUpdatedAt;
-
+    private LocalDateTime evtUpdatedAt;
 
 }
