@@ -12,6 +12,8 @@ import com.exadel.team2.sandbox.mapper.EventMapper;
 import com.exadel.team2.sandbox.service.EventService;
 import com.exadel.team2.sandbox.web.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,6 +50,12 @@ public class EventServiceImpl implements EventService {
         return eventEntities.stream()
                 .map(eventMapper::convertEntityToDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<EventResponseDTO> getAllPageable(Pageable pageable) {
+        return eventDAO.findAll(pageable)
+                .map(eventMapper::convertEntityToDto);
     }
 
 

@@ -1,5 +1,6 @@
 package com.exadel.team2.sandbox.web;
 
+import com.exadel.team2.sandbox.web.employee.ResponseEmployeeDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ public class EventResponseDTO {
 
     private Long evId;
     private ImageResponseDTO image;
-    private EmployeeDTO employee;
+    private ResponseEmployeeDto employee;
     private EventTypeResponseDTO eventType;
     private LocalDate evStartDate;
     private String evDuration;
