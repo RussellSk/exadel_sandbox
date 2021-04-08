@@ -22,21 +22,6 @@ public class EventEntity {
     private Long evId;
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH} )
-    @JoinColumn(name = "IMG_ID")
-    private ImageEntity image;
-
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "EV_ID", insertable = false, updatable = false)
-//    private CandidateEntity candidateEntity;
-
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "EV_ID", insertable = false, updatable = false)
-//    private InterviewTimeEntity interviewTimeEntity;
-
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH} )
-    @JoinColumn(name = "EMP_ID")
-    private EmployeeEntity employeeEntity;
-  
     @JoinColumn(name = "IMG_ID", referencedColumnName = "IMG_ID")
     private ImageEntity image;
 
