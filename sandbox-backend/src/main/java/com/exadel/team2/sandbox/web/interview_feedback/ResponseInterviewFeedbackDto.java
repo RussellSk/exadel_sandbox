@@ -1,7 +1,8 @@
 package com.exadel.team2.sandbox.web.interview_feedback;
 
-import lombok.Data;
+import com.exadel.team2.sandbox.dto.CandidateResponseDTO;
 import com.exadel.team2.sandbox.web.employee.ResponseEmployeeDto;
+import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -19,5 +20,5 @@ public class ResponseInterviewFeedbackDto {
     @NotNull
     private ResponseEmployeeDto employee;
     @NotNull
-    private ResponseCandidateDto candidate;
+    private CandidateResponseDTO candidate;
 }

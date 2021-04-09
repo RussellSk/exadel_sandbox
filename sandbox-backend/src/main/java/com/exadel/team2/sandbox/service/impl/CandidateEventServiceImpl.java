@@ -1,16 +1,16 @@
 package com.exadel.team2.sandbox.service.impl;
 
 
+import com.exadel.team2.sandbox.dao.CandidateDAO;
 import com.exadel.team2.sandbox.dao.CandidateEventDAO;
 import com.exadel.team2.sandbox.dao.EventDAO;
+import com.exadel.team2.sandbox.entity.CandidateEntity;
 import com.exadel.team2.sandbox.entity.CandidateEventEntity;
 import com.exadel.team2.sandbox.entity.EventEntity;
 import com.exadel.team2.sandbox.mapper.CandidateEventMapper;
 import com.exadel.team2.sandbox.service.CandidateEventService;
 import com.exadel.team2.sandbox.web.candidate_event.CreateCandidateEventDto;
 import com.exadel.team2.sandbox.web.candidate_event.ResponseCandidateEventDto;
-import com.exadel.team2.sandbox.web.candidate_event.UpdateCandidateEventDto;
-import liquibase.pro.packaged.E;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -52,15 +52,15 @@ public class CandidateEventServiceImpl implements CandidateEventService {
 
     @Override
     public ResponseCandidateEventDto save(CreateCandidateEventDto createCandidateEventDto) {
-        CandidateEventEntity candidateEventEntity = candidateEventMapper.convertDtoToEntity();
+        CandidateEventEntity candidateEventEntity = candidateEventMapper.convertDtoToEntity(createCandidateEventDto);
 
         EventEntity eventEntity = eventDAO.findById(createCandidateEventDto.getIdEvent())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
         candidateEventEntity.setEvent(eventEntity);
 
-        List<CandidateEntity> candidateEntity = candidateDAO.findById(createCandidateEventDto.getIdCandidate())
+         CandidateEntity candidateEntity =   candidateDAO.findById(createCandidateEventDto.getIdCandidate())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Candidate not found"));
-        candidateEventEntity.setCandidates(candidateEntity);
+        candidateEventEntity.setCandidates((List<CandidateEntity>) candidateEntity);
 
         candidateEventEntity.setCreatedAt(LocalDateTime.now());
         candidateEventDAO.save(candidateEventEntity);

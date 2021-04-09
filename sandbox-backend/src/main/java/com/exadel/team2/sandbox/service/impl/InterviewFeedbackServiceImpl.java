@@ -1,8 +1,10 @@
 package com.exadel.team2.sandbox.service.impl;
 
 
+import com.exadel.team2.sandbox.dao.CandidateDAO;
 import com.exadel.team2.sandbox.dao.EmployeeDAO;
 import com.exadel.team2.sandbox.dao.InterviewFeedbackDAO;
+import com.exadel.team2.sandbox.entity.CandidateEntity;
 import com.exadel.team2.sandbox.entity.EmployeeEntity;
 import com.exadel.team2.sandbox.entity.InterviewFeedbackEntity;
 import com.exadel.team2.sandbox.mapper.InterviewFeedbackMapper;

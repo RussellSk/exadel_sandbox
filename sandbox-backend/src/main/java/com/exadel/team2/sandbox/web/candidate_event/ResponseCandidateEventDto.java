@@ -1,11 +1,12 @@
 package com.exadel.team2.sandbox.web.candidate_event;
 
+import com.exadel.team2.sandbox.entity.CandidateEntity;
 import com.exadel.team2.sandbox.entity.EventEntity;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class ResponseCandidateEventDto {
