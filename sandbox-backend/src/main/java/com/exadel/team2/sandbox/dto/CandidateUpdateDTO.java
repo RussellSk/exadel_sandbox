@@ -1,6 +1,8 @@
 package com.exadel.team2.sandbox.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +15,8 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 @NoArgsConstructor
-
+@AllArgsConstructor
+@Builder
 public class CandidateUpdateDTO {
 
     private Long id;
