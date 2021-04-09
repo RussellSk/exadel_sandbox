@@ -5,11 +5,12 @@ import com.exadel.team2.sandbox.service.EventService;
 import com.exadel.team2.sandbox.web.EventResponseDTO;
 import com.exadel.team2.sandbox.web.EventUpdateDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,10 +25,11 @@ public class EventController {
     }
 
     @GetMapping("/all")
-    public List<EventResponseDTO> getAllEvents() {
-        return eventService.getAll();
+    public Page<EventResponseDTO> getAllEvents(
+            @RequestParam(defaultValue = "0", name = "page") Integer page,
+            @RequestParam(defaultValue = "9", name = "numberOfEventsPerPage") Integer number) {
+        return eventService.getAllPageable(PageRequest.of(page, number));
     }
-
 
     @PostMapping
     public EventResponseDTO createEvent(@Validated @RequestBody EventCreateDTO eventCreateDTO) {
