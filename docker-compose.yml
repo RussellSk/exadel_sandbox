@@ -15,11 +15,12 @@ services:
   sandboxservice:
     image: sandbox
     container_name: sandbox-app
+    network_mode: "host"
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "8085:8085"
     restart: always
     depends_on:
       - "db"
