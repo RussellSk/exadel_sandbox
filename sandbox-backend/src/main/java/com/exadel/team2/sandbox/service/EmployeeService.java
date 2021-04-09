@@ -13,7 +13,7 @@ import java.util.List;
 public interface EmployeeService {
     ResponseEmployeeDto getById(Long id);
     List<ResponseEmployeeDto> getAll();
-    Page<ResponseEmployeeDto> getAllPageable(Pageable pageable, Specification<EmployeeEntity> specification);
+    Page<ResponseEmployeeDto> getAllPageable(Pageable pageable, String search);
     ResponseEmployeeDto save(CreateEmployeeDto createEmployeeDTO);
     ResponseEmployeeDto update(Long id, UpdateEmployeeDto updateEmployeeDto);
     void delete(Long id);

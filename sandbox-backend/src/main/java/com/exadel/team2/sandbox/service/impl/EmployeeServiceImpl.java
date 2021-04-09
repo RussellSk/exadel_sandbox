@@ -2,6 +2,7 @@ package com.exadel.team2.sandbox.service.impl;
 
 import com.exadel.team2.sandbox.dao.EmployeeDAO;
 import com.exadel.team2.sandbox.dao.RoleDAO;
+import com.exadel.team2.sandbox.dao.rsql.CustomRsqlVisitor;
 import com.exadel.team2.sandbox.entity.EmployeeEntity;
 import com.exadel.team2.sandbox.entity.RoleEntity;
 import com.exadel.team2.sandbox.mapper.EmployeeMapper;
@@ -10,6 +11,8 @@ import com.exadel.team2.sandbox.service.RoleService;
 import com.exadel.team2.sandbox.web.employee.CreateEmployeeDto;
 import com.exadel.team2.sandbox.web.employee.ResponseEmployeeDto;
 import com.exadel.team2.sandbox.web.employee.UpdateEmployeeDto;
+import cz.jirutka.rsql.parser.RSQLParser;
+import cz.jirutka.rsql.parser.ast.Node;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
@@ -53,8 +56,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Page<ResponseEmployeeDto> getAllPageable(Pageable pageable, Specification<EmployeeEntity> specification) {
-        return employeeDAO.findAll(specification, pageable)
+    public Page<ResponseEmployeeDto> getAllPageable(Pageable pageable, String search) {
+        Node rootNode = new RSQLParser().parse(search);
+        Specification<EmployeeEntity> spec = rootNode.accept(new CustomRsqlVisitor<>());
+        return employeeDAO.findAll(spec, pageable)
                 .map(employeeMapper::convertEntityToDto);
     }
 

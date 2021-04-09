@@ -1,25 +1,19 @@
 package com.exadel.team2.sandbox.controller;
 
-import com.exadel.team2.sandbox.dao.rsql.CustomRsqlVisitor;
-import com.exadel.team2.sandbox.entity.EmployeeEntity;
 import com.exadel.team2.sandbox.service.EmployeeService;
 import com.exadel.team2.sandbox.web.employee.CreateEmployeeDto;
 import com.exadel.team2.sandbox.web.employee.ResponseEmployeeDto;
 import com.exadel.team2.sandbox.web.employee.UpdateEmployeeDto;
-import cz.jirutka.rsql.parser.RSQLParser;
-import cz.jirutka.rsql.parser.RSQLParserException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import cz.jirutka.rsql.parser.ast.Node;
-import org.springframework.web.server.ResponseStatusException;
 
+@Slf4j
 @RestController
 @RequestMapping(value = "employees")
 @RequiredArgsConstructor
@@ -37,9 +31,7 @@ public class EmployeeController {
             @RequestParam(value = "search") String search,
             @RequestParam(defaultValue = "0", name = "page") Integer page,
             @RequestParam(defaultValue = "15", name = "itemsPerPage") Integer itemsPerPage) {
-        Node rootNode = new RSQLParser().parse(search);
-        Specification<EmployeeEntity> spec = rootNode.accept(new CustomRsqlVisitor<>());
-        return employeeService.getAllPageable(PageRequest.of(page, itemsPerPage), spec);
+        return employeeService.getAllPageable(PageRequest.of(page, itemsPerPage), search);
     }
 
     @PostMapping
