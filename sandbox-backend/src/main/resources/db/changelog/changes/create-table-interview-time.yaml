@@ -2,6 +2,11 @@ databaseChangeLog:
   - changeSet:
       id: 2021.03.26-create-table-interview-time.yaml
       author: saranchuk_vadim
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          tableExists:
+            tableName: INTERVIEW_TIME
       changes:
         - createTable:
             tableName: INTERVIEW_TIME
