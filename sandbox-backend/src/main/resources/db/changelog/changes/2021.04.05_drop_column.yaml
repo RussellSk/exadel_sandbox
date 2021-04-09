@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id:  dropColumn-short-description
+      author:  vadblagiy@gmail.com
+      preConditions:
+        onFail: MARK_RAN
+        not:
+        columnExists:
+          tableName: EVENT
+          columnName: EV_SHORT_DESCRIPTION
+      changes:
+        - dropColumn:
+            columnName:  EV_SHORT_DESCRIPTION
+            schemaName:  sandbox
+            tableName:  EVENT
+  - changeSet:
+      id:  dropColumn-full-description
+      author:  vadblagiy@gmail.com
+      preConditions:
+        onFail: MARK_RAN
+        not:
+        columnExists:
+          tableName: EVENT
+          columnName: EV_FULL_DESCRIPTION
+      changes:
+        - dropColumn:
+            columnName:  EV_FULL_DESCRIPTION
+            schemaName:  sandbox
+            tableName:  EVENT

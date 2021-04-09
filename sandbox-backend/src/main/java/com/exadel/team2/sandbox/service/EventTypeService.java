@@ -1,17 +1,16 @@
 package com.exadel.team2.sandbox.service;
 
-import com.exadel.team2.sandbox.entity.EventTypeEntity;
+import com.exadel.team2.sandbox.web.EventTypeCreateDTO;
+import com.exadel.team2.sandbox.web.EventTypeResponseDTO;
+import com.exadel.team2.sandbox.web.EventTypeUpdateDTO;
+
 import java.util.List;
 
 public interface EventTypeService {
 
-    EventTypeEntity getById (Long evtId);
-
-    List<EventTypeEntity> getAll();
-
-    EventTypeEntity save(EventTypeEntity eventTypeEntity);
-
-    EventTypeEntity update(EventTypeEntity eventTypeEntity);
-
+    EventTypeResponseDTO getById (Long Id);
+    List<EventTypeResponseDTO> getAll();
+    EventTypeResponseDTO save(EventTypeCreateDTO eventTypeCreateDTO);
+    EventTypeResponseDTO update(Long id, EventTypeUpdateDTO eventTypeUpdateDTO);
     void delete(Long evtId);
 }
