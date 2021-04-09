@@ -8,25 +8,25 @@ import org.modelmapper.ModelMapper;
 
 import javax.persistence.*;
 
-public class TestModelMap {
+public class TestModelMapper {
     private final static ModelMapper modelMapper = new ModelMapper();
 
     @Test
     public void checkCandidateMapper() {
         CandidateUpdateDTO candidateUpdateDTO = CandidateUpdateDTO.builder()
-                .cn_email("///")
-                .cn_english_level("...")
-                .cn_first_name("...")
-                .cn_phone("...")
-                .cn_skype("...")
-                .cn_location("...")
+                .email("///")
+                .englishLevel("...")
+                .firstName("...")
+                .phone("...")
+                .skype("...")
+                .location("...")
                 .id(1L)
-                .rsm_id(1L)
+                .rsmId(1L)
                 .build();
 
         CandidateEntity candidateEntity = modelMapper
                 .map(candidateUpdateDTO, CandidateEntity.class);
 
-        assertEquals(candidateUpdateDTO.getCn_phone(), candidateEntity.getCn_phone());
+        assertEquals(candidateUpdateDTO.getPhone(), candidateEntity.getPhone());
     }
 }
