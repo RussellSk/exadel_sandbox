@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id:  modifyDataType_05042021
+      author:  vadblagiy@gmail.com
+      preConditions:
+        onFail: CONTINUE
+        tableExists:
+          tableName: EVENT
+      changes:
+        - modifyDataType:
+            columnName:  EV_DURATION
+            newDataType:  VARCHAR(50)
+            schemaName:  sandbox
+            tableName:  EVENT

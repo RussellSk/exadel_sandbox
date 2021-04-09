@@ -1,0 +1,49 @@
+databaseChangeLog:
+  - changeSet:
+      id: addForeignKeyConstraint-event-image
+      author: vadblagiy@gmail.com
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            - foreignKeyConstraintExists:
+                 foreignKeyName:  fk_EVENT_contact_IMAGE
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: IMG_ID
+            baseTableName: EVENT
+            constraintName: FK_IMAGE
+            referencedColumnNames: IMG_ID
+            referencedTableName: IMAGE
+            referencedTableSchemaName: sandbox
+  - changeSet:
+        id: addForeignKeyConstraint-event-eventType
+        author: vadblagiy@gmail.com
+        preConditions:
+            - onFail: MARK_RAN
+              not:
+                  - foreignKeyConstraintExists:
+                        foreignKeyName:  fk_EVENT_contact_EVENT_TYPE
+        changes:
+            - addForeignKeyConstraint:
+                  baseColumnNames: EVT_ID
+                  baseTableName: EVENT
+                  constraintName: FK_EVENT_TYPE
+                  referencedColumnNames: EVT_ID
+                  referencedTableName: EVENT_TYPE
+                  referencedTableSchemaName: sandbox
+  - changeSet:
+        id: addForeignKeyConstraint-event-employee
+        author: vadblagiy@gmail.com
+        preConditions:
+            - onFail: MARK_RAN
+              not:
+                  - foreignKeyConstraintExists:
+                        foreignKeyName:  fk_EVENT_contact_EMPLOYEE
+        changes:
+            - addForeignKeyConstraint:
+                  baseColumnNames: EMP_ID
+                  baseTableName: EVENT
+                  constraintName: FK_EMPLOYEE
+                  referencedColumnNames: EMP_ID
+                  referencedTableName: EMPLOYEE
+                  referencedTableSchemaName: sandbox

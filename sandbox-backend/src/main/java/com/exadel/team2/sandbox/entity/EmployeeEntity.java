@@ -1,7 +1,6 @@
 package com.exadel.team2.sandbox.entity;
 
 import lombok.Data;
-import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
