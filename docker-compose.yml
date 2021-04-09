@@ -15,6 +15,7 @@ services:
   sandboxservice:
     image: sandbox
     container_name: sandbox-app
+    network_mode: "host"
     build:
       context: .
       dockerfile: Dockerfile
