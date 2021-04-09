@@ -20,7 +20,7 @@ class ErrorHandlingControllerAdvice {
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    ValidationErrorResponse onConstraintValidationException(ConstraintViolationException e) {
+    public ValidationErrorResponse onConstraintValidationException(ConstraintViolationException e) {
         ValidationErrorResponse error = new ValidationErrorResponse();
         for (ConstraintViolation violation : e.getConstraintViolations()) {
             error.getViolations().add(new ValidationError(violation.getPropertyPath().toString(), violation.getMessage()));
@@ -31,7 +31,7 @@ class ErrorHandlingControllerAdvice {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    ValidationErrorResponse onMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    public ValidationErrorResponse onMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         ValidationErrorResponse error = new ValidationErrorResponse();
         for (FieldError fieldError : e.getBindingResult().getFieldErrors()) {
             error.getViolations().add(new ValidationError(fieldError.getField(), fieldError.getDefaultMessage()));
@@ -42,7 +42,7 @@ class ErrorHandlingControllerAdvice {
     @ExceptionHandler(RSQLParserException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    ValidationErrorResponse onRsqlParserException(RSQLParserException e) {
+    public ValidationErrorResponse onRsqlParserException(RSQLParserException e) {
         ValidationErrorResponse error = new ValidationErrorResponse();
         error.getViolations().add(new ValidationError("search", e.getMessage()));
         return error;
