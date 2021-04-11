@@ -19,16 +19,18 @@ public class EventController {
 
     private final EventService eventService;
 
+
     @GetMapping("/{id}")
     public EventResponseDTO getEventById(@PathVariable Long id) {
         return eventService.getById(id);
     }
 
     @GetMapping("/all")
-    public Page<EventResponseDTO> getAllEvents(
+    public Page<EventResponseDTO> getAllEventsWithRsql(
+            @RequestParam(value = "search") String search,
             @RequestParam(defaultValue = "0", name = "page") Integer page,
             @RequestParam(defaultValue = "9", name = "numberOfEventsPerPage") Integer number) {
-        return eventService.getAllPageable(PageRequest.of(page, number));
+        return eventService.getAllPageable(PageRequest.of(page, number), search);
     }
 
     @PostMapping

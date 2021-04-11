@@ -4,6 +4,7 @@ import com.exadel.team2.sandbox.dao.EmployeeDAO;
 import com.exadel.team2.sandbox.dao.EventDAO;
 import com.exadel.team2.sandbox.dao.EventTypeDAO;
 import com.exadel.team2.sandbox.dao.ImageDAO;
+import com.exadel.team2.sandbox.dao.rsql.CustomRsqlVisitor;
 import com.exadel.team2.sandbox.entity.EmployeeEntity;
 import com.exadel.team2.sandbox.entity.EventEntity;
 import com.exadel.team2.sandbox.entity.EventTypeEntity;
@@ -11,9 +12,12 @@ import com.exadel.team2.sandbox.entity.ImageEntity;
 import com.exadel.team2.sandbox.mapper.EventMapper;
 import com.exadel.team2.sandbox.service.EventService;
 import com.exadel.team2.sandbox.web.*;
+import cz.jirutka.rsql.parser.RSQLParser;
+import cz.jirutka.rsql.parser.ast.Node;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,8 +57,10 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Page<EventResponseDTO> getAllPageable(Pageable pageable) {
-        return eventDAO.findAll(pageable)
+    public Page<EventResponseDTO> getAllPageable(Pageable pageable, String search) {
+        Node rootNode = new RSQLParser().parse(search);
+        Specification<EventEntity> specification = rootNode.accept(new CustomRsqlVisitor<>());
+        return eventDAO.findAll(specification, pageable)
                 .map(eventMapper::convertEntityToDto);
     }
 
@@ -109,8 +115,10 @@ public class EventServiceImpl implements EventService {
         return eventMapper.convertEntityToDto(eventDAO.save(eventEntity));
     }
 
+
     @Override
-    public void delete(Long id) {
+    public String delete(Long id) {
         eventDAO.deleteById(id);
+        return "Event with ID = " + id + " was successful removed";
     }
 }
