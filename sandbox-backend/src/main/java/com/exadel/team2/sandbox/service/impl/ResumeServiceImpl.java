@@ -8,6 +8,7 @@ import com.exadel.team2.sandbox.entity.ResumeEntity;
 import com.exadel.team2.sandbox.mapper.ModelMap;
 import com.exadel.team2.sandbox.service.ResumeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,8 +33,8 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
-    public List<ResumeResponseDTO> getAll() {
-        return resumeDAO.findAll().stream().map((ResumeEntity entity) ->
+    public List<ResumeResponseDTO> getAll(Pageable pageable) {
+        return resumeDAO.findAll(pageable).stream().map((ResumeEntity entity) ->
                 (ResumeResponseDTO) modelMap.convertTo(entity, ResumeResponseDTO.class))
                 .collect(Collectors.toList());
     }

@@ -8,6 +8,7 @@ import com.exadel.team2.sandbox.entity.InterviewTimeEntity;
 import com.exadel.team2.sandbox.mapper.ModelMap;
 import com.exadel.team2.sandbox.service.InterviewTimeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,8 +32,8 @@ public class InterviewTimeServiceImpl implements InterviewTimeService {
     }
 
     @Override
-    public List<InterviewTimeResponseDTO> getAll() {
-        return interviewTimeDAO.findAll()
+    public List<InterviewTimeResponseDTO> getAll(Pageable pageable) {
+        return interviewTimeDAO.findAll(pageable)
                 .stream().map((InterviewTimeEntity interviewTimeEntity) ->
                         (InterviewTimeResponseDTO) modelMap
                                 .convertTo(interviewTimeEntity, InterviewTimeResponseDTO.class))

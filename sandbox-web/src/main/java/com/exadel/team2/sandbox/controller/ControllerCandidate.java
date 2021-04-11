@@ -5,6 +5,9 @@ import com.exadel.team2.sandbox.dto.CandidateResponseDTO;
 import com.exadel.team2.sandbox.dto.CandidateUpdateDTO;
 import com.exadel.team2.sandbox.service.impl.CandidateServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,8 +25,9 @@ public class ControllerCandidate {
     }
 
     @GetMapping
-    public List<CandidateResponseDTO> getAllCandidates() {
-        return candidateService.getAll();
+    public List<CandidateResponseDTO> getAllCandidates(
+            @PageableDefault(sort = {"id"}, size = 2, direction = Sort.Direction.ASC) Pageable pageable) {
+        return candidateService.getAll(pageable);
     }
 
 

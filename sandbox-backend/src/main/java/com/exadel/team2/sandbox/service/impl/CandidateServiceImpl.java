@@ -8,6 +8,7 @@ import com.exadel.team2.sandbox.entity.CandidateEntity;
 import com.exadel.team2.sandbox.mapper.ModelMap;
 import com.exadel.team2.sandbox.service.CandidateService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,8 +32,8 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public List<CandidateResponseDTO> getAll() {
-        return candidateDAO.findAll().stream()
+    public List<CandidateResponseDTO> getAll(Pageable pageable) {
+        return candidateDAO.findAll(pageable).stream()
                 .map((CandidateEntity candidateEntity) ->
                         (CandidateResponseDTO) modelMap.convertTo(
                                 candidateEntity, CandidateResponseDTO.class))
