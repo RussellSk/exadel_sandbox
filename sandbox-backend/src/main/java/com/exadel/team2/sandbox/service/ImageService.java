@@ -12,6 +12,6 @@ public interface ImageService {
     List<ImageResponseDTO> getAll();
     ImageResponseDTO save(ImageCreateDTO imageCreateDTO);
     ImageResponseDTO update(Long id, ImageUpdateDTO imageUpdateDTO);
-    void delete(Long imgId);
+    String delete(Long imgId);
 
 }

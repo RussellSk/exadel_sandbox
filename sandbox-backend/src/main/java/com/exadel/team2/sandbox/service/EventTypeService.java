@@ -12,5 +12,5 @@ public interface EventTypeService {
     List<EventTypeResponseDTO> getAll();
     EventTypeResponseDTO save(EventTypeCreateDTO eventTypeCreateDTO);
     EventTypeResponseDTO update(Long id, EventTypeUpdateDTO eventTypeUpdateDTO);
-    void delete(Long evtId);
+    String delete(Long evtId);
 }

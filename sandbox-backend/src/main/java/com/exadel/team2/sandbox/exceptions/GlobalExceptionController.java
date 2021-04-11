@@ -13,4 +13,6 @@ public class GlobalExceptionController {
     public ResponseEntity<Object> eventNotFound (EventNotFoundException eventNotFoundException){
         return new ResponseEntity<>("Event not found! ", HttpStatus.NOT_FOUND);
     }
+
+
 }
