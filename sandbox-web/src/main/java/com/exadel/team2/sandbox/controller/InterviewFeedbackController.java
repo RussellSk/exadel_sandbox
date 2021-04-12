@@ -24,9 +24,10 @@ public class InterviewFeedbackController {
 
     @GetMapping
     public Page<ResponseInterviewFeedbackDto> getAllInterviewFeedback(
+            @RequestParam(value = "search") String search,
             @RequestParam(defaultValue = "0", name = "page") Integer page,
             @RequestParam(defaultValue = "15", name = "itemsPerPage") Integer itemsPerPage) {
-        return interviewFeedbackService.getAllPageable(PageRequest.of(page, itemsPerPage));
+        return interviewFeedbackService.getAllPageable(PageRequest.of(page, itemsPerPage),search);
     }
 
     @PostMapping
