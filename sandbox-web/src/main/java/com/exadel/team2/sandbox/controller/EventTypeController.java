@@ -5,7 +5,6 @@ import com.exadel.team2.sandbox.web.EventTypeCreateDTO;
 import com.exadel.team2.sandbox.web.EventTypeResponseDTO;
 import com.exadel.team2.sandbox.web.EventTypeUpdateDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

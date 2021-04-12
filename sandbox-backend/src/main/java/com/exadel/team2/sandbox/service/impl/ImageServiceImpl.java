@@ -2,7 +2,7 @@ package com.exadel.team2.sandbox.service.impl;
 
 import com.exadel.team2.sandbox.dao.ImageDAO;
 import com.exadel.team2.sandbox.entity.ImageEntity;
-import com.exadel.team2.sandbox.exceptions.EventNotFoundException;
+import com.exadel.team2.sandbox.exceptions.NoSuchException;
 import com.exadel.team2.sandbox.mapper.ImageMapper;
 import com.exadel.team2.sandbox.service.ImageService;
 import com.exadel.team2.sandbox.web.ImageCreateDTO;
@@ -27,7 +27,7 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public ImageResponseDTO getById(Long id) {
         ImageEntity imageEntity = imageDAO.findById(id)
-                .orElseThrow(() -> new EventNotFoundException());
+                .orElseThrow(() -> new NoSuchException("Image with ID = " + id + " not found in Database" ));
         return imageMapper.convertEntityToDto(imageEntity);
     }
 
@@ -36,7 +36,7 @@ public class ImageServiceImpl implements ImageService {
     public List<ImageResponseDTO> getAll() {
         List<ImageEntity> imageEntities = imageDAO.findAll();
         if (imageEntities.isEmpty()) {
-            throw new EventNotFoundException();
+            throw new NoSuchException("Not found images in Database");
         }
         return imageEntities.stream()
                 .map(imageMapper::convertEntityToDto)
@@ -57,7 +57,7 @@ public class ImageServiceImpl implements ImageService {
         ImageEntity imageEntity = imageMapper.convertDtoToEntity(imageUpdateDTO);
         imageEntity.setImgId(id);
         ImageEntity ifImageNotFound = imageDAO.findById(id)
-                .orElseThrow(() -> new EventNotFoundException());
+                .orElseThrow(() -> new NoSuchException("Image with ID = " + id + " not found in Database" ));
 
         return imageMapper.convertEntityToDto(imageDAO.save(imageEntity));
     }
@@ -66,7 +66,9 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public String delete(Long id) {
         ImageEntity imageRemove = imageDAO.findById(id)
-                .orElseThrow(() -> new EventNotFoundException());
+                .orElseThrow(() -> new NoSuchException
+                        ("Image with ID = " + id + " not found in Database." +
+                                " Unable to delete an image that does not exist."));
         imageDAO.deleteById(id);
         return "Image with ID = " + id + " was successful removed";
     }

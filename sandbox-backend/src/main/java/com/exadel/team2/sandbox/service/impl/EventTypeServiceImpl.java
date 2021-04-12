@@ -2,7 +2,7 @@ package com.exadel.team2.sandbox.service.impl;
 
 import com.exadel.team2.sandbox.dao.EventTypeDAO;
 import com.exadel.team2.sandbox.entity.EventTypeEntity;
-import com.exadel.team2.sandbox.exceptions.EventNotFoundException;
+import com.exadel.team2.sandbox.exceptions.NoSuchException;
 import com.exadel.team2.sandbox.mapper.EventTypeMapper;
 import com.exadel.team2.sandbox.service.EventTypeService;
 import com.exadel.team2.sandbox.web.EventTypeCreateDTO;
@@ -27,7 +27,7 @@ public class EventTypeServiceImpl implements EventTypeService {
     @Override
     public EventTypeResponseDTO getById(Long id) {
         EventTypeEntity eventTypeEntity = eventTypeDAO.findById(id)
-                 .orElseThrow(() -> new EventNotFoundException());
+                 .orElseThrow(() -> new NoSuchException("Event type with ID = " + id + " not found in Database" ));
         return eventTypeMapper.convertEntityToDto(eventTypeEntity);
     }
 
@@ -35,7 +35,7 @@ public class EventTypeServiceImpl implements EventTypeService {
     public List<EventTypeResponseDTO> getAll() {
         List<EventTypeEntity> eventTypeEntities = eventTypeDAO.findAll();
         if (eventTypeEntities.isEmpty()) {
-            throw new EventNotFoundException();
+            throw new NoSuchException("Not found event types in Database");
         }
         return eventTypeEntities.stream()
                 .map(eventTypeMapper::convertEntityToDto)
@@ -57,7 +57,7 @@ public class EventTypeServiceImpl implements EventTypeService {
         EventTypeEntity eventTypeEntity = eventTypeMapper.convertDtoToEntity(eventTypeUpdateDTO);
         eventTypeEntity.setEvtId(id);
         EventTypeEntity ifEventTypeNotFound = eventTypeDAO.findById(id)
-                .orElseThrow(() -> new EventNotFoundException());
+                .orElseThrow(() -> new NoSuchException("Event type with ID = " + id + " not found in Database" ));
 
         eventTypeEntity.setEvtUpdatedAt(LocalDateTime.now());
 
@@ -69,7 +69,9 @@ public class EventTypeServiceImpl implements EventTypeService {
     @Override
     public String delete(Long id) {
         EventTypeEntity eventTypeRemove = eventTypeDAO.findById(id)
-                .orElseThrow(() -> new EventNotFoundException());
+                .orElseThrow(() -> new NoSuchException
+                        ("Event type with ID = " + id + " not found in Database." +
+                                " Unable to delete an event type that does not exist."));
         eventTypeDAO.deleteById(id);
         return "Event type with ID = " + id + " was successful removed";
     }
