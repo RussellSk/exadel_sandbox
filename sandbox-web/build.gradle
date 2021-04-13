@@ -13,9 +13,7 @@ bootJar {
 //spring-security commented for now, will work with it later
 dependencies {
     implementation project(':sandbox-backend')
-
 //    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'junit:junit:4.12'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
