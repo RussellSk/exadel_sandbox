@@ -23,8 +23,9 @@ public class StatusController {
 
     @GetMapping("/all")
     public Page<ResponseStatusDTO> findAllPageable(@RequestParam(defaultValue = "0", name = "page") Integer page,
-                                                   @RequestParam(defaultValue = "9", name = "size") Integer size) {
-        return statusService.findAllPageable(PageRequest.of(page, size));
+                                                   @RequestParam(defaultValue = "9", name = "size") Integer size,
+                                                   @RequestParam(value = "q", required = false) String query) {
+        return statusService.findAllPageable(PageRequest.of(page, size), query);
     }
 
 
