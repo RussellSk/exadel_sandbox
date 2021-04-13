@@ -3,6 +3,8 @@ package com.exadel.team2.sandbox.dao.rsql;
 import cz.jirutka.rsql.parser.ast.ComparisonOperator;
 import cz.jirutka.rsql.parser.ast.RSQLOperators;
 
+import java.util.Arrays;
+
 public enum RsqlSearchOperation {
     EQUAL(RSQLOperators.EQUAL),
     NOT_EQUAL(RSQLOperators.NOT_EQUAL),
@@ -20,12 +22,10 @@ public enum RsqlSearchOperation {
     }
 
     public static RsqlSearchOperation getSimpleOperator(final ComparisonOperator operator) {
-        for (final RsqlSearchOperation operation : values()) {
-            if (operation.getOperator() == operator) {
-                return operation;
-            }
-        }
-        return null;
+        return Arrays.stream(values())
+                .filter(operation -> operation.getOperator() == operator)
+                .findAny()
+                .orElse(null);
     }
 
     public ComparisonOperator getOperator() {

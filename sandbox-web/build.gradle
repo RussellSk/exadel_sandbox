@@ -18,6 +18,7 @@ dependencies {
     implementation 'junit:junit:4.12'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'cz.jirutka.rsql:rsql-parser:2.1.0'
 //    testImplementation 'org.springframework.security:spring-security-test'
     implementation 'org.modelmapper:modelmapper:2.4.0'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
