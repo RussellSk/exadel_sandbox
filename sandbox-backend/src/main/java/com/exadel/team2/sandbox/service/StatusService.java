@@ -1,18 +1,24 @@
 package com.exadel.team2.sandbox.service;
 
-import com.exadel.team2.sandbox.entity.Status;
+import com.exadel.team2.sandbox.web.status.CreateStatusDTO;
+import com.exadel.team2.sandbox.web.status.ResponseStatusDTO;
+import com.exadel.team2.sandbox.web.status.UpdateStatusDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface StatusService {
 
-    Status findById(Long id);
+    ResponseStatusDTO findById(Long id);
 
-    List<Status> findAll();
+    Page<ResponseStatusDTO> findAllPageable(Pageable pageable);
 
-    Status save(Status entity);
+    List<ResponseStatusDTO> findAll();
 
-    Status update(Status entity);
+    ResponseStatusDTO save(CreateStatusDTO createStatusDTO);
+
+    ResponseStatusDTO update(Long id, UpdateStatusDTO updateStatusDTO);
 
     void deleteById(Long id);
 }

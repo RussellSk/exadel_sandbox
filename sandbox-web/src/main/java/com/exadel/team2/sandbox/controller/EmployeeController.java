@@ -5,6 +5,7 @@ import com.exadel.team2.sandbox.web.employee.CreateEmployeeDto;
 import com.exadel.team2.sandbox.web.employee.ResponseEmployeeDto;
 import com.exadel.team2.sandbox.web.employee.UpdateEmployeeDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
+@Slf4j
 @RestController
 @RequestMapping(value = "employees")
 @RequiredArgsConstructor
@@ -25,10 +27,11 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public Page<ResponseEmployeeDto> getEmployees(
+    public Page<ResponseEmployeeDto> getEmployeesRsql(
+            @RequestParam(value = "search") String search,
             @RequestParam(defaultValue = "0", name = "page") Integer page,
             @RequestParam(defaultValue = "15", name = "itemsPerPage") Integer itemsPerPage) {
-        return employeeService.getAllPageable(PageRequest.of(page, itemsPerPage));
+        return employeeService.getAllPageable(PageRequest.of(page, itemsPerPage), search);
     }
 
     @PostMapping

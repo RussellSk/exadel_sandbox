@@ -2,8 +2,8 @@ package com.exadel.team2.sandbox.dao.rsql;
 
 import cz.jirutka.rsql.parser.ast.ComparisonNode;
 import cz.jirutka.rsql.parser.ast.LogicalNode;
-import cz.jirutka.rsql.parser.ast.LogicalOperator;
 import cz.jirutka.rsql.parser.ast.Node;
+import cz.jirutka.rsql.parser.ast.LogicalOperator;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
@@ -48,5 +48,6 @@ public class GenericRsqlSpecBuilder<T> {
     public Specification<T> createSpecification(final ComparisonNode comparisonNode) {
         return Specification.where(new GenericRsqlSpecification<T>(comparisonNode.getSelector(), comparisonNode.getOperator(), comparisonNode.getArguments()));
     }
+
 
 }

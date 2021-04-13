@@ -8,7 +8,6 @@ import javax.persistence.criteria.*;
 import org.springframework.data.jpa.domain.Specification;
 import cz.jirutka.rsql.parser.ast.ComparisonOperator;
 
-
 public class GenericRsqlSpecification<T> implements Specification<T> {
 
     private String property;
