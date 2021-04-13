@@ -12,7 +12,7 @@ public interface StatusService {
 
     ResponseStatusDTO findById(Long id);
 
-    Page<ResponseStatusDTO> findAllPageable(Pageable pageable);
+    Page<ResponseStatusDTO> findAllPageable(Pageable pageable,String query);
 
     List<ResponseStatusDTO> findAll();
 

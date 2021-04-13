@@ -3,6 +3,7 @@ package com.exadel.team2.sandbox.service.impl;
 import com.exadel.team2.sandbox.dao.EmployeeDAO;
 import com.exadel.team2.sandbox.dao.StatusDAO;
 import com.exadel.team2.sandbox.dao.StatusHistoryDAO;
+import com.exadel.team2.sandbox.dao.rsql.RsqlVisitor;
 import com.exadel.team2.sandbox.entity.EmployeeEntity;
 import com.exadel.team2.sandbox.entity.Status;
 import com.exadel.team2.sandbox.entity.StatusHistory;
@@ -11,9 +12,13 @@ import com.exadel.team2.sandbox.service.StatusHistoryService;
 import com.exadel.team2.sandbox.web.statushistory.CreateStatusHistoryDTO;
 import com.exadel.team2.sandbox.web.statushistory.ResponseStatusHistoryDTO;
 import com.exadel.team2.sandbox.web.statushistory.UpdateStatusHistoryDTO;
+import cz.jirutka.rsql.parser.RSQLParser;
+import cz.jirutka.rsql.parser.ast.Node;
+import liquibase.pro.packaged.S;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,8 +46,10 @@ public class StatusHistoryServiceImpl implements StatusHistoryService {
     }
 
     @Override
-    public Page<ResponseStatusHistoryDTO> findAllPageable(Pageable pageable) {
-        return historyDAO.findAll(pageable).map(historyMapper::convertEntityToDto);
+    public Page<ResponseStatusHistoryDTO> findAllPageable(Pageable pageable, String query) {
+        Node rootNode = new RSQLParser().parse(query);
+        Specification<StatusHistory> spec = rootNode.accept(new RsqlVisitor<>());
+        return historyDAO.findAll(spec, pageable).map(historyMapper::convertEntityToDto);
 
     }
 

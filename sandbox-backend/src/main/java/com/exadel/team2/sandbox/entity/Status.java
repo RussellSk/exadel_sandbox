@@ -29,14 +29,12 @@ public class Status {
     private String description;
 
     @CreationTimestamp
-    @Column(name = "ST_CREATED_AT", nullable = false)
+    @Column(name = "ST_CREATED_AT")
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
     @Column(name = "ST_UPDATED_AT")
     private LocalDateTime updatedAt;
 
-//    @OneToOne(mappedBy = "status", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
-//    private StatusHistory statusHistory;
 }
 
