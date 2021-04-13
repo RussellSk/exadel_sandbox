@@ -1,5 +1,6 @@
 package com.exadel.team2.sandbox.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 
 @Entity
 @Table(name = "STATUS")
@@ -33,5 +35,8 @@ public class Status {
     @UpdateTimestamp
     @Column(name = "ST_UPDATED_AT")
     private LocalDateTime updatedAt;
+
+//    @OneToOne(mappedBy = "status", cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+//    private StatusHistory statusHistory;
 }
 
