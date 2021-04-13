@@ -97,6 +97,8 @@ public class StatusHistoryServiceImpl implements StatusHistoryService {
 
     @Override
     public void deleteById(Long id) {
+        if(!historyDAO.existsById(id))
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"StatusHistory id not found");
         historyDAO.deleteById(id);
     }
 }

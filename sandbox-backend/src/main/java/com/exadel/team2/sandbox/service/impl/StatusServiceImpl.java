@@ -41,7 +41,7 @@ public class StatusServiceImpl implements StatusService {
     public Page<ResponseStatusDTO> findAllPageable(Pageable pageable, String query) {
         Node rootNode = new RSQLParser().parse(query);
         Specification<Status> spec = rootNode.accept(new RsqlVisitor<>());
-        return dao.findAll(spec,pageable).map(statusMapper::convertEntityToDto);
+        return dao.findAll(spec, pageable).map(statusMapper::convertEntityToDto);
     }
 
     @Override
@@ -83,6 +83,8 @@ public class StatusServiceImpl implements StatusService {
 
     @Override
     public void deleteById(Long id) {
+        if (!dao.existsById(id))
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Status id not found");
         dao.deleteById(id);
     }
 }
