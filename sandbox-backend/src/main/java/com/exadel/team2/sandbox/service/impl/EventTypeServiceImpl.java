@@ -56,9 +56,9 @@ public class EventTypeServiceImpl implements EventTypeService {
     public EventTypeResponseDTO update(Long id, EventTypeUpdateDTO eventTypeUpdateDTO) {
         EventTypeEntity eventTypeEntity = eventTypeMapper.convertDtoToEntity(eventTypeUpdateDTO);
         eventTypeEntity.setEvtId(id);
-        EventTypeEntity ifEventTypeNotFound = eventTypeDAO.findById(id)
-                .orElseThrow(() -> new NoSuchException("Event type with ID = " + id + " not found in Database" ));
-
+        if (!eventTypeDAO.existsById(id)) {
+            throw new NoSuchException("Event type with ID = " + id + " not found in Database");
+        }
         eventTypeEntity.setEvtUpdatedAt(LocalDateTime.now());
 
         return eventTypeMapper.convertEntityToDto(eventTypeDAO.save(eventTypeEntity));
@@ -68,10 +68,10 @@ public class EventTypeServiceImpl implements EventTypeService {
 
     @Override
     public Boolean delete(Long id) {
-        EventTypeEntity eventTypeRemove = eventTypeDAO.findById(id)
-                .orElseThrow(() -> new NoSuchException
-                        ("Event type with ID = " + id + " not found in Database." +
-                                " Unable to delete an event type that does not exist."));
+        if (!eventTypeDAO.existsById(id)) {
+            throw new NoSuchException("Event type with ID = " + id + " not found in Database. " +
+                    "Unable to delete an event type that does not exist.");
+        }
         eventTypeDAO.deleteById(id);
         return true;
     }

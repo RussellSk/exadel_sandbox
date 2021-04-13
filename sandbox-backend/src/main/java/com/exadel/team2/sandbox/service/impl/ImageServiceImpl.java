@@ -27,7 +27,7 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public ImageResponseDTO getById(Long id) {
         ImageEntity imageEntity = imageDAO.findById(id)
-                .orElseThrow(() -> new NoSuchException("Image with ID = " + id + " not found in Database" ));
+                .orElseThrow(() -> new NoSuchException("Image with ID = " + id + " not found in Database"));
         return imageMapper.convertEntityToDto(imageEntity);
     }
 
@@ -56,19 +56,18 @@ public class ImageServiceImpl implements ImageService {
     public ImageResponseDTO update(Long id, ImageUpdateDTO imageUpdateDTO) {
         ImageEntity imageEntity = imageMapper.convertDtoToEntity(imageUpdateDTO);
         imageEntity.setImgId(id);
-        ImageEntity ifImageNotFound = imageDAO.findById(id)
-                .orElseThrow(() -> new NoSuchException("Image with ID = " + id + " not found in Database" ));
-
+        if (!imageDAO.existsById(id)) {
+            throw new NoSuchException("Image with ID = " + id + " not found in Database");
+        }
         return imageMapper.convertEntityToDto(imageDAO.save(imageEntity));
     }
 
-
     @Override
     public Boolean delete(Long id) {
-        ImageEntity imageRemove = imageDAO.findById(id)
-                .orElseThrow(() -> new NoSuchException
-                        ("Image with ID = " + id + " not found in Database." +
-                                " Unable to delete an image that does not exist."));
+        if (!imageDAO.existsById(id)) {
+            throw new NoSuchException("Image with ID = " + id + " not found in Database. " +
+                    "Unable to delete an image that does not exist.");
+        }
         imageDAO.deleteById(id);
         return true;
     }

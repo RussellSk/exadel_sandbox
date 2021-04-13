@@ -37,10 +37,10 @@ public class EventServiceImpl implements EventService {
     private final EventTypeDAO eventTypeDAO;
     private final EventMapper eventMapper;
 
-        @Override
+    @Override
     public EventResponseDTO getById(Long id) {
         EventEntity eventEntity = eventDAO.findById(id)
-                .orElseThrow(() -> new NoSuchException("Event with ID = " + id + " not found in Database" ));
+                .orElseThrow(() -> new NoSuchException("Event with ID = " + id + " not found in Database"));
         return eventMapper.convertEntityToDto(eventEntity);
     }
 
@@ -68,18 +68,17 @@ public class EventServiceImpl implements EventService {
     public EventResponseDTO save(EventCreateDTO eventCreateDTO) {
         EventEntity eventEntity = eventMapper.convertDtoToEntity(eventCreateDTO);
         EmployeeEntity employeeEntity = employeeDAO.findById(eventCreateDTO.getEmployeeId())
-
-                .orElseThrow(() -> new NoSuchException ("Employee not found"));
+                .orElseThrow(() -> new NoSuchException("Employee not found"));
 
         eventEntity.setEmployee(employeeEntity);
 
         ImageEntity imageEntity = imageDAO.findById(eventCreateDTO.getImageId())
-                .orElseThrow(() -> new NoSuchException ("Image not found"));
+                .orElseThrow(() -> new NoSuchException("Image not found"));
 
         eventEntity.setImage(imageEntity);
 
         EventTypeEntity eventTypeEntity = eventTypeDAO.findById(eventCreateDTO.getEventTypeId())
-                .orElseThrow(() -> new NoSuchException ("Event Type not found"));
+                .orElseThrow(() -> new NoSuchException("Event Type not found"));
 
         eventEntity.setEventType(eventTypeEntity);
 
@@ -93,22 +92,22 @@ public class EventServiceImpl implements EventService {
     public EventResponseDTO update(Long id, EventUpdateDTO eventUpdateDTO) {
         EventEntity eventEntity = eventMapper.convertDtoToEntity(eventUpdateDTO);
         eventEntity.setEvId(id);
-        EventEntity ifEventNotFound = eventDAO.findById(id)
-        .orElseThrow(() -> new NoSuchException("Event with ID = " + id + " not found in Database" ));
-
+        if (!eventDAO.existsById(id)) {
+            throw new NoSuchException("Event with ID = " + id + " not found in Database");
+        }
 
         EmployeeEntity employeeEntity = employeeDAO.findById(eventUpdateDTO.getEmployeeId())
-                .orElseThrow(() -> new NoSuchException ("Employee not found"));
+                .orElseThrow(() -> new NoSuchException("Employee not found"));
 
         eventEntity.setEmployee(employeeEntity);
 
         ImageEntity imageEntity = imageDAO.findById(eventUpdateDTO.getImageId())
-                .orElseThrow(() -> new NoSuchException ("Image not found"));
+                .orElseThrow(() -> new NoSuchException("Image not found"));
 
         eventEntity.setImage(imageEntity);
 
         EventTypeEntity eventTypeEntity = eventTypeDAO.findById(eventUpdateDTO.getEventTypeId())
-                .orElseThrow(() -> new NoSuchException ("Event Type not found"));
+                .orElseThrow(() -> new NoSuchException("Event Type not found"));
 
         eventEntity.setEventType(eventTypeEntity);
 
@@ -119,10 +118,10 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Boolean delete(Long id) {
-        EventEntity eventRemove = eventDAO.findById(id)
-                .orElseThrow(() -> new NoSuchException
-                        ("Event with ID = " + id + " not found in Database." +
-                          " Unable to delete an event that does not exist."));
+        if (!eventDAO.existsById(id)) {
+            throw new NoSuchException("Event with ID = " + id + " not found in Database. " +
+                    "Unable to delete an event that does not exist.");
+        }
         eventDAO.deleteById(id);
         return true;
     }

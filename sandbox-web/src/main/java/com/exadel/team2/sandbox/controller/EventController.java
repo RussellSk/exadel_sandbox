@@ -26,7 +26,8 @@ public class EventController {
 
     @GetMapping("/all")
     public Page<EventResponseDTO> getAllEventsWithRsql(
-            @RequestParam(value = "search") String search,
+
+            @RequestParam(value = "search", required = false) String search,
             @RequestParam(defaultValue = "0", name = "page") Integer page,
             @RequestParam(defaultValue = "9", name = "numberOfEventsPerPage") Integer number) {
         return eventService.getAllPageable(PageRequest.of(page, number), search);
