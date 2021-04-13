@@ -19,6 +19,6 @@ public interface InterviewFeedbackService {
 
     void delete(Long id);
 
-    Page<ResponseInterviewFeedbackDto> getAllPageable(Pageable pageable);
+    Page<ResponseInterviewFeedbackDto> getAllPageable(Pageable pageable, String search);
 
 }

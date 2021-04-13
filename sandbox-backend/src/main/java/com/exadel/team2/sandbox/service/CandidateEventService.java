@@ -16,5 +16,5 @@ public interface CandidateEventService {
 
     void delete(Long id);
 
-    Page<ResponseCandidateEventDto> getAllPageable(Pageable pageable);
+    Page<ResponseCandidateEventDto> getAllPageable(Pageable pageable, String search);
 }
