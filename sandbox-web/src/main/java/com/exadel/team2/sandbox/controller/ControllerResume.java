@@ -25,8 +25,10 @@ public class ControllerResume {
     }
 
     @GetMapping
-    public List<ResumeResponseDTO> getAll(@PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        return resumeService.getAll(pageable);
+    public List<ResumeResponseDTO> getAll(
+            @PageableDefault(sort = "id", size = 15, direction = Sort.Direction.ASC) Pageable pageable,
+            @RequestParam(value = "search") String search) {
+        return resumeService.getAll(pageable, search);
     }
 
     @PostMapping

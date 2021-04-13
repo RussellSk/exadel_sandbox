@@ -1,14 +1,18 @@
 package com.exadel.team2.sandbox.service.impl;
 
 import com.exadel.team2.sandbox.dao.ResumeDAO;
+import com.exadel.team2.sandbox.dao.rsql.CustomRsqlVisitor;
 import com.exadel.team2.sandbox.dto.ResumeCreateDTO;
 import com.exadel.team2.sandbox.dto.ResumeResponseDTO;
 import com.exadel.team2.sandbox.dto.ResumeUpdateDTO;
 import com.exadel.team2.sandbox.entity.ResumeEntity;
 import com.exadel.team2.sandbox.mapper.ModelMap;
 import com.exadel.team2.sandbox.service.ResumeService;
+import cz.jirutka.rsql.parser.RSQLParser;
+import cz.jirutka.rsql.parser.ast.Node;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,14 +31,25 @@ public class ResumeServiceImpl implements ResumeService {
 
     @Override
     public ResumeResponseDTO getById(Long id) {
+        ResumeEntity resumeEntity = resumeDAO.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The resume not found"));
+
         return modelMap.convertTo(
                 resumeDAO.findById(id).orElse(null),
                 ResumeResponseDTO.class);
     }
 
     @Override
-    public List<ResumeResponseDTO> getAll(Pageable pageable) {
-        return resumeDAO.findAll(pageable).stream().map((ResumeEntity entity) ->
+    public List<ResumeResponseDTO> getAll(Pageable pageable, String search) {
+
+        if (resumeDAO.findAll().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No content");
+        }
+
+        Node rootNode = new RSQLParser().parse(search);
+        Specification<ResumeEntity> specification = rootNode.accept(new CustomRsqlVisitor<>());
+
+        return resumeDAO.findAll(specification, pageable).stream().map((ResumeEntity entity) ->
                 (ResumeResponseDTO) modelMap.convertTo(entity, ResumeResponseDTO.class))
                 .collect(Collectors.toList());
     }

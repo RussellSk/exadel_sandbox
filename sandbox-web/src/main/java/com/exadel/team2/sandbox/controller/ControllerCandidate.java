@@ -26,8 +26,10 @@ public class ControllerCandidate {
 
     @GetMapping
     public List<CandidateResponseDTO> getAllCandidates(
-            @PageableDefault(sort = {"id"}, size = 2, direction = Sort.Direction.ASC) Pageable pageable) {
-        return candidateService.getAll(pageable);
+            @PageableDefault(sort = {"lastName"}, size = 15, direction = Sort.Direction.ASC) Pageable pageable,
+            @RequestParam(value = "search") String search) {
+
+        return candidateService.getAll(pageable, search);
     }
 
 

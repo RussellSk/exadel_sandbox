@@ -11,7 +11,7 @@ public interface CandidateService {
 
     CandidateResponseDTO findById(Long id);
 
-    List<CandidateResponseDTO> getAll(Pageable pageable);
+    List<CandidateResponseDTO> getAll(Pageable pageable, String search);
 
     CandidateCreateDTO save(CandidateCreateDTO candidateCreateDTO);
 

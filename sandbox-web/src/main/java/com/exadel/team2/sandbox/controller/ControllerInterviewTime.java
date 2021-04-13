@@ -27,8 +27,11 @@ public class ControllerInterviewTime {
     }
 
     @GetMapping
-    public List<InterviewTimeResponseDTO> getAllInterviewTime(@PageableDefault(sort = "beginDate", direction = Sort.Direction.ASC) Pageable pageable) {
-        return interviewTimeService.getAll(pageable);
+    public List<InterviewTimeResponseDTO> getAllInterviewTime(
+            @PageableDefault(sort = "beginDate", size = 15, direction = Sort.Direction.ASC) Pageable pageable,
+            @RequestParam(value = "search") String search
+    ) {
+        return interviewTimeService.getAll(pageable, search);
     }
 
 
