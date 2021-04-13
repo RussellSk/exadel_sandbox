@@ -44,7 +44,7 @@ public class EventController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteEvent(@PathVariable Long id) {
+    public Boolean deleteEvent(@PathVariable Long id) {
         return eventService.delete(id);
     }
 

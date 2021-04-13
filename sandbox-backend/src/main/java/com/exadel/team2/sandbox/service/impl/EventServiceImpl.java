@@ -118,12 +118,12 @@ public class EventServiceImpl implements EventService {
 
 
     @Override
-    public String delete(Long id) {
+    public Boolean delete(Long id) {
         EventEntity eventRemove = eventDAO.findById(id)
                 .orElseThrow(() -> new NoSuchException
                         ("Event with ID = " + id + " not found in Database." +
                           " Unable to delete an event that does not exist."));
         eventDAO.deleteById(id);
-        return "Event with ID = " + id + " was successful removed";
+        return true;
     }
 }

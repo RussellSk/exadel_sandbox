@@ -15,7 +15,7 @@ public interface EventService {
     Page<EventResponseDTO> getAllPageable(Pageable pageable, String search);
     EventResponseDTO save(EventCreateDTO eventCreateDTO);
     EventResponseDTO update(Long id, EventUpdateDTO eventUpdateDTO);
-    String delete(Long id);
+    Boolean delete(Long id);
 
 }
 

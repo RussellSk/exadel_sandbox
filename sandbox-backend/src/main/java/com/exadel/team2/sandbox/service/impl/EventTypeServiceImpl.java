@@ -67,12 +67,12 @@ public class EventTypeServiceImpl implements EventTypeService {
 
 
     @Override
-    public String delete(Long id) {
+    public Boolean delete(Long id) {
         EventTypeEntity eventTypeRemove = eventTypeDAO.findById(id)
                 .orElseThrow(() -> new NoSuchException
                         ("Event type with ID = " + id + " not found in Database." +
                                 " Unable to delete an event type that does not exist."));
         eventTypeDAO.deleteById(id);
-        return "Event type with ID = " + id + " was successful removed";
+        return true;
     }
 }

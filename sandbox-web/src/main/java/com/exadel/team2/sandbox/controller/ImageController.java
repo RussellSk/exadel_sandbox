@@ -38,7 +38,7 @@ public class ImageController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteImage(@PathVariable Long id) {
+    public Boolean deleteImage(@PathVariable Long id) {
         return imageService.delete(id);
     }
 
