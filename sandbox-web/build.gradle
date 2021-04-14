@@ -22,7 +22,6 @@ dependencies {
 //    testImplementation 'org.springframework.security:spring-security-test'
     implementation 'org.modelmapper:modelmapper:2.4.0'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation group: 'cz.jirutka.rsql', name: 'rsql-parser', version: '2.1.0'
 
 
 }
