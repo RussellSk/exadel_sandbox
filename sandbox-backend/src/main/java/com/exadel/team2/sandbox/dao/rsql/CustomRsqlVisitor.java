@@ -30,4 +30,5 @@ public class CustomRsqlVisitor<T> implements RSQLVisitor<Specification<T>, Void>
         return builder.createSpecification(node);
     }
 
+
 }

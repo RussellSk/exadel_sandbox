@@ -2,16 +2,15 @@ package com.exadel.team2.sandbox.service.impl;
 
 import com.exadel.team2.sandbox.dao.ImageDAO;
 import com.exadel.team2.sandbox.entity.ImageEntity;
+import com.exadel.team2.sandbox.exceptions.NoSuchException;
 import com.exadel.team2.sandbox.mapper.ImageMapper;
 import com.exadel.team2.sandbox.service.ImageService;
 import com.exadel.team2.sandbox.web.ImageCreateDTO;
 import com.exadel.team2.sandbox.web.ImageResponseDTO;
 import com.exadel.team2.sandbox.web.ImageUpdateDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,7 +27,7 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public ImageResponseDTO getById(Long id) {
         ImageEntity imageEntity = imageDAO.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Image not found"));
+                .orElseThrow(() -> new NoSuchException("Image with ID = " + id + " not found in Database"));
         return imageMapper.convertEntityToDto(imageEntity);
     }
 
@@ -37,7 +36,7 @@ public class ImageServiceImpl implements ImageService {
     public List<ImageResponseDTO> getAll() {
         List<ImageEntity> imageEntities = imageDAO.findAll();
         if (imageEntities.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Sorry, however haven't content");
+            throw new NoSuchException("Not found images in Database");
         }
         return imageEntities.stream()
                 .map(imageMapper::convertEntityToDto)
@@ -57,13 +56,19 @@ public class ImageServiceImpl implements ImageService {
     public ImageResponseDTO update(Long id, ImageUpdateDTO imageUpdateDTO) {
         ImageEntity imageEntity = imageMapper.convertDtoToEntity(imageUpdateDTO);
         imageEntity.setImgId(id);
-
+        if (!imageDAO.existsById(id)) {
+            throw new NoSuchException("Image with ID = " + id + " not found in Database");
+        }
         return imageMapper.convertEntityToDto(imageDAO.save(imageEntity));
     }
 
-
     @Override
-    public void delete(Long id) {
+    public Boolean delete(Long id) {
+        if (!imageDAO.existsById(id)) {
+            throw new NoSuchException("Image with ID = " + id + " not found in Database. " +
+                    "Unable to delete an image that does not exist.");
+        }
         imageDAO.deleteById(id);
+        return true;
     }
 }

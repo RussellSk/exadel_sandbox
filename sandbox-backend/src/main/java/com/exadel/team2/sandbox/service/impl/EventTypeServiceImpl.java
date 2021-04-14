@@ -2,16 +2,15 @@ package com.exadel.team2.sandbox.service.impl;
 
 import com.exadel.team2.sandbox.dao.EventTypeDAO;
 import com.exadel.team2.sandbox.entity.EventTypeEntity;
+import com.exadel.team2.sandbox.exceptions.NoSuchException;
 import com.exadel.team2.sandbox.mapper.EventTypeMapper;
 import com.exadel.team2.sandbox.service.EventTypeService;
 import com.exadel.team2.sandbox.web.EventTypeCreateDTO;
 import com.exadel.team2.sandbox.web.EventTypeResponseDTO;
 import com.exadel.team2.sandbox.web.EventTypeUpdateDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,7 +27,7 @@ public class EventTypeServiceImpl implements EventTypeService {
     @Override
     public EventTypeResponseDTO getById(Long id) {
         EventTypeEntity eventTypeEntity = eventTypeDAO.findById(id)
-                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event Type not found"));
+                 .orElseThrow(() -> new NoSuchException("Event type with ID = " + id + " not found in Database" ));
         return eventTypeMapper.convertEntityToDto(eventTypeEntity);
     }
 
@@ -36,7 +35,7 @@ public class EventTypeServiceImpl implements EventTypeService {
     public List<EventTypeResponseDTO> getAll() {
         List<EventTypeEntity> eventTypeEntities = eventTypeDAO.findAll();
         if (eventTypeEntities.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Sorry, however haven't content");
+            throw new NoSuchException("Not found event types in Database");
         }
         return eventTypeEntities.stream()
                 .map(eventTypeMapper::convertEntityToDto)
@@ -57,7 +56,9 @@ public class EventTypeServiceImpl implements EventTypeService {
     public EventTypeResponseDTO update(Long id, EventTypeUpdateDTO eventTypeUpdateDTO) {
         EventTypeEntity eventTypeEntity = eventTypeMapper.convertDtoToEntity(eventTypeUpdateDTO);
         eventTypeEntity.setEvtId(id);
-
+        if (!eventTypeDAO.existsById(id)) {
+            throw new NoSuchException("Event type with ID = " + id + " not found in Database");
+        }
         eventTypeEntity.setEvtUpdatedAt(LocalDateTime.now());
 
         return eventTypeMapper.convertEntityToDto(eventTypeDAO.save(eventTypeEntity));
@@ -66,7 +67,12 @@ public class EventTypeServiceImpl implements EventTypeService {
 
 
     @Override
-    public void delete(Long id) {
+    public Boolean delete(Long id) {
+        if (!eventTypeDAO.existsById(id)) {
+            throw new NoSuchException("Event type with ID = " + id + " not found in Database. " +
+                    "Unable to delete an event type that does not exist.");
+        }
         eventTypeDAO.deleteById(id);
+        return true;
     }
 }

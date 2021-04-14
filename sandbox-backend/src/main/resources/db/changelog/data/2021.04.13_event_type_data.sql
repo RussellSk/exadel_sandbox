@@ -1,0 +1,6 @@
+INSERT INTO EVENT_TYPE (EVT_NAME, EVT_DESCRIPTION, EVT_CREATED_AT, EVT_UPDATED_AT) VALUES ('Java and JavaScript', 'For those who were waiting for the opportunity to study at Exadel.', NOW(), NOW());
+INSERT INTO EVENT_TYPE (EVT_NAME, EVT_DESCRIPTION, EVT_CREATED_AT, EVT_UPDATED_AT) VALUES ('Java', 'For those who were waiting for the opportunity to study at Exadel.', NOW(), NOW());
+INSERT INTO EVENT_TYPE (EVT_NAME, EVT_DESCRIPTION, EVT_CREATED_AT, EVT_UPDATED_AT) VALUES ('QA', 'For those who were waiting for the opportunity to study at Exadel.', NOW(), NOW());
+INSERT INTO EVENT_TYPE (EVT_NAME, EVT_DESCRIPTION, EVT_CREATED_AT, EVT_UPDATED_AT) VALUES ('DEVops', 'For those who were waiting for the opportunity to study at Exadel.', NOW(), NOW());
+INSERT INTO EVENT_TYPE (EVT_NAME, EVT_DESCRIPTION, EVT_CREATED_AT, EVT_UPDATED_AT) VALUES ('Scala', 'For those who were waiting for the opportunity to study at Exadel.', NOW(), NOW());
+INSERT INTO EVENT_TYPE (EVT_NAME, EVT_DESCRIPTION, EVT_CREATED_AT, EVT_UPDATED_AT) VALUES ('Java Fullstack', 'For those who were waiting for the opportunity to study at Exadel.', NOW(), NOW());
