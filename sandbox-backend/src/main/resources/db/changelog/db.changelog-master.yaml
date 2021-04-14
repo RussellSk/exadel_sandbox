@@ -50,4 +50,10 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/2021.04.13_load_data_event.yaml
   - include:
-      file: db/changelog/changes/20210413_add_columns_employee.yaml
+      file: db/changelog/changes/20210413_add_column_emp_location_country.yaml
+  - include:
+      file: db/changelog/changes/20210413_add_column_emp_location_city.yaml
+  - include:
+      file: db/changelog/changes/20210413_add_column_emp_timezone.yaml
+  - include:
+      file: db/changelog/changes/20210413_add_column_emp_password.yaml
