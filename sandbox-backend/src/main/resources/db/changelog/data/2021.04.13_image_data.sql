@@ -1,0 +1,5 @@
+INSERT INTO IMAGE (IMG_PATH, IMG_NAME, IMG_EXT, IMG_SIZE, IMG_CREATED_AT) VALUES ('own path', 'cover-java', 'jpg', 5, NOW());
+INSERT INTO IMAGE (IMG_PATH, IMG_NAME, IMG_EXT, IMG_SIZE, IMG_CREATED_AT) VALUES ('server path', 'cover-java', 'jpg', 3, NOW());
+INSERT INTO IMAGE (IMG_PATH, IMG_NAME, IMG_EXT, IMG_SIZE, IMG_CREATED_AT) VALUES ('server path', 'cover-qa', 'jpg', 7, NOW());
+INSERT INTO IMAGE (IMG_PATH, IMG_NAME, IMG_EXT, IMG_SIZE, IMG_CREATED_AT) VALUES ('server path', 'cover-devops', 'png', 2, NOW());
+INSERT INTO IMAGE (IMG_PATH, IMG_NAME, IMG_EXT, IMG_SIZE, IMG_CREATED_AT) VALUES ('own path', 'cover-hr', 'jpg', 6, NOW());

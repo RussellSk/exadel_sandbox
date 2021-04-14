@@ -5,7 +5,6 @@ import com.exadel.team2.sandbox.web.EventTypeCreateDTO;
 import com.exadel.team2.sandbox.web.EventTypeResponseDTO;
 import com.exadel.team2.sandbox.web.EventTypeUpdateDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,12 +38,8 @@ public class EventTypeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteEventType(@PathVariable Long id) {
-        if (eventTypeService.getById(id) == null) {
-            return ResponseEntity.notFound().build();
-        }
-        eventTypeService.delete(id);
-        return ResponseEntity.ok().build();
+    public Boolean deleteEventType(@PathVariable Long id) {
+        return eventTypeService.delete(id);
     }
 
 }

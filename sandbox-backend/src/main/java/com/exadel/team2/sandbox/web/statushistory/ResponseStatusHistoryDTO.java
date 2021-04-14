@@ -1,0 +1,32 @@
+package com.exadel.team2.sandbox.web.statushistory;
+
+import com.exadel.team2.sandbox.web.employee.ResponseEmployeeDto;
+import com.exadel.team2.sandbox.web.status.ResponseStatusDTO;
+import lombok.Data;
+
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
+
+@Data
+public class ResponseStatusHistoryDTO {
+
+    @NotNull
+    private Long id;
+
+    @NotNull
+    private ResponseStatusDTO status;
+
+//    private Candidate candidate;
+
+    @NotNull
+    private ResponseEmployeeDto employee;
+
+    @NotNull
+    private String changeNote;
+
+    @NotNull
+    private LocalDateTime createdAt;
+
+    @NotNull
+    private LocalDateTime updatedAt;
+}
