@@ -15,7 +15,8 @@ services:
   sandboxservice:
     image: sandbox
     container_name: sandbox-app
-    network_mode: "host"
+    ports:
+      - "8085:8085"
     build:
       context: .
       dockerfile: Dockerfile

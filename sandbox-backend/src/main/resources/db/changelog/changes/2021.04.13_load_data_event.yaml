@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2021.04.13_load_data_for_event
+      author: vadblagiy@gmail.com
+      changes:
+        - sqlFile:
+            path: db/changelog/data/2021.04.13_image_data.sql
+        - sqlFile:
+            path: db/changelog/data/2021.04.13_event_type_data.sql
+        - sqlFile:
+            path: db/changelog/data/2021.04.13_event_data.sql

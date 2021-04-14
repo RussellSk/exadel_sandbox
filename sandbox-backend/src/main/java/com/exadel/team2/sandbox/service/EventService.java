@@ -12,10 +12,10 @@ public interface EventService {
 
     EventResponseDTO getById (Long id);
     List <EventResponseDTO> getAll();
-    Page<EventResponseDTO> getAllPageable(Pageable pageable);
+    Page<EventResponseDTO> getAllPageable(Pageable pageable, String search);
     EventResponseDTO save(EventCreateDTO eventCreateDTO);
     EventResponseDTO update(Long id, EventUpdateDTO eventUpdateDTO);
-    void delete(Long id);
+    Boolean delete(Long id);
 
 }
 
