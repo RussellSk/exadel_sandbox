@@ -13,7 +13,6 @@ bootJar {
 //spring-security commented for now, will work with it later
 dependencies {
     implementation project(':sandbox-backend')
-
 //    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'junit:junit:4.12'
@@ -23,5 +22,6 @@ dependencies {
 //    testImplementation 'org.springframework.security:spring-security-test'
     implementation 'org.modelmapper:modelmapper:2.4.0'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
 
 }

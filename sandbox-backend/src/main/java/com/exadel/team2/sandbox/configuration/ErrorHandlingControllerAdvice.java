@@ -1,9 +1,12 @@
 package com.exadel.team2.sandbox.configuration;
 
+import com.exadel.team2.sandbox.exceptions.IncorrectData;
+import com.exadel.team2.sandbox.exceptions.NoSuchException;
 import com.exadel.team2.sandbox.web.ValidationError;
 import com.exadel.team2.sandbox.web.ValidationErrorResponse;
 import cz.jirutka.rsql.parser.RSQLParserException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -48,4 +51,17 @@ class ErrorHandlingControllerAdvice {
         return error;
     }
 
+    @ExceptionHandler
+    public ResponseEntity<IncorrectData> handlerException(NoSuchException exception) {
+        IncorrectData data = new IncorrectData();
+        data.setInfo(exception.getMessage());
+        return new ResponseEntity<>(data, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<IncorrectData> handlerException(Exception anyException) {
+        IncorrectData data = new IncorrectData();
+        data.setInfo(anyException.getMessage());
+        return new ResponseEntity<>(data, HttpStatus.BAD_REQUEST);
+    }
 }
