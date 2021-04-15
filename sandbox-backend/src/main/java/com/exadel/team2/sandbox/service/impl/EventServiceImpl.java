@@ -57,10 +57,14 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Page<EventResponseDTO> getAllPageable(Pageable pageable, String search) {
-        Node rootNode = new RSQLParser().parse(search);
-        Specification<EventEntity> specification = rootNode.accept(new CustomRsqlVisitor<>());
-        return eventDAO.findAll(specification, pageable)
-                .map(eventMapper::convertEntityToDto);
+        if (search.isEmpty()) {
+            return eventDAO.findAll(pageable).map(eventMapper::convertEntityToDto);
+        } else {
+            Node rootNode = new RSQLParser().parse(search);
+            Specification<EventEntity> specification = rootNode.accept(new CustomRsqlVisitor<>());
+            return eventDAO.findAll(specification, pageable)
+                    .map(eventMapper::convertEntityToDto);
+        }
     }
 
 
