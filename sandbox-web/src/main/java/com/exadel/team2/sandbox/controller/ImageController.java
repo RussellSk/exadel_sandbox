@@ -5,7 +5,6 @@ import com.exadel.team2.sandbox.web.ImageCreateDTO;
 import com.exadel.team2.sandbox.web.ImageResponseDTO;
 import com.exadel.team2.sandbox.web.ImageUpdateDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,12 +38,8 @@ public class ImageController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteImage(@PathVariable Long id) {
-        if (imageService.getById(id) == null) {
-            return ResponseEntity.notFound().build();
-        }
-        imageService.delete(id);
-        return ResponseEntity.ok().build();
+    public Boolean deleteImage(@PathVariable Long id) {
+        return imageService.delete(id);
     }
 
 }
