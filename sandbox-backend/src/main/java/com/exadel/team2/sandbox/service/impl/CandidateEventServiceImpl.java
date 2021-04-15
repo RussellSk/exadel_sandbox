@@ -27,6 +27,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Slf4j
 @Transactional
 @Service
@@ -63,7 +64,7 @@ public class CandidateEventServiceImpl implements CandidateEventService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
         candidateEventEntity.setEvent(eventEntity);
 
-         CandidateEntity candidateEntity =   candidateDAO.findById(createCandidateEventDto.getIdCandidate())
+        CandidateEntity candidateEntity = candidateDAO.findById(createCandidateEventDto.getIdCandidate())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Candidate not found"));
         candidateEventEntity.setCandidates((List<CandidateEntity>) candidateEntity);
 
@@ -79,9 +80,9 @@ public class CandidateEventServiceImpl implements CandidateEventService {
 
     @Override
     public Page<ResponseCandidateEventDto> getAllPageable(Pageable pageable, String search) {
-        if(search.isEmpty()) {
-        return candidateEventDAO.findAll(pageable).map(candidateEventMapper::convertEntityToDto);
-        }else {
+        if (search.isEmpty()) {
+            return candidateEventDAO.findAll(pageable).map(candidateEventMapper::convertEntityToDto);
+        } else {
             Node rootNode = new RSQLParser().parse(search);
             Specification<CandidateEventEntity> spec = rootNode.accept(new CustomRsqlVisitor<>());
             return candidateEventDAO.findAll(spec, pageable)
