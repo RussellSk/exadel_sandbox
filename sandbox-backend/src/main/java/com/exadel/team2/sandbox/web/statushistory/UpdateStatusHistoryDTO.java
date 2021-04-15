@@ -11,7 +11,8 @@ public class UpdateStatusHistoryDTO {
     @NotNull(message = "Status id cannot be null")
     private Long statusId;
 
-//    private Candidate candidate;
+    @NotNull(message = "Candidates id cannot be null")
+    private Long candidateId;
 
     @NotNull(message = "Employee id cannot be null")
     private Long employeeId;
