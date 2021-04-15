@@ -55,10 +55,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Page<ResponseEmployeeDto> getAllPageable(Pageable pageable, String search) {
-        Node rootNode = new RSQLParser().parse(search);
-        Specification<EmployeeEntity> spec = rootNode.accept(new CustomRsqlVisitor<>());
-        return employeeDAO.findAll(spec, pageable)
-                .map(employeeMapper::convertEntityToDto);
+        if (search.isEmpty()) {
+            return employeeDAO.findAll(pageable)
+                    .map(employeeMapper::convertEntityToDto);
+        } else {
+            Node rootNode = new RSQLParser().parse(search);
+            Specification<EmployeeEntity> spec = rootNode.accept(new CustomRsqlVisitor<>());
+            return employeeDAO.findAll(spec, pageable)
+                    .map(employeeMapper::convertEntityToDto);
+        }
     }
 
     @Override
@@ -105,6 +110,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         if (updateEmployeeDto.getEmpSkype() != null) {
             employeeEntity.setEmpSkype(updateEmployeeDto.getEmpSkype());
+        }
+
+        if (updateEmployeeDto.getEmpLocationCountry() != null) {
+            employeeEntity.setEmpLocationCity(updateEmployeeDto.getEmpLocationCity());
+        }
+
+        if (updateEmployeeDto.getEmpLocationCountry() != null) {
+            employeeEntity.setEmpLocationCountry(updateEmployeeDto.getEmpLocationCountry());
+        }
+
+        if (updateEmployeeDto.getEmpTimezone() != null) {
+            employeeEntity.setEmpTimezone(updateEmployeeDto.getEmpTimezone());
         }
 
         employeeEntity.setEmpUpdatedAt(LocalDateTime.now());

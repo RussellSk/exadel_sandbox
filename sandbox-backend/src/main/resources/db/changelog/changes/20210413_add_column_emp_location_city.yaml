@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20210413_add_column_emp_location_city
+      author: skaldin
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          columnExists:
+            tableName: EMPLOYEE
+            columnName: EMP_LOCATION_CITY
+      changes:
+        - addColumn:
+            tableName: EMPLOYEE
+            columns:
+              name: EMP_LOCATION_CITY
+              type: VARCHAR(255)
+              constraints:
+                nullable: true
