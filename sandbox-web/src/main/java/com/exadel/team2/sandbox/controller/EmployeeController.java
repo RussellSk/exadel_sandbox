@@ -28,7 +28,7 @@ public class EmployeeController {
 
     @GetMapping
     public Page<ResponseEmployeeDto> getEmployeesRsql(
-            @RequestParam(value = "search") String search,
+            @RequestParam(defaultValue = "", name = "search") String search,
             @RequestParam(defaultValue = "0", name = "page") Integer page,
             @RequestParam(defaultValue = "15", name = "itemsPerPage") Integer itemsPerPage) {
         return employeeService.getAllPageable(PageRequest.of(page, itemsPerPage), search);
