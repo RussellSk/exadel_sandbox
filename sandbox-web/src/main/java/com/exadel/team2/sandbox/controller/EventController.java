@@ -10,7 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-
+//@CrossOrigin(origins = "http://localhost:8087")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/event")
@@ -24,6 +24,7 @@ public class EventController {
         return eventService.getById(id);
     }
 
+    @CrossOrigin
     @GetMapping("/all")
     public Page<EventResponseDTO> getAllEventsWithRsql(
 
