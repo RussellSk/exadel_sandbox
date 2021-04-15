@@ -1,7 +1,7 @@
 package com.exadel.team2.sandbox.service.impl;
 
 import com.exadel.team2.sandbox.dao.StatusDAO;
-import com.exadel.team2.sandbox.dao.rsql.RsqlVisitor;
+import com.exadel.team2.sandbox.dao.rsql.CustomRsqlVisitor;
 import com.exadel.team2.sandbox.entity.Status;
 import com.exadel.team2.sandbox.mapper.StatusMapperDTO;
 import com.exadel.team2.sandbox.service.StatusService;
@@ -39,8 +39,12 @@ public class StatusServiceImpl implements StatusService {
 
     @Override
     public Page<ResponseStatusDTO> findAllPageable(Pageable pageable, String query) {
+        if (query.isEmpty()) {
+            return dao.findAll(pageable)
+                    .map(statusMapper::convertEntityToDto);
+        }
         Node rootNode = new RSQLParser().parse(query);
-        Specification<Status> spec = rootNode.accept(new RsqlVisitor<>());
+        Specification<Status> spec = rootNode.accept(new CustomRsqlVisitor<>());
         return dao.findAll(spec, pageable).map(statusMapper::convertEntityToDto);
     }
 
