@@ -11,7 +11,9 @@ public interface InterviewTimeService {
 
     InterviewTimeResponseDTO findById(Long id);
 
-    List<InterviewTimeResponseDTO> getAll(Pageable pageable, String search);
+    List<InterviewTimeResponseDTO> getAll(Pageable pageable);
+
+    List<InterviewTimeResponseDTO> getAllPageable(Pageable pageable, String search);
 
     InterviewTimeCreateDTO save(InterviewTimeCreateDTO interviewTimeCreateDTO);
 

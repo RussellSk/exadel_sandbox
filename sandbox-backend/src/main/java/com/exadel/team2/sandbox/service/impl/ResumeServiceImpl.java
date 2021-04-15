@@ -34,24 +34,40 @@ public class ResumeServiceImpl implements ResumeService {
         ResumeEntity resumeEntity = resumeDAO.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The resume not found"));
 
-        return modelMap.convertTo(
-                resumeDAO.findById(id).orElse(null),
-                ResumeResponseDTO.class);
+        return modelMap.convertTo(resumeEntity, ResumeResponseDTO.class);
     }
 
     @Override
-    public List<ResumeResponseDTO> getAll(Pageable pageable, String search) {
+    public List<ResumeResponseDTO> getAll(Pageable pageable) {
 
-        if (resumeDAO.findAll().isEmpty()) {
+        List<ResumeResponseDTO> resumeResponseDTOS =
+                resumeDAO.findAll(pageable).stream().map((ResumeEntity entity) ->
+                        (ResumeResponseDTO) modelMap.convertTo(entity, ResumeResponseDTO.class))
+                        .collect(Collectors.toList());
+
+        if (resumeResponseDTOS.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No content");
         }
+
+        return resumeResponseDTOS;
+    }
+
+    @Override
+    public List<ResumeResponseDTO> getAllPageable(Pageable pageable, String search) {
 
         Node rootNode = new RSQLParser().parse(search);
         Specification<ResumeEntity> specification = rootNode.accept(new CustomRsqlVisitor<>());
 
-        return resumeDAO.findAll(specification, pageable).stream().map((ResumeEntity entity) ->
-                (ResumeResponseDTO) modelMap.convertTo(entity, ResumeResponseDTO.class))
-                .collect(Collectors.toList());
+        List<ResumeResponseDTO> resumeResponseDTOS =
+                resumeDAO.findAll(specification, pageable).stream().map((ResumeEntity entity) ->
+                        (ResumeResponseDTO) modelMap.convertTo(entity, ResumeResponseDTO.class))
+                        .collect(Collectors.toList());
+
+        if (resumeResponseDTOS.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No content");
+        }
+
+        return resumeResponseDTOS;
     }
 
     @Override

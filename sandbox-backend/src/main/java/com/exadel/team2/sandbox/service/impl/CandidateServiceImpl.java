@@ -11,6 +11,7 @@ import com.exadel.team2.sandbox.service.CandidateService;
 import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.Node;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
@@ -38,20 +39,40 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public List<CandidateResponseDTO> getAll(Pageable pageable, String search) {
+    public List<CandidateResponseDTO> getAll(Pageable pageable) {
 
-        if (candidateDAO.findAll().isEmpty()) {
+        List<CandidateResponseDTO> candidateResponseDTOS =
+                candidateDAO.findAll(pageable).stream()
+                        .map((CandidateEntity candidateEntity) ->
+                                (CandidateResponseDTO) modelMap.convertTo(
+                                        candidateEntity, CandidateResponseDTO.class))
+                        .collect(Collectors.toList());
+
+        if (candidateResponseDTOS.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No content");
         }
+
+        return candidateResponseDTOS;
+    }
+
+    @Override
+    public List<CandidateResponseDTO> getAllPageable(Pageable pageable, String search) {
 
         Node rootNode = new RSQLParser().parse(search);
         Specification<CandidateEntity> specification = rootNode.accept(new CustomRsqlVisitor<>());
 
-        return candidateDAO.findAll(specification, pageable).stream()
+        List<CandidateResponseDTO> candidateResponseDTOS =
+                candidateDAO.findAll(specification, pageable).stream()
                 .map((CandidateEntity candidateEntity) ->
                         (CandidateResponseDTO) modelMap.convertTo(
                                 candidateEntity, CandidateResponseDTO.class))
                 .collect(Collectors.toList());
+
+        if (candidateResponseDTOS.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No content");
+        }
+
+        return candidateResponseDTOS;
     }
 
     @Override

@@ -26,10 +26,14 @@ public class ControllerCandidate {
 
     @GetMapping
     public List<CandidateResponseDTO> getAllCandidates(
-            @PageableDefault(sort = {"lastName"}, size = 15, direction = Sort.Direction.ASC) Pageable pageable,
-            @RequestParam(value = "search") String search) {
+            @PageableDefault(sort = {"lastName"}, size = 2, direction = Sort.Direction.ASC) Pageable pageable,
+            @RequestParam(value = "search", defaultValue = "", required = false) String search) {
 
-        return candidateService.getAll(pageable, search);
+        if (search.isEmpty() || search == null) {
+            return candidateService.getAll(pageable);
+        }
+
+        return candidateService.getAllPageable(pageable, search);
     }
 
 

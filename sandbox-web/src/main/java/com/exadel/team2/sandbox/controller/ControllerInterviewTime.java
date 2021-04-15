@@ -31,7 +31,12 @@ public class ControllerInterviewTime {
             @PageableDefault(sort = "beginDate", size = 15, direction = Sort.Direction.ASC) Pageable pageable,
             @RequestParam(value = "search") String search
     ) {
-        return interviewTimeService.getAll(pageable, search);
+
+        if (search.isEmpty() || search == null) {
+            return interviewTimeService.getAll(pageable);
+        }
+
+        return interviewTimeService.getAllPageable(pageable, search);
     }
 
 
