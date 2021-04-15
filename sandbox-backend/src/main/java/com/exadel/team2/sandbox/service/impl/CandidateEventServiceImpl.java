@@ -79,9 +79,13 @@ public class CandidateEventServiceImpl implements CandidateEventService {
 
     @Override
     public Page<ResponseCandidateEventDto> getAllPageable(Pageable pageable, String search) {
-        Node rootNode = new RSQLParser().parse(search);
-        Specification<CandidateEventEntity> spec = rootNode.accept(new CustomRsqlVisitor<>());
-        return candidateEventDAO.findAll(spec,pageable)
-                .map(candidateEventMapper::convertEntityToDto);
+        if(search.isEmpty()) {
+        return candidateEventDAO.findAll(pageable).map(candidateEventMapper::convertEntityToDto);
+        }else {
+            Node rootNode = new RSQLParser().parse(search);
+            Specification<CandidateEventEntity> spec = rootNode.accept(new CustomRsqlVisitor<>());
+            return candidateEventDAO.findAll(spec, pageable)
+                    .map(candidateEventMapper::convertEntityToDto);
+        }
     }
 }
