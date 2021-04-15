@@ -4,6 +4,7 @@ import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Data
@@ -35,6 +36,18 @@ public class EmployeeEntity {
 
     @Column(name = "EMP_SKYPE")
     private String empSkype;
+
+    @Column(name = "EMP_LOCATION_COUNTRY")
+    private String empLocationCountry;
+
+    @Column(name = "EMP_LOCATION_CITY")
+    private String empLocationCity;
+
+    @Column(name = "EMP_TIMEZONE")
+    private String empTimezone;
+
+    @Column(name = "EMP_PASSWORD")
+    private String empPassword;
 
     @Column(name = "EMP_CREATED_AT")
     private LocalDateTime empCreatedAt;

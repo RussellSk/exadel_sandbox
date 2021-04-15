@@ -30,4 +30,13 @@ public class CreateEmployeeDto {
 
     @NotNull(message = "roleId cannot be null")
     private Long roleId;
+
+    @Size(min = 1, max = 255, message = "empLocationCountry must be between 1 and 255 characters")
+    private String empLocationCountry;
+
+    @Size(min = 1, max = 255, message = "empLocationCity must be between 1 and 255 characters")
+    private String empLocationCity;
+
+    @Size(min = 1, max = 255, message = "empTimezone must be between 1 and 255 characters")
+    private String empTimezone;
 }

@@ -4,6 +4,7 @@ import com.exadel.team2.sandbox.web.role.ResponseRoleDto;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Data
@@ -23,6 +24,12 @@ public class ResponseEmployeeDto {
     private String empEmail;
 
     private String empSkype;
+
+    private String empLocationCountry;
+
+    private String empLocationCity;
+
+    private String empTimezone;
 
     @NotNull
     private ResponseRoleDto role;
