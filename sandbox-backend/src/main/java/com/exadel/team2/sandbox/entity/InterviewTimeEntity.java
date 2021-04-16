@@ -53,4 +53,5 @@ public class InterviewTimeEntity {
     @UpdateTimestamp
     @Column(name = "ITM_UPDATED_AT")
     private LocalDateTime updatedAt;
+
 }
