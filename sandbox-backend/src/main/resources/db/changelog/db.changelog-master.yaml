@@ -57,3 +57,5 @@ databaseChangeLog:
       file: db/changelog/changes/20210413_add_column_emp_timezone.yaml
   - include:
       file: db/changelog/changes/20210413_add_column_emp_password.yaml
+  - include:
+      file: db/changelog/changes/2021.04.16_load_status_data.yaml
