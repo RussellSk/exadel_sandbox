@@ -3,7 +3,8 @@ package com.exadel.team2.sandbox.service;
 import com.exadel.team2.sandbox.dto.CandidateCreateDTO;
 import com.exadel.team2.sandbox.dto.CandidateResponseDTO;
 import com.exadel.team2.sandbox.dto.CandidateUpdateDTO;
-import com.exadel.team2.sandbox.entity.CandidateEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -11,7 +12,9 @@ public interface CandidateService {
 
     CandidateResponseDTO findById(Long id);
 
-    List<CandidateResponseDTO> getAll();
+    List<CandidateResponseDTO> getAll(Pageable pageable);
+
+    List<CandidateResponseDTO> getAllPageable(Pageable pageable, String search);
 
     CandidateCreateDTO save(CandidateCreateDTO candidateCreateDTO);
 

@@ -1,13 +1,19 @@
 package com.exadel.team2.sandbox.service.impl;
 
 import com.exadel.team2.sandbox.dao.CandidateDAO;
+import com.exadel.team2.sandbox.dao.rsql.CustomRsqlVisitor;
 import com.exadel.team2.sandbox.dto.CandidateCreateDTO;
 import com.exadel.team2.sandbox.dto.CandidateResponseDTO;
 import com.exadel.team2.sandbox.dto.CandidateUpdateDTO;
 import com.exadel.team2.sandbox.entity.CandidateEntity;
 import com.exadel.team2.sandbox.mapper.ModelMap;
 import com.exadel.team2.sandbox.service.CandidateService;
+import cz.jirutka.rsql.parser.RSQLParser;
+import cz.jirutka.rsql.parser.ast.Node;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,17 +32,47 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     public CandidateResponseDTO findById(Long id) {
-        return modelMap.convertTo(candidateDAO.findById(id).orElse(null),
-                CandidateResponseDTO.class);
+        CandidateEntity candidateEntity = candidateDAO.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Candidate not found"));
+
+        return modelMap.convertTo(candidateEntity, CandidateResponseDTO.class);
     }
 
     @Override
-    public List<CandidateResponseDTO> getAll() {
-        return candidateDAO.findAll().stream()
+    public List<CandidateResponseDTO> getAll(Pageable pageable) {
+
+        List<CandidateResponseDTO> candidateResponseDTOS =
+                candidateDAO.findAll(pageable).stream()
+                        .map((CandidateEntity candidateEntity) ->
+                                (CandidateResponseDTO) modelMap.convertTo(
+                                        candidateEntity, CandidateResponseDTO.class))
+                        .collect(Collectors.toList());
+
+        if (candidateResponseDTOS.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No content");
+        }
+
+        return candidateResponseDTOS;
+    }
+
+    @Override
+    public List<CandidateResponseDTO> getAllPageable(Pageable pageable, String search) {
+
+        Node rootNode = new RSQLParser().parse(search);
+        Specification<CandidateEntity> specification = rootNode.accept(new CustomRsqlVisitor<>());
+
+        List<CandidateResponseDTO> candidateResponseDTOS =
+                candidateDAO.findAll(specification, pageable).stream()
                 .map((CandidateEntity candidateEntity) ->
                         (CandidateResponseDTO) modelMap.convertTo(
                                 candidateEntity, CandidateResponseDTO.class))
                 .collect(Collectors.toList());
+
+        if (candidateResponseDTOS.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No content");
+        }
+
+        return candidateResponseDTOS;
     }
 
     @Override

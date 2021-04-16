@@ -1,7 +1,5 @@
 package com.exadel.team2.sandbox.entity;
 
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
