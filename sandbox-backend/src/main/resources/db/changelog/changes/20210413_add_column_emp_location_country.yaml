@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20210413_add_column_emp_location_country
+      author: skaldin
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          columnExists:
+            tableName: EMPLOYEE
+            columnName: EMP_LOCATION_COUNTRY
+      changes:
+        - addColumn:
+            tableName: EMPLOYEE
+            columns:
+              name: EMP_LOCATION_COUNTRY
+              type: VARCHAR(255)
+              constraints:
+                nullable: true

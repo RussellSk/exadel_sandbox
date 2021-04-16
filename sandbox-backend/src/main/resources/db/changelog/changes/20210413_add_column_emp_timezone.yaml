@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20210413_add_column_emp_timezone
+      author: skaldin
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          columnExists:
+            tableName: EMPLOYEE
+            columnName: EMP_TIMEZONE
+      changes:
+        - addColumn:
+            tableName: EMPLOYEE
+            columns:
+              name: EMP_TIMEZONE
+              type: VARCHAR(255)
+              constraints:
+                nullable: true
