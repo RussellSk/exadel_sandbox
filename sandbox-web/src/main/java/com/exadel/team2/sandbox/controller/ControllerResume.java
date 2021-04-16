@@ -29,10 +29,6 @@ public class ControllerResume {
             @PageableDefault(sort = "id", size = 15, direction = Sort.Direction.ASC) Pageable pageable,
             @RequestParam(value = "search") String search) {
 
-        if (search.isEmpty() || search == null) {
-            return resumeService.getAll(pageable);
-        }
-
         return resumeService.getAllPageable(pageable, search);
     }
 

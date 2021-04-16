@@ -38,36 +38,20 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
-    public List<ResumeResponseDTO> getAll(Pageable pageable) {
-
-        List<ResumeResponseDTO> resumeResponseDTOS =
-                resumeDAO.findAll(pageable).stream().map((ResumeEntity entity) ->
-                        (ResumeResponseDTO) modelMap.convertTo(entity, ResumeResponseDTO.class))
-                        .collect(Collectors.toList());
-
-        if (resumeResponseDTOS.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No content");
-        }
-
-        return resumeResponseDTOS;
-    }
-
-    @Override
     public List<ResumeResponseDTO> getAllPageable(Pageable pageable, String search) {
+
+        if (search.isEmpty()) {
+            return resumeDAO.findAll(pageable).stream().map((ResumeEntity entity) ->
+                    (ResumeResponseDTO) modelMap.convertTo(entity, ResumeResponseDTO.class))
+                    .collect(Collectors.toList());
+        }
 
         Node rootNode = new RSQLParser().parse(search);
         Specification<ResumeEntity> specification = rootNode.accept(new CustomRsqlVisitor<>());
 
-        List<ResumeResponseDTO> resumeResponseDTOS =
-                resumeDAO.findAll(specification, pageable).stream().map((ResumeEntity entity) ->
-                        (ResumeResponseDTO) modelMap.convertTo(entity, ResumeResponseDTO.class))
-                        .collect(Collectors.toList());
-
-        if (resumeResponseDTOS.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No content");
-        }
-
-        return resumeResponseDTOS;
+        return resumeDAO.findAll(specification, pageable).stream().map((ResumeEntity entity) ->
+                (ResumeResponseDTO) modelMap.convertTo(entity, ResumeResponseDTO.class))
+                .collect(Collectors.toList());
     }
 
     @Override

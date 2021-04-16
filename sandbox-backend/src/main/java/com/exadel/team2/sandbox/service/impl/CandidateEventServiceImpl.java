@@ -59,6 +59,7 @@ public class CandidateEventServiceImpl implements CandidateEventService {
     public ResponseCandidateEventDto save(CreateCandidateEventDto createCandidateEventDto) {
         CandidateEventEntity candidateEventEntity = candidateEventMapper.convertDtoToEntity(createCandidateEventDto);
 
+
         EventEntity eventEntity = eventDAO.findById(createCandidateEventDto.getIdEvent())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
         candidateEventEntity.setEvent(eventEntity);

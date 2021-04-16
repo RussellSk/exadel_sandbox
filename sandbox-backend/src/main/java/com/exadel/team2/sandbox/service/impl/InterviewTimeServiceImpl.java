@@ -38,39 +38,22 @@ public class InterviewTimeServiceImpl implements InterviewTimeService {
     }
 
     @Override
-    public List<InterviewTimeResponseDTO> getAll(Pageable pageable) {
-
-        List<InterviewTimeResponseDTO> interviewTimeResponseDTOS =
-                interviewTimeDAO.findAll(pageable).stream()
-                        .map((InterviewTimeEntity interviewTimeEntity) -> (InterviewTimeResponseDTO) modelMap
-                                .convertTo(interviewTimeEntity, InterviewTimeResponseDTO.class))
-                        .collect(Collectors.toList());
-
-        if (interviewTimeResponseDTOS.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No content");
-        }
-
-        return interviewTimeResponseDTOS;
-    }
-
-    @Override
     public List<InterviewTimeResponseDTO> getAllPageable(Pageable pageable, String search) {
+
+        if (search.isEmpty()) {
+            return interviewTimeDAO.findAll(pageable).stream()
+                    .map((InterviewTimeEntity interviewTimeEntity) -> (InterviewTimeResponseDTO) modelMap
+                            .convertTo(interviewTimeEntity, InterviewTimeResponseDTO.class))
+                    .collect(Collectors.toList());
+        }
 
         Node rootNode = new RSQLParser().parse(search);
         Specification<InterviewTimeEntity> specification = rootNode.accept(new CustomRsqlVisitor<>());
 
-        List<InterviewTimeResponseDTO> interviewTimeResponseDTOS =
-                interviewTimeDAO.findAll(specification, pageable).stream()
-                        .map((InterviewTimeEntity interviewTimeEntity) -> (InterviewTimeResponseDTO) modelMap
-                                .convertTo(interviewTimeEntity, InterviewTimeResponseDTO.class))
-                        .collect(Collectors.toList());
-
-
-        if (interviewTimeResponseDTOS.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No content");
-        }
-
-        return interviewTimeResponseDTOS;
+        return interviewTimeDAO.findAll(specification, pageable).stream()
+                .map((InterviewTimeEntity interviewTimeEntity) -> (InterviewTimeResponseDTO) modelMap
+                        .convertTo(interviewTimeEntity, InterviewTimeResponseDTO.class))
+                .collect(Collectors.toList());
     }
 
     @Override

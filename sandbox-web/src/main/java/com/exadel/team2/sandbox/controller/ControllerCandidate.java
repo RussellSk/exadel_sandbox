@@ -29,10 +29,6 @@ public class ControllerCandidate {
             @PageableDefault(sort = {"lastName"}, size = 2, direction = Sort.Direction.ASC) Pageable pageable,
             @RequestParam(value = "search", defaultValue = "", required = false) String search) {
 
-        if (search.isEmpty() || search == null) {
-            return candidateService.getAll(pageable);
-        }
-
         return candidateService.getAllPageable(pageable, search);
     }
 

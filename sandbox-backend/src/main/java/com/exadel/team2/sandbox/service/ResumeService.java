@@ -11,8 +11,6 @@ public interface ResumeService {
 
     ResumeResponseDTO getById(Long id);
 
-    List<ResumeResponseDTO> getAll(Pageable pageable);
-
     List<ResumeResponseDTO> getAllPageable(Pageable pageable, String search);
 
     ResumeCreateDTO save(ResumeCreateDTO resumeCreateDTO);

@@ -29,12 +29,7 @@ public class ControllerInterviewTime {
     @GetMapping
     public List<InterviewTimeResponseDTO> getAllInterviewTime(
             @PageableDefault(sort = "beginDate", size = 15, direction = Sort.Direction.ASC) Pageable pageable,
-            @RequestParam(value = "search") String search
-    ) {
-
-        if (search.isEmpty() || search == null) {
-            return interviewTimeService.getAll(pageable);
-        }
+            @RequestParam(value = "search") String search) {
 
         return interviewTimeService.getAllPageable(pageable, search);
     }
