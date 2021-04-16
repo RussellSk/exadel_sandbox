@@ -10,7 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-//@CrossOrigin(origins = "http://localhost:8087")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/event")
