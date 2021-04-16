@@ -23,7 +23,6 @@ public class EventController {
         return eventService.getById(id);
     }
 
-    @CrossOrigin
     @GetMapping("/all")
     public Page<EventResponseDTO> getAllEventsWithRsql(
 
