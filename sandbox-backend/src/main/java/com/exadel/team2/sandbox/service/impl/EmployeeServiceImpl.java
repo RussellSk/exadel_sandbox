@@ -72,7 +72,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         RoleEntity roleEntity = roleDAO.findById(createEmployeeDTO.getRoleId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Role Not Found"));
 
-        employeeEntity.setRole(roleEntity);
+//        employeeEntity.setRoleEnum(roleEnum);
         employeeEntity.setEmpCreatedAt(LocalDateTime.now());
         employeeEntity.setEmpUpdatedAt(LocalDateTime.now());
 
@@ -86,11 +86,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         EmployeeEntity employeeEntity = employeeDAO.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee Not Found"));
 
-        if (updateEmployeeDto.getRoleId() != null) {
-            RoleEntity roleEntity = roleDAO.findById(updateEmployeeDto.getRoleId())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Role Not Found"));
-            employeeEntity.setRole(roleEntity);
-        }
+//        if (updateEmployeeDto.getRoleId() != null) {
+//            RoleEntity roleEntity = roleDAO.findById(updateEmployeeDto.getRoleId())
+//                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Role Not Found"));
+//            employeeEntity.setRoleEnum(roleEntity);
+//        }
 
         if (updateEmployeeDto.getEmpLastName() != null) {
             employeeEntity.setEmpLastName(updateEmployeeDto.getEmpLastName());

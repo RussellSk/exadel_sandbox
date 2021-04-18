@@ -1,10 +1,11 @@
 package com.exadel.team2.sandbox.entity;
 
+import com.exadel.team2.sandbox.entity.enums.RoleEnum;
+import com.exadel.team2.sandbox.entity.enums.StatusEnum;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Data
@@ -54,4 +55,12 @@ public class EmployeeEntity {
 
     @Column(name = "EMP_UPDATED_AT")
     private LocalDateTime empUpdatedAt;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "role")
+    private RoleEnum roleEnum;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "status")
+    private StatusEnum status;
 }

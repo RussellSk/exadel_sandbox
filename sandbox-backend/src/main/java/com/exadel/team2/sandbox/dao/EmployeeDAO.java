@@ -9,8 +9,10 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface EmployeeDAO extends JpaRepository<EmployeeEntity, Long>, JpaSpecificationExecutor<EmployeeEntity> {
     Page<EmployeeEntity> findAll(Specification<EmployeeEntity> specification, Pageable pageable);
+    Optional<EmployeeEntity> findByEmail(String empEmail);
 }
