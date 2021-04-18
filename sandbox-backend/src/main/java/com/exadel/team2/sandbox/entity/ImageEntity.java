@@ -32,6 +32,9 @@ public class ImageEntity {
     @Column(name = "IMG_SIZE")
     private Integer imgSize;
 
+    @Column(name = "IMG_ALT_TEXT")
+    private String imgAltText;
+
     @CreationTimestamp
     @Column(name = "IMG_CREATED_AT")
     private LocalDateTime imgCreatedAt;

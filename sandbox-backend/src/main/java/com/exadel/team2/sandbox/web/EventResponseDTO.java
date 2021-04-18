@@ -19,9 +19,12 @@ public class EventResponseDTO {
     private ImageResponseDTO image;
     private ResponseEmployeeDto employee;
     private EventTypeResponseDTO eventType;
+    private ResponseEmployeeDto creatorEvent;
     private LocalDate evStartDate;
     private String evDuration;
     private LocalDate evDeadline;
+    @NotNull
+    private LocalDate evDateOfEndAccept;
     @NotNull
     private String evLocation;
     private LocalDateTime evCreatedAt;

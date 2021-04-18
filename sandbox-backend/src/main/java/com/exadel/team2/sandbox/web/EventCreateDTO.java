@@ -16,11 +16,18 @@ public class EventCreateDTO {
     private Long imageId;
     private Long employeeId;
     private Long eventTypeId;
+
+    @NotNull
+    private Long creatorEventId;
     private LocalDate evStartDate;
 
     @Size(min = 1, max = 50, message = "Duration must be between 1 and 50 characters")
     private String evDuration;
     private LocalDate evDeadline;
+
+    @NotNull
+    private LocalDate evDateOfEndAccept;
+
     @NotNull
     private String evLocation;
     private String evCandidateRequirements;

@@ -14,4 +14,5 @@ public class ImageUpdateDTO {
     private String imageName;
     private String imgExt;
     private Integer imgSize;
+    private String imgAltText;
 }

@@ -16,6 +16,7 @@ public class ImageResponseDTO {
     private String imageName;
     private String imgExt;
     private Integer imgSize;
+    private String imgAltText;
     private LocalDateTime imgCreatedAt;
 
 }

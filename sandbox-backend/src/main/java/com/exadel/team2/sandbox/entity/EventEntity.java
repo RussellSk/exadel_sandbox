@@ -29,6 +29,10 @@ public class EventEntity {
     @JoinColumn(name = "EMP_ID")
     private EmployeeEntity employee;
 
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH} )
+    @JoinColumn(name = "EV_CREATOR", referencedColumnName = "EMP_ID")
+    private EmployeeEntity creatorEvent;
+
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH } )
     @JoinColumn(name = "EVT_ID", referencedColumnName = "EVT_ID")
     private EventTypeEntity eventType;
@@ -41,6 +45,9 @@ public class EventEntity {
 
     @Column(name = "EV_DEADLINE")
     private LocalDate evDeadline;
+
+    @Column(name = "EV_DATE_OF_END_ACCEPT")
+    private LocalDate evDateOfEndAccept;
 
     @Column(name = "EV_LOCATION")
     private String evLocation;
