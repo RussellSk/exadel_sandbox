@@ -1,0 +1,57 @@
+databaseChangeLog:
+  - changeSet:
+      id:  dropForeignKeyConstraint-candidate
+      author:  Alexei
+      preConditions:
+        - onFail: MARK_RAN
+        - foreignKeyConstraintExists:
+            foreignKeyName:  fk_CANDIDATE_EVENT_contact_CANDIDATE
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName:  CANDIDATE_EVENT
+            baseTableSchemaName:  sandbox
+            constraintName:  fk_CANDIDATE_EVENT_contact_CANDIDATE
+  - changeSet:
+      id: fk_CANDIDATE_EVENT_contact_CANDIDATE
+      author: Alexei
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            - foreignKeyConstraintExists:
+                foreignKeyName: fk_CANDIDATE_EVENT_contact_CANDIDATE
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: CN_ID
+            baseTableName: CANDIDATE_EVENT
+            constraintName: FK_CANDIDATE
+            referencedColumnNames: CN_ID
+            referencedTableName: CANDIDATE
+            referencedTableSchemaName: sandbox
+  - changeSet:
+      id: dropForeignKeyConstraint-event
+      author: Alexei
+      preConditions:
+        - onFail: MARK_RAN
+        - foreignKeyConstraintExists:
+            foreignKeyName: fk_CANDIDATE_EVENT_contact_EVENT
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName: CANDIDATE_EVENT
+            baseTableSchemaName: sandbox
+            constraintName: fk_CANDIDATE_EVENT_contact_EVENT
+  - changeSet:
+      id: fk_CANDIDATE_EVENT_contact_EVENT
+      author: Alexei
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            - foreignKeyConstraintExists:
+                foreignKeyName: fk_CANDIDATE_EVENT_contact_EVENT
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: EV_ID
+            baseTableName: CANDIDATE_EVENT
+            constraintName: FK_EVENT
+            referencedColumnNames: EV_ID
+            referencedTableName: EVENT
+            referencedTableSchemaName: sandbox
