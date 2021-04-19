@@ -1,5 +1,8 @@
 package com.exadel.team2.sandbox.web.event;
 
+import com.exadel.team2.sandbox.entity.EnglishLevel;
+import com.exadel.team2.sandbox.entity.EventTab;
+import com.exadel.team2.sandbox.entity.Format;
 import com.exadel.team2.sandbox.web.employee.ResponseEmployeeDto;
 import com.exadel.team2.sandbox.web.event_type.EventTypeResponseDTO;
 import com.exadel.team2.sandbox.web.image.ImageResponseDTO;
@@ -28,8 +31,12 @@ public class EventResponseDTO {
     @NotNull
     private LocalDate dateOfEndAccept;
     @NotNull
-    private String location;
+    private Format format;
+    private String country;
+    private String city;
+    private String technologies;
+    private EventTab eventTab;
+    private EnglishLevel englishLevel;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private String candidateRequirements;
 }

@@ -17,7 +17,5 @@ public class EventTypeResponseDTO {
     private String name;
     @NotNull
     private String description;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
 
 }

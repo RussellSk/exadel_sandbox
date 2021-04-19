@@ -1,5 +1,8 @@
 package com.exadel.team2.sandbox.web.event;
 
+import com.exadel.team2.sandbox.entity.EnglishLevel;
+import com.exadel.team2.sandbox.entity.EventTab;
+import com.exadel.team2.sandbox.entity.Format;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,7 +33,11 @@ public class EventUpdateDTO {
     private LocalDate dateOfEndAccept;
 
     @NotNull
-    private String location;
-    private String candidateRequirements;
+    private Format format;
+    private String country;
+    private String city;
+    private String technologies;
+    private EventTab eventTab;
+    private EnglishLevel englishLevel;
 
 }

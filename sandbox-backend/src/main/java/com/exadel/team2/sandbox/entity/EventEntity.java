@@ -37,6 +37,14 @@ public class EventEntity {
     @JoinColumn(name = "EVT_ID", referencedColumnName = "EVT_ID")
     private EventTypeEntity eventType;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "EV_TAB")
+    private EventTab eventTab;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "EV_ENGLISH_LEVEL")
+    private EnglishLevel englishLevel;
+
     @Column(name = "EV_START_DATE")
     private LocalDate startDate;
 
@@ -49,11 +57,18 @@ public class EventEntity {
     @Column(name = "EV_DATE_OF_END_ACCEPT")
     private LocalDate dateOfEndAccept;
 
-    @Column(name = "EV_LOCATION")
-    private String location;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "EV_FORMAT")
+    private Format format;
 
-    @Column(name = "EV_CANDIDATE_REQUIREMENTS")
-    private String candidateRequirements;
+    @Column(name = "EV_COUNTRY")
+    private String country;
+
+    @Column(name = "EV_CITY")
+    private String city;
+
+    @Column(name = "EV_TECHNOLOGIES")
+    private String technologies;
 
     @CreationTimestamp
     @Column(name = "EV_CREATED_AT")

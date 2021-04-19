@@ -15,5 +15,4 @@ public class EventTypeCreateDTO {
     private String name;
     @NotNull
     private String description;
-
 }

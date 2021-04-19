@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id:  rename_column_requirements_technologies
+      author:  vadblagiy@gmail.com
+      preConditions:
+        onFail: CONTINUE
+        tableExists:
+          tableName: EVENT
+      changes:
+        - renameColumn:
+            columnDataType:  TEXT(2000)
+            newColumnName:  EV_TECHNOLOGIES
+            oldColumnName:  EV_CANDIDATE_REQUIREMENTS
+            remarks:  A_String
+            schemaName:  sandbox
+            tableName:  EVENT
+  - changeSet:
+      id:  rename_column_location_format
+      author:  vadblagiy@gmail.com
+      preConditions:
+        onFail: CONTINUE
+        tableExists:
+          tableName: EVENT
+      changes:
+        - renameColumn:
+            columnDataType: TEXT(100)
+            newColumnName:  EV_FORMAT
+            oldColumnName:  EV_LOCATION
+            remarks:  A_String
+            schemaName:  sandbox
+            tableName:  EVENT
