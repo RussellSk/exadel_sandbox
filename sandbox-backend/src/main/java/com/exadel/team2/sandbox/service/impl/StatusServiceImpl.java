@@ -1,15 +1,19 @@
 package com.exadel.team2.sandbox.service.impl;
 
 import com.exadel.team2.sandbox.dao.StatusDAO;
+import com.exadel.team2.sandbox.dao.rsql.CustomRsqlVisitor;
 import com.exadel.team2.sandbox.entity.Status;
 import com.exadel.team2.sandbox.mapper.StatusMapperDTO;
 import com.exadel.team2.sandbox.service.StatusService;
 import com.exadel.team2.sandbox.web.status.CreateStatusDTO;
 import com.exadel.team2.sandbox.web.status.ResponseStatusDTO;
 import com.exadel.team2.sandbox.web.status.UpdateStatusDTO;
+import cz.jirutka.rsql.parser.RSQLParser;
+import cz.jirutka.rsql.parser.ast.Node;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,8 +38,14 @@ public class StatusServiceImpl implements StatusService {
     }
 
     @Override
-    public Page<ResponseStatusDTO> findAllPageable(Pageable pageable) {
-        return dao.findAll(pageable).map(statusMapper::convertEntityToDto);
+    public Page<ResponseStatusDTO> findAllPageable(Pageable pageable, String query) {
+        if (query.isEmpty()) {
+            return dao.findAll(pageable)
+                    .map(statusMapper::convertEntityToDto);
+        }
+        Node rootNode = new RSQLParser().parse(query);
+        Specification<Status> spec = rootNode.accept(new CustomRsqlVisitor<>());
+        return dao.findAll(spec, pageable).map(statusMapper::convertEntityToDto);
     }
 
     @Override
@@ -77,6 +87,8 @@ public class StatusServiceImpl implements StatusService {
 
     @Override
     public void deleteById(Long id) {
+        if (!dao.existsById(id))
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Status id not found");
         dao.deleteById(id);
     }
 }
