@@ -16,7 +16,7 @@ databaseChangeLog:
       author: butenko
       preConditions:
         - onFail: MARK_RAN
-        - foreignKeyConstraintExists:docker run -dit --restart unless-stopped httpd
+        - foreignKeyConstraintExists:
             foreignKeyName: fk_STATUS_HISTORY_contact_EMPLOYEE
       changes:
         - dropForeignKeyConstraint:
