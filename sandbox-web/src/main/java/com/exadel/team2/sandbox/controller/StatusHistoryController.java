@@ -25,8 +25,9 @@ public class StatusHistoryController {
 
     @GetMapping("/all")
     public Page<ResponseStatusHistoryDTO> findAllStatusHistoryPageable(@RequestParam(defaultValue = "0", name = "page") Integer page,
-                                                                       @RequestParam(defaultValue = "15", name = "size") Integer size) {
-        return historyService.findAllPageable(PageRequest.of(page, size));
+                                                                       @RequestParam(defaultValue = "9", name = "size") Integer size,
+                                                                       @RequestParam(defaultValue = "",value = "search") String query) {
+        return historyService.findAllPageable(PageRequest.of(page, size), query);
     }
 
     @PostMapping
