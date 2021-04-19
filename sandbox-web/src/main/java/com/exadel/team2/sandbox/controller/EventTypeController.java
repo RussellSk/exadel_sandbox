@@ -1,9 +1,9 @@
 package com.exadel.team2.sandbox.controller;
 
 import com.exadel.team2.sandbox.service.EventTypeService;
-import com.exadel.team2.sandbox.web.EventTypeCreateDTO;
-import com.exadel.team2.sandbox.web.EventTypeResponseDTO;
-import com.exadel.team2.sandbox.web.EventTypeUpdateDTO;
+import com.exadel.team2.sandbox.web.event_type.EventTypeCreateDTO;
+import com.exadel.team2.sandbox.web.event_type.EventTypeResponseDTO;
+import com.exadel.team2.sandbox.web.event_type.EventTypeUpdateDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;

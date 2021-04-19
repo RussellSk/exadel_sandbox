@@ -1,6 +1,8 @@
-package com.exadel.team2.sandbox.web;
+package com.exadel.team2.sandbox.web.event;
 
 import com.exadel.team2.sandbox.web.employee.ResponseEmployeeDto;
+import com.exadel.team2.sandbox.web.event_type.EventTypeResponseDTO;
+import com.exadel.team2.sandbox.web.image.ImageResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,19 +17,19 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class EventResponseDTO {
 
-    private Long evId;
+    private Long id;
     private ImageResponseDTO image;
     private ResponseEmployeeDto employee;
     private EventTypeResponseDTO eventType;
     private ResponseEmployeeDto creatorEvent;
-    private LocalDate evStartDate;
-    private String evDuration;
-    private LocalDate evDeadline;
+    private LocalDate startDate;
+    private String duration;
+    private LocalDate deadline;
     @NotNull
-    private LocalDate evDateOfEndAccept;
+    private LocalDate dateOfEndAccept;
     @NotNull
-    private String evLocation;
-    private LocalDateTime evCreatedAt;
-    private LocalDateTime evUpdatedAt;
-    private String evCandidateRequirements;
+    private String location;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private String candidateRequirements;
 }

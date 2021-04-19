@@ -1,4 +1,4 @@
-package com.exadel.team2.sandbox.web;
+package com.exadel.team2.sandbox.web.event_type;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,12 +12,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class EventTypeResponseDTO {
 
-    private Long evtId;
+    private Long id;
     @NotNull
-    private String evtName;
+    private String name;
     @NotNull
-    private String evtDescription;
-    private LocalDateTime evtCreatedAt;
-    private LocalDateTime evtUpdatedAt;
+    private String description;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
 }

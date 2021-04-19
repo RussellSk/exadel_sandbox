@@ -19,7 +19,7 @@ public class EventEntity {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     @Column(name = "EV_ID")
-    private Long evId;
+    private Long id;
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH} )
     @JoinColumn(name = "IMG_ID", referencedColumnName = "IMG_ID")
@@ -38,29 +38,29 @@ public class EventEntity {
     private EventTypeEntity eventType;
 
     @Column(name = "EV_START_DATE")
-    private LocalDate evStartDate;
+    private LocalDate startDate;
 
     @Column(name = "EV_DURATION")
-    private String evDuration;
+    private String duration;
 
     @Column(name = "EV_DEADLINE")
-    private LocalDate evDeadline;
+    private LocalDate deadline;
 
     @Column(name = "EV_DATE_OF_END_ACCEPT")
-    private LocalDate evDateOfEndAccept;
+    private LocalDate dateOfEndAccept;
 
     @Column(name = "EV_LOCATION")
-    private String evLocation;
+    private String location;
 
     @Column(name = "EV_CANDIDATE_REQUIREMENTS")
-    private String evCandidateRequirements;
+    private String candidateRequirements;
 
     @CreationTimestamp
     @Column(name = "EV_CREATED_AT")
-    private LocalDateTime evCreatedAt;
+    private LocalDateTime createdAt;
 
     @UpdateTimestamp
     @Column(name = "EV_UPDATED_AT")
-    private LocalDateTime evUpdatedAt;
+    private LocalDateTime updatedAt;
 
 }

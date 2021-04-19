@@ -1,4 +1,4 @@
-package com.exadel.team2.sandbox.web;
+package com.exadel.team2.sandbox.web.event;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,22 +13,22 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class EventCreateDTO {
 
-    private Long imageId;
-    private Long employeeId;
-    private Long eventTypeId;
+    private Long image;
+    private Long employee;
+    private Long eventType;
 
     @NotNull
-    private Long creatorEventId;
-    private LocalDate evStartDate;
+    private Long creatorEvent;
+    private LocalDate startDate;
 
     @Size(min = 1, max = 50, message = "Duration must be between 1 and 50 characters")
-    private String evDuration;
-    private LocalDate evDeadline;
+    private String duration;
+    private LocalDate deadline;
 
     @NotNull
-    private LocalDate evDateOfEndAccept;
+    private LocalDate dateOfEndAccept;
 
     @NotNull
-    private String evLocation;
-    private String evCandidateRequirements;
+    private String location;
+    private String candidateRequirements;
 }
