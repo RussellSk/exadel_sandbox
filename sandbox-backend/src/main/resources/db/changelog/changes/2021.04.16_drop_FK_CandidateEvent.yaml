@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id:  dropForeignKeyConstraint-candidate
+      author:  Alexei
+      preConditions:
+        - onFail: MARK_RAN
+        - foreignKeyConstraintExists:
+            foreignKeyName:  fk_CANDIDATE_EVENT_contact_CANDIDATE
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName:  CANDIDATE_EVENT
+            baseTableSchemaName:  sandbox
+            constraintName:  fk_CANDIDATE_EVENT_contact_CANDIDATE
+
+  - changeSet:
+      id: dropForeignKeyConstraint-event
+      author: Alexei
+      preConditions:
+        - onFail: MARK_RAN
+        - foreignKeyConstraintExists:
+            foreignKeyName: fk_CANDIDATE_EVENT_contact_EVENT
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName: CANDIDATE_EVENT
+            baseTableSchemaName: sandbox
+            constraintName: fk_CANDIDATE_EVENT_contact_EVENT
