@@ -9,6 +9,7 @@ import com.exadel.team2.sandbox.entity.InterviewTimeEntity;
 import com.exadel.team2.sandbox.mapper.ModelMap;
 import com.exadel.team2.sandbox.service.InterviewTimeService;
 import cz.jirutka.rsql.parser.RSQLParser;
+import cz.jirutka.rsql.parser.RSQLParserException;
 import cz.jirutka.rsql.parser.ast.Node;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -57,14 +58,14 @@ public class InterviewTimeServiceImpl implements InterviewTimeService {
     }
 
     @Override
-    public InterviewTimeCreateDTO save(InterviewTimeCreateDTO interviewTimeCreateDTO) {
+    public InterviewTimeCreateDTO save(InterviewTimeCreateDTO interviewTimeCreateDTO) throws RSQLParserException {
         return modelMap.convertTo(interviewTimeDAO
                 .save(modelMap.convertTo(interviewTimeCreateDTO, InterviewTimeEntity.class)),
                 InterviewTimeCreateDTO.class);
     }
 
     @Override
-    public InterviewTimeUpdateDTO update(Long id, InterviewTimeUpdateDTO interviewTimeUpdateDTO) {
+    public InterviewTimeUpdateDTO update(Long id, InterviewTimeUpdateDTO interviewTimeUpdateDTO) throws RSQLParserException {
         InterviewTimeEntity interviewTimeEntity = interviewTimeDAO.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The meeting didn't arrange"));
 

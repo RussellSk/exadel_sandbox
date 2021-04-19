@@ -9,6 +9,7 @@ import com.exadel.team2.sandbox.entity.CandidateEntity;
 import com.exadel.team2.sandbox.mapper.ModelMap;
 import com.exadel.team2.sandbox.service.CandidateService;
 import cz.jirutka.rsql.parser.RSQLParser;
+import cz.jirutka.rsql.parser.RSQLParserException;
 import cz.jirutka.rsql.parser.ast.Node;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -60,13 +61,13 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public CandidateCreateDTO save(CandidateCreateDTO candidateCreateDTO) {
+    public CandidateCreateDTO save(CandidateCreateDTO candidateCreateDTO) throws RSQLParserException {
         return modelMap.convertTo(candidateDAO.save(modelMap.convertTo(candidateCreateDTO, CandidateEntity.class)),
                 CandidateCreateDTO.class);
     }
 
     @Override
-    public CandidateUpdateDTO update(Long id, CandidateUpdateDTO candidateUpdateDTO) {
+    public CandidateUpdateDTO update(Long id, CandidateUpdateDTO candidateUpdateDTO) throws RSQLParserException {
         CandidateEntity candidateEntity = candidateDAO.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Candidate not found"));
 

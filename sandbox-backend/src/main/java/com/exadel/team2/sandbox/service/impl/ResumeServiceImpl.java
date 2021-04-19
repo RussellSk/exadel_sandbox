@@ -9,6 +9,7 @@ import com.exadel.team2.sandbox.entity.ResumeEntity;
 import com.exadel.team2.sandbox.mapper.ModelMap;
 import com.exadel.team2.sandbox.service.ResumeService;
 import cz.jirutka.rsql.parser.RSQLParser;
+import cz.jirutka.rsql.parser.RSQLParserException;
 import cz.jirutka.rsql.parser.ast.Node;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -55,14 +56,14 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
-    public ResumeCreateDTO save(ResumeCreateDTO resumeCreateDTO) {
+    public ResumeCreateDTO save(ResumeCreateDTO resumeCreateDTO) throws RSQLParserException {
         return modelMap.convertTo(
                 resumeDAO.save(modelMap.convertTo(resumeCreateDTO, ResumeEntity.class)),
                         ResumeCreateDTO.class);
     }
 
     @Override
-    public ResumeUpdateDTO update(Long id, ResumeUpdateDTO resumeUpdateDTO) {
+    public ResumeUpdateDTO update(Long id, ResumeUpdateDTO resumeUpdateDTO) throws RSQLParserException {
         ResumeEntity resumeEntity = resumeDAO.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Resume not found"));
 

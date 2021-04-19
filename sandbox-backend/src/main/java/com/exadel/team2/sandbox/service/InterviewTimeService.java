@@ -3,6 +3,7 @@ package com.exadel.team2.sandbox.service;
 import com.exadel.team2.sandbox.dto.InterviewTimeCreateDTO;
 import com.exadel.team2.sandbox.dto.InterviewTimeResponseDTO;
 import com.exadel.team2.sandbox.dto.InterviewTimeUpdateDTO;
+import cz.jirutka.rsql.parser.RSQLParserException;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -13,9 +14,9 @@ public interface InterviewTimeService {
 
     List<InterviewTimeResponseDTO> getAllPageable(Pageable pageable, String search);
 
-    InterviewTimeCreateDTO save(InterviewTimeCreateDTO interviewTimeCreateDTO);
+    InterviewTimeCreateDTO save(InterviewTimeCreateDTO interviewTimeCreateDTO) throws RSQLParserException;
 
-    InterviewTimeUpdateDTO update(Long id, InterviewTimeUpdateDTO interviewTimeUpdateDTO);
+    InterviewTimeUpdateDTO update(Long id, InterviewTimeUpdateDTO interviewTimeUpdateDTO) throws RSQLParserException;
 
     void delete(Long id);
 }
