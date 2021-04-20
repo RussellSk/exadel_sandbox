@@ -1,7 +1,7 @@
 package com.exadel.team2.sandbox.mapper;
 
 import com.exadel.team2.sandbox.entity.ImageEntity;
-import com.exadel.team2.sandbox.web.ImageResponseDTO;
+import com.exadel.team2.sandbox.web.image.ImageResponseDTO;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;

@@ -1,0 +1,61 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2021.04.19_add_column_tab
+      author: vadblagiy@gmail.com
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          columnExists:
+            tableName: EVENT
+            columnName: EV_TAB
+      changes:
+        - addColumn:
+            tableName: EVENT
+            columns:
+              name: EV_TAB
+              type: VARCHAR(20)
+  - changeSet:
+      id: 2021.04.19_add_column_english_level
+      author: vadblagiy@gmail.com
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          columnExists:
+            tableName: EVENT
+            columnName: EV_ENGLISH_LEVEL
+      changes:
+        - addColumn:
+            tableName: EVENT
+            columns:
+              name: EV_ENGLISH_LEVEL
+              type: VARCHAR(30)
+  - changeSet:
+      id: 2021.04.19_add_column_country
+      author: vadblagiy@gmail.com
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          columnExists:
+            tableName: EVENT
+            columnName: EV_COUNTRY
+      changes:
+        - addColumn:
+            tableName: EVENT
+            columns:
+              name: EV_COUNTRY
+              type: VARCHAR(50)
+  - changeSet:
+      id: 2021.04.19_add_column_city
+      author: vadblagiy@gmail.com
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          columnExists:
+            tableName: EVENT
+            columnName: EV_CITY
+      changes:
+        - addColumn:
+            tableName: EVENT
+            columns:
+              name: EV_CITY
+              type: VARCHAR(50)

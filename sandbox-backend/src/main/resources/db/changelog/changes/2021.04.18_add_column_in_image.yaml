@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2021.04.18_add_column_alt_text
+      author: vadblagiy@gmail.com
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          columnExists:
+            tableName: IMAGE
+            columnName: IMG_ALT_TEXT
+      changes:
+        - addColumn:
+            tableName: IMAGE
+            columns:
+              name: IMG_ALT_TEXT
+              type: VARCHAR(50)
+
+

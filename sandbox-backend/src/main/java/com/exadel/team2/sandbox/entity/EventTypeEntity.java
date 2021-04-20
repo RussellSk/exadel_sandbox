@@ -18,20 +18,20 @@ public class EventTypeEntity {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     @Column(name = "EVT_ID")
-    private Long evtId;
+    private Long id;
 
     @Column(name = "EVT_NAME")
-    private String evtName;
+    private String name;
 
     @Column(name = "EVT_DESCRIPTION")
-    private String evtDescription;
+    private String description;
 
     @CreationTimestamp
     @Column(name = "EVT_CREATED_AT")
-    private LocalDateTime evtCreatedAt;
+    private LocalDateTime createdAt;
 
     @UpdateTimestamp
     @Column(name = "EVT_UPDATED_AT")
-    private LocalDateTime evtUpdatedAt;
+    private LocalDateTime updatedAt;
 
 }
