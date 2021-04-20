@@ -1,36 +1,37 @@
 package com.exadel.team2.sandbox.web.employee;
 
+import com.exadel.team2.sandbox.web.GeneralDto;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
 @Data
-public class UpdateEmployeeDto {
+public class UpdateEmployeeDto implements GeneralDto {
     @Size(min = 1, max = 255, message = "empFirstName must be between 1 and 255 characters")
-    private String empFirstName;
+    private String firstName;
 
     @Size(min = 1, max = 255, message = "empLastName must be between 1 and 255 characters")
-    private String empLastName;
+    private String lastName;
 
     @Size(min = 1, max = 255, message = "empPhone must be between 1 and 255 characters")
-    private String empPhone;
+    private String phone;
 
     @Email(message = "empEmail should be valid")
     @Size(min = 1, max = 255, message = "empEmail must be between 1 and 255 characters")
-    private String empEmail;
+    private String email;
 
     @Size(min = 1, max = 255, message = "empSkype must be between 1 and 255 characters")
-    private String empSkype;
+    private String skype;
 
     private Long roleId;
 
     @Size(min = 1, max = 255, message = "empLocationCountry must be between 1 and 255 characters")
-    private String empLocationCountry;
+    private String locationCountry;
 
     @Size(min = 1, max = 255, message = "empLocationCity must be between 1 and 255 characters")
-    private String empLocationCity;
+    private String locationCity;
 
     @Size(min = 1, max = 255, message = "empTimezone must be between 1 and 255 characters")
-    private String empTimezone;
+    private String timezone;
 }
