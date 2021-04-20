@@ -1,6 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 2021.04.13_load_data_for_event
+      validCheckSum: 8:0351f39fd81cd6c3e0d4d34b498617b2
       author: vadblagiy@gmail.com
       changes:
         - sqlFile:
