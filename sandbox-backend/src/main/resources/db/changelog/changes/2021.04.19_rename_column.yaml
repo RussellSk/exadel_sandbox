@@ -3,7 +3,7 @@ databaseChangeLog:
       id:  rename_column_requirements_technologies
       author:  vadblagiy@gmail.com
       preConditions:
-        onFail: CONTINUE
+        onFail: MARK_RAN
         tableExists:
           tableName: EVENT
       changes:
@@ -18,7 +18,7 @@ databaseChangeLog:
       id:  rename_column_location_format
       author:  vadblagiy@gmail.com
       preConditions:
-        onFail: CONTINUE
+        onFail: MARK_RAN
         tableExists:
           tableName: EVENT
       changes:

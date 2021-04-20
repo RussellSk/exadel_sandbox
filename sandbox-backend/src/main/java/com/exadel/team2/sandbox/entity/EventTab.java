@@ -4,6 +4,4 @@ public enum EventTab {
     ARCHIVE,
     PLANNED,
     IN_PROGRESS
-
-
 }

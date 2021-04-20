@@ -1,11 +1,11 @@
 package com.exadel.team2.sandbox.entity;
 
 public enum EnglishLevel {
-    Beginner,
-    Elementary,
-    Pre_Intermediate,
-    Intermediate,
-    Upper_Intermediate,
-    Advanced,
-    Proficiency
+    BEGINNER,
+    ELEMENTARY,
+    PRE_INTERMEDIATE,
+    INTERMEDIATE,
+    UPPER_INTERMEDIATE,
+    ADVANCED,
+    PROFICIENCY
 }
