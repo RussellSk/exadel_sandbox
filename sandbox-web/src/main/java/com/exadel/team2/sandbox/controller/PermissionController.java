@@ -1,13 +1,9 @@
 package com.exadel.team2.sandbox.controller;
 
-import com.exadel.team2.sandbox.entity.PermissionEntity;
 import com.exadel.team2.sandbox.service.PermissionService;
 import com.exadel.team2.sandbox.web.permission.ResponsePermissionDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 

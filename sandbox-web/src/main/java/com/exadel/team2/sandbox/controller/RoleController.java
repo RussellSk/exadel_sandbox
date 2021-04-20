@@ -27,12 +27,11 @@ public class RoleController {
     public Page<ResponseRoleDto> getRoles(
             @RequestParam(defaultValue = "0", name = "page") Integer page,
             @RequestParam(defaultValue = "15", name = "itemsPerPage") Integer itemsPerPage) {
-        return roleService.getAllPageable(PageRequest.of(page, itemsPerPage));
+        return roleService.getAllPageable(PageRequest.of(page, itemsPerPage), "");
     }
 
     @PutMapping("/{id}")
     public ResponseRoleDto updateRole(@PathVariable Long id, @Validated @RequestBody UpdateRoleDto updateRoleDto) {
         return roleService.update(id, updateRoleDto);
     }
-
 }

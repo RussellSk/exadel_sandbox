@@ -81,7 +81,7 @@ public class StatusHistoryServiceImpl implements StatusHistoryService {
 
         statusHistory.setStatus(status);
 
-        EmployeeEntity employee = employeeDAO.findById(statusHistory.getEmployee().getEmpId())
+        EmployeeEntity employee = employeeDAO.findById(statusHistory.getEmployee().getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found!"));
 
         statusHistory.setEmployee(employee);
