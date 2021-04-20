@@ -5,6 +5,9 @@ import com.exadel.team2.sandbox.dto.ResumeResponseDTO;
 import com.exadel.team2.sandbox.dto.ResumeUpdateDTO;
 import com.exadel.team2.sandbox.service.impl.ResumeServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,8 +25,11 @@ public class ControllerResume {
     }
 
     @GetMapping
-    public List<ResumeResponseDTO> getAll() {
-        return resumeService.getAll();
+    public List<ResumeResponseDTO> getAll(
+            @PageableDefault(sort = "id", size = 15, direction = Sort.Direction.ASC) Pageable pageable,
+            @RequestParam(value = "search") String search) {
+
+        return resumeService.getAllPageable(pageable, search);
     }
 
     @PostMapping

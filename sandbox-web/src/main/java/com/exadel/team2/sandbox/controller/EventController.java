@@ -1,9 +1,9 @@
 package com.exadel.team2.sandbox.controller;
 
-import com.exadel.team2.sandbox.web.EventCreateDTO;
+import com.exadel.team2.sandbox.web.event.EventCreateDTO;
 import com.exadel.team2.sandbox.service.EventService;
-import com.exadel.team2.sandbox.web.EventResponseDTO;
-import com.exadel.team2.sandbox.web.EventUpdateDTO;
+import com.exadel.team2.sandbox.web.event.EventResponseDTO;
+import com.exadel.team2.sandbox.web.event.EventUpdateDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

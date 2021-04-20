@@ -18,22 +18,25 @@ public class ImageEntity {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     @Column(name = "IMG_ID")
-    private Long imgId;
+    private Long id;
 
     @Column(name = "IMG_PATH")
-    private String imgPath;
+    private String path;
 
     @Column(name = "IMG_NAME")
     private String imageName;
 
     @Column(name = "IMG_EXT")
-    private String imgExt;
+    private String ext;
 
     @Column(name = "IMG_SIZE")
-    private Integer imgSize;
+    private Integer size;
+
+    @Column(name = "IMG_ALT_TEXT")
+    private String altText;
 
     @CreationTimestamp
     @Column(name = "IMG_CREATED_AT")
-    private LocalDateTime imgCreatedAt;
+    private LocalDateTime createdAt;
 
 }

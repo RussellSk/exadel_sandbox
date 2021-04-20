@@ -1,5 +1,5 @@
-INSERT INTO IMAGE (IMG_PATH, IMG_NAME, IMG_EXT, IMG_SIZE, IMG_CREATED_AT) VALUES ('own path', 'cover-java', 'jpg', 5, NOW());
-INSERT INTO IMAGE (IMG_PATH, IMG_NAME, IMG_EXT, IMG_SIZE, IMG_CREATED_AT) VALUES ('server path', 'cover-java', 'jpg', 3, NOW());
-INSERT INTO IMAGE (IMG_PATH, IMG_NAME, IMG_EXT, IMG_SIZE, IMG_CREATED_AT) VALUES ('server path', 'cover-qa', 'jpg', 7, NOW());
-INSERT INTO IMAGE (IMG_PATH, IMG_NAME, IMG_EXT, IMG_SIZE, IMG_CREATED_AT) VALUES ('server path', 'cover-devops', 'png', 2, NOW());
-INSERT INTO IMAGE (IMG_PATH, IMG_NAME, IMG_EXT, IMG_SIZE, IMG_CREATED_AT) VALUES ('own path', 'cover-hr', 'jpg', 6, NOW());
+INSERT INTO IMAGE (IMG_PATH, IMG_NAME, IMG_EXT, IMG_SIZE, IMG_CREATED_AT, IMG_ALT_TEXT) VALUES ('own path', 'cover-java', 'jpg', 5, NOW(), 'short description  image');
+INSERT INTO IMAGE (IMG_PATH, IMG_NAME, IMG_EXT, IMG_SIZE, IMG_CREATED_AT, IMG_ALT_TEXT) VALUES ('server path', 'cover-java', 'jpg', 3, NOW(), 'short description  image');
+INSERT INTO IMAGE (IMG_PATH, IMG_NAME, IMG_EXT, IMG_SIZE, IMG_CREATED_AT, IMG_ALT_TEXT) VALUES ('server path', 'cover-qa', 'jpg', 7, NOW(), 'short description  image');
+INSERT INTO IMAGE (IMG_PATH, IMG_NAME, IMG_EXT, IMG_SIZE, IMG_CREATED_AT, IMG_ALT_TEXT) VALUES ('server path', 'cover-devops', 'png', 2, NOW(), 'short description  image');
+INSERT INTO IMAGE (IMG_PATH, IMG_NAME, IMG_EXT, IMG_SIZE, IMG_CREATED_AT, IMG_ALT_TEXT) VALUES ('own path', 'cover-hr', 'jpg', 6, NOW(), 'short description  image');
