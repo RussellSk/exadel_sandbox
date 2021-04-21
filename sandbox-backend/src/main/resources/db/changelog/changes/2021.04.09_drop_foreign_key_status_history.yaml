@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: dropForeignKeyConstraint_candidate
+      author: butenko
+      preConditions:
+        - onFail: MARK_RAN
+        - foreignKeyConstraintExists:
+            foreignKeyName: fk_STATUS_HISTORY_contact_CANDITATE
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName: STATUS_HISTORY
+            baseTableSchemaName: sandbox
+            constraintName: fk_STATUS_HISTORY_contact_CANDITATE
+  - changeSet:
+      id: dropForeignKeyConstraint-employee
+      author: butenko
+      preConditions:
+        - onFail: MARK_RAN
+        - foreignKeyConstraintExists:
+            foreignKeyName: fk_STATUS_HISTORY_contact_EMPLOYEE
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName: STATUS_HISTORY
+            baseTableSchemaName: sandbox
+            constraintName: fk_STATUS_HISTORY_contact_EMPLOYEE
+  - changeSet:
+      id: dropForeignKeyConstraint-status
+      author: butenko
+      preConditions:
+        - onFail: MARK_RAN
+        - foreignKeyConstraintExists:
+            foreignKeyName: fk_STATUS_HISTORY_contact_STATUS
+      changes:
+        - dropForeignKeyConstraint:
+            baseTableName: STATUS_HISTORY
+            baseTableSchemaName: sandbox
+            constraintName: fk_STATUS_HISTORY_contact_STATUS

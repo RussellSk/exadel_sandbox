@@ -5,9 +5,9 @@ import com.exadel.team2.sandbox.entity.ImageEntity;
 import com.exadel.team2.sandbox.exceptions.NoSuchException;
 import com.exadel.team2.sandbox.mapper.ImageMapper;
 import com.exadel.team2.sandbox.service.ImageService;
-import com.exadel.team2.sandbox.web.ImageCreateDTO;
-import com.exadel.team2.sandbox.web.ImageResponseDTO;
-import com.exadel.team2.sandbox.web.ImageUpdateDTO;
+import com.exadel.team2.sandbox.web.image.ImageCreateDTO;
+import com.exadel.team2.sandbox.web.image.ImageResponseDTO;
+import com.exadel.team2.sandbox.web.image.ImageUpdateDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,7 +47,7 @@ public class ImageServiceImpl implements ImageService {
     public ImageResponseDTO save(ImageCreateDTO imageCreateDTO) {
         ImageEntity imageEntity = imageMapper.convertDtoToEntity(imageCreateDTO);
 
-        imageEntity.setImgCreatedAt(LocalDateTime.now());
+        imageEntity.setCreatedAt(LocalDateTime.now());
         imageDAO.save(imageEntity);
         return imageMapper.convertEntityToDto(imageEntity);
     }
@@ -55,7 +55,7 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public ImageResponseDTO update(Long id, ImageUpdateDTO imageUpdateDTO) {
         ImageEntity imageEntity = imageMapper.convertDtoToEntity(imageUpdateDTO);
-        imageEntity.setImgId(id);
+        imageEntity.setId(id);
         if (!imageDAO.existsById(id)) {
             throw new NoSuchException("Image with ID = " + id + " not found in Database");
         }

@@ -19,7 +19,7 @@ public class EventEntity {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     @Column(name = "EV_ID")
-    private Long evId;
+    private Long id;
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH} )
     @JoinColumn(name = "IMG_ID", referencedColumnName = "IMG_ID")
@@ -29,31 +29,53 @@ public class EventEntity {
     @JoinColumn(name = "EMP_ID")
     private EmployeeEntity employee;
 
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH} )
+    @JoinColumn(name = "EV_CREATOR", referencedColumnName = "EMP_ID")
+    private EmployeeEntity creatorEvent;
+
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH } )
     @JoinColumn(name = "EVT_ID", referencedColumnName = "EVT_ID")
     private EventTypeEntity eventType;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "EV_TAB")
+    private EventTab eventTab;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "EV_ENGLISH_LEVEL")
+    private EnglishLevel englishLevel;
+
     @Column(name = "EV_START_DATE")
-    private LocalDate evStartDate;
+    private LocalDate startDate;
 
     @Column(name = "EV_DURATION")
-    private String evDuration;
+    private String duration;
 
     @Column(name = "EV_DEADLINE")
-    private LocalDate evDeadline;
+    private LocalDate deadline;
 
-    @Column(name = "EV_LOCATION")
-    private String evLocation;
+    @Column(name = "EV_DATE_OF_END_ACCEPT")
+    private LocalDate dateOfEndAccept;
 
-    @Column(name = "EV_CANDIDATE_REQUIREMENTS")
-    private String evCandidateRequirements;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "EV_FORMAT")
+    private Format format;
+
+    @Column(name = "EV_COUNTRY")
+    private String country;
+
+    @Column(name = "EV_CITY")
+    private String city;
+
+    @Column(name = "EV_TECHNOLOGIES")
+    private String technologies;
 
     @CreationTimestamp
     @Column(name = "EV_CREATED_AT")
-    private LocalDateTime evCreatedAt;
+    private LocalDateTime createdAt;
 
     @UpdateTimestamp
     @Column(name = "EV_UPDATED_AT")
-    private LocalDateTime evUpdatedAt;
+    private LocalDateTime updatedAt;
 
 }

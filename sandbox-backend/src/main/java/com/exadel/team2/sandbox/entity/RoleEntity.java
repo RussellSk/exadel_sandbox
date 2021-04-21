@@ -1,8 +1,7 @@
 package com.exadel.team2.sandbox.entity;
 
 import lombok.Data;
-import lombok.ToString;
-import org.hibernate.annotations.GenericGenerator;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,19 +11,15 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "ROLE")
-public class RoleEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-    @GenericGenerator(name = "native", strategy = "native")
-    @Column(name = "RL_ID")
-    private Long rlId;
+@AttributeOverride(name = "id", column = @Column(name = "RL_ID"))
+@EqualsAndHashCode(callSuper = true)
+public class RoleEntity extends BaseEntity {
 
     @Column(name = "RL_NAME")
-    private String rlName;
+    private String name;
 
     @Column(name = "RL_DESCRIPTION")
-    private String rlDescription;
+    private String description;
 
     @OneToMany
     @JoinTable(name = "ROLE_PERMISSION", joinColumns = @JoinColumn(name = "RL_ID"),
@@ -32,8 +27,8 @@ public class RoleEntity {
     private List<PermissionEntity> permissions = new ArrayList<>();
 
     @Column(name = "RL_CREATED_AT")
-    private LocalDateTime rlCreatedAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "RL_UPDATED_AT")
-    private LocalDateTime rlUpdatedAt;
+    private LocalDateTime updatedAt;
 }

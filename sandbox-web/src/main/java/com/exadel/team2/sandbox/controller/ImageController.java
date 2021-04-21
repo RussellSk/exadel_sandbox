@@ -1,9 +1,9 @@
 package com.exadel.team2.sandbox.controller;
 
 import com.exadel.team2.sandbox.service.ImageService;
-import com.exadel.team2.sandbox.web.ImageCreateDTO;
-import com.exadel.team2.sandbox.web.ImageResponseDTO;
-import com.exadel.team2.sandbox.web.ImageUpdateDTO;
+import com.exadel.team2.sandbox.web.image.ImageCreateDTO;
+import com.exadel.team2.sandbox.web.image.ImageResponseDTO;
+import com.exadel.team2.sandbox.web.image.ImageUpdateDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;

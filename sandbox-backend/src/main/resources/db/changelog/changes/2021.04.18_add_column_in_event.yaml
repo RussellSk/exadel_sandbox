@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2021.04.18_add_column_creator
+      author: vadblagiy@gmail.com
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          columnExists:
+            tableName: EVENT
+            columnName: EV_CREATOR
+      changes:
+        - addColumn:
+            tableName: EVENT
+            columns:
+              name: EV_CREATOR
+              type: INT
+              constraints:
+                nullable: true
+                foreignKeyName: FK_EV_CREATOR
+                references: EMPLOYEE(EMP_ID)
+  - changeSet:
+      id: 2021.04.18_add_column_date_of_end_accept
+      author: vadblagiy@gmail.com
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          columnExists:
+            tableName: EVENT
+            columnName: EV_DATE_OF_END_ACCEPT
+      changes:
+        - addColumn:
+            tableName: EVENT
+            columns:
+              name: EV_DATE_OF_END_ACCEPT
+              type: DATETIME
+              constraints:
+                nullable: true
+
