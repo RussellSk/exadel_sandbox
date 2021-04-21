@@ -24,9 +24,9 @@ public class StatusHistory {
     @JoinColumn(name = "ST_ID", nullable = false)
     private Status status;
 
-//    @JoinColumn(name = "CN_ID",
-//            nullable = false)
-//    private Candidate candidate;
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "CN_ID", nullable = false)
+    private CandidateEntity candidate;
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "EMP_ID", nullable = false)

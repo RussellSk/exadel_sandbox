@@ -3,7 +3,9 @@ package com.exadel.team2.sandbox.service.impl;
 import com.exadel.team2.sandbox.dao.PermissionDAO;
 import com.exadel.team2.sandbox.entity.PermissionEntity;
 import com.exadel.team2.sandbox.mapper.PermissionMapper;
+import com.exadel.team2.sandbox.service.GeneralService;
 import com.exadel.team2.sandbox.service.PermissionService;
+import com.exadel.team2.sandbox.web.GeneralDto;
 import com.exadel.team2.sandbox.web.permission.ResponsePermissionDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,25 +18,11 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-@RequiredArgsConstructor
-public class PermissionServiceImpl implements PermissionService {
+public class PermissionServiceImpl extends GeneralServiceImpl<PermissionEntity, ResponsePermissionDto, GeneralDto, GeneralDto>
+        implements PermissionService {
 
-    private final PermissionDAO permissionDAO;
-    private final PermissionMapper permissionMapper;
-
-    @Override
-    public ResponsePermissionDto getById(Long id) {
-        PermissionEntity permissionEntity = permissionDAO.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Permission Not Found"));
-
-        return permissionMapper.convertEntityToDto(permissionEntity);
+    public PermissionServiceImpl(PermissionDAO permissionDAO, PermissionMapper permissionMapper) {
+        this.generalDAO = permissionDAO;
+        this.generalMapper = permissionMapper;
     }
-
-    @Override
-    public List<ResponsePermissionDto> getAll() {
-        return permissionDAO.findAll().stream()
-                .map(permissionMapper::convertEntityToDto)
-                .collect(Collectors.toList());
-    }
-
 }

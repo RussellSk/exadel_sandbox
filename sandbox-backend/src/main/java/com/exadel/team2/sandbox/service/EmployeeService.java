@@ -10,11 +10,5 @@ import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
 
-public interface EmployeeService {
-    ResponseEmployeeDto getById(Long id);
-    List<ResponseEmployeeDto> getAll();
-    Page<ResponseEmployeeDto> getAllPageable(Pageable pageable, String search);
-    ResponseEmployeeDto save(CreateEmployeeDto createEmployeeDTO);
-    ResponseEmployeeDto update(Long id, UpdateEmployeeDto updateEmployeeDto);
-    void delete(Long id);
+public interface EmployeeService extends GeneralService<ResponseEmployeeDto, CreateEmployeeDto, UpdateEmployeeDto> {
 }

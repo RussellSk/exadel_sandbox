@@ -5,9 +5,9 @@ import com.exadel.team2.sandbox.entity.EventTypeEntity;
 import com.exadel.team2.sandbox.exceptions.NoSuchException;
 import com.exadel.team2.sandbox.mapper.EventTypeMapper;
 import com.exadel.team2.sandbox.service.EventTypeService;
-import com.exadel.team2.sandbox.web.EventTypeCreateDTO;
-import com.exadel.team2.sandbox.web.EventTypeResponseDTO;
-import com.exadel.team2.sandbox.web.EventTypeUpdateDTO;
+import com.exadel.team2.sandbox.web.event_type.EventTypeCreateDTO;
+import com.exadel.team2.sandbox.web.event_type.EventTypeResponseDTO;
+import com.exadel.team2.sandbox.web.event_type.EventTypeUpdateDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,7 +47,7 @@ public class EventTypeServiceImpl implements EventTypeService {
     public EventTypeResponseDTO save(EventTypeCreateDTO eventTypeCreateDTO) {
         EventTypeEntity eventTypeEntity = eventTypeMapper.convertDtoToEntity(eventTypeCreateDTO);
 
-        eventTypeEntity.setEvtCreatedAt(LocalDateTime.now());
+        eventTypeEntity.setCreatedAt(LocalDateTime.now());
         eventTypeDAO.save(eventTypeEntity);
         return eventTypeMapper.convertEntityToDto(eventTypeEntity);
     }
@@ -55,11 +55,11 @@ public class EventTypeServiceImpl implements EventTypeService {
     @Override
     public EventTypeResponseDTO update(Long id, EventTypeUpdateDTO eventTypeUpdateDTO) {
         EventTypeEntity eventTypeEntity = eventTypeMapper.convertDtoToEntity(eventTypeUpdateDTO);
-        eventTypeEntity.setEvtId(id);
+        eventTypeEntity.setId(id);
         if (!eventTypeDAO.existsById(id)) {
             throw new NoSuchException("Event type with ID = " + id + " not found in Database");
         }
-        eventTypeEntity.setEvtUpdatedAt(LocalDateTime.now());
+        eventTypeEntity.setUpdatedAt(LocalDateTime.now());
 
         return eventTypeMapper.convertEntityToDto(eventTypeDAO.save(eventTypeEntity));
 

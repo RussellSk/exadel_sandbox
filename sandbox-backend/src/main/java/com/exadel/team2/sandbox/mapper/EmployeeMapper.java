@@ -1,6 +1,7 @@
 package com.exadel.team2.sandbox.mapper;
 
 import com.exadel.team2.sandbox.entity.EmployeeEntity;
+import com.exadel.team2.sandbox.web.GeneralDto;
 import com.exadel.team2.sandbox.web.employee.ResponseEmployeeDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;

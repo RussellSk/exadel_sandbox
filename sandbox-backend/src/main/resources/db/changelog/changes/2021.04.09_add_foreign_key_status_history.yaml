@@ -1,0 +1,49 @@
+databaseChangeLog:
+  - changeSet:
+      id: addForeignKeyConstraint-candidate
+      author: butenko
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            - foreignKeyConstraintExists:
+                foreignKeyName: fk_STATUS_HISTORY_contact_CANDITATE
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: CN_ID
+            baseTableName: STATUS_HISTORY
+            constraintName: fk_STATUS_HISTORY_contact_CANDITATE
+            referencedColumnNames: CN_ID
+            referencedTableName: CANDIDATE
+            referencedTableSchemaName: sandbox
+  - changeSet:
+      id: addForeignKeyConstraint-employee
+      author: butenko
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            - foreignKeyConstraintExists:
+                foreignKeyName: fk_STATUS_HISTORY_contact_EMPLOYEE
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: EMP_ID
+            baseTableName: STATUS_HISTORY
+            constraintName: fk_STATUS_HISTORY_contact_EMPLOYEE
+            referencedColumnNames: EMP_ID
+            referencedTableName: EMPLOYEE
+            referencedTableSchemaName: sandbox
+  - changeSet:
+      id: addForeignKeyConstraint-status
+      author: butenko
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            - foreignKeyConstraintExists:
+                foreignKeyName: fk_STATUS_HISTORY_contact_STATUS
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: ST_ID
+            baseTableName: STATUS_HISTORY
+            constraintName: fk_STATUS_HISTORY_contact_STATUS
+            referencedColumnNames: ST_ID
+            referencedTableName: STATUS
+            referencedTableSchemaName: sandbox

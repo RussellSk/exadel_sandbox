@@ -12,7 +12,9 @@ import com.exadel.team2.sandbox.entity.ImageEntity;
 import com.exadel.team2.sandbox.exceptions.NoSuchException;
 import com.exadel.team2.sandbox.mapper.EventMapper;
 import com.exadel.team2.sandbox.service.EventService;
-import com.exadel.team2.sandbox.web.*;
+import com.exadel.team2.sandbox.web.event.EventCreateDTO;
+import com.exadel.team2.sandbox.web.event.EventResponseDTO;
+import com.exadel.team2.sandbox.web.event.EventUpdateDTO;
 import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.Node;
 import lombok.RequiredArgsConstructor;
@@ -71,22 +73,28 @@ public class EventServiceImpl implements EventService {
     @Override
     public EventResponseDTO save(EventCreateDTO eventCreateDTO) {
         EventEntity eventEntity = eventMapper.convertDtoToEntity(eventCreateDTO);
-        EmployeeEntity employeeEntity = employeeDAO.findById(eventCreateDTO.getEmployeeId())
+        EmployeeEntity employeeEntity = employeeDAO.findById(eventCreateDTO.getEmployee())
                 .orElseThrow(() -> new NoSuchException("Employee not found"));
 
         eventEntity.setEmployee(employeeEntity);
 
-        ImageEntity imageEntity = imageDAO.findById(eventCreateDTO.getImageId())
+        EmployeeEntity creatorEvent = employeeDAO.findById(eventCreateDTO.getCreatorEvent())
+                .orElseThrow(() -> new NoSuchException("Creator not found"));
+
+        eventEntity.setCreatorEvent(creatorEvent);
+
+
+        ImageEntity imageEntity = imageDAO.findById(eventCreateDTO.getImage())
                 .orElseThrow(() -> new NoSuchException("Image not found"));
 
         eventEntity.setImage(imageEntity);
 
-        EventTypeEntity eventTypeEntity = eventTypeDAO.findById(eventCreateDTO.getEventTypeId())
+        EventTypeEntity eventTypeEntity = eventTypeDAO.findById(eventCreateDTO.getEventType())
                 .orElseThrow(() -> new NoSuchException("Event Type not found"));
 
         eventEntity.setEventType(eventTypeEntity);
 
-        eventEntity.setEvCreatedAt(LocalDateTime.now());
+        eventEntity.setCreatedAt(LocalDateTime.now());
         eventDAO.save(eventEntity);
 
         return eventMapper.convertEntityToDto(eventEntity);
@@ -95,27 +103,32 @@ public class EventServiceImpl implements EventService {
     @Override
     public EventResponseDTO update(Long id, EventUpdateDTO eventUpdateDTO) {
         EventEntity eventEntity = eventMapper.convertDtoToEntity(eventUpdateDTO);
-        eventEntity.setEvId(id);
+        eventEntity.setId(id);
         if (!eventDAO.existsById(id)) {
             throw new NoSuchException("Event with ID = " + id + " not found in Database");
         }
 
-        EmployeeEntity employeeEntity = employeeDAO.findById(eventUpdateDTO.getEmployeeId())
+        EmployeeEntity employeeEntity = employeeDAO.findById(eventUpdateDTO.getEmployee())
                 .orElseThrow(() -> new NoSuchException("Employee not found"));
 
         eventEntity.setEmployee(employeeEntity);
 
-        ImageEntity imageEntity = imageDAO.findById(eventUpdateDTO.getImageId())
+        EmployeeEntity creatorEvent = employeeDAO.findById(eventUpdateDTO.getCreatorEvent())
+                .orElseThrow(() -> new NoSuchException("Creator not found"));
+
+        eventEntity.setCreatorEvent(creatorEvent);
+
+        ImageEntity imageEntity = imageDAO.findById(eventUpdateDTO.getImage())
                 .orElseThrow(() -> new NoSuchException("Image not found"));
 
         eventEntity.setImage(imageEntity);
 
-        EventTypeEntity eventTypeEntity = eventTypeDAO.findById(eventUpdateDTO.getEventTypeId())
+        EventTypeEntity eventTypeEntity = eventTypeDAO.findById(eventUpdateDTO.getEventType())
                 .orElseThrow(() -> new NoSuchException("Event Type not found"));
 
         eventEntity.setEventType(eventTypeEntity);
 
-        eventEntity.setEvUpdatedAt(LocalDateTime.now());
+        eventEntity.setUpdatedAt(LocalDateTime.now());
         return eventMapper.convertEntityToDto(eventDAO.save(eventEntity));
     }
 
