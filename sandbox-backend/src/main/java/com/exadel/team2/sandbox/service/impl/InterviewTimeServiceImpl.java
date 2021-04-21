@@ -58,14 +58,14 @@ public class InterviewTimeServiceImpl implements InterviewTimeService {
     }
 
     @Override
-    public InterviewTimeCreateDTO save(InterviewTimeCreateDTO interviewTimeCreateDTO) throws RSQLParserException {
+    public InterviewTimeCreateDTO save(InterviewTimeCreateDTO interviewTimeCreateDTO) {
         return modelMap.convertTo(interviewTimeDAO
                 .save(modelMap.convertTo(interviewTimeCreateDTO, InterviewTimeEntity.class)),
                 InterviewTimeCreateDTO.class);
     }
 
     @Override
-    public InterviewTimeUpdateDTO update(Long id, InterviewTimeUpdateDTO interviewTimeUpdateDTO) throws RSQLParserException {
+    public InterviewTimeUpdateDTO update(Long id, InterviewTimeUpdateDTO interviewTimeUpdateDTO) {
         InterviewTimeEntity interviewTimeEntity = interviewTimeDAO.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The meeting didn't arrange"));
 

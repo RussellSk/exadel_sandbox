@@ -14,9 +14,9 @@ public interface InterviewTimeService {
 
     List<InterviewTimeResponseDTO> getAllPageable(Pageable pageable, String search);
 
-    InterviewTimeCreateDTO save(InterviewTimeCreateDTO interviewTimeCreateDTO) throws RSQLParserException;
+    InterviewTimeCreateDTO save(InterviewTimeCreateDTO interviewTimeCreateDTO);
 
-    InterviewTimeUpdateDTO update(Long id, InterviewTimeUpdateDTO interviewTimeUpdateDTO) throws RSQLParserException;
+    InterviewTimeUpdateDTO update(Long id, InterviewTimeUpdateDTO interviewTimeUpdateDTO);
 
     void delete(Long id);
 }

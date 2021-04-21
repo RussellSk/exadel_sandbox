@@ -14,9 +14,9 @@ public interface ResumeService {
 
     List<ResumeResponseDTO> getAllPageable(Pageable pageable, String search);
 
-    ResumeCreateDTO save(ResumeCreateDTO resumeCreateDTO) throws RSQLParserException;
+    ResumeCreateDTO save(ResumeCreateDTO resumeCreateDTO);
 
-    ResumeUpdateDTO update(Long id, ResumeUpdateDTO resumeUpdateDTO) throws RSQLParserException;
+    ResumeUpdateDTO update(Long id, ResumeUpdateDTO resumeUpdateDTO);
 
     void delete(Long id);
 }

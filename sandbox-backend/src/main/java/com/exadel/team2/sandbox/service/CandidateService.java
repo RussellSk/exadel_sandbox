@@ -14,9 +14,9 @@ public interface CandidateService {
 
     List<CandidateResponseDTO> getAllPageable(Pageable pageable, String search);
 
-    CandidateCreateDTO save(CandidateCreateDTO candidateCreateDTO) throws RSQLParserException;
+    CandidateCreateDTO save(CandidateCreateDTO candidateCreateDTO);
 
-    CandidateUpdateDTO update(Long id, CandidateUpdateDTO candidateUpdateDTO) throws RSQLParserException;
+    CandidateUpdateDTO update(Long id, CandidateUpdateDTO candidateUpdateDTO);
 
     void delete(Long id);
 

@@ -61,13 +61,13 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public CandidateCreateDTO save(CandidateCreateDTO candidateCreateDTO) throws RSQLParserException {
+    public CandidateCreateDTO save(CandidateCreateDTO candidateCreateDTO) {
         return modelMap.convertTo(candidateDAO.save(modelMap.convertTo(candidateCreateDTO, CandidateEntity.class)),
                 CandidateCreateDTO.class);
     }
 
     @Override
-    public CandidateUpdateDTO update(Long id, CandidateUpdateDTO candidateUpdateDTO) throws RSQLParserException {
+    public CandidateUpdateDTO update(Long id, CandidateUpdateDTO candidateUpdateDTO) {
         CandidateEntity candidateEntity = candidateDAO.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Candidate not found"));
 
@@ -96,11 +96,11 @@ public class CandidateServiceImpl implements CandidateService {
         }
 
         if (candidateUpdateDTO.getExpertise() != null) {
-            candidateUpdateDTO.setExpertise(candidateUpdateDTO.getExpertise());
+            candidateEntity.setExpertise(candidateUpdateDTO.getExpertise());
         }
 
-        if (candidateUpdateDTO.getExpertise() != null) {
-            candidateEntity.setExperience(candidateUpdateDTO.getExperience());
+        if (candidateUpdateDTO.getEmail() != null) {
+            candidateEntity.setEmail(candidateUpdateDTO.getEmail());
         }
 
         if (candidateUpdateDTO.getEducation() != null) {

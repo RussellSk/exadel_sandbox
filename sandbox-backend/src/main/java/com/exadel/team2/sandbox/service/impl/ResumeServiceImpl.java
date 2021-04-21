@@ -56,14 +56,14 @@ public class ResumeServiceImpl implements ResumeService {
     }
 
     @Override
-    public ResumeCreateDTO save(ResumeCreateDTO resumeCreateDTO) throws RSQLParserException {
+    public ResumeCreateDTO save(ResumeCreateDTO resumeCreateDTO) {
         return modelMap.convertTo(
                 resumeDAO.save(modelMap.convertTo(resumeCreateDTO, ResumeEntity.class)),
                         ResumeCreateDTO.class);
     }
 
     @Override
-    public ResumeUpdateDTO update(Long id, ResumeUpdateDTO resumeUpdateDTO) throws RSQLParserException {
+    public ResumeUpdateDTO update(Long id, ResumeUpdateDTO resumeUpdateDTO) {
         ResumeEntity resumeEntity = resumeDAO.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Resume not found"));
 
