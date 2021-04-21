@@ -2,8 +2,6 @@ databaseChangeLog:
   - changeSet:
       id: run-fix-table-candidate
       author: Saranchuk Vadim
-      preConditions:
-        onFail: CONTINUE
       changes:
         - sqlFile:
             dbms: mysql
