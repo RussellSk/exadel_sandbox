@@ -3,7 +3,6 @@ package com.exadel.team2.sandbox.service;
 import com.exadel.team2.sandbox.dto.InterviewTimeCreateDTO;
 import com.exadel.team2.sandbox.dto.InterviewTimeResponseDTO;
 import com.exadel.team2.sandbox.dto.InterviewTimeUpdateDTO;
-import cz.jirutka.rsql.parser.RSQLParserException;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;

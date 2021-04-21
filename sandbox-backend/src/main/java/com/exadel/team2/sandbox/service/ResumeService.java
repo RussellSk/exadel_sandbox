@@ -3,7 +3,6 @@ package com.exadel.team2.sandbox.service;
 import com.exadel.team2.sandbox.dto.ResumeCreateDTO;
 import com.exadel.team2.sandbox.dto.ResumeResponseDTO;
 import com.exadel.team2.sandbox.dto.ResumeUpdateDTO;
-import cz.jirutka.rsql.parser.RSQLParserException;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
