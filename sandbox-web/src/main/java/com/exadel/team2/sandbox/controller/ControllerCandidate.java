@@ -3,10 +3,8 @@ package com.exadel.team2.sandbox.controller;
 import com.exadel.team2.sandbox.dto.CandidateCreateDTO;
 import com.exadel.team2.sandbox.dto.CandidateResponseDTO;
 import com.exadel.team2.sandbox.dto.CandidateUpdateDTO;
-import com.exadel.team2.sandbox.security.jwt.JwtTokenProvider;
 import com.exadel.team2.sandbox.service.impl.CandidateServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -20,8 +18,6 @@ import java.util.List;
 public class ControllerCandidate {
 
     private final CandidateServiceImpl candidateService;
-
-    private final JwtTokenProvider jwtTokenProvider;
 
 
     @GetMapping(value = "/{id}")
