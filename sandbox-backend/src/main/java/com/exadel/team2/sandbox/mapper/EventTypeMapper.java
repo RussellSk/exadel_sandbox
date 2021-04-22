@@ -1,7 +1,7 @@
 package com.exadel.team2.sandbox.mapper;
 
 import com.exadel.team2.sandbox.entity.EventTypeEntity;
-import com.exadel.team2.sandbox.web.EventTypeResponseDTO;
+import com.exadel.team2.sandbox.web.event_type.EventTypeResponseDTO;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;

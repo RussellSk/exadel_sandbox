@@ -28,6 +28,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Slf4j
 @Transactional
 @Service
@@ -105,11 +106,13 @@ public class InterviewFeedbackServiceImpl implements InterviewFeedbackService {
 
     @Override
     public Page<ResponseInterviewFeedbackDto> getAllPageable(Pageable pageable, String search) {
-        Node rootNode = new RSQLParser().parse(search);
-        Specification<InterviewFeedbackEntity> spec = rootNode.accept(new CustomRsqlVisitor<>());
-        return interviewFeedbackDAO.findAll(spec, pageable)
-                .map(interviewFeedbackMapper::convertEntityToDto);
+        if (search.isEmpty()) {
+            return interviewFeedbackDAO.findAll(pageable).map(interviewFeedbackMapper::convertEntityToDto);
+        } else {
+            Node rootNode = new RSQLParser().parse(search);
+            Specification<InterviewFeedbackEntity> spec = rootNode.accept(new CustomRsqlVisitor<>());
+            return interviewFeedbackDAO.findAll(spec, pageable)
+                    .map(interviewFeedbackMapper::convertEntityToDto);
+        }
     }
-
-
 }
