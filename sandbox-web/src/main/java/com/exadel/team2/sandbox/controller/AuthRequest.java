@@ -1,0 +1,9 @@
+package com.exadel.team2.sandbox.controller;
+
+import lombok.Data;
+
+@Data
+public class AuthRequest {
+    private String login;
+    private String password;
+}

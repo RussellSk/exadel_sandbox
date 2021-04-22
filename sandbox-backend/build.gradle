@@ -29,4 +29,5 @@ dependencies {
     implementation 'cz.jirutka.rsql:rsql-parser:2.1.0'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+
 }
