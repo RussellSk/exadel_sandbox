@@ -46,7 +46,7 @@ public class EmployeeServiceImpl extends GeneralServiceImpl<EmployeeEntity,
         employeeEntity.setRole(roleEntity);
         employeeEntity.setCreatedAt(LocalDateTime.now());
         employeeEntity.setUpdatedAt(LocalDateTime.now());
-        employeeEntity.setPassword(passwordEncoder.encode(createEmployeeDTO.getEmpPassword()));
+        employeeEntity.setPassword(passwordEncoder.encode(createEmployeeDTO.getPassword()));
 
         generalDAO.save(employeeEntity);
         return generalMapper.convertEntityToDto(employeeEntity);
@@ -95,8 +95,8 @@ public class EmployeeServiceImpl extends GeneralServiceImpl<EmployeeEntity,
         if (updateEmployeeDto.getTimezone() != null) {
             employeeEntity.setTimezone(updateEmployeeDto.getTimezone());
         }
-        if (updateEmployeeDto.getEmpPassword() != null) {
-            employeeEntity.setPassword(passwordEncoder.encode(updateEmployeeDto.getEmpPassword()));
+        if (updateEmployeeDto.getPassword() != null) {
+            employeeEntity.setPassword(passwordEncoder.encode(updateEmployeeDto.getPassword()));
         }
         employeeEntity.setUpdatedAt(LocalDateTime.now());
         return generalMapper.convertEntityToDto(generalDAO.save(employeeEntity));
