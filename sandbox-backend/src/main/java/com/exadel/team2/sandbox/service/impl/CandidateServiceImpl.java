@@ -7,10 +7,12 @@ import com.exadel.team2.sandbox.dto.CandidateResponseDTO;
 import com.exadel.team2.sandbox.dto.CandidateUpdateDTO;
 import com.exadel.team2.sandbox.entity.CandidateEntity;
 import com.exadel.team2.sandbox.mapper.ModelMap;
+import com.exadel.team2.sandbox.security.jwt.JwtTokenProvider;
 import com.exadel.team2.sandbox.service.CandidateService;
 import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.Node;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
@@ -23,11 +25,18 @@ import java.util.stream.Collectors;
 
 @Transactional
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class CandidateServiceImpl implements CandidateService {
 
     private final CandidateDAO candidateDAO;
     private final ModelMap modelMap;
+    private final JwtTokenProvider jwtTokenProvider;
+
+    public CandidateServiceImpl(CandidateDAO candidateDAO, ModelMap modelMap, @Lazy JwtTokenProvider jwtTokenProvider) {
+        this.candidateDAO = candidateDAO;
+        this.jwtTokenProvider = jwtTokenProvider;
+        this.modelMap = modelMap;
+    }
 
     @Override
     public CandidateResponseDTO findById(Long id) {
@@ -61,7 +70,14 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     public CandidateCreateDTO save(CandidateCreateDTO candidateCreateDTO) {
-        return modelMap.convertTo(candidateDAO.save(modelMap.convertTo(candidateCreateDTO, CandidateEntity.class)),
+        CandidateEntity candidateEntity = modelMap.convertTo(candidateCreateDTO, CandidateEntity.class);
+
+        CandidateResponseDTO candidateResponseDTO = modelMap.convertTo(candidateEntity, CandidateResponseDTO.class);
+        System.out.println(jwtTokenProvider.createToken(candidateResponseDTO));
+
+        return modelMap.convertTo(candidateDAO.save(
+                /*modelMap.convertTo(candidateCreateDTO, CandidateEntity.class)*/
+                candidateEntity),
                 CandidateCreateDTO.class);
     }
 

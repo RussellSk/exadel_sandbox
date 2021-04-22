@@ -1,7 +1,5 @@
 package com.exadel.team2.sandbox.security.jwt;
 
-import com.exadel.team2.sandbox.security.jwt.JwtTokenFilter;
-import com.exadel.team2.sandbox.security.jwt.JwtTokenProvider;
 import lombok.AllArgsConstructor;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

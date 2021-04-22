@@ -6,6 +6,7 @@ import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,7 +25,7 @@ public class JwtTokenProvider {
     private final JwtCandidateDetails jwtCandidateDetails;
 
     @Autowired
-    public JwtTokenProvider(JwtCandidateDetails jwtCandidateDetails) {
+    public JwtTokenProvider(@Lazy JwtCandidateDetails jwtCandidateDetails) {
         this.jwtCandidateDetails = jwtCandidateDetails;
     }
 
@@ -44,7 +45,6 @@ public class JwtTokenProvider {
         secret = Base64.getEncoder().encodeToString(secret.getBytes());
     }
 
-    @PostConstruct
     public String createToken(CandidateResponseDTO candidateResponseDTO) {
 
         Claims claims = Jwts.claims().setSubject(
