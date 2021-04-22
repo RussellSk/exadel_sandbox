@@ -94,20 +94,40 @@ public class CandidateServiceImpl implements CandidateService {
             candidateEntity.setEnglishLevel(candidateUpdateDTO.getEnglishLevel());
         }
 
-        if (candidateUpdateDTO.getExpertise() != null) {
-            candidateEntity.setExpertise(candidateUpdateDTO.getExpertise());
+        if (candidateUpdateDTO.getMainSkill() != null) {
+            candidateEntity.setMainSkill(candidateUpdateDTO.getMainSkill());
+        }
+
+        if (candidateUpdateDTO.getOtherSkills() != null) {
+            candidateEntity.setOtherSkills(candidateUpdateDTO.getOtherSkills());
         }
 
         if (candidateUpdateDTO.getEmail() != null) {
             candidateEntity.setEmail(candidateUpdateDTO.getEmail());
         }
 
-        if (candidateUpdateDTO.getEducation() != null) {
-            candidateEntity.setEducation(candidateUpdateDTO.getEducation());
+        if (candidateUpdateDTO.getInstitution() != null) {
+            candidateEntity.setInstitution(candidateUpdateDTO.getInstitution());
         }
 
-        if (candidateUpdateDTO.getLocation() != null) {
-            candidateEntity.setLocation(candidateUpdateDTO.getLocation());
+        if (candidateUpdateDTO.getFaculty() != null) {
+            candidateEntity.setFaculty(candidateUpdateDTO.getFaculty());
+        }
+
+        if (candidateUpdateDTO.getSpeciality() != null) {
+            candidateEntity.setSpeciality(candidateUpdateDTO.getSpeciality());
+        }
+
+        if (candidateUpdateDTO.getGraduationDate() != null) {
+            candidateEntity.setGraduationDate(candidateUpdateDTO.getGraduationDate());
+        }
+
+        if (candidateUpdateDTO.getCountry() != null) {
+            candidateEntity.setCountry(candidateUpdateDTO.getCountry());
+        }
+
+        if (candidateUpdateDTO.getCity() != null) {
+            candidateEntity.setCity(candidateUpdateDTO.getCity());
         }
 
         candidateEntity.setUpdatedAt(candidateUpdateDTO.getUpdatedAt());
