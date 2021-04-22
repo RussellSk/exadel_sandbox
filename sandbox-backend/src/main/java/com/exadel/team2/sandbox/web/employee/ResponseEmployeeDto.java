@@ -1,35 +1,35 @@
 package com.exadel.team2.sandbox.web.employee;
 
+import com.exadel.team2.sandbox.web.GeneralDto;
 import com.exadel.team2.sandbox.web.role.ResponseRoleDto;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Data
-public class ResponseEmployeeDto {
+public class ResponseEmployeeDto implements GeneralDto {
     @NotNull
-    private Long empId;
-
-    @NotNull
-    private String empFirstName;
+    private Long id;
 
     @NotNull
-    private String empLastName;
-
-    private String empPhone;
+    private String firstName;
 
     @NotNull
-    private String empEmail;
+    private String lastName;
 
-    private String empSkype;
+    private String phone;
 
-    private String empLocationCountry;
+    @NotNull
+    private String email;
 
-    private String empLocationCity;
+    private String skype;
 
-    private String empTimezone;
+    private String locationCountry;
+
+    private String locationCity;
+
+    private String timezone;
 
     @NotNull
     private ResponseRoleDto role;
