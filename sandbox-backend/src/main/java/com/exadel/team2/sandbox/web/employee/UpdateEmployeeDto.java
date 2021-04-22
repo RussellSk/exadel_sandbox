@@ -34,4 +34,7 @@ public class UpdateEmployeeDto implements GeneralDto {
 
     @Size(min = 1, max = 255, message = "empTimezone must be between 1 and 255 characters")
     private String timezone;
+
+    @Size(min = 6,max = 25,message = "empPassword must be between 1 and 25 characters")
+    private String password;
 }
