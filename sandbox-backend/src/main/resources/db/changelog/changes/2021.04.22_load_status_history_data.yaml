@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2021.04.22_load_status_data
+      author: butenko
+      changes:
+        - sqlFile:
+            path: db/changelog/data/2021.04.22_status_history_data.sql
