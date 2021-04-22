@@ -11,9 +11,9 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface EmployeeDAO extends JpaRepository<EmployeeEntity, Long>, JpaSpecificationExecutor<EmployeeEntity> {
+public interface EmployeeDAO extends GeneralDAO<EmployeeEntity, Long> {
 
-    Optional<EmployeeEntity> findByEmpEmail(String email);
+    Optional<EmployeeEntity> findByEmail(String email);
 
     Page<EmployeeEntity> findAll(Specification<EmployeeEntity> specification, Pageable pageable);
 }

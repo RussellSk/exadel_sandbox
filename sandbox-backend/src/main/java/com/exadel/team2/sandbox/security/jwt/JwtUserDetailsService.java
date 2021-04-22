@@ -15,7 +15,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        EmployeeEntity entity = dao.findByEmpEmail(username)
+        EmployeeEntity entity = dao.findByEmail(username)
                 .orElseThrow(() ->
                         new UsernameNotFoundException("Email: " + username + " not found!"));
         UserDetailsImpl userDetailsImpl = new UserDetailsImpl(entity);

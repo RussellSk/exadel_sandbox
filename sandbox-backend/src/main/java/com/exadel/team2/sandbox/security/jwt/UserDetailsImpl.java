@@ -22,17 +22,17 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority(employee.getRole().getRlName()));
+        return Collections.singletonList(new SimpleGrantedAuthority(employee.getRole().getName()));
     }
 
     @Override
     public String getPassword() {
-        return employee.getEmpPassword();
+        return employee.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return employee.getEmpEmail();
+        return employee.getEmail();
     }
 
     @Override

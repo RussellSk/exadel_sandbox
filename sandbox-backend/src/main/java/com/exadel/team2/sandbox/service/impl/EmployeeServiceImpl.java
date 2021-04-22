@@ -10,7 +10,10 @@ import com.exadel.team2.sandbox.web.employee.CreateEmployeeDto;
 import com.exadel.team2.sandbox.web.employee.ResponseEmployeeDto;
 import com.exadel.team2.sandbox.web.employee.UpdateEmployeeDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -24,10 +27,13 @@ public class EmployeeServiceImpl extends GeneralServiceImpl<EmployeeEntity,
 
     private final RoleDAO roleDAO;
 
-    public EmployeeServiceImpl(EmployeeDAO employeeDAO, RoleDAO roleDAO, EmployeeMapper employeeMapper) {
+    private final PasswordEncoder passwordEncoder;
+
+    public EmployeeServiceImpl(EmployeeDAO employeeDAO, RoleDAO roleDAO, EmployeeMapper employeeMapper,PasswordEncoder passwordEncoder) {
         this.generalDAO = employeeDAO;
         this.roleDAO = roleDAO;
         this.generalMapper = employeeMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -40,6 +46,8 @@ public class EmployeeServiceImpl extends GeneralServiceImpl<EmployeeEntity,
         employeeEntity.setRole(roleEntity);
         employeeEntity.setCreatedAt(LocalDateTime.now());
         employeeEntity.setUpdatedAt(LocalDateTime.now());
+        employeeEntity.setPassword(passwordEncoder.encode(createEmployeeDTO.getEmpPassword()));
+
         generalDAO.save(employeeEntity);
         return generalMapper.convertEntityToDto(employeeEntity);
     }
@@ -87,7 +95,9 @@ public class EmployeeServiceImpl extends GeneralServiceImpl<EmployeeEntity,
         if (updateEmployeeDto.getTimezone() != null) {
             employeeEntity.setTimezone(updateEmployeeDto.getTimezone());
         }
-
+        if (updateEmployeeDto.getEmpPassword() != null) {
+            employeeEntity.setPassword(passwordEncoder.encode(updateEmployeeDto.getEmpPassword()));
+        }
         employeeEntity.setUpdatedAt(LocalDateTime.now());
         return generalMapper.convertEntityToDto(generalDAO.save(employeeEntity));
     }
