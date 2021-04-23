@@ -9,8 +9,8 @@ import com.exadel.team2.sandbox.service.EmployeeService;
 import com.exadel.team2.sandbox.web.employee.CreateEmployeeDto;
 import com.exadel.team2.sandbox.web.employee.ResponseEmployeeDto;
 import com.exadel.team2.sandbox.web.employee.UpdateEmployeeDto;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -23,20 +23,23 @@ public class EmployeeServiceImpl extends GeneralServiceImpl<EmployeeEntity,
         ResponseEmployeeDto, CreateEmployeeDto, UpdateEmployeeDto> implements EmployeeService {
 
     private final RoleDAO roleDAO;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public EmployeeServiceImpl(EmployeeDAO employeeDAO, RoleDAO roleDAO, EmployeeMapper employeeMapper) {
+    public EmployeeServiceImpl(EmployeeDAO employeeDAO, RoleDAO roleDAO,
+                               EmployeeMapper employeeMapper, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.generalDAO = employeeDAO;
         this.roleDAO = roleDAO;
         this.generalMapper = employeeMapper;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
     public ResponseEmployeeDto save(CreateEmployeeDto createEmployeeDTO) {
-
         EmployeeEntity employeeEntity = generalMapper.convertDtoToEntity(createEmployeeDTO);
         RoleEntity roleEntity = roleDAO.findById(createEmployeeDTO.getRoleId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Role Not Found"));
 
+        employeeEntity.setPassword(bCryptPasswordEncoder.encode(createEmployeeDTO.getPassword()));
         employeeEntity.setRole(roleEntity);
         employeeEntity.setCreatedAt(LocalDateTime.now());
         employeeEntity.setUpdatedAt(LocalDateTime.now());
@@ -54,6 +57,10 @@ public class EmployeeServiceImpl extends GeneralServiceImpl<EmployeeEntity,
             RoleEntity roleEntity = roleDAO.findById(updateEmployeeDto.getRoleId())
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Role Not Found"));
             employeeEntity.setRole(roleEntity);
+        }
+
+        if (updateEmployeeDto.getPassword() != null) {
+            employeeEntity.setPassword(bCryptPasswordEncoder.encode(updateEmployeeDto.getPassword()));
         }
 
         if (updateEmployeeDto.getLastName() != null) {
