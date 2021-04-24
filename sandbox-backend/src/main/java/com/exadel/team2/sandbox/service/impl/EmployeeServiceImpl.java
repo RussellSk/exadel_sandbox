@@ -10,12 +10,21 @@ import com.exadel.team2.sandbox.web.employee.CreateEmployeeDto;
 import com.exadel.team2.sandbox.web.employee.ResponseEmployeeDto;
 import com.exadel.team2.sandbox.web.employee.UpdateEmployeeDto;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -102,5 +111,24 @@ public class EmployeeServiceImpl extends GeneralServiceImpl<EmployeeEntity,
     @Override
     public void delete(Long id) {
         generalDAO.deleteById(id);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        EmployeeEntity employeeEntity = ((EmployeeDAO)generalDAO).findByEmail(email);
+        UserDetails userDetails = new User(employeeEntity.getEmail(), employeeEntity.getPassword(),
+                true, true, true, true,
+                getAuthorities(employeeEntity.getRole()));
+        return userDetails;
+    }
+
+    private Collection<? extends GrantedAuthority> getAuthorities(RoleEntity role) {
+        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        authorities.add(new SimpleGrantedAuthority(role.getName()));
+        authorities.addAll(role.getPermissions()
+                .stream()
+                .map(p -> new SimpleGrantedAuthority(p.getName()))
+                .collect(Collectors.toList()));
+        return authorities;
     }
 }
