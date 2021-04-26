@@ -1,0 +1,124 @@
+databaseChangeLog:
+  - changeSet:
+      id: 24.04.2021_rename_CN_EXPERIENCE_column_in_candidate_table
+      author: Saranchuk Vadym
+      preConditions:
+        onFail: CONTINUE
+        tableExists:
+          tableName: CANDIDATE
+        columnExists:
+          tableName: CANDIDATE
+          columnName: CN_EXPERIENCE
+      changes:
+        - renameColumn:
+            columnDataType: TEXT
+            newColumnName: CN_OTHER_SKILLS
+            oldColumnName: CN_EXPERIENCE
+            defaultValue: NULL
+            tableName: CANDIDATE
+
+  - changeSet:
+      id: 24.04.2021_rename_CN_EXPERTISE_column_in_candidate_table
+      author: Saranchuk Vadym
+      preConditions:
+        onFail: CONTINUE
+        tableExists:
+          tableName: CANDIDATE
+        columnExists:
+          tableName: CANDIDATE
+          columnName: CN_EXPERTISE
+      changes:
+        - renameColumn:
+            columnDataType: TEXT
+            newColumnName: CN_MAIN_SKILL
+            oldColumnName: CN_EXPERTISE
+            tableName: CANDIDATE
+
+  - changeSet:
+      id: 24.04.2021_drop_CN_LOCATION_column_in_candidate_table
+      author: Saranchuk Vadym
+      preConditions:
+        onFail: CONTINUE
+        tableExists:
+          tableName: CANDIDATE
+        columnExists:
+          tableName: CANDIDATE
+          columnName: CN_LOCATION
+      changes:
+        - dropColumn:
+            columns:
+              - column:
+                  name: CN_LOCATION
+            tableName: CANDIDATE
+
+  - changeSet:
+      id: 24.04.2021_drop_CN_EDUCATION_column_in_candidate_table
+      author: Saranchuk Vadym
+      preConditions:
+        onFail: CONTINUE
+        tableExists:
+          tableName: CANDIDATE
+        columnExists:
+          tableName: CANDIDATE
+          columnName: CN_EDUCATION
+      changes:
+        - dropColumn:
+            columns:
+              - column:
+                  name: CN_EDUCATION
+            tableName: CANDIDATE
+
+  - changeSet:
+      id: 24.04.2021_create_new_columns_into_candidate_table
+      author: Saranchuk Vadym
+      preConditions:
+        onFail: CONTINUE
+        tableExists:
+          tableName: CANDIDATE
+        columnExists:
+          tableName: CANDIDATE
+          columnName: CN_OTHER_SKILLS
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: CN_COUNTRY
+                  afterColumn: CN_OTHER_SKILLS
+                  type: VARCHAR(50)
+                  constraints:
+                    nullanle: false
+              - column:
+                  name: CN_CITY
+                  afterColumn: CN_COUNTRY
+                  type: VARCHAR(50)
+                  constraints:
+                    nullanle: false
+              - column:
+                  name: CN_INSTITUTION
+                  afterColumn: CN_CITY
+                  type: VARCHAR(150)
+                  defaultValue: null
+                  constraints:
+                    nullanle: false
+              - column:
+                  name: CN_FACULTY
+                  afterColumn: CN_INSTITUTION
+                  type: VARCHAR(150)
+                  defaultValue: null
+                  constraints:
+                    nullanle: false
+              - column:
+                  name: CN_SPECIALITY
+                  afterColumn: CN_FACULTY
+                  type: VARCHAR(150)
+                  defaultValue: null
+                  constraints:
+                    nullanle: false
+              - column:
+                  name: CN_GRADUATION_DATE
+                  afterColumn: CN_SPECIALITY
+                  type: DATE
+                  defaultValue: null
+                  constraints:
+                    nullanle: false
+            tableName: CANDIDATE
