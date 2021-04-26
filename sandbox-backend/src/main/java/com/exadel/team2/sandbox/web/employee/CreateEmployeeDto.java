@@ -14,15 +14,15 @@ public class CreateEmployeeDto implements GeneralDto {
     @Size(min = 1, max = 255, message = "firstName must be between 1 and 255 characters")
     private String firstName;
 
-    @NotNull(message = "empLastName cannot be null")
-    @Size(min = 1, max = 255, message = "fastName must be between 1 and 255 characters")
+    @NotNull(message = "lastName cannot be null")
+    @Size(min = 1, max = 255, message = "lastName must be between 1 and 255 characters")
     private String lastName;
 
     @Size(min = 1, max = 255, message = "phone must be between 1 and 255 characters")
     private String phone;
 
-    @NotNull(message = "empEmail cannot be null")
-    @Email(message = "empEmail should be valid")
+    @NotNull(message = "email cannot be null")
+    @Email(message = "email should be valid")
     @Size(min = 1, max = 255, message = "email must be between 1 and 255 characters")
     private String email;
 

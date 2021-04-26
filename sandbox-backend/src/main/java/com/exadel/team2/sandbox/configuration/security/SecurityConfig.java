@@ -52,6 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // Our public endpoints
                     .antMatchers("/auth/login").permitAll()
                 // Our private endpoints
+                    .antMatchers(HttpMethod.GET,"/roles").hasAuthority("admin_view")
                     .anyRequest().authenticated();
 
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);

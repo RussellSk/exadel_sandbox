@@ -17,7 +17,7 @@ public class UpdateEmployeeDto implements GeneralDto {
     @Size(min = 1, max = 255, message = "phone must be between 1 and 255 characters")
     private String phone;
 
-    @Email(message = "empEmail should be valid")
+    @Email(message = "email should be valid")
     @Size(min = 1, max = 255, message = "email must be between 1 and 255 characters")
     private String email;
 
