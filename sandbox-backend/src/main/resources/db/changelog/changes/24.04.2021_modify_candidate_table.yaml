@@ -3,9 +3,7 @@ databaseChangeLog:
       id: 24.04.2021_rename_CN_EXPERIENCE_column_in_candidate_table
       author: Saranchuk Vadym
       preConditions:
-        onFail: CONTINUE
-        tableExists:
-          tableName: CANDIDATE
+        onFail: MARK_RAN
         columnExists:
           tableName: CANDIDATE
           columnName: CN_EXPERIENCE
@@ -21,9 +19,7 @@ databaseChangeLog:
       id: 24.04.2021_rename_CN_EXPERTISE_column_in_candidate_table
       author: Saranchuk Vadym
       preConditions:
-        onFail: CONTINUE
-        tableExists:
-          tableName: CANDIDATE
+        onFail: MARK_RAN
         columnExists:
           tableName: CANDIDATE
           columnName: CN_EXPERTISE
@@ -38,9 +34,7 @@ databaseChangeLog:
       id: 24.04.2021_drop_CN_LOCATION_column_in_candidate_table
       author: Saranchuk Vadym
       preConditions:
-        onFail: CONTINUE
-        tableExists:
-          tableName: CANDIDATE
+        onFail: MARK_RAN
         columnExists:
           tableName: CANDIDATE
           columnName: CN_LOCATION
@@ -55,9 +49,7 @@ databaseChangeLog:
       id: 24.04.2021_drop_CN_EDUCATION_column_in_candidate_table
       author: Saranchuk Vadym
       preConditions:
-        onFail: CONTINUE
-        tableExists:
-          tableName: CANDIDATE
+        onFail: MARK_RAN
         columnExists:
           tableName: CANDIDATE
           columnName: CN_EDUCATION
@@ -72,9 +64,7 @@ databaseChangeLog:
       id: 24.04.2021_create_new_columns_into_candidate_table
       author: Saranchuk Vadym
       preConditions:
-        onFail: CONTINUE
-        tableExists:
-          tableName: CANDIDATE
+        onFail: MARK_RAN
         columnExists:
           tableName: CANDIDATE
           columnName: CN_OTHER_SKILLS
