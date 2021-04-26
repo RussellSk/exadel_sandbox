@@ -72,6 +72,10 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/2021.04.13_load_data_event.yaml
   - include:
+      file: db/changelog/changes/configure-sql-file.yaml
+  - include:
+      file: db/changelog/changes/26.04.2021_run_delete.yaml
+  - include:
       file: db/changelog/changes/26.04.2021_run_fix_table_candidate.yaml
   - include:
       file: db/changelog/changes/24.04.2021_modify_candidate_table.yaml
