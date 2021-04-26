@@ -116,6 +116,10 @@ public class EmployeeServiceImpl extends GeneralServiceImpl<EmployeeEntity,
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         EmployeeEntity employeeEntity = ((EmployeeDAO)generalDAO).findByEmail(email);
+        if (employeeEntity == null) {
+            throw new UsernameNotFoundException("Incorrect login");
+        }
+
         UserDetails userDetails = new User(employeeEntity.getEmail(), employeeEntity.getPassword(),
                 true, true, true, true,
                 getAuthorities(employeeEntity.getRole()));
