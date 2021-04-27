@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -39,15 +40,26 @@ public class CandidateResponseDTO {
     private String englishLevel;
 
     @NotNull
-    private String expertise;
+    private String mainSkill;
 
     @NotNull
-    private String experience;
+    private String otherSkills;
 
     @NotNull
-    private String education;
+    private String institution;
 
     @NotNull
-    private String location;
+    private String faculty;
 
+    @NotNull
+    private String speciality;
+
+    @NotNull
+    private LocalDate graduationDate;
+
+    @NotNull
+    private String country;
+
+    @NotNull
+    private String city;
 }
