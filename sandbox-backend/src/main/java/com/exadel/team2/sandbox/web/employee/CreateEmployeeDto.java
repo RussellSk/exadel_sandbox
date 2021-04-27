@@ -29,7 +29,8 @@ public class CreateEmployeeDto implements GeneralDto {
     @Size(min = 1, max = 255, message = "skype must be between 1 and 255 characters")
     private String skype;
 
-    @Size(min = 1, max = 255, message = "password must be between 1 and 255 characters")
+    @NotNull(message = "password cannot be null")
+    @Size(min = 6, max = 255, message = "password must be between 6 and 255 characters")
     private String password;
 
     @NotNull(message = "roleId cannot be null")

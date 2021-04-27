@@ -48,6 +48,7 @@ public class EmployeeServiceImpl extends GeneralServiceImpl<EmployeeEntity,
         RoleEntity roleEntity = roleDAO.findById(createEmployeeDTO.getRoleId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Role Not Found"));
 
+        employeeEntity.setId(null);
         employeeEntity.setPassword(bCryptPasswordEncoder.encode(createEmployeeDTO.getPassword()));
         employeeEntity.setRole(roleEntity);
         employeeEntity.setCreatedAt(LocalDateTime.now());

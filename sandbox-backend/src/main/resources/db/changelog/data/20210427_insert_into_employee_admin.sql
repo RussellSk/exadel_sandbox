@@ -1,0 +1,2 @@
+-- Password for admin@exadel.com is 12345678
+INSERT INTO EMPLOYEE (RL_ID, EMP_FIRST_NAME, EMP_LAST_NAME, EMP_CREATED_AT, EMP_UPDATED_AT, EMP_PHONE, EMP_EMAIL, EMP_SKYPE, EMP_PASSWORD) VALUES (2, 'Bill', 'Gates', NOW(), NOW(), '+998999891111', 'admin@exadel.com', 'skype.admin', '$2a$10$iDqNqNDTDiuDWoiZ3OdoNeRoVYZFB5J8K.osZpLnfyqGnHdufB9.O');

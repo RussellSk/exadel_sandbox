@@ -26,7 +26,7 @@ public class UpdateEmployeeDto implements GeneralDto {
 
     private Long roleId;
 
-    @Size(min = 1, max = 255, message = "password must be between 1 and 255 characters")
+    @Size(min = 6, max = 255, message = "password must be between 6 and 255 characters")
     private String password;
 
     @Size(min = 1, max = 255, message = "locationCountry must be between 1 and 255 characters")

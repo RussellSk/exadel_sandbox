@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20210427_truncate_data_from_permission
+      author: skaldin
+      preCondition:
+        onFail: CONTINUE
+        tableExists:
+          tableName: PERMISSION
+      changes:
+        - sql:
+            sql: DELETE FROM PERMISSION
+            endDelimiter:  \nGO

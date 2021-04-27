@@ -4,7 +4,6 @@ import com.exadel.team2.sandbox.configuration.security.JwtTokenUtil;
 import com.exadel.team2.sandbox.dao.EmployeeDAO;
 import com.exadel.team2.sandbox.entity.EmployeeEntity;
 import com.exadel.team2.sandbox.service.AuthService;
-import com.exadel.team2.sandbox.service.EmployeeService;
 import com.exadel.team2.sandbox.web.auth.RequestAuthDto;
 import com.exadel.team2.sandbox.web.auth.ResponseAuthDto;
 import lombok.RequiredArgsConstructor;

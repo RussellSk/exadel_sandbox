@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20210425_add_column_method_to_permission
+      author: skaldin
+      preCondition:
+        onFail: MARK_RAN
+        not:
+          columnExists:
+            tableName: PERMISSION
+            columnName: PMN_HTTP_METHOD
+      changes:
+        - addColumn:
+            tableName: PERMISSION
+            columns:
+              name: PMN_HTTP_METHOD
+              type: VARCHAR(255)
+              afterColumn: PMN_ROUTE
+              constraints:
+                nullable: false
