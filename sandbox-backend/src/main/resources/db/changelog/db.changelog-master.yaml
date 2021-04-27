@@ -81,5 +81,3 @@ databaseChangeLog:
       file: db/changelog/changes/24.04.2021_modify_candidate_table.yaml
   - include:
       file: db/changelog/changes/21.04.2021_add-data-to-candidate-table.yaml
-  - include:
-      file: db/changelog/changes/27.04.2021_add_data_to_interview_time_table.yaml
