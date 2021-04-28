@@ -36,18 +36,6 @@ public class ControllerResume {
     @PostMapping
     public ResumeCreateDTO addResume(
             @RequestBody ResumeCreateDTO resumeCreateDTO) {
-        UploadFileResponse response = null;
-
-        if (resumeCreateDTO.getFile() != null) {
-            response = new FileController().uploadFile(resumeCreateDTO.getFile());
-
-            return resumeService.save(ResumeCreateDTO.builder()
-                    .ext(response.getFileType())
-                    .name(response.getFileName())
-                    .size(response.getSize())
-                    .build());
-        }
-
         return resumeService.save(resumeCreateDTO);
     }
 

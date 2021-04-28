@@ -26,6 +26,7 @@ public class FileStorageService {
     public FileStorageService(FileStorageProperties fileStorageProperties) {
         this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir())
                 .toAbsolutePath().normalize();
+        System.out.println(fileStorageProperties);
 
         try {
             Files.createDirectories(this.fileStorageLocation);
@@ -38,9 +39,6 @@ public class FileStorageService {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
         try {
-            if (fileName.contains("..")) {
-                throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
-            }
 
             Path targetLocation = this.fileStorageLocation.resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);

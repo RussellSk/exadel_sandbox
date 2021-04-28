@@ -19,10 +19,8 @@ public class ResumeResponseDTO {
     @NotNull
     private Long id;
 
-//    @NotNull
     private String path;
 
-//    @NotNull
     private String link;
 
     @NotNull
