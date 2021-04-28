@@ -3,6 +3,7 @@ package com.exadel.team2.sandbox.controller;
 import com.exadel.team2.sandbox.dto.ResumeCreateDTO;
 import com.exadel.team2.sandbox.dto.ResumeResponseDTO;
 import com.exadel.team2.sandbox.dto.ResumeUpdateDTO;
+import com.exadel.team2.sandbox.dto.UploadFileResponse;
 import com.exadel.team2.sandbox.service.impl.ResumeServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -33,7 +34,20 @@ public class ControllerResume {
     }
 
     @PostMapping
-    public ResumeCreateDTO addResume(@RequestBody ResumeCreateDTO resumeCreateDTO) {
+    public ResumeCreateDTO addResume(
+            @RequestBody ResumeCreateDTO resumeCreateDTO) {
+        UploadFileResponse response = null;
+
+        if (resumeCreateDTO.getFile() != null) {
+            response = new FileController().uploadFile(resumeCreateDTO.getFile());
+
+            return resumeService.save(ResumeCreateDTO.builder()
+                    .ext(response.getFileType())
+                    .name(response.getFileName())
+                    .size(response.getSize())
+                    .build());
+        }
+
         return resumeService.save(resumeCreateDTO);
     }
 
