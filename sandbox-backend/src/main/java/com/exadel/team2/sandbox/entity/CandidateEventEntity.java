@@ -25,7 +25,7 @@ public class CandidateEventEntity {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     @Column(name = "CNEV_ID")
-    private long id;
+    private Long id;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "CN_ID")
