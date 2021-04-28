@@ -37,6 +37,8 @@ public class EventUpdateDTO {
     private String country;
     private String city;
     private String technologies;
+    private String title;
+    private String description;
     private EventTab eventTab;
     private EnglishLevel englishLevel;
 

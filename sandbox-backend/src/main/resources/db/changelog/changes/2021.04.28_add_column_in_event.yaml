@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2021.04.28_add_column_title
+      author: vadblagiy@gmail.com
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          columnExists:
+            tableName: EVENT
+            columnName: EV_TITLE
+      changes:
+        - addColumn:
+            tableName: EVENT
+            columns:
+              name: EV_TITLE
+              type: VARCHAR(250)
+  - changeSet:
+      id: 2021.04.28_add_column_description
+      author: vadblagiy@gmail.com
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          columnExists:
+            tableName: EVENT
+            columnName: EV_DESCRIPTION
+      changes:
+        - addColumn:
+            tableName: EVENT
+            columns:
+              name: EV_DESCRIPTION
+              type: VARCHAR(5000)
