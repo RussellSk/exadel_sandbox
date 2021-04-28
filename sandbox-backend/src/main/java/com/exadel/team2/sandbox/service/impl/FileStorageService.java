@@ -29,7 +29,6 @@ public class FileStorageService {
 
         try {
             Files.createDirectories(this.fileStorageLocation);
-            System.out.println(fileStorageLocation);
         } catch (Exception ex) {
             throw new FileStorageException("Could not create directory where the uploaded will be stored", ex);
         }
