@@ -91,3 +91,7 @@ databaseChangeLog:
       file: db/changelog/changes/2021.04.28_add_column_in_event.yaml
   - include:
       file: db/changelog/changes/2021.04.28_add_column_status_in_candidate.yaml
+  - include:
+      file: db/changelog/changes/20210429_add_column_primary_technology_employee.yaml
+  - include:
+      file: db/changelog/changes/20210429_add_column_type_employee.yaml
