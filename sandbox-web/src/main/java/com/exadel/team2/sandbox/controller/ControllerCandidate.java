@@ -19,6 +19,7 @@ public class ControllerCandidate {
 
     private final CandidateServiceImpl candidateService;
 
+
     @GetMapping(value = "/{id}")
     public CandidateResponseDTO getCandidate(@PathVariable Long id) {
         return candidateService.findById(id);
@@ -26,7 +27,7 @@ public class ControllerCandidate {
 
     @GetMapping
     public List<CandidateResponseDTO> getAllCandidates(
-            @PageableDefault(sort = {"lastName"}, size = 2, direction = Sort.Direction.ASC) Pageable pageable,
+            @PageableDefault(sort = {"lastName"}, size = 15, direction = Sort.Direction.ASC) Pageable pageable,
             @RequestParam(value = "search", defaultValue = "", required = false) String search) {
 
         return candidateService.getAllPageable(pageable, search);

@@ -37,6 +37,8 @@ public class EventResponseDTO {
     private String technologies;
     private EventTab eventTab;
     private EnglishLevel englishLevel;
+    private String title;
+    private String description;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

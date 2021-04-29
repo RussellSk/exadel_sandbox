@@ -10,6 +10,7 @@ import lombok.Setter;
 
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Setter
@@ -35,13 +36,21 @@ public class CandidateUpdateDTO {
 
     private String englishLevel;
 
-    private String expertise;
+    private String mainSkill;
 
-    private String experience;
+    private String otherSkills;
 
-    private String education;
+    private String institution;
 
-    private String location;
+    private String faculty;
+
+    private String speciality;
+
+    private LocalDate graduationDate;
+
+    private String country;
+
+    private String city;
 
     @JsonIgnore
     private final LocalDateTime updatedAt = LocalDateTime.now();

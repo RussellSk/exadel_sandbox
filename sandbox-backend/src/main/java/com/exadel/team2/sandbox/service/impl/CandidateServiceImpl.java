@@ -61,7 +61,8 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     public CandidateCreateDTO save(CandidateCreateDTO candidateCreateDTO) {
-        return modelMap.convertTo(candidateDAO.save(modelMap.convertTo(candidateCreateDTO, CandidateEntity.class)),
+        return modelMap.convertTo(candidateDAO.save(
+                modelMap.convertTo(candidateCreateDTO, CandidateEntity.class)),
                 CandidateCreateDTO.class);
     }
 
@@ -94,20 +95,40 @@ public class CandidateServiceImpl implements CandidateService {
             candidateEntity.setEnglishLevel(candidateUpdateDTO.getEnglishLevel());
         }
 
-        if (candidateUpdateDTO.getExpertise() != null) {
-            candidateUpdateDTO.setExpertise(candidateUpdateDTO.getExpertise());
+        if (candidateUpdateDTO.getMainSkill() != null) {
+            candidateEntity.setMainSkill(candidateUpdateDTO.getMainSkill());
         }
 
-        if (candidateUpdateDTO.getExpertise() != null) {
-            candidateEntity.setExperience(candidateUpdateDTO.getExperience());
+        if (candidateUpdateDTO.getOtherSkills() != null) {
+            candidateEntity.setOtherSkills(candidateUpdateDTO.getOtherSkills());
         }
 
-        if (candidateUpdateDTO.getEducation() != null) {
-            candidateEntity.setEducation(candidateUpdateDTO.getEducation());
+        if (candidateUpdateDTO.getEmail() != null) {
+            candidateEntity.setEmail(candidateUpdateDTO.getEmail());
         }
 
-        if (candidateUpdateDTO.getLocation() != null) {
-            candidateEntity.setLocation(candidateUpdateDTO.getLocation());
+        if (candidateUpdateDTO.getInstitution() != null) {
+            candidateEntity.setInstitution(candidateUpdateDTO.getInstitution());
+        }
+
+        if (candidateUpdateDTO.getFaculty() != null) {
+            candidateEntity.setFaculty(candidateUpdateDTO.getFaculty());
+        }
+
+        if (candidateUpdateDTO.getSpeciality() != null) {
+            candidateEntity.setSpeciality(candidateUpdateDTO.getSpeciality());
+        }
+
+        if (candidateUpdateDTO.getGraduationDate() != null) {
+            candidateEntity.setGraduationDate(candidateUpdateDTO.getGraduationDate());
+        }
+
+        if (candidateUpdateDTO.getCountry() != null) {
+            candidateEntity.setCountry(candidateUpdateDTO.getCountry());
+        }
+
+        if (candidateUpdateDTO.getCity() != null) {
+            candidateEntity.setCity(candidateUpdateDTO.getCity());
         }
 
         candidateEntity.setUpdatedAt(candidateUpdateDTO.getUpdatedAt());
