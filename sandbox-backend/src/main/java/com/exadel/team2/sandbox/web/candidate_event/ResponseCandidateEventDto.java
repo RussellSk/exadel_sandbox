@@ -6,7 +6,6 @@ import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 public class ResponseCandidateEventDto {
@@ -17,6 +16,6 @@ public class ResponseCandidateEventDto {
     @NotNull
     private LocalDateTime createdAt;
     @NotNull
-    private List<CandidateEntity> candidates;
+    private  CandidateEntity candidate;
 
 }
