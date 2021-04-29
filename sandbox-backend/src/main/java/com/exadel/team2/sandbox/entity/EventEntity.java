@@ -1,6 +1,9 @@
 package com.exadel.team2.sandbox.entity;
 
 
+import com.exadel.team2.sandbox.entity.enums.EnglishLevel;
+import com.exadel.team2.sandbox.entity.enums.EventTab;
+import com.exadel.team2.sandbox.entity.enums.Format;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;

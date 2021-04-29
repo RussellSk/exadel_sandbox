@@ -1,5 +1,6 @@
 package com.exadel.team2.sandbox.entity;
 
+import com.exadel.team2.sandbox.entity.enums.CandidateStatus;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -79,6 +80,10 @@ public class CandidateEntity {
 
     @Column(name = "CN_CITY")
     private String city;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "CN_STATUS")
+    private CandidateStatus status;
 
     @CreationTimestamp
     @Column(name = "CN_CREATED_AT")
