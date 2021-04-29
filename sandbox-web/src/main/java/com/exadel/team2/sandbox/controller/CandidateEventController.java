@@ -1,13 +1,11 @@
 package com.exadel.team2.sandbox.controller;
 
 import com.exadel.team2.sandbox.service.CandidateEventService;
-import com.exadel.team2.sandbox.web.candidate_event.CreateCandidateEventDto;
 import com.exadel.team2.sandbox.web.candidate_event.ResponseCandidateEventDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -26,12 +24,7 @@ public class CandidateEventController {
             @RequestParam(defaultValue = "", name = "search") String search,
             @RequestParam(defaultValue = "0", name = "page") Integer page,
             @RequestParam(defaultValue = "15", name = "itemsPerPage") Integer itemsPerPage) {
-        return candidateEventService.getAllPageable(PageRequest.of(page, itemsPerPage),search);
-    }
-
-    @PostMapping
-    public ResponseCandidateEventDto createCandidateEvent(@Validated @RequestBody CreateCandidateEventDto createCandidateEventDto) {
-        return candidateEventService.save(createCandidateEventDto);
+        return candidateEventService.getAllPageable(PageRequest.of(page, itemsPerPage), search);
     }
 
     @DeleteMapping("/{id}")

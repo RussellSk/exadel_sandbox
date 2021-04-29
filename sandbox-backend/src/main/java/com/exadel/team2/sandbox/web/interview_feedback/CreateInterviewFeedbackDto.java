@@ -7,9 +7,9 @@ import javax.validation.constraints.NotNull;
 @Data
 public class CreateInterviewFeedbackDto {
     @NotNull(message = "idEmployee cannot be null")
-    private long idEmployee;
+    private Long idEmployee;
     @NotNull(message = "idCandidate cannot be null")
-    private long idCandidate;
+    private Long idCandidate;
     @NotNull(message = "feedback cannot be null")
     private String feedback;
 
