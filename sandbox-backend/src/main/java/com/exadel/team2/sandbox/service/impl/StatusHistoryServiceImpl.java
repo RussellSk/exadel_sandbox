@@ -45,12 +45,12 @@ public class StatusHistoryServiceImpl implements StatusHistoryService {
     }
 
     @Override
-    public Page<ResponseStatusHistoryDTO> findAllPageable(Pageable pageable, String query) {
-        if (query.isEmpty()) {
+    public Page<ResponseStatusHistoryDTO> findAllPageable(Pageable pageable, String search) {
+        if (search.isEmpty()) {
             return historyDAO.findAll(pageable)
                     .map(historyMapper::convertEntityToDto);
         }
-        Node rootNode = new RSQLParser().parse(query);
+        Node rootNode = new RSQLParser().parse(search);
         Specification<StatusHistory> spec = rootNode.accept(new CustomRsqlVisitor<>());
         return historyDAO.findAll(spec, pageable).map(historyMapper::convertEntityToDto);
 
