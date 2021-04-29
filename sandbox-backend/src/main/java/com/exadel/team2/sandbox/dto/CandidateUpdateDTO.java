@@ -52,6 +52,8 @@ public class CandidateUpdateDTO {
 
     private String city;
 
+    private String status;
+
     @JsonIgnore
     private final LocalDateTime updatedAt = LocalDateTime.now();
 }

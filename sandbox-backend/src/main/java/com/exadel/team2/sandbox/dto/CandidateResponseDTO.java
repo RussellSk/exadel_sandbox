@@ -62,4 +62,7 @@ public class CandidateResponseDTO {
 
     @NotNull
     private String city;
+
+    @NotNull
+    private String status;
 }
