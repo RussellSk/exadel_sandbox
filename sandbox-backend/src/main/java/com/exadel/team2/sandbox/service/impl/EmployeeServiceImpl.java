@@ -64,6 +64,14 @@ public class EmployeeServiceImpl extends GeneralServiceImpl<EmployeeEntity,
             employeeEntity.setFirstName(updateEmployeeDto.getFirstName());
         }
 
+        if (updateEmployeeDto.getPrimaryTechnology() != null) {
+            employeeEntity.setPrimaryTechnology(updateEmployeeDto.getPrimaryTechnology());
+        }
+
+        if (updateEmployeeDto.getType() != null) {
+            employeeEntity.setType(updateEmployeeDto.getType());
+        }
+
         if (updateEmployeeDto.getPhone() != null) {
             employeeEntity.setPhone(updateEmployeeDto.getPhone());
         }

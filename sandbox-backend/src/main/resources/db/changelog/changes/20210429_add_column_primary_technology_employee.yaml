@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20210429_add_column_primary_technology_employee
+      author: skaldin
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          columnExists:
+            tableName: EMPLOYEE
+            columnName: EMP_PRIMARY_TECHNOLOGY
+      changes:
+        - addColumn:
+            tableName: EMPLOYEE
+            columns:
+              name: EMP_PRIMARY_TECHNOLOGY
+              type: VARCHAR(255)
+              afterColumn: EMP_LAST_NAME
+              constraints:
+                nullable: true
