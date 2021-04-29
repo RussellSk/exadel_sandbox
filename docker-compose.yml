@@ -20,6 +20,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    volumes:
+      - "./upload:/data/upload"
     restart: always
     depends_on:
       - "db"
