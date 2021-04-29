@@ -1,15 +1,14 @@
 package com.exadel.team2.sandbox.service.impl;
 
+import com.exadel.team2.sandbox.BaseTestClass;
 import com.exadel.team2.sandbox.dao.EventDAO;
 import com.exadel.team2.sandbox.entity.EventEntity;
 import com.exadel.team2.sandbox.exceptions.NoSuchException;
+import com.exadel.team2.sandbox.service.EventService;
 import com.exadel.team2.sandbox.web.event.EventResponseDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.ArrayList;
@@ -20,33 +19,32 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
-@SpringBootTest
-class EventServiceImplTest {
 
-    private static final long DUMMY_ID = 1L;
+class EventServiceImplTest extends BaseTestClass {
+
+    private static final long EVENT_ID = 1L;
 
     @MockBean
     private EventDAO eventDAO;
 
     @Autowired
-    private EventServiceImpl eventServiceImpl;
+    private EventService eventService;
 
     @Test
     void getById_eventExists_ok() {
-        when(eventDAO.findById(DUMMY_ID)).thenReturn(getEventResponseEntity());
+        when(eventDAO.findById(EVENT_ID)).thenReturn(getEventResponseEntity());
 
-        EventResponseDTO actualEventResponse = eventServiceImpl.getById(DUMMY_ID);
+        EventResponseDTO actualEventResponse = eventService.getById(EVENT_ID);
 
-        Assertions.assertEquals(DUMMY_ID, actualEventResponse.getId());
+        Assertions.assertEquals(EVENT_ID, actualEventResponse.getId());
     }
 
 
     @Test
     void getById_noEvent_exceptionThrown() {
-        when(eventDAO.findById(DUMMY_ID)).thenReturn(Optional.empty());
+        when(eventDAO.findById(EVENT_ID)).thenReturn(Optional.empty());
 
-        assertThrows(NoSuchException.class, () -> eventServiceImpl.getById(DUMMY_ID));
+        assertThrows(NoSuchException.class, () -> eventService.getById(EVENT_ID));
     }
 
 
@@ -55,7 +53,7 @@ class EventServiceImplTest {
         List<EventEntity> eventEntities = createEventEntities();
         when(eventDAO.findAll()).thenReturn(eventEntities);
 
-        List<EventResponseDTO> actualEvents = eventServiceImpl.getAll();
+        List<EventResponseDTO> actualEvents = eventService.getAll();
 
         List<EventResponseDTO> expectedEvents = createEventDto();
         Assertions.assertEquals(expectedEvents, actualEvents);
@@ -67,7 +65,7 @@ class EventServiceImplTest {
         List<EventEntity> emptyEntity = createEmptyEntity();
         when(eventDAO.findAll()).thenReturn(emptyEntity);
 
-        assertThrows(NoSuchException.class, () -> eventServiceImpl.getAll());
+        assertThrows(NoSuchException.class, () -> eventService.getAll());
     }
 
 
@@ -75,32 +73,32 @@ class EventServiceImplTest {
     void getAll_imagesDoesNotExist_thrownNullPointerException() {
         when(eventDAO.findAll()).thenReturn(null);
 
-        assertThrows(NullPointerException.class, () -> eventServiceImpl.getAll());
+        assertThrows(NullPointerException.class, () -> eventService.getAll());
     }
 
 
     @Test
     void deleteById_eventExists_ok() {
-        when(eventDAO.existsById(DUMMY_ID)).thenReturn(true);
+        when(eventDAO.existsById(EVENT_ID)).thenReturn(true);
 
-        boolean status = eventServiceImpl.delete(DUMMY_ID);
+        boolean status = eventService.delete(EVENT_ID);
 
-        verify(eventDAO).deleteById(DUMMY_ID);
+        verify(eventDAO).deleteById(EVENT_ID);
         Assertions.assertTrue(status);
     }
 
 
     @Test
     void deleteById_imageDoesNotExist_exceptionThrown() {
-        when(eventDAO.existsById(DUMMY_ID)).thenReturn(false);
+        when(eventDAO.existsById(EVENT_ID)).thenReturn(false);
 
-        assertThrows(NoSuchException.class, () -> eventServiceImpl.delete(DUMMY_ID));
+        assertThrows(NoSuchException.class, () -> eventService.delete(EVENT_ID));
     }
 
 
     private Optional<EventEntity> getEventResponseEntity() {
         EventEntity eventEntity = new EventEntity();
-        eventEntity.setId(DUMMY_ID);
+        eventEntity.setId(EVENT_ID);
 
         return Optional.of(eventEntity);
     }

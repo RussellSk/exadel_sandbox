@@ -1,15 +1,14 @@
 package com.exadel.team2.sandbox.service.impl;
 
+import com.exadel.team2.sandbox.BaseTestClass;
 import com.exadel.team2.sandbox.dao.ImageDAO;
 import com.exadel.team2.sandbox.entity.ImageEntity;
 import com.exadel.team2.sandbox.exceptions.NoSuchException;
+import com.exadel.team2.sandbox.service.ImageService;
 import com.exadel.team2.sandbox.web.image.ImageResponseDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.LocalDateTime;
@@ -21,32 +20,30 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 
-@ExtendWith(MockitoExtension.class)
-@SpringBootTest
-public class ImageServiceImplTest {
+public class ImageServiceImplTest extends BaseTestClass {
 
-    private static final long DUMMY_ID = 3L;
+    private static final long IMAGE_ID = 3L;
 
     @MockBean
     private ImageDAO imageDAO;
 
     @Autowired
-    private ImageServiceImpl imageServiceImpl;
+    private ImageService imageService;
 
     @Test
     void getById_imageExists_ok() {
-        when(imageDAO.findById(DUMMY_ID)).thenReturn(getImageResponseEntity());
+        when(imageDAO.findById(IMAGE_ID)).thenReturn(getImageResponseEntity());
 
-        ImageResponseDTO actualImageResponse = imageServiceImpl.getById(DUMMY_ID);
+        ImageResponseDTO actualImageResponse = imageService.getById(IMAGE_ID);
 
-        Assertions.assertEquals(DUMMY_ID, actualImageResponse.getId());
+        Assertions.assertEquals(IMAGE_ID, actualImageResponse.getId());
     }
 
     @Test
     void getById_noImage_exceptionThrown() {
-        when(imageDAO.findById(DUMMY_ID)).thenReturn(Optional.empty());
+        when(imageDAO.findById(IMAGE_ID)).thenReturn(Optional.empty());
 
-        assertThrows(NoSuchException.class, () -> imageServiceImpl.getById(DUMMY_ID));
+        assertThrows(NoSuchException.class, () -> imageService.getById(IMAGE_ID));
     }
 
     @Test
@@ -54,7 +51,7 @@ public class ImageServiceImplTest {
         List<ImageEntity> imageEntities = createImageEntities();
         when(imageDAO.findAll()).thenReturn(imageEntities);
 
-        List<ImageResponseDTO> actualImages = imageServiceImpl.getAll();
+        List<ImageResponseDTO> actualImages = imageService.getAll();
 
         List<ImageResponseDTO> expectedImages = createImageDto();
         Assertions.assertEquals(expectedImages, actualImages);
@@ -65,37 +62,37 @@ public class ImageServiceImplTest {
         List<ImageEntity> emptyEntity = createEmptyEntity();
         when(imageDAO.findAll()).thenReturn(emptyEntity);
 
-        assertThrows(NoSuchException.class, () -> imageServiceImpl.getAll());
+        assertThrows(NoSuchException.class, () -> imageService.getAll());
     }
 
     @Test
     void getAll_imagesDoesNotExist_thrownNullPointerException() {
         when(imageDAO.findAll()).thenReturn(null);
 
-        assertThrows(NullPointerException.class, () -> imageServiceImpl.getAll());
+        assertThrows(NullPointerException.class, () -> imageService.getAll());
     }
 
     @Test
     void deleteById_imageExists_ok() {
-        when(imageDAO.existsById(DUMMY_ID)).thenReturn(true);
+        when(imageDAO.existsById(IMAGE_ID)).thenReturn(true);
 
-        boolean status = imageServiceImpl.delete(DUMMY_ID);
+        boolean status = imageService.delete(IMAGE_ID);
 
-        verify(imageDAO).deleteById(DUMMY_ID);
+        verify(imageDAO).deleteById(IMAGE_ID);
         Assertions.assertTrue(status);
     }
 
     @Test
     void deleteById_imageDoesNotExist_exceptionThrown() {
-        when(imageDAO.existsById(DUMMY_ID)).thenReturn(false);
+        when(imageDAO.existsById(IMAGE_ID)).thenReturn(false);
 
-        assertThrows(NoSuchException.class, () -> imageServiceImpl.delete(DUMMY_ID));
+        assertThrows(NoSuchException.class, () -> imageService.delete(IMAGE_ID));
     }
 
 
     private Optional<ImageEntity> getImageResponseEntity() {
         ImageEntity imageEntity = new ImageEntity();
-        imageEntity.setId(DUMMY_ID);
+        imageEntity.setId(IMAGE_ID);
         imageEntity.setImageName("Java cover");
         imageEntity.setAltText("Short description about image");
         imageEntity.setExt("jpg");
@@ -161,7 +158,7 @@ public class ImageServiceImplTest {
 
     private ImageResponseDTO responseDto() {
         ImageResponseDTO imageDTO = new ImageResponseDTO();
-        imageDTO.setId(DUMMY_ID);
+        imageDTO.setId(IMAGE_ID);
         imageDTO.setImageName("Java cover");
         imageDTO.setAltText("Short description about image");
         imageDTO.setExt("jpg");

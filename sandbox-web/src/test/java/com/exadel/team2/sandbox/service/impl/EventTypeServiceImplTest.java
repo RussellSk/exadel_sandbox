@@ -1,15 +1,14 @@
 package com.exadel.team2.sandbox.service.impl;
 
+import com.exadel.team2.sandbox.BaseTestClass;
 import com.exadel.team2.sandbox.dao.EventTypeDAO;
 import com.exadel.team2.sandbox.entity.EventTypeEntity;
 import com.exadel.team2.sandbox.exceptions.NoSuchException;
+import com.exadel.team2.sandbox.service.EventTypeService;
 import com.exadel.team2.sandbox.web.event_type.EventTypeResponseDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.ArrayList;
@@ -20,34 +19,33 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
-@SpringBootTest
-class EventTypeServiceImplTest {
 
-    private static final long DUMMY_ID = 2L;
+class EventTypeServiceImplTest extends BaseTestClass {
+
+    private static final long EVENT_TYPE_ID = 2L;
 
     @MockBean
     private EventTypeDAO eventTypeDAO;
 
     @Autowired
-    private EventTypeServiceImpl eventTypeServiceImpl;
+    private EventTypeService eventTypeService;
 
 
     @Test
     void getById_eventTypeExists_ok() {
-        when(eventTypeDAO.findById(DUMMY_ID)).thenReturn(getEventTypeResponseEntity());
+        when(eventTypeDAO.findById(EVENT_TYPE_ID)).thenReturn(getEventTypeResponseEntity());
 
-        EventTypeResponseDTO actualEventTypeResponse = eventTypeServiceImpl.getById(DUMMY_ID);
+        EventTypeResponseDTO actualEventTypeResponse = eventTypeService.getById(EVENT_TYPE_ID);
 
-        Assertions.assertEquals(DUMMY_ID, actualEventTypeResponse.getId());
+        Assertions.assertEquals(EVENT_TYPE_ID, actualEventTypeResponse.getId());
     }
 
 
     @Test
     void getById_noEventType_exceptionThrown() {
-        when(eventTypeDAO.findById(DUMMY_ID)).thenReturn(Optional.empty());
+        when(eventTypeDAO.findById(EVENT_TYPE_ID)).thenReturn(Optional.empty());
 
-        assertThrows(NoSuchException.class, () -> eventTypeServiceImpl.getById(DUMMY_ID));
+        assertThrows(NoSuchException.class, () -> eventTypeService.getById(EVENT_TYPE_ID));
     }
 
 
@@ -56,7 +54,7 @@ class EventTypeServiceImplTest {
         List<EventTypeEntity> eventTypeEntities = createEventTypeEntities();
         when(eventTypeDAO.findAll()).thenReturn(eventTypeEntities);
 
-        List<EventTypeResponseDTO> actualEventType = eventTypeServiceImpl.getAll();
+        List<EventTypeResponseDTO> actualEventType = eventTypeService.getAll();
 
         List<EventTypeResponseDTO> expectedEventTypes = createEventTypeDto();
         Assertions.assertEquals(expectedEventTypes, actualEventType);
@@ -68,32 +66,32 @@ class EventTypeServiceImplTest {
         List<EventTypeEntity> emptyEntity = createEmptyEntity();
         when(eventTypeDAO.findAll()).thenReturn(emptyEntity);
 
-        assertThrows(NoSuchException.class, () -> eventTypeServiceImpl.getAll());
+        assertThrows(NoSuchException.class, () -> eventTypeService.getAll());
     }
 
 
     @Test
     void deleteById_eventTypeExists_ok() {
-        when(eventTypeDAO.existsById(DUMMY_ID)).thenReturn(true);
+        when(eventTypeDAO.existsById(EVENT_TYPE_ID)).thenReturn(true);
 
-        boolean status = eventTypeServiceImpl.delete(DUMMY_ID);
+        boolean status = eventTypeService.delete(EVENT_TYPE_ID);
 
-        verify(eventTypeDAO).deleteById(DUMMY_ID);
+        verify(eventTypeDAO).deleteById(EVENT_TYPE_ID);
         Assertions.assertTrue(status);
     }
 
 
     @Test
     void deleteById_imageDoesNotExist_exceptionThrown() {
-        when(eventTypeDAO.existsById(DUMMY_ID)).thenReturn(false);
+        when(eventTypeDAO.existsById(EVENT_TYPE_ID)).thenReturn(false);
 
-        assertThrows(NoSuchException.class, () -> eventTypeServiceImpl.delete(DUMMY_ID));
+        assertThrows(NoSuchException.class, () -> eventTypeService.delete(EVENT_TYPE_ID));
     }
 
 
     private Optional<EventTypeEntity> getEventTypeResponseEntity() {
         EventTypeEntity eventTypeEntity = new EventTypeEntity();
-        eventTypeEntity.setId(DUMMY_ID);
+        eventTypeEntity.setId(EVENT_TYPE_ID);
         eventTypeEntity.setName("Java and JS");
         eventTypeEntity.setDescription("Description");
         return Optional.of(eventTypeEntity);
