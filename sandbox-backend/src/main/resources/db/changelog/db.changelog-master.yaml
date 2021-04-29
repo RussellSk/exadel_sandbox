@@ -87,3 +87,5 @@ databaseChangeLog:
       file: db/changelog/changes/2021.04.16_add_newFK_CandidateEvent.yaml
   - include:
       file: db/changelog/changes/2021.04.27_load_data_IFB_and_CI.yaml
+  - include: 
+      file: db/changelog/changes/2021.04.28_add_column_in_event.yaml
