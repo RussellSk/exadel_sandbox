@@ -5,6 +5,7 @@ import com.exadel.team2.sandbox.dto.CandidateResponseDTO;
 import com.exadel.team2.sandbox.dto.CandidateUpdateDTO;
 import com.exadel.team2.sandbox.service.impl.CandidateServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -27,10 +28,10 @@ public class ControllerCandidate {
 
     @GetMapping
     public List<CandidateResponseDTO> getAllCandidates(
-            @PageableDefault(sort = {"lastName"}, size = 15, direction = Sort.Direction.ASC) Pageable pageable,
-            @RequestParam(value = "search", defaultValue = "", required = false) String search) {
-
-        return candidateService.getAllPageable(pageable, search);
+            @RequestParam(defaultValue = "", name = "search") String search,
+            @RequestParam(defaultValue = "0", name = "page") Integer page,
+            @RequestParam(defaultValue = "15", name = "itemsPerPage") Integer itemsPerPage) {
+        return candidateService.getAllPageable(PageRequest.of(page, itemsPerPage), search);
     }
 
 

@@ -11,7 +11,7 @@ import java.util.List;
 public interface StatusHistoryService {
     ResponseStatusHistoryDTO findById(Long id);
 
-    Page<ResponseStatusHistoryDTO> findAllPageable(Pageable pageable, String query);
+    Page<ResponseStatusHistoryDTO> findAllPageable(Pageable pageable, String search);
 
     List<ResponseStatusHistoryDTO> findAll();
 
