@@ -20,6 +20,7 @@ public class ControllerCandidate {
 
     private final CandidateServiceImpl candidateService;
 
+
     @GetMapping(value = "/{id}")
     public CandidateResponseDTO getCandidate(@PathVariable Long id) {
         return candidateService.findById(id);
