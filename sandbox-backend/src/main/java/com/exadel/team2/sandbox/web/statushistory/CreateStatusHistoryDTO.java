@@ -8,12 +8,13 @@ import javax.validation.constraints.NotNull;
 public class CreateStatusHistoryDTO {
 
     @NotNull(message = "Status id cannot be null")
-    private Long statusId;
+    private Long status;
 
-    private Long candidateId;
+    @NotNull(message = "Candidate id cannot be null")
+    private Long candidate;
 
     @NotNull(message = "Employee id cannot be null")
-    private Long employeeId;
+    private Long employee;
 
     private String changeNote;
 
