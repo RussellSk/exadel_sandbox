@@ -2,8 +2,8 @@ package com.exadel.team2.sandbox.entity;
 
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -13,12 +13,10 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "STATUS_HISTORY")
-public class StatusHistory {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-    @GenericGenerator(name = "native", strategy = "native")
-    @Column(name = "STH_ID", nullable = false)
-    private Long id;
+@AttributeOverride(name = "id", column = @Column(name = "STH_ID"))
+@EqualsAndHashCode(callSuper = true)
+public class StatusHistory extends BaseEntity {
+
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "ST_ID", nullable = false)
