@@ -14,6 +14,7 @@ databaseChangeLog:
             columns:
               name: PMN_HTTP_METHOD
               type: VARCHAR(255)
+              defaultValue: GET
               afterColumn: PMN_ROUTE
               constraints:
                 nullable: false

@@ -21,14 +21,16 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     private final JwtTokenUtil jwtTokenUtil;
     private final EmployeeService employeeService;
+    private final SecurityParams securityParams;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
-        final String headerToken = request.getHeader(SecurityConstants.HEADER_STRING);
-        if (headerToken == null || !headerToken.startsWith(SecurityConstants.TOKEN_PREFIX)) {
+        System.out.println("SECURITY: " + securityParams.getSecret());
+        final String headerToken = request.getHeader(securityParams.getHeaderString());
+        if (headerToken == null || !headerToken.startsWith(securityParams.getTokenPrefix())) {
             filterChain.doFilter(request, response);
             return;
         }

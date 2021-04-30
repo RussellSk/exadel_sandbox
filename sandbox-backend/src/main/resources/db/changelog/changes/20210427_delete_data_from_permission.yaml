@@ -3,7 +3,7 @@ databaseChangeLog:
       id: 20210427_truncate_data_from_permission
       author: skaldin
       preCondition:
-        onFail: CONTINUE
+        onFail: HALT
         tableExists:
           tableName: PERMISSION
       changes:

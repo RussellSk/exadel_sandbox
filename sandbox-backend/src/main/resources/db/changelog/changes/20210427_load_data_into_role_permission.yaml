@@ -3,7 +3,7 @@ databaseChangeLog:
       id: 20210427_load_data_into_role_permission
       author: skaldin
       preCondition:
-        onFail: CONTINUE
+        onFail: HALT
         tableExists:
           tableName: ROLE_PERMISSION
       changes:
