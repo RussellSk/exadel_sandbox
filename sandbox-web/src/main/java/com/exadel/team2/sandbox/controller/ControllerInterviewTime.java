@@ -7,6 +7,7 @@ import com.exadel.team2.sandbox.dto.InterviewTimeUpdateDTO;
 import com.exadel.team2.sandbox.entity.InterviewTimeEntity;
 import com.exadel.team2.sandbox.service.impl.InterviewTimeServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -28,10 +29,10 @@ public class ControllerInterviewTime {
 
     @GetMapping
     public List<InterviewTimeResponseDTO> getAllInterviewTime(
-            @PageableDefault(sort = "beginDate", size = 15, direction = Sort.Direction.ASC) Pageable pageable,
-            @RequestParam(value = "search") String search) {
-
-        return interviewTimeService.getAllPageable(pageable, search);
+            @RequestParam(defaultValue = "", name = "search") String search,
+            @RequestParam(defaultValue = "0", name = "page") Integer page,
+            @RequestParam(defaultValue = "15", name = "itemsPerPage") Integer itemsPerPage) {
+        return interviewTimeService.getAllPageable(PageRequest.of(page, itemsPerPage), search);
     }
 
 

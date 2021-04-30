@@ -5,6 +5,7 @@ import com.exadel.team2.sandbox.web.role.ResponseRoleDto;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Data
@@ -17,6 +18,10 @@ public class ResponseEmployeeDto implements GeneralDto {
 
     @NotNull
     private String lastName;
+
+    private String primaryTechnology;
+
+    private String type;
 
     private String phone;
 

@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 26.04.2021_run_delete
+      author: Saranchuk Vadim
+      changes:
+        - sqlFile:
+            dbms: mysql
+            stripComments: true
+            relativeToChangelogFile: true
+            path: sql/delete_all_from_candidate_table_before_load_new-data.sql

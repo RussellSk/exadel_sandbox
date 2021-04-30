@@ -67,7 +67,7 @@ public class CandidateEventServiceImpl implements CandidateEventService {
 
         CandidateEntity candidateEntity = candidateDAO.findById(createCandidateEventDto.getIdCandidate())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Candidate not found"));
-        candidateEventEntity.setCandidates((List<CandidateEntity>) candidateEntity);
+        candidateEventEntity.setCandidate(candidateEntity);
 
         candidateEventEntity.setCreatedAt(LocalDateTime.now());
         candidateEventDAO.save(candidateEventEntity);
