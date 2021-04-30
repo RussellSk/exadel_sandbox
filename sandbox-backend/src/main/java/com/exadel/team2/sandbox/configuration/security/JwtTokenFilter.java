@@ -28,7 +28,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
-        System.out.println("SECURITY: " + securityParams.getSecret());
         final String headerToken = request.getHeader(securityParams.getHeaderString());
         if (headerToken == null || !headerToken.startsWith(securityParams.getTokenPrefix())) {
             filterChain.doFilter(request, response);
