@@ -80,17 +80,17 @@ public class StatusHistoryServiceImpl implements StatusHistoryService {
 
         StatusHistory statusHistory = historyMapper.convertDtoToEntity(createStatusHistoryDTO);
 
-        Status status = statusDAO.findById(createStatusHistoryDTO.getStatus())
+        Status status = statusDAO.findById(createStatusHistoryDTO.getStatusId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Status not found!"));
 
         statusHistory.setStatus(status);
 
-        CandidateEntity candidate = candidateDAO.findById(createStatusHistoryDTO.getCandidate())
+        CandidateEntity candidate = candidateDAO.findById(createStatusHistoryDTO.getCandidateId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Candidate not found!"));
 
         statusHistory.setCandidate(candidate);
 
-        EmployeeEntity employee = employeeDAO.findById(createStatusHistoryDTO.getEmployee())
+        EmployeeEntity employee = employeeDAO.findById(createStatusHistoryDTO.getEmployeeId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found!"));
 
         statusHistory.setEmployee(employee);
