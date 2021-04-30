@@ -71,5 +71,3 @@ databaseChangeLog:
       file: db/changelog/changes/2021.04.19_rename_column.yaml
   - include:
       file: db/changelog/changes/2021.04.13_load_data_event.yaml
-  - include:
-      file: db/changelog/changes/2021.04.22_load_status_history_data.yaml
