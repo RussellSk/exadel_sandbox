@@ -1,13 +1,15 @@
 package com.exadel.team2.sandbox.service.impl;
+
+import com.exadel.team2.sandbox.BaseTestClass;
 import com.exadel.team2.sandbox.dao.InterviewFeedbackDAO;
 import com.exadel.team2.sandbox.entity.InterviewFeedbackEntity;
-import com.exadel.team2.sandbox.exceptions.NoSuchException;
 import com.exadel.team2.sandbox.service.InterviewFeedbackService;
 import com.exadel.team2.sandbox.web.interview_feedback.ResponseInterviewFeedbackDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-class InterviewFeedbackServiceImplTest {
+class InterviewFeedbackServiceImplTest extends BaseTestClass {
     private static final long ID = 1L;
     @MockBean
     private InterviewFeedbackDAO dao;
@@ -34,11 +36,11 @@ class InterviewFeedbackServiceImplTest {
     @Test
     void getById_noInterviewFeedback_exceptionThrown() {
         when(dao.findById(ID)).thenReturn(Optional.empty());
-        assertThrows(NoSuchException.class, () -> service.getById(ID));
+        assertThrows(ResponseStatusException.class, () -> service.getById(ID));
     }
 
     @Test
-    void getAll_eventExistInDB() {
+    void getAllInterviewExistInDB() {
         List<InterviewFeedbackEntity> interviewFeedbackEntities = createInterviewFeedbackEntity();
         when(dao.findAll()).thenReturn(interviewFeedbackEntities);
         List<ResponseInterviewFeedbackDto> actual = service.getAll();
@@ -50,7 +52,7 @@ class InterviewFeedbackServiceImplTest {
     void getAll_IFB_DoesNotExist_exceptionThrown() {
         List<InterviewFeedbackEntity> emptyEntity = createEmptyEntity();
         when(dao.findAll()).thenReturn(emptyEntity);
-        assertThrows(NoSuchException.class, () -> service.getAll());
+        assertThrows(ResponseStatusException.class, () -> service.getAll());
     }
 
     @Test
@@ -67,7 +69,7 @@ class InterviewFeedbackServiceImplTest {
         InterviewFeedbackEntity entitySecond = new InterviewFeedbackEntity();
         entitySecond.setId(2L);
         InterviewFeedbackEntity entityThird = new InterviewFeedbackEntity();
-        entityFirst.setId(3L);
+        entityThird.setId(3L);
         List<InterviewFeedbackEntity> interviewFeedbackEntities = new ArrayList<>();
         interviewFeedbackEntities.add(entityFirst);
         interviewFeedbackEntities.add(entitySecond);
@@ -77,11 +79,11 @@ class InterviewFeedbackServiceImplTest {
 
     private List<ResponseInterviewFeedbackDto> createInterviewFeedbackDto() {
         ResponseInterviewFeedbackDto responseInterviewFeedbackDto1 = new ResponseInterviewFeedbackDto();
-        responseInterviewFeedbackDto1.setId(ID);
+        responseInterviewFeedbackDto1.setId(1L);
         ResponseInterviewFeedbackDto responseInterviewFeedbackDto2 = new ResponseInterviewFeedbackDto();
-        responseInterviewFeedbackDto1.setId(2L);
+        responseInterviewFeedbackDto2.setId(2L);
         ResponseInterviewFeedbackDto responseInterviewFeedbackDto3 = new ResponseInterviewFeedbackDto();
-        responseInterviewFeedbackDto1.setId(3L);
+        responseInterviewFeedbackDto3.setId(3L);
         List<ResponseInterviewFeedbackDto> responseInterviewFeedbackDtos = new ArrayList<>();
         responseInterviewFeedbackDtos.add(responseInterviewFeedbackDto1);
         responseInterviewFeedbackDtos.add(responseInterviewFeedbackDto2);
