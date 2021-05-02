@@ -95,3 +95,7 @@ databaseChangeLog:
       file: db/changelog/changes/20210429_add_column_primary_technology_employee.yaml
   - include:
       file: db/changelog/changes/20210429_add_column_type_employee.yaml
+  - include:
+      file: db/changelog/changes/2021.05.02_remove_wrong_data_from_event.yaml
+  - include:
+      file: db/changelog/changes/2021.05.02_load-data_into_event.yaml

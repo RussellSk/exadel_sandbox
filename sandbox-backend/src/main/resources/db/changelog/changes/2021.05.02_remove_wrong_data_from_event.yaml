@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2021.05.02_remove_wrong_data_from_event
+      author: vadblagiy@gmail.com
+      preCondition:
+        onFail: HALT
+        tableExists:
+          tableName: EVENT
+      changes:
+        - sql:
+            sql: DELETE FROM EVENT
+            endDelimiter:  \nGO
