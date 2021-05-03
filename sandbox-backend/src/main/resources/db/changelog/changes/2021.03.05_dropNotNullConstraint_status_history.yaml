@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: add_dropNotNullConstraint_status_history
+      author: butenko
+      changes:
+        - dropNotNullConstraint:
+            catalogName:
+            columnDataType: datetime
+            columnName: STH_CREATED_AT
+            schemaName: sandbox
+            tableName: STATUS_HISTORY
