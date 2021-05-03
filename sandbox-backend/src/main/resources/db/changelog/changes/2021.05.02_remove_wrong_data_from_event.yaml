@@ -8,5 +8,5 @@ databaseChangeLog:
           tableName: EVENT
       changes:
         - sql:
-            sql: DELETE FROM EVENT
+            sql: DELETE FROM EVENT WHERE EV_CREATOR = 2
             endDelimiter:  \nGO
