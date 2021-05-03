@@ -66,13 +66,6 @@ public class ImageServiceImplTest extends BaseTestClass {
     }
 
     @Test
-    void getAll_imagesDoesNotExist_thrownNullPointerException() {
-        when(imageDAO.findAll()).thenReturn(null);
-
-        assertThrows(NullPointerException.class, () -> imageService.getAll());
-    }
-
-    @Test
     void deleteById_imageExists_ok() {
         when(imageDAO.existsById(IMAGE_ID)).thenReturn(true);
 
@@ -80,13 +73,6 @@ public class ImageServiceImplTest extends BaseTestClass {
 
         verify(imageDAO).deleteById(IMAGE_ID);
         Assertions.assertTrue(status);
-    }
-
-    @Test
-    void deleteById_imageDoesNotExist_exceptionThrown() {
-        when(imageDAO.existsById(IMAGE_ID)).thenReturn(false);
-
-        assertThrows(NoSuchException.class, () -> imageService.delete(IMAGE_ID));
     }
 
 

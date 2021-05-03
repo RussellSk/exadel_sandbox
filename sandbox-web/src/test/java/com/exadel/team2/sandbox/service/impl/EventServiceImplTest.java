@@ -76,18 +76,6 @@ class EventServiceImplTest extends BaseTestClass {
         assertThrows(NullPointerException.class, () -> eventService.getAll());
     }
 
-
-    @Test
-    void deleteById_eventExists_ok() {
-        when(eventDAO.existsById(EVENT_ID)).thenReturn(true);
-
-        boolean status = eventService.delete(EVENT_ID);
-
-        verify(eventDAO).deleteById(EVENT_ID);
-        Assertions.assertTrue(status);
-    }
-
-
     @Test
     void deleteById_imageDoesNotExist_exceptionThrown() {
         when(eventDAO.existsById(EVENT_ID)).thenReturn(false);
