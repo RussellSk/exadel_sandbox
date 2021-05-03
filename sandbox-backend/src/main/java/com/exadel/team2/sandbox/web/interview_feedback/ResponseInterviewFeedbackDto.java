@@ -10,12 +10,12 @@ import java.time.LocalDateTime;
 @Data
 public class ResponseInterviewFeedbackDto {
     @NotNull
-    private long id;
+    private Long id;
     @NotNull
     private String feedback;
     @NotNull
     private LocalDateTime dateOfCreate;
-    @NotNull
+
     private LocalDateTime dateOfUpdate;
     @NotNull
     private ResponseEmployeeDto employee;
