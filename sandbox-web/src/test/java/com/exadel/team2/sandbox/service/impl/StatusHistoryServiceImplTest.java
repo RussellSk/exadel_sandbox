@@ -9,6 +9,7 @@ import com.exadel.team2.sandbox.entity.CandidateEntity;
 import com.exadel.team2.sandbox.entity.EmployeeEntity;
 import com.exadel.team2.sandbox.entity.Status;
 import com.exadel.team2.sandbox.entity.StatusHistory;
+import com.exadel.team2.sandbox.mapper.StatusHistoryMapperDTO;
 import com.exadel.team2.sandbox.service.StatusHistoryService;
 import com.exadel.team2.sandbox.web.statushistory.CreateStatusHistoryDTO;
 import com.exadel.team2.sandbox.web.statushistory.ResponseStatusHistoryDTO;
@@ -16,6 +17,7 @@ import com.exadel.team2.sandbox.web.statushistory.UpdateStatusHistoryDTO;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -26,6 +28,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@SpringBootTest(classes = {StatusHistoryServiceImpl.class, StatusHistoryMapperDTO.class})
 class StatusHistoryServiceImplTest extends BaseTestClass {
 
     private static final Long STH_ID = 1L;
