@@ -94,6 +94,8 @@ public class GenericRsqlSpecification<T> implements Specification<T> {
                 return Long.parseLong(arg);
             } else if (type.equals(Byte.class)) {
                 return Byte.parseByte(arg);
+            } else if(type.isEnum()) {
+                return Enum.valueOf((Class<Enum>) type, arg);
             } else {
                 return arg;
             }

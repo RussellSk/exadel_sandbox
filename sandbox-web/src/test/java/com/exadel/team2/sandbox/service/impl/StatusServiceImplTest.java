@@ -6,6 +6,7 @@ import com.exadel.team2.sandbox.entity.Status;
 import com.exadel.team2.sandbox.service.StatusService;
 import com.exadel.team2.sandbox.web.status.CreateStatusDTO;
 import com.exadel.team2.sandbox.web.status.ResponseStatusDTO;
+import com.exadel.team2.sandbox.web.status.UpdateStatusDTO;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +23,54 @@ import static org.mockito.Mockito.*;
 class StatusServiceImplTest extends BaseTestClass {
 
     private static final Long STATUS_ID = 3L;
+    private static final String NAME = "Some name";
+    private static final String DESCRIPTION = "Some desc";
 
     @Autowired
     private StatusService statusService;
 
     @MockBean
     private StatusDAO statusDAO;
+
+
+    @Test
+    void save_ShouldSaveStatus_WhenStatusNotNull() {
+        Status status = createOptionalStatus().get();
+        status.setId(null);
+
+        when(statusDAO.save(status)).thenReturn(status);
+
+        ResponseStatusDTO responseStatusDTO = statusService.save(creatCreateStatusDTO());
+
+        assertNotNull(responseStatusDTO);
+        verify(statusDAO, times(1)).save(status);
+    }
+
+    @Test
+    void save_ShouldThrowException_WhenStatusIsNull() {
+        when(statusDAO.save(null)).thenReturn(null);
+        assertThrows(ResponseStatusException.class, () -> statusService.save(null));
+    }
+
+    @Test
+    void update_ShouldUpdateStatus_WhenGivenExistingId() {
+        Status status = createOptionalStatus().get();
+        when(statusDAO.existsById(STATUS_ID)).thenReturn(true);
+        when(statusDAO.save(status)).thenReturn(status);
+
+        ResponseStatusDTO responseStatusDTO = statusService.update(STATUS_ID, createUpdateStatusDTO());
+
+        assertNotNull(responseStatusDTO);
+        assertEquals(STATUS_ID, responseStatusDTO.getId());
+        verify(statusDAO, times(1)).save(status);
+    }
+
+    @Test
+    void update_ShouldThrowException_WhenGivenNotExistingId() {
+        when(statusDAO.existsById(STATUS_ID)).thenReturn(false);
+        assertThrows(ResponseStatusException.class, () -> statusService.update(STATUS_ID, createUpdateStatusDTO()));
+        verify(statusDAO, times(1)).existsById(STATUS_ID);
+    }
 
     @Test
     void findById_ShouldFindStatus_WhenGivenExistingId() {
@@ -107,24 +150,26 @@ class StatusServiceImplTest extends BaseTestClass {
         return list;
     }
 
+    private UpdateStatusDTO createUpdateStatusDTO() {
+        UpdateStatusDTO updateStatusDTO = new UpdateStatusDTO();
+        updateStatusDTO.setName(NAME);
+        updateStatusDTO.setDescription(DESCRIPTION);
+        return updateStatusDTO;
+    }
+
     private Optional<Status> createOptionalStatus() {
         Status status = new Status();
         status.setId(STATUS_ID);
-        status.setName("Some status name");
-        status.setDescription("some desc");
+        status.setName(NAME);
+        status.setDescription(DESCRIPTION);
         return Optional.of(status);
     }
 
-    private ResponseStatusDTO createResponseStatusDTO() {
-        ResponseStatusDTO responseStatusDTO = new ResponseStatusDTO();
-        responseStatusDTO.setId(STATUS_ID);
-        return responseStatusDTO;
-    }
 
     private CreateStatusDTO creatCreateStatusDTO() {
         CreateStatusDTO createStatusDTO = new CreateStatusDTO();
-        createStatusDTO.setName("Some status name");
-        createStatusDTO.setDescription("some desc");
+        createStatusDTO.setName(NAME);
+        createStatusDTO.setDescription(DESCRIPTION);
         return createStatusDTO;
     }
 
