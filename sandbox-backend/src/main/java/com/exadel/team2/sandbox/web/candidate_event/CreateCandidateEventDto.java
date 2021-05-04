@@ -6,9 +6,9 @@ import javax.validation.constraints.NotNull;
 @Data
 public class CreateCandidateEventDto {
     @NotNull(message = "idCandidate cannot be null")
-    private long idCandidate;
+    private Long idCandidate;
     @NotNull(message = "idEvent cannot be null")
-    private long idEvent;
+    private Long idEvent;
 
 
 }

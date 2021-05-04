@@ -16,7 +16,6 @@ import com.exadel.team2.sandbox.web.interview_feedback.UpdateInterviewFeedbackDt
 import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.Node;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -29,7 +28,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Slf4j
 @Transactional
 @Service
 @RequiredArgsConstructor
@@ -73,14 +71,14 @@ public class InterviewFeedbackServiceImpl implements InterviewFeedbackService {
 
         interviewFeedbackEntity.setFeedback(createInterviewFeedbackDTO.getFeedback());
         interviewFeedbackEntity.setDateOfCreate(LocalDateTime.now());
-        interviewFeedbackEntity.setDateOfUpdate(LocalDateTime.now());
+
         interviewFeedbackDAO.save(interviewFeedbackEntity);
 
         return interviewFeedbackMapper.convertEntityToDto(interviewFeedbackEntity);
     }
 
     @Override
-    public ResponseInterviewFeedbackDto update(long id, UpdateInterviewFeedbackDto updateInterviewFeedbackDto) {
+    public ResponseInterviewFeedbackDto update(Long id, UpdateInterviewFeedbackDto updateInterviewFeedbackDto) {
         InterviewFeedbackEntity interviewFeedbackEntity = interviewFeedbackDAO.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "InterviewFeedback not found"));
 
@@ -91,7 +89,6 @@ public class InterviewFeedbackServiceImpl implements InterviewFeedbackService {
         CandidateEntity candidateEntity = candidateDAO.findById(updateInterviewFeedbackDto.getIdCandidate())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Candidate not found"));
         interviewFeedbackEntity.setCandidate(candidateEntity);
-
 
         interviewFeedbackEntity.setFeedback(updateInterviewFeedbackDto.getFeedback());
         interviewFeedbackEntity.setDateOfUpdate(LocalDateTime.now());
