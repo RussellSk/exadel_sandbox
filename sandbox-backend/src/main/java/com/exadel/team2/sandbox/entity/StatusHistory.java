@@ -34,7 +34,7 @@ public class StatusHistory extends BaseEntity {
     private String changeNote;
 
     @CreationTimestamp
-    @Column(name = "STH_CREATED_AT")
+    @Column(name = "STH_CREATED_AT", nullable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp

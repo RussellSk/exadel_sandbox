@@ -2,6 +2,10 @@ databaseChangeLog:
   - changeSet:
       id: add_dropNotNullConstraint_status_history
       author: butenko
+      preConditions:
+        onFail: MARK_RAN
+        tableExists:
+          tableName: STATUS_HISTORY
       changes:
         - dropNotNullConstraint:
             catalogName:
