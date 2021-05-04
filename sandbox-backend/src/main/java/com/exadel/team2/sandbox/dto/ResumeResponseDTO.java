@@ -16,10 +16,7 @@ import java.time.LocalDateTime;
 
 public class ResumeResponseDTO {
 
-    @NotNull
     private Long id;
-
-    private String path;
 
     private String link;
 
@@ -32,6 +29,6 @@ public class ResumeResponseDTO {
     @NotNull
     private Integer size;
 
-    @NotNull
+
     private LocalDateTime createdAt;
 }

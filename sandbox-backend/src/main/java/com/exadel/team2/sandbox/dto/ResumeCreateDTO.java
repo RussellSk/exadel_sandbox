@@ -14,23 +14,10 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class ResumeCreateDTO {
 
-    private MultipartFile file;
-
-//    private String path;
-
+    @NotNull
     private String link;
-
-    @NotNull
-    private String name;
-
-    @NotNull
-    private String ext;
-
-    @NotNull
-    private Long size;
 
     @JsonIgnore
     private final LocalDateTime createdAt = LocalDateTime.now();

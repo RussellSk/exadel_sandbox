@@ -60,10 +60,11 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public CandidateCreateDTO save(CandidateCreateDTO candidateCreateDTO) {
-        return modelMap.convertTo(candidateDAO.save(
-                modelMap.convertTo(candidateCreateDTO, CandidateEntity.class)),
-                CandidateCreateDTO.class);
+    public CandidateResponseDTO save(CandidateCreateDTO candidateCreateDTO) {
+
+        return modelMap.convertTo(candidateDAO.save(candidateDAO.save(modelMap
+                        .convertTo(candidateCreateDTO, CandidateEntity.class))),
+                CandidateResponseDTO.class);
     }
 
     @Override

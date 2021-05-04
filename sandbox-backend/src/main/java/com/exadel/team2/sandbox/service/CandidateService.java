@@ -13,7 +13,7 @@ public interface CandidateService {
 
     List<CandidateResponseDTO> getAllPageable(Pageable pageable, String search);
 
-    CandidateCreateDTO save(CandidateCreateDTO candidateCreateDTO);
+    CandidateResponseDTO save(CandidateCreateDTO candidateCreateDTO);
 
     CandidateUpdateDTO update(Long id, CandidateUpdateDTO candidateUpdateDTO);
 

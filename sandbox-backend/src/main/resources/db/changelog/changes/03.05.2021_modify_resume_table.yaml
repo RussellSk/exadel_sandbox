@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: 03.05.2021_drop_PATH_column_in_resume_table
+      author: Saranchuk Vadym
+      preConditions:
+        onFail: MARK_RAN
+        columnExists:
+          tableName: RESUME
+          columnName: RSM_PATH
+      changes:
+        - dropColumn:
+            columnName: RSM_PATH
+            tableName: RESUME
+
+  - changeSet:
+      id: 03.05.2021_drop_not_null_constraint_of_RSM_EXT_column_in_resume_table
+      author: Saranchuk Vadym
+      preConditions:
+        onFail: MARK_RAN
+        columnExists:
+          tableName: RESUME
+          columnName: RSM_EXT
+      changes:
+        - dropNotNullConstraint:
+            columnDataType: VARCHAR(50)
+            columnName: RSM_EXT
+            tableName: RESUME
+
+  - changeSet:
+      id: 03.05.2021_drop_not_null_constraint_of_RSM_SIZE_column_in_resume_table
+      author: Saranchuk Vadym
+      preConditions:
+        onFail: MARK_RAN
+        columnExists:
+          tableName: RESUME
+          columnName: RSM_SIZE
+      changes:
+        - dropNotNullConstraint:
+            columnDataType: INT
+            columnName: RSM_SIZE
+            tableName: RESUME

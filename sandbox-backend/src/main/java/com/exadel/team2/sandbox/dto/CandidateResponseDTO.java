@@ -1,18 +1,14 @@
 package com.exadel.team2.sandbox.dto;
 
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-
 public class CandidateResponseDTO {
 
     @NotNull

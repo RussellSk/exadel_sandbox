@@ -19,7 +19,6 @@ public class ControllerCandidate {
 
     private final CandidateServiceImpl candidateService;
 
-
     @GetMapping(value = "/{id}")
     public CandidateResponseDTO getCandidate(@PathVariable Long id) {
         return candidateService.findById(id);
@@ -35,9 +34,11 @@ public class ControllerCandidate {
 
 
     @PostMapping
-    public CandidateCreateDTO addCandidate(
+    public CandidateResponseDTO addCandidate(
             @RequestBody CandidateCreateDTO candidateCreateDTO) {
+
         return candidateService.save(candidateCreateDTO);
+
     }
 
     @PutMapping(value = "/{id}")
