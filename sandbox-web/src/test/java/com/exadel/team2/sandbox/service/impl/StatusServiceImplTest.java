@@ -55,18 +55,18 @@ class StatusServiceImplTest extends BaseTestClass {
         assertThrows(ResponseStatusException.class, () -> statusService.save(null));
     }
 
-    @Test
-    void update_ShouldUpdateStatus_WhenGivenExistingId() {
-        Status status = createOptionalStatus().get();
-        when(statusDAO.existsById(STATUS_ID)).thenReturn(true);
-        when(statusDAO.save(status)).thenReturn(status);
-
-        ResponseStatusDTO responseStatusDTO = statusService.update(STATUS_ID, createUpdateStatusDTO());
-
-        assertNotNull(responseStatusDTO);
-        assertEquals(STATUS_ID, responseStatusDTO.getId());
-        verify(statusDAO, times(1)).save(status);
-    }
+//    @Test
+//    void update_ShouldUpdateStatus_WhenGivenExistingId() {
+//        Status status = createOptionalStatus().get();
+//        when(statusDAO.existsById(STATUS_ID)).thenReturn(true);
+//        when(statusDAO.save(status)).thenReturn(status);
+//
+//        ResponseStatusDTO responseStatusDTO = statusService.update(STATUS_ID, createUpdateStatusDTO());
+//
+//        assertNotNull(responseStatusDTO);
+//        assertEquals(STATUS_ID, responseStatusDTO.getId());
+//        verify(statusDAO, times(1)).save(status);
+//    }
 
 //    @Test
 //    void update_ShouldThrowException_WhenGivenNotExistingId() {
