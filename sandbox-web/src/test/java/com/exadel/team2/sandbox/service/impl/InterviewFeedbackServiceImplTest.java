@@ -7,6 +7,7 @@ import com.exadel.team2.sandbox.dao.InterviewFeedbackDAO;
 import com.exadel.team2.sandbox.entity.CandidateEntity;
 import com.exadel.team2.sandbox.entity.EmployeeEntity;
 import com.exadel.team2.sandbox.entity.InterviewFeedbackEntity;
+import com.exadel.team2.sandbox.exceptions.NoSuchException;
 import com.exadel.team2.sandbox.mapper.InterviewFeedbackMapper;
 import com.exadel.team2.sandbox.service.InterviewFeedbackService;
 import com.exadel.team2.sandbox.web.interview_feedback.CreateInterviewFeedbackDto;
@@ -42,7 +43,7 @@ class InterviewFeedbackServiceImplTest extends BaseTestClass {
 
     @MockBean
     private InterviewFeedbackDAO interviewFeedbackDAO;
-// TODO: 05.05.2021 I need to decide a problem with LocalDateTime.now()
+// TODO: 05.05.2021 I need to decide a problem on LocalDateTime.now()
 //    @Test
 //    void saveWhenIFB_NotNull() {
 //        InterviewFeedbackEntity interviewFeedbackEntity = createOptional().get();
@@ -104,7 +105,7 @@ class InterviewFeedbackServiceImplTest extends BaseTestClass {
     @Test
     void deleteById_ShouldThrowException_WhenGivenNotExistingId() {
         when(interviewFeedbackDAO.existsById(IFB_ID)).thenReturn(false);
-        assertThrows(Exception.class, () -> interviewFeedbackService.delete(IFB_ID));
+        assertThrows(NoSuchException.class, () -> interviewFeedbackService.delete(IFB_ID));
     }
 
     private List<InterviewFeedbackEntity> createIFB_List() {

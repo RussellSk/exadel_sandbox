@@ -6,6 +6,7 @@ import com.exadel.team2.sandbox.dao.EventDAO;
 import com.exadel.team2.sandbox.entity.CandidateEntity;
 import com.exadel.team2.sandbox.entity.CandidateEventEntity;
 import com.exadel.team2.sandbox.entity.EventEntity;
+import com.exadel.team2.sandbox.exceptions.NoSuchException;
 import com.exadel.team2.sandbox.mapper.CandidateEventMapper;
 import com.exadel.team2.sandbox.service.CandidateEventService;
 import com.exadel.team2.sandbox.web.candidate_event.CreateCandidateEventDto;
@@ -25,7 +26,7 @@ import static org.mockito.Mockito.*;
 @SpringBootTest(classes = {CandidateEventServiceImpl.class, CandidateEventMapper.class})
 class CandidateEventServiceImplTest {
 
-    private static final Long CN_ID = 1L;
+    private static final Long CE_ID = 1L;
     private static final Long ID = 2L;
 
     @Autowired
@@ -62,27 +63,31 @@ class CandidateEventServiceImplTest {
 
     @Test
     void findById_ShouldFindCE_WhenGivenExistingId() {
-        when(candidateEventDAO.findById(ArgumentMatchers.eq(CN_ID))).thenReturn(createOptional());
-        ResponseCandidateEventDto resp = candidateEventService.getById(CN_ID);
+        when(candidateEventDAO.findById(ArgumentMatchers.eq(CE_ID))).thenReturn(createOptional());
+        ResponseCandidateEventDto resp = candidateEventService.getById(CE_ID);
         assertNotNull(resp);
-        assertEquals(CN_ID, resp.getId());
-        verify(candidateEventDAO, times(1)).findById(ArgumentMatchers.eq(CN_ID));
+        assertEquals(CE_ID, resp.getId());
+        verify(candidateEventDAO, times(1)).findById(ArgumentMatchers.eq(CE_ID));
     }
 
     @Test
     void findById_ShouldThrowException_WhenGivenNotExistingId() {
-        when(candidateEventDAO.findById(ArgumentMatchers.eq(CN_ID))).thenReturn(Optional.empty());
-        assertThrows(ResponseStatusException.class, () -> candidateEventService.getById(CN_ID));
-        verify(candidateEventDAO, times(1)).findById(ArgumentMatchers.eq(CN_ID));
+        when(candidateEventDAO.findById(ArgumentMatchers.eq(CE_ID))).thenReturn(Optional.empty());
+        assertThrows(ResponseStatusException.class, () -> candidateEventService.getById(CE_ID));
+        verify(candidateEventDAO, times(1)).findById(ArgumentMatchers.eq(CE_ID));
     }
 
     @Test
     void deleteById_ShouldDeleteIFB_ById_WhenGivenExistingId() {
-        when(candidateEventDAO.existsById(CN_ID)).thenReturn(true);
-        candidateEventService.delete(CN_ID);
-        verify(candidateEventDAO, times(1)).deleteById(CN_ID);
+        when(candidateEventDAO.existsById(CE_ID)).thenReturn(true);
+        candidateEventService.delete(CE_ID);
+        verify(candidateEventDAO, times(1)).deleteById(CE_ID);
     }
-
+    @Test
+    void deleteById_ShouldThrowException_WhenGivenNotExistingId() {
+        when(candidateEventDAO.existsById(CE_ID)).thenReturn(false);
+        assertThrows(NoSuchException.class, () -> candidateEventService.delete(CE_ID));
+    }
     private CreateCandidateEventDto createCandidateEventDTO() {
         CreateCandidateEventDto createCandidateEventDto = new CreateCandidateEventDto();
         createCandidateEventDto.setIdCandidate(ID);
@@ -96,7 +101,7 @@ class CandidateEventServiceImplTest {
         EventEntity eventEntity = new EventEntity();
         eventEntity.setId(ID);
         CandidateEventEntity entity = new CandidateEventEntity();
-        entity.setId(CN_ID);
+        entity.setId(CE_ID);
         entity.setEvent(eventEntity);
         entity.setCandidate(candidateEntity);
         return Optional.of(entity);
