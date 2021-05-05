@@ -8,6 +8,21 @@ databaseChangeLog:
           tableName: CANDIDATE
           columnName: CN_PHONE
       changes:
-        columnName: CN_PHONE
-        newDataType: VARCHAR(17)
-        tableName: CANDIDATE
+        - modifyDataType:
+            columnName: CN_PHONE
+            newDataType: VARCHAR(17)
+            tableName: CANDIDATE
+
+  - changeSet:
+      id: 05.05.2021_add_not_null_constraint_into_CN_PHONE_column_in_candidate_table
+      author: Saranchuk Vadym
+      preConditions:
+        onFail: MARK_RAN
+        columnExists:
+          tableName: CANDIDATE
+          columnName: CN_PHONE
+      changes:
+        - addNotNullConstraint:
+            columnName: CN_PHONE
+            columnDataType: VARCHAR(17)
+            tableName: CANDIDATE
