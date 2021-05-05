@@ -1,0 +1,49 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20210505_create_table_employee_availability_time
+      author: skaldin
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          tableExists:
+            tableName: EMPLOYEE_AVAILABILITY_TIME
+      changes:
+        - createTable:
+            tableName: EMPLOYEE_AVAILABILITY_TIME
+            columns:
+              - column:
+                  name: EVAT_ID
+                  type: INT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: EMP_ID
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: EVAT_DATETIME
+                  type: DATETIME
+                  constraints:
+                    nullable: false
+              - column:
+                  name: EVAT_CREATED_AT
+                  type: DATETIME
+                  defaultValue: now()
+                  constraints:
+                    nullable: true
+              - column:
+                  name: EVAT_UPDATED_AT
+                  type: DATETIME
+                  constraints:
+                    nullable: true
+        - addForeignKeyConstraint:
+            baseColumnNames: EMP_ID
+            baseTableName: EMPLOYEE_AVAILABILITY_TIME
+            constraintName: FK_EMPLOYEE_AVAILABILITY_TIME
+            onDelete: CASCADE
+            onUpdate: CASCADE
+            referencedColumnNames: EMP_ID
+            referencedTableName: EMPLOYEE
