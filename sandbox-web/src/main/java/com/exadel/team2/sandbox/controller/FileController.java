@@ -8,13 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/file", produces = "application/json;charset=UTF-8")
+@RequestMapping(path = "/file", produces = "text/html;charset=UTF-8")
 @RequiredArgsConstructor
 public class FileController {
 
     private final FileUploadService fileUploadService;
 
-    @GetMapping(value = "{filename:.+}", produces = "application/json;charset=UTF-8")
+    @GetMapping(value = "{filename:.+}", produces = "text/html;charset=UTF-8")
     public ResponseEntity<Resource> getFile(@PathVariable String filename) {
         Resource file = fileUploadService.loadAsResource(filename);
 

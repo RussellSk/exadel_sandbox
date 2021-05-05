@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 05.05.2021_modify_data_type_of_CN_PHONE_column_in_candidate_table
+      author: Saranchuk Vadym
+      preConditions:
+        onFail: MARK_RAN
+        columnExists:
+          tableName: CANDIDATE
+          columnName: CN_PHONE
+      changes:
+        columnName: CN_PHONE
+        newDataType: VARCHAR(17)
+        tableName: CANDIDATE

@@ -31,17 +31,4 @@ public class SandboxApplication {
         };
     }
 
-    @Bean
-    public FilterRegistrationBean filterRegistrationBean() {
-        CharacterEncodingFilter filter = new CharacterEncodingFilter();
-        filter.setEncoding("UTF-8");
-        filter.setForceEncoding(true);
-
-        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
-        registrationBean.setFilter(filter);
-        registrationBean.addUrlPatterns("/api/file/*");
-
-        return registrationBean;
-    }
-
 }
