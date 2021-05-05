@@ -1,6 +1,7 @@
 package com.exadel.team2.sandbox.dto;
 
 
+import com.exadel.team2.sandbox.entity.enums.CandidateStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -64,5 +65,5 @@ public class CandidateResponseDTO {
     private String city;
 
     @NotNull
-    private String status;
+    private CandidateStatus status;
 }

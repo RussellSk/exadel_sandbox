@@ -4,11 +4,14 @@ import com.exadel.team2.sandbox.BaseTestClass;
 import com.exadel.team2.sandbox.dao.EventTypeDAO;
 import com.exadel.team2.sandbox.entity.EventTypeEntity;
 import com.exadel.team2.sandbox.exceptions.NoSuchException;
+import com.exadel.team2.sandbox.mapper.EventMapper;
+import com.exadel.team2.sandbox.mapper.EventTypeMapper;
 import com.exadel.team2.sandbox.service.EventTypeService;
 import com.exadel.team2.sandbox.web.event_type.EventTypeResponseDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.ArrayList;
@@ -19,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-
+@SpringBootTest(classes = {EventTypeServiceImpl.class, EventTypeMapper.class})
 class EventTypeServiceImplTest extends BaseTestClass {
 
     private static final long EVENT_TYPE_ID = 2L;

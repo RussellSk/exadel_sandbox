@@ -4,11 +4,13 @@ import com.exadel.team2.sandbox.BaseTestClass;
 import com.exadel.team2.sandbox.dao.ImageDAO;
 import com.exadel.team2.sandbox.entity.ImageEntity;
 import com.exadel.team2.sandbox.exceptions.NoSuchException;
+import com.exadel.team2.sandbox.mapper.ImageMapper;
 import com.exadel.team2.sandbox.service.ImageService;
 import com.exadel.team2.sandbox.web.image.ImageResponseDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.LocalDateTime;
@@ -19,7 +21,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-
+@SpringBootTest(classes = {ImageServiceImpl.class, ImageMapper.class})
 public class ImageServiceImplTest extends BaseTestClass {
 
     private static final long IMAGE_ID = 3L;
