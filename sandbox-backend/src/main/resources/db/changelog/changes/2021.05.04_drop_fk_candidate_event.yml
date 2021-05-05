@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id:  04052021dropForeignKey
+      author:  vadblagiy@gmail.com
+      preConditions:
+        - onFail: MARK_RAN
+        - foreignKeyConstraintExists:
+             foreignKeyName:  FK_EVENT
+      changes:
+      - dropForeignKeyConstraint:
+          baseTableName:  CANDIDATE_EVENT
+          baseTableSchemaName:  sandbox
+          constraintName:  FK_EVENT
