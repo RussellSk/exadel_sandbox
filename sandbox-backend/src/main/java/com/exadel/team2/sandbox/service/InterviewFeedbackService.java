@@ -17,7 +17,7 @@ public interface InterviewFeedbackService {
 
     ResponseInterviewFeedbackDto update(Long id, UpdateInterviewFeedbackDto updateInterviewFeedbackDto);
 
-    Boolean delete(Long id);
+    void delete(Long id);
 
     Page<ResponseInterviewFeedbackDto> getAllPageable(Pageable pageable, String search);
 

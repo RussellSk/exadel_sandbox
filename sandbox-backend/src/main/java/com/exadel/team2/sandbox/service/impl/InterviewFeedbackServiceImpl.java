@@ -8,7 +8,6 @@ import com.exadel.team2.sandbox.dao.rsql.CustomRsqlVisitor;
 import com.exadel.team2.sandbox.entity.CandidateEntity;
 import com.exadel.team2.sandbox.entity.EmployeeEntity;
 import com.exadel.team2.sandbox.entity.InterviewFeedbackEntity;
-import com.exadel.team2.sandbox.exceptions.NoSuchException;
 import com.exadel.team2.sandbox.mapper.InterviewFeedbackMapper;
 import com.exadel.team2.sandbox.service.InterviewFeedbackService;
 import com.exadel.team2.sandbox.web.interview_feedback.CreateInterviewFeedbackDto;
@@ -98,13 +97,8 @@ public class InterviewFeedbackServiceImpl implements InterviewFeedbackService {
     }
 
     @Override
-    public Boolean delete(Long id) {
-        if (!interviewFeedbackDAO.existsById(id)) {
-            throw new NoSuchException("interviewFeedback with ID = " + id + " not found in Database. " +
-                    "Unable to delete an event that does not exist.");
-        }
+    public void delete(Long id) {
         interviewFeedbackDAO.deleteById(id);
-        return true;
     }
 
     @Override
