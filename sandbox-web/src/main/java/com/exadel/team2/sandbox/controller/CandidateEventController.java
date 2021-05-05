@@ -26,7 +26,7 @@ public class CandidateEventController {
             @RequestParam(defaultValue = "", name = "search") String search,
             @RequestParam(defaultValue = "0", name = "page") Integer page,
             @RequestParam(defaultValue = "15", name = "itemsPerPage") Integer itemsPerPage) {
-        return candidateEventService.getAllPageable(PageRequest.of(page, itemsPerPage),search);
+        return candidateEventService.getAllPageable(PageRequest.of(page, itemsPerPage), search);
     }
 
     @PostMapping
