@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2021.04.05_setDefaultValue_sth_&_st
+      author: butenko
+      changes:
+        - sqlFile:
+            path: db/changelog/data/2021.04.05_setDefaultValue_status_history.sql
+        - sqlFile:
+            path: db/changelog/data/2021.04.05_setDefaultValue_status.sql

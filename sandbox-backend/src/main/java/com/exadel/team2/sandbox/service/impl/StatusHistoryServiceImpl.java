@@ -94,7 +94,6 @@ public class StatusHistoryServiceImpl implements StatusHistoryService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found!"));
 
         statusHistory.setEmployee(employee);
-
         return historyMapper.convertEntityToDto(historyDAO.save(statusHistory));
     }
 
@@ -102,6 +101,9 @@ public class StatusHistoryServiceImpl implements StatusHistoryService {
     public ResponseStatusHistoryDTO update(Long id, UpdateStatusHistoryDTO updateStatusHistoryDTO) {
         if (updateStatusHistoryDTO == null) {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No content!");
+        }
+        if (!historyDAO.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Id " + id + " not found!");
         }
 
         StatusHistory statusHistory = historyMapper.convertDtoToEntity(updateStatusHistoryDTO);
@@ -120,10 +122,8 @@ public class StatusHistoryServiceImpl implements StatusHistoryService {
 
         statusHistory.setEmployee(employee);
         statusHistory.setUpdatedAt(LocalDateTime.now());
-
-        historyDAO.save(statusHistory);
-
-        return historyMapper.convertEntityToDto(statusHistory);
+        statusHistory.setId(id);
+        return historyMapper.convertEntityToDto(historyDAO.save(statusHistory));
     }
 
     @Override

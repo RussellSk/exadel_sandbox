@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -75,13 +76,12 @@ public class StatusServiceImpl implements StatusService {
         if (updateStatusDTO == null) {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No content!");
         }
-        // Status status = dao.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Status not found to update!"));
-
-//        status.setName(updateStatusDTO.getName());
-//        status.setDescription(updateStatusDTO.getDescription());
-//        status.setUpdatedAt(LocalDateTime.now());
+        if (!dao.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Id " + id + " not found!");
+        }
         Status status = statusMapper.convertDtoToEntity(updateStatusDTO);
         status.setId(id);
+        status.setUpdatedAt(LocalDateTime.now());
         return statusMapper.convertEntityToDto(dao.save(status));
     }
 
