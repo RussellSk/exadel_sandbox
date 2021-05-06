@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: fk_CANDIDATE_EVENT_WITH_CASCADE_DELETE_EVENT
+      author: vadblagiy@gmail.com
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            - foreignKeyConstraintExists:
+                foreignKeyName: FK_EVENT
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: EV_ID
+            baseTableName: CANDIDATE_EVENT
+            constraintName: FK_EVENT_CASCADE
+            referencedColumnNames: EV_ID
+            referencedTableName: EVENT
+            referencedTableSchemaName: sandbox
+            onDelete: CASCADE

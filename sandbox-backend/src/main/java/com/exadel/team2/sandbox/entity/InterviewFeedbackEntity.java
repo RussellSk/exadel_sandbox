@@ -24,7 +24,7 @@ public class InterviewFeedbackEntity {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     @Column(name = "IFB_ID")
-    private long id;
+    private Long id;
 
     @Column(name = "IFB_FEEDBACK")
     private String feedback;

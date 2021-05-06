@@ -31,6 +31,7 @@ public class ControllerCandidate {
             @RequestParam(value = "search", defaultValue = "", required = false) String search) {
 
         return candidateService.getAllPageable(pageable, search);
+  
     }
 
 

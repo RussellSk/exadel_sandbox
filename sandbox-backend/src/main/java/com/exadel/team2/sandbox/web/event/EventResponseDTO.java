@@ -1,8 +1,8 @@
 package com.exadel.team2.sandbox.web.event;
 
-import com.exadel.team2.sandbox.entity.EnglishLevel;
-import com.exadel.team2.sandbox.entity.EventTab;
-import com.exadel.team2.sandbox.entity.Format;
+import com.exadel.team2.sandbox.entity.enums.EnglishLevel;
+import com.exadel.team2.sandbox.entity.enums.EventTab;
+import com.exadel.team2.sandbox.entity.enums.Format;
 import com.exadel.team2.sandbox.web.employee.ResponseEmployeeDto;
 import com.exadel.team2.sandbox.web.event_type.EventTypeResponseDTO;
 import com.exadel.team2.sandbox.web.image.ImageResponseDTO;
@@ -37,6 +37,8 @@ public class EventResponseDTO {
     private String technologies;
     private EventTab eventTab;
     private EnglishLevel englishLevel;
+    private String title;
+    private String description;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

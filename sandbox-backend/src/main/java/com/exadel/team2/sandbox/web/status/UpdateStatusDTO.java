@@ -16,6 +16,4 @@ public class UpdateStatusDTO {
     @Size(min = 1, max = 255, message = "Description must be between 1 and 255 characters")
     @NotNull(message = "Status description cannot be null")
     private String description;
-
-    private LocalDateTime createdAt;
 }

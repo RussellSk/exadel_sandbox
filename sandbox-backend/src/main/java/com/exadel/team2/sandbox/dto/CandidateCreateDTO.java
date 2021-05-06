@@ -54,4 +54,7 @@ public class CandidateCreateDTO {
 
     @NotNull
     private String city;
+
+    @NotNull
+    private String CandidateStatus;
 }

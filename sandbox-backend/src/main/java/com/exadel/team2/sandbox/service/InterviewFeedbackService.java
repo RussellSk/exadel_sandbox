@@ -15,7 +15,7 @@ public interface InterviewFeedbackService {
 
     ResponseInterviewFeedbackDto save(CreateInterviewFeedbackDto createInterviewFeedbackDTO);
 
-    ResponseInterviewFeedbackDto update(long id, UpdateInterviewFeedbackDto updateInterviewFeedbackDto);
+    ResponseInterviewFeedbackDto update(Long id, UpdateInterviewFeedbackDto updateInterviewFeedbackDto);
 
     void delete(Long id);
 

@@ -1,5 +1,6 @@
 package com.exadel.team2.sandbox.dto;
 
+import com.exadel.team2.sandbox.entity.enums.CandidateStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -51,6 +52,8 @@ public class CandidateUpdateDTO {
     private String country;
 
     private String city;
+
+    private CandidateStatus status;
 
     @JsonIgnore
     private final LocalDateTime updatedAt = LocalDateTime.now();

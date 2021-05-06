@@ -1,7 +1,7 @@
 package com.exadel.team2.sandbox.dto;
 
-
 import lombok.Data;
+import com.exadel.team2.sandbox.entity.enums.CandidateStatus;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
@@ -58,4 +58,7 @@ public class CandidateResponseDTO {
 
     @NotNull
     private String city;
+
+    @NotNull
+    private CandidateStatus status;
 }

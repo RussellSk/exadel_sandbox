@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20210429_add_column_type_employee
+      author: skaldin
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          columnExists:
+            tableName: EMPLOYEE
+            columnName: EMP_TYPE
+      changes:
+        - addColumn:
+            tableName: EMPLOYEE
+            columns:
+              name: EMP_TYPE
+              type: VARCHAR(100)
+              afterColumn: EMP_LAST_NAME
+              constraints:
+                nullable: true

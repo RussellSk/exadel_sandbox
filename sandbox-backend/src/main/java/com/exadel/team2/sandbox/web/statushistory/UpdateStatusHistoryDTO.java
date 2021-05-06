@@ -18,6 +18,4 @@ public class UpdateStatusHistoryDTO {
     private Long employeeId;
 
     private String changeNote;
-
-    private LocalDateTime createdAt;
 }

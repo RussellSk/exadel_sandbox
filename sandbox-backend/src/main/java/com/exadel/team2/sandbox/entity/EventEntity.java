@@ -1,6 +1,9 @@
 package com.exadel.team2.sandbox.entity;
 
 
+import com.exadel.team2.sandbox.entity.enums.EnglishLevel;
+import com.exadel.team2.sandbox.entity.enums.EventTab;
+import com.exadel.team2.sandbox.entity.enums.Format;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
@@ -69,6 +72,12 @@ public class EventEntity {
 
     @Column(name = "EV_TECHNOLOGIES")
     private String technologies;
+
+    @Column(name = "EV_TITLE")
+    private String title;
+
+    @Column(name = "EV_DESCRIPTION")
+    private String description;
 
     @CreationTimestamp
     @Column(name = "EV_CREATED_AT")
