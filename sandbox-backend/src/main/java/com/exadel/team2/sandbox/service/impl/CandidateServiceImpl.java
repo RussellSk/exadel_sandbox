@@ -27,8 +27,13 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CandidateServiceImpl implements CandidateService {
 
+    private final String SUBJECT = "Exadel Internship";
+    private final String MESSAGE = "Dear candidate, you've just registered at Exadel Internship. " + "\n" +
+            "Please check your post to be aware regarding next steps";
+
     private final CandidateDAO candidateDAO;
     private final ModelMap modelMap;
+    private final SendMailImpl sendMail;
 
     @Override
     public CandidateResponseDTO findById(Long id) {
@@ -62,6 +67,8 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     public CandidateResponseDTO save(CandidateCreateDTO candidateCreateDTO) {
+
+        sendMail.sendEmail(candidateCreateDTO.getEmail(), SUBJECT, MESSAGE);
 
         return modelMap.convertTo(candidateDAO.save(candidateDAO.save(modelMap
                         .convertTo(candidateCreateDTO, CandidateEntity.class))),
