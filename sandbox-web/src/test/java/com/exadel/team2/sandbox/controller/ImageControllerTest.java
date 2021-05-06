@@ -5,6 +5,8 @@ import com.exadel.team2.sandbox.web.image.ImageResponseDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -15,18 +17,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@WebMvcTest(ImageController.class)
 class ImageControllerTest {
 
-    MockMvc mockMvc;
-    ObjectMapper objectMapper;
+//    @Autowired need?
+    private MockMvc mockMvc;
+
+    private ObjectMapper objectMapper;
+
     @MockBean
-    ImageService imageService;
+    private ImageService imageService;
+
+    @Autowired
+    private ImageController imageController;
 
     @BeforeEach
     void setUp() {
@@ -34,6 +42,28 @@ class ImageControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(new ImageController(imageService)).build();
         objectMapper = new ObjectMapper();
     }
+
+    @Test
+    void getById_imageExists_ok() throws Exception {
+        when(imageService.getById(5L)).thenReturn(responseDto());
+
+        mockMvc.perform(get("/image/5")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(objectMapper.writeValueAsString(responseDto())))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void gelAll_imagesInDb_ok() throws Exception {
+        List<ImageResponseDTO> imageEntities = createImageDto();
+        when(imageService.getAll()).thenReturn(imageEntities);
+
+        mockMvc.perform(get("/image/all")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(objectMapper.writeValueAsString(imageEntities)))
+                .andExpect(status().isOk());
+    }
+
 
     @Test
     void save_imagesInDB_ok() throws Exception {
@@ -48,27 +78,6 @@ class ImageControllerTest {
     }
 
     @Test
-    void gelAll_imagesInDb_ok() throws Exception {
-        List<ImageResponseDTO> imageEntities = createImageDto();
-        when(imageService.getAll()).thenReturn(imageEntities);
-
-        mockMvc.perform(get("/image/all")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json(objectMapper.writeValueAsString(imageEntities)))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    void getById_imageExists_ok() throws Exception {
-        when(imageService.getById(5L)).thenReturn(responseDto());
-
-        mockMvc.perform(get("/image/5")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(content().json(objectMapper.writeValueAsString(responseDto())))
-                .andExpect(status().isOk());
-    }
-
-    @Test
     void deleteById_imageExists_ok() throws Exception {
         when(imageService.delete(5L)).thenReturn(true);
 
@@ -76,6 +85,7 @@ class ImageControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful());
     }
+
 
 
     private ImageResponseDTO responseDto() {
@@ -86,11 +96,8 @@ class ImageControllerTest {
         imageDTO.setExt("jpg");
         imageDTO.setPath("local path");
         imageDTO.setSize(5);
-
         return imageDTO;
     }
-
-
 
     private List<ImageResponseDTO> createImageDto() {
         ImageResponseDTO imageResponseDTO1 = new ImageResponseDTO();
@@ -109,34 +116,4 @@ class ImageControllerTest {
 
         return imageResponseDTOs;
     }
-
-//    private ImageEntity saveImageEntity() {
-//        ImageEntity imageEntity = new ImageEntity();
-//        imageEntity.setImageName("Java cover");
-//        imageEntity.setAltText("Short description about image");
-//        imageEntity.setExt("jpg");
-//        imageEntity.setPath("local path");
-//        imageEntity.setSize(5);
-//
-//        return imageEntity;
-//    }
-//
-//    private List<ImageEntity> createImageEntities() {
-//        ImageEntity imageEntity1 = new ImageEntity();
-//        imageEntity1.setId(1L);
-//
-//        ImageEntity imageEntity2 = new ImageEntity();
-//        imageEntity2.setId(2L);
-//
-//        ImageEntity imageEntity3 = new ImageEntity();
-//        imageEntity3.setId(3L);
-//
-//        List<ImageEntity> imageEntities = new ArrayList<>();
-//        imageEntities.add(imageEntity1);
-//        imageEntities.add(imageEntity2);
-//        imageEntities.add(imageEntity3);
-//
-//        return imageEntities;
-//    }
-
 }
