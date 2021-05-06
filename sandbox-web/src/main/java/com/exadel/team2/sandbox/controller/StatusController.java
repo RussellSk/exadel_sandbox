@@ -7,6 +7,7 @@ import com.exadel.team2.sandbox.web.status.UpdateStatusDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,7 +44,12 @@ public class StatusController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteStatusById(@PathVariable("id") Long id) {
+    public ResponseEntity<?> deleteStatusById(@PathVariable("id") Long id) {
+        if (statusService.findById(id) == null) {
+            return ResponseEntity.notFound().build();
+        }
         statusService.deleteById(id);
+
+        return ResponseEntity.ok().build();
     }
 }
