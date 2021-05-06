@@ -40,20 +40,20 @@ class CandidateEventServiceImplTest {
 
     @MockBean
     private CandidateEventDAO candidateEventDAO;
-// TODO: 05.05.2021 I need to decide a problem with LocalDateTime.now()
-//    @Test
-//    void saveWhenCE_NotNull() {
-//        CandidateEventEntity candidateEventEntity = createOptional().get();
-//        candidateEventEntity.setId(null);
-//        when(candidateDAO.findById(ID)).thenReturn(Optional.of(candidateEventEntity.getCandidate()));
-//        when(eventDAO.findById(ID)).thenReturn(Optional.of(candidateEventEntity.getEvent()));
-//        when(candidateEventDAO.save(candidateEventEntity)).thenReturn(candidateEventEntity);
-//        ResponseCandidateEventDto responseCandidateEventDto = candidateEventService.save(createCandidateEventDTO());
-//        assertNotNull(responseCandidateEventDto);
-//        verify(candidateDAO, times(1)).findById(ID);
-//        verify(eventDAO, times(1)).findById(ID);
-//        verify(candidateEventDAO, times(1)).save(candidateEventEntity);
-//    }
+
+    @Test
+    void saveWhenCE_NotNull() {
+        CandidateEventEntity candidateEventEntity = createOptional().get();
+        candidateEventEntity.setId(null);
+        when(candidateDAO.findById(ID)).thenReturn(Optional.of(candidateEventEntity.getCandidate()));
+        when(eventDAO.findById(ID)).thenReturn(Optional.of(candidateEventEntity.getEvent()));
+        when(candidateEventDAO.save(candidateEventEntity)).thenReturn(candidateEventEntity);
+        ResponseCandidateEventDto responseCandidateEventDto = candidateEventService.save(createCandidateEventDTO());
+        assertNotNull(responseCandidateEventDto);
+        verify(candidateDAO, times(1)).findById(ID);
+        verify(eventDAO, times(1)).findById(ID);
+        verify(candidateEventDAO, times(1)).save(candidateEventEntity);
+    }
 
     @Test
     void save_ShouldThrowException_WhenCE_IsNull() {
@@ -83,11 +83,13 @@ class CandidateEventServiceImplTest {
         candidateEventService.delete(CE_ID);
         verify(candidateEventDAO, times(1)).deleteById(CE_ID);
     }
+
     @Test
     void deleteById_ShouldThrowException_WhenGivenNotExistingId() {
         when(candidateEventDAO.existsById(CE_ID)).thenReturn(false);
         assertThrows(NoSuchException.class, () -> candidateEventService.delete(CE_ID));
     }
+
     private CreateCandidateEventDto createCandidateEventDTO() {
         CreateCandidateEventDto createCandidateEventDto = new CreateCandidateEventDto();
         createCandidateEventDto.setIdCandidate(ID);

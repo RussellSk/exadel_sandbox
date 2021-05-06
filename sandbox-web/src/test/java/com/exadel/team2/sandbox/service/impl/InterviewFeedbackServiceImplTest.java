@@ -43,20 +43,20 @@ class InterviewFeedbackServiceImplTest extends BaseTestClass {
 
     @MockBean
     private InterviewFeedbackDAO interviewFeedbackDAO;
-// TODO: 05.05.2021 I need to decide a problem on LocalDateTime.now()
-//    @Test
-//    void saveWhenIFB_NotNull() {
-//        InterviewFeedbackEntity interviewFeedbackEntity = createOptional().get();
-//        interviewFeedbackEntity.setId(null);
-//        when(candidateDAO.findById(ID)).thenReturn(Optional.of(interviewFeedbackEntity.getCandidate()));
-//        when(employeeDAO.findById(ID)).thenReturn(Optional.of(interviewFeedbackEntity.getEmployee()));
-//        when(interviewFeedbackDAO.save(interviewFeedbackEntity)).thenReturn(interviewFeedbackEntity);
-//        ResponseInterviewFeedbackDto responseInterviewFeedbackDto = interviewFeedbackService.save(createIFB_DTO());
-//        assertNotNull(responseInterviewFeedbackDto);
-//        verify(candidateDAO, times(1)).findById(ID);
-//        verify(employeeDAO, times(1)).findById(ID);
-//        verify(interviewFeedbackDAO, times(1)).save(interviewFeedbackEntity);
-//    }
+
+    @Test
+    void saveWhenIFB_NotNull() {
+        InterviewFeedbackEntity interviewFeedbackEntity = createOptional().get();
+        interviewFeedbackEntity.setId(null);
+        when(candidateDAO.findById(ID)).thenReturn(Optional.of(interviewFeedbackEntity.getCandidate()));
+        when(employeeDAO.findById(ID)).thenReturn(Optional.of(interviewFeedbackEntity.getEmployee()));
+        when(interviewFeedbackDAO.save(interviewFeedbackEntity)).thenReturn(interviewFeedbackEntity);
+        ResponseInterviewFeedbackDto responseInterviewFeedbackDto = interviewFeedbackService.save(createIFB_DTO());
+        assertNotNull(responseInterviewFeedbackDto);
+        verify(candidateDAO, times(1)).findById(ID);
+        verify(employeeDAO, times(1)).findById(ID);
+        verify(interviewFeedbackDAO, times(1)).save(interviewFeedbackEntity);
+    }
 
     @Test
     void save_ShouldThrowException_WhenInterviewFeedback_IsNull() {
