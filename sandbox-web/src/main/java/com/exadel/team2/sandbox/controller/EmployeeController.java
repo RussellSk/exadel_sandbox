@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 public class EmployeeController {
 
     private final EmployeeService employeeService;
-    private final EmployeeAvailabilityTimeServiceImpl employeeAvailabilityTimeService;
+    private final EmployeeAvailabilityTimeService employeeAvailabilityTimeService;
 
     @GetMapping("/{id}")
     public ResponseEmployeeDto getEmployeeById(@PathVariable Long id) {

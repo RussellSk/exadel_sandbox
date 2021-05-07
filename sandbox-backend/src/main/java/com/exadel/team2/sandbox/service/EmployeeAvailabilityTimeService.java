@@ -7,4 +7,7 @@ import com.exadel.team2.sandbox.web.employee_availability_time.UpdateEmployeeAva
 public interface EmployeeAvailabilityTimeService extends GeneralService<ResponseEmployeeAvailabilityTimeDto,
         CreateEmployeeAvailabilityTimeDto,
         UpdateEmployeeAvailabilityTimeDto> {
+
+    ResponseEmployeeAvailabilityTimeDto getByEmployeeId(Long id);
+    void deleteAllByEmployeeId(Long id);
 }

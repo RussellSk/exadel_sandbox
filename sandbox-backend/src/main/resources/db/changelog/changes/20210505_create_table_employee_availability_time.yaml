@@ -33,12 +33,12 @@ databaseChangeLog:
                   type: DATETIME
                   defaultValue: now()
                   constraints:
-                    nullable: true
+                    nullable: false
               - column:
                   name: EVAT_UPDATED_AT
                   type: DATETIME
                   constraints:
-                    nullable: true
+                    nullable: false
         - addForeignKeyConstraint:
             baseColumnNames: EMP_ID
             baseTableName: EMPLOYEE_AVAILABILITY_TIME
