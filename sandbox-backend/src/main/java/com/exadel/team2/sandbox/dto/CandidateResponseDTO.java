@@ -1,9 +1,11 @@
 package com.exadel.team2.sandbox.dto;
 
 
+import com.exadel.team2.sandbox.entity.enums.CandidateStatus;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -58,4 +60,7 @@ public class CandidateResponseDTO {
 
     @NotNull
     private String city;
+
+    @NotNull
+    private CandidateStatus status;
 }

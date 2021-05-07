@@ -29,7 +29,7 @@ public class Status {
     private String description;
 
     @CreationTimestamp
-    @Column(name = "ST_CREATED_AT")
+    @Column(name = "ST_CREATED_AT", nullable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp

@@ -3,6 +3,7 @@ package com.exadel.team2.sandbox.mapper;
 import com.exadel.team2.sandbox.entity.StatusHistory;
 import com.exadel.team2.sandbox.web.statushistory.ResponseStatusHistoryDTO;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -12,6 +13,7 @@ public class StatusHistoryMapperDTO implements Mapper<StatusHistory, ResponseSta
 
     @Override
     public StatusHistory convertDtoToEntity(Object dto) {
+        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         return mapper.map(dto, StatusHistory.class);
     }
 

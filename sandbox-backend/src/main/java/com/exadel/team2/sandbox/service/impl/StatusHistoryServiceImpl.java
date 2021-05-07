@@ -1,9 +1,11 @@
 package com.exadel.team2.sandbox.service.impl;
 
+import com.exadel.team2.sandbox.dao.CandidateDAO;
 import com.exadel.team2.sandbox.dao.EmployeeDAO;
 import com.exadel.team2.sandbox.dao.StatusDAO;
 import com.exadel.team2.sandbox.dao.StatusHistoryDAO;
 import com.exadel.team2.sandbox.dao.rsql.CustomRsqlVisitor;
+import com.exadel.team2.sandbox.entity.CandidateEntity;
 import com.exadel.team2.sandbox.entity.EmployeeEntity;
 import com.exadel.team2.sandbox.entity.Status;
 import com.exadel.team2.sandbox.entity.StatusHistory;
@@ -23,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,6 +37,7 @@ public class StatusHistoryServiceImpl implements StatusHistoryService {
     private final StatusHistoryDAO historyDAO;
     private final StatusDAO statusDAO;
     private final EmployeeDAO employeeDAO;
+    private final CandidateDAO candidateDAO;
     private final StatusHistoryMapperDTO historyMapper;
 
     @Override
@@ -45,12 +49,12 @@ public class StatusHistoryServiceImpl implements StatusHistoryService {
     }
 
     @Override
-    public Page<ResponseStatusHistoryDTO> findAllPageable(Pageable pageable, String query) {
-        if (query.isEmpty()) {
+    public Page<ResponseStatusHistoryDTO> findAllPageable(Pageable pageable, String search) {
+        if (search.isEmpty()) {
             return historyDAO.findAll(pageable)
                     .map(historyMapper::convertEntityToDto);
         }
-        Node rootNode = new RSQLParser().parse(query);
+        Node rootNode = new RSQLParser().parse(search);
         Specification<StatusHistory> spec = rootNode.accept(new CustomRsqlVisitor<>());
         return historyDAO.findAll(spec, pageable).map(historyMapper::convertEntityToDto);
 
@@ -73,8 +77,23 @@ public class StatusHistoryServiceImpl implements StatusHistoryService {
         if (createStatusHistoryDTO == null) {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "StatusHistory is null!");
         }
+
         StatusHistory statusHistory = historyMapper.convertDtoToEntity(createStatusHistoryDTO);
 
+        Status status = statusDAO.findById(createStatusHistoryDTO.getStatusId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Status not found!"));
+
+        statusHistory.setStatus(status);
+
+        CandidateEntity candidate = candidateDAO.findById(createStatusHistoryDTO.getCandidateId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Candidate not found!"));
+
+        statusHistory.setCandidate(candidate);
+
+        EmployeeEntity employee = employeeDAO.findById(createStatusHistoryDTO.getEmployeeId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found!"));
+
+        statusHistory.setEmployee(employee);
         return historyMapper.convertEntityToDto(historyDAO.save(statusHistory));
     }
 
@@ -82,6 +101,9 @@ public class StatusHistoryServiceImpl implements StatusHistoryService {
     public ResponseStatusHistoryDTO update(Long id, UpdateStatusHistoryDTO updateStatusHistoryDTO) {
         if (updateStatusHistoryDTO == null) {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "No content!");
+        }
+        if (!historyDAO.existsById(id)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Id " + id + " not found!");
         }
 
         StatusHistory statusHistory = historyMapper.convertDtoToEntity(updateStatusHistoryDTO);
@@ -91,11 +113,17 @@ public class StatusHistoryServiceImpl implements StatusHistoryService {
 
         statusHistory.setStatus(status);
 
-        EmployeeEntity employee = employeeDAO.findById(statusHistory.getEmployee().getId())
+        CandidateEntity candidate = candidateDAO.findById(updateStatusHistoryDTO.getCandidateId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Candidate not found!"));
+
+        statusHistory.setCandidate(candidate);
+        EmployeeEntity employee = employeeDAO.findById(updateStatusHistoryDTO.getEmployeeId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found!"));
 
         statusHistory.setEmployee(employee);
-        return historyMapper.convertEntityToDto(statusHistory);
+        statusHistory.setUpdatedAt(LocalDateTime.now());
+        statusHistory.setId(id);
+        return historyMapper.convertEntityToDto(historyDAO.save(statusHistory));
     }
 
     @Override

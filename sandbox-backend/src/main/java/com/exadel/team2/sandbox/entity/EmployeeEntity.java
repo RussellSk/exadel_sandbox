@@ -23,6 +23,12 @@ public class EmployeeEntity extends BaseEntity {
     @Column(name = "EMP_LAST_NAME")
     private String lastName;
 
+    @Column(name = "EMP_PRIMARY_TECHNOLOGY")
+    private String primaryTechnology;
+
+    @Column(name = "EMP_TYPE")
+    private String type;
+
     @Column(name = "EMP_PHONE")
     private String phone;
 
