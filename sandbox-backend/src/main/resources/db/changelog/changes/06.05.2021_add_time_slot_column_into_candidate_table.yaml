@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 24.04.2021_add_time_slot_column_into_candidate_table
+      author: Saranchuk Vadym
+      preConditions:
+        onFail: MARK_RAN
+        columnExists:
+          tableName: CANDIDATE
+          columnName: CN_GRADUATION_DATE
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: CN_INTERVIEW_TIME
+                  afterColumn: CN_GRADUATION_DATE
+                  type: DATETIME
+                  defaultValue: NULL
+            tableName: CANDIDATE
