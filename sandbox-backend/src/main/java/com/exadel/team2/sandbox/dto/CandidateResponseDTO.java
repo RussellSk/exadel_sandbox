@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -60,6 +61,9 @@ public class CandidateResponseDTO {
 
     @NotNull
     private String city;
+
+    @NotNull
+    private LocalDateTime interviewTime;
 
     @NotNull
     private CandidateStatus status;

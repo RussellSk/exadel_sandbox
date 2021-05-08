@@ -81,6 +81,9 @@ public class CandidateEntity {
     @Column(name = "CN_CITY")
     private String city;
 
+    @Column(name = "CN_CITY")
+    private LocalDateTime interviewTime;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "CN_STATUS")
     private CandidateStatus status;

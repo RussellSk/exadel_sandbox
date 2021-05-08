@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -54,6 +55,9 @@ public class CandidateCreateDTO {
 
     @NotNull
     private String city;
+
+    @NotNull
+    private LocalDateTime interviewTime;
 
     @NotNull
     private String CandidateStatus;

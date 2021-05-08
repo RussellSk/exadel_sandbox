@@ -53,6 +53,8 @@ public class CandidateUpdateDTO {
 
     private String city;
 
+    private LocalDateTime interviewTime;
+
     private CandidateStatus status;
 
     @JsonIgnore
