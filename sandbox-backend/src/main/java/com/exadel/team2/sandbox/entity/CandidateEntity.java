@@ -81,7 +81,7 @@ public class CandidateEntity {
     @Column(name = "CN_CITY")
     private String city;
 
-    @Column(name = "CN_CITY")
+    @Column(name = "CN_INTERVIEW_TIME")
     private LocalDateTime interviewTime;
 
     @Enumerated(EnumType.STRING)
