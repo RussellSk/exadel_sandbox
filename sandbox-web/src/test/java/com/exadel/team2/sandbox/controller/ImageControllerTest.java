@@ -2,6 +2,7 @@ package com.exadel.team2.sandbox.controller;
 
 import com.exadel.team2.sandbox.service.ImageService;
 import com.exadel.team2.sandbox.web.image.ImageResponseDTO;
+import com.exadel.team2.sandbox.web.image.ImageUpdateDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +26,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(ImageController.class)
 class ImageControllerTest {
 
-//    @Autowired need?
+    private static final long IMAGE_ID = 4L;
+
     private MockMvc mockMvc;
 
     private ObjectMapper objectMapper;
@@ -45,16 +47,16 @@ class ImageControllerTest {
 
     @Test
     void getById_imageExists_ok() throws Exception {
-        when(imageService.getById(5L)).thenReturn(responseDto());
+        when(imageService.getById(IMAGE_ID)).thenReturn(responseDto());
 
-        mockMvc.perform(get("/image/5")
+        mockMvc.perform(get("/image/{id}", IMAGE_ID)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(objectMapper.writeValueAsString(responseDto())))
                 .andExpect(status().isOk());
     }
 
     @Test
-    void gelAll_imagesInDb_ok() throws Exception {
+    void getAll_imagesInDb_ok() throws Exception {
         List<ImageResponseDTO> imageEntities = createImageDto();
         when(imageService.getAll()).thenReturn(imageEntities);
 
@@ -77,26 +79,51 @@ class ImageControllerTest {
                 .andExpect(content().json(objectMapper.writeValueAsString(responseDto())));
     }
 
+
+    @Test
+    void update_imageExists_ok() throws Exception {
+        String json = objectMapper.writeValueAsString(updateDto());
+
+        ImageUpdateDTO imageUpdateDTO = updateDto();
+        when(imageService.update(IMAGE_ID, imageUpdateDTO)).thenReturn(responseDto());
+
+        mockMvc.perform(put("/image/{id}", IMAGE_ID)
+                .contentType(MediaType.APPLICATION_JSON_VALUE).content(json))
+                .andExpect(status().isOk());
+
+        verify(imageService, times(1)).update(IMAGE_ID, imageUpdateDTO);
+    }
+
+
     @Test
     void deleteById_imageExists_ok() throws Exception {
-        when(imageService.delete(5L)).thenReturn(true);
+        when(imageService.delete(IMAGE_ID)).thenReturn(true);
 
-        mockMvc.perform(delete("/image/5")
+        mockMvc.perform(delete("/image/{id}", IMAGE_ID)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is2xxSuccessful());
     }
 
 
-
     private ImageResponseDTO responseDto() {
         ImageResponseDTO imageDTO = new ImageResponseDTO();
-        imageDTO.setId(5L);
+        imageDTO.setId(IMAGE_ID);
         imageDTO.setImageName("Java cover");
         imageDTO.setAltText("Short description about image");
         imageDTO.setExt("jpg");
         imageDTO.setPath("local path");
         imageDTO.setSize(5);
         return imageDTO;
+    }
+
+    private ImageUpdateDTO updateDto() {
+        ImageUpdateDTO updateDTO = new ImageUpdateDTO();
+        updateDTO.setImageName("Java cover");
+        updateDTO.setAltText("Short description about image");
+        updateDTO.setExt("jpg");
+        updateDTO.setPath("local path");
+        updateDTO.setSize(6);
+        return updateDTO;
     }
 
     private List<ImageResponseDTO> createImageDto() {
