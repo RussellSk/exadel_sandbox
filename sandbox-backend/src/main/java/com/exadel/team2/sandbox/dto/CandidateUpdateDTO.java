@@ -1,6 +1,7 @@
 package com.exadel.team2.sandbox.dto;
 
 import com.exadel.team2.sandbox.entity.enums.CandidateStatus;
+import com.exadel.team2.sandbox.web.canidate_availability_time.CreateCandidateAvailabilityTimeDto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
@@ -13,6 +14,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Setter
 @Getter
@@ -24,6 +26,8 @@ public class CandidateUpdateDTO {
     private Long id;
 
     private Long rsmId;
+
+    private List<CreateCandidateAvailabilityTimeDto> availabilityTimeSlots;
 
     private String firstName;
 
