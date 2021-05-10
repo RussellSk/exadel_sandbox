@@ -1,0 +1,54 @@
+{
+    "evId": 1,
+    "image": {
+        "imgId": 1,
+        "imgPath": "path",
+        "imageName": "cover java",
+        "imgExt": "jpg",
+        "imgSize": 10,
+        "imgCreatedAt": "2021-04-06T12:36:37"
+    },
+    "employee": {
+        "empId": 2,
+        "empFirstName": "Петр",
+        "empLastName": "Петренко",
+        "empPhone": null,
+        "empEmail": "",
+        "empSkype": null,
+        "role": {
+            "rlId": 1,
+            "name": "Admin",
+            "description": "Администратор имеющий права создавать анонсы",
+            "permissions": [
+                {
+                    "pmnId": 1,
+                    "pmnName": "admin_create"
+                },
+                {
+                    "pmnId": 2,
+                    "pmnName": "admin_update"
+                },
+                {
+                    "pmnId": 3,
+                    "pmnName": "admin_view"
+                }
+            ]
+        },
+        "createdAt": "2021-04-06T12:30:48",
+        "updatedAt": "2021-04-06T12:30:48"
+    },
+    "eventType": {
+        "evtId": 8,
+        "evtName": "Js",
+        "evtDescription": "Для тих, хто чекав можливості пройти навчання в E",
+        "evtCreatedAt": "2021-04-06T17:37:49",
+        "evtUpdatedAt": "2021-04-06T17:38:08"
+    },
+    "evStartDate": "2021-04-01",
+    "evDuration": "2 month",
+    "evDeadline": "2021-05-31",
+    "evLocation": "Lviv",
+    "evCreatedAt": null,
+    "evUpdatedAt": "2021-04-07T15:45:26",
+    "evCandidateRequirements": "Java core, Spring"
+}

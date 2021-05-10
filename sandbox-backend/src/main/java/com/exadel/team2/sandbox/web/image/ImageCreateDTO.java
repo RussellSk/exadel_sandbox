@@ -13,11 +13,5 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class ImageCreateDTO {
 
-//    @NotNull
-//    private String path;
-//    private String imageName;   //ці поля автомиатично вкажуться - вручно неправильно
-//    private String ext;
-//    private Integer size;
     private String altText;
-
 }

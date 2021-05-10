@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id:  change_column_image_name
+      author:  vadblagiy@gmail.com
+      preConditions:
+        onFail: MARK_RAN
+        tableExists:
+          tableName: IMAGE
+      changes:
+        - modifyDataType:
+            columnName:  IMG_NAME
+            newDataType:  VARCHAR(150)
+            schemaName:  sandbox
+            tableName:  IMAGE

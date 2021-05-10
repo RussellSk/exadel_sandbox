@@ -29,9 +29,6 @@ public class ImageEntity {
 //    @OneToOne(mappedBy = "imageEntity")
 //    private EventEntity eventEntity;
 
-//    @Column(name = "IMG_PATH")
-//    private String path;
-
     @Column(name = "IMG_NAME")
     private String imageName;
 
