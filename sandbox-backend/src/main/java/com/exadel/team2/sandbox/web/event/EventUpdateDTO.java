@@ -18,8 +18,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Builder
 public class EventUpdateDTO {
-    private Long id; // letter del
-
     private Long imageId;
     private Long employee;
     private Long eventType;
@@ -44,5 +42,4 @@ public class EventUpdateDTO {
     private String description;
     private EventTab eventTab;
     private EnglishLevel englishLevel;
-
 }

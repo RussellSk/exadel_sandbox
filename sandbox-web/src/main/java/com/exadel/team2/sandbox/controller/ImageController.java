@@ -28,19 +28,12 @@ public class ImageController {
         return imageService.getAll();
     }
 
-
     @PostMapping("/upload")
     public ImageResponseDTO saveImage(
             @RequestParam("id") Long eventId,
             @RequestParam(value = "image", required = false) MultipartFile image) {
         return imageService.save(eventId, image);
     }
-
-
-//    @PostMapping
-//    public ImageResponseDTO saveImage(@Validated @RequestBody ImageCreateDTO imageCreateDTO) {
-//        return imageService.save(imageCreateDTO);
-//    }
 
     @PutMapping("/{id}")
     public ImageResponseDTO updateImage(@Validated @PathVariable Long id, @RequestBody ImageUpdateDTO

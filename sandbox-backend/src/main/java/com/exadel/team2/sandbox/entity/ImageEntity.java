@@ -26,9 +26,6 @@ public class ImageEntity {
     @Column(name = "IMG_ID", nullable = false)
     private Long id;
 
-//    @OneToOne(mappedBy = "imageEntity")
-//    private EventEntity eventEntity;
-
     @Column(name = "IMG_NAME")
     private String imageName;
 

@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ImageUpdateDTO {
 
-    private Long id;       //тимчасово
     private String imageName;
     private String ext;
     private Long size;

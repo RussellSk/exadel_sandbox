@@ -31,11 +31,10 @@ public class EventEntity {
     @Column(name = "EV_ID")
     private Long id;
 
-    @Column(name = "IMG_ID", nullable = false)   //тимчасово
+    @Column(name = "IMG_ID", nullable = false)
     private Long imageId;
 
-        @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH} )
-//    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "IMG_ID", referencedColumnName = "IMG_ID", insertable = false, updatable = false)
     private ImageEntity imageEntity;
 

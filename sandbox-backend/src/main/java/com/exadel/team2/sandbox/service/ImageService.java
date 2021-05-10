@@ -1,6 +1,5 @@
 package com.exadel.team2.sandbox.service;
 
-import com.exadel.team2.sandbox.web.image.ImageCreateDTO;
 import com.exadel.team2.sandbox.web.image.ImageResponseDTO;
 import com.exadel.team2.sandbox.web.image.ImageUpdateDTO;
 import org.springframework.web.multipart.MultipartFile;

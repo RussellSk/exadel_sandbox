@@ -9,7 +9,6 @@ import com.exadel.team2.sandbox.web.image.UploadImageResponseDTO;
 import com.exadel.team2.sandbox.entity.EventEntity;
 import com.exadel.team2.sandbox.entity.ImageEntity;
 import com.exadel.team2.sandbox.exceptions.NoSuchException;
-import com.exadel.team2.sandbox.mapper.EventMapper;
 import com.exadel.team2.sandbox.mapper.ImageMapper;
 import com.exadel.team2.sandbox.service.EventService;
 import com.exadel.team2.sandbox.service.ImageService;
@@ -33,11 +32,10 @@ public class ImageServiceImpl implements ImageService {
 
     private final ImageDAO imageDAO;
     private final ImageMapper imageMapper;
-    private final EventMapper eventMapper;
     private final EventDAO eventDAO;
     private final EventService eventService;
     private final ImageUploadService imageUploadService;
-    private final ModelMap mapper; //try it mapper
+    private final ModelMap mapper;
 
 
     @Override
@@ -65,7 +63,6 @@ public class ImageServiceImpl implements ImageService {
         EventEntity eventEntity = eventDAO.findById(eventId)
                 .orElseThrow(() -> new NoSuchException("Not found event in Database"));
 
-//        EventResponseDTO eventResponseDTO = eventMapper.convertEntityToDto(eventEntity);
         EventResponseDTO eventResponseDTO = mapper.convertTo(eventEntity, EventResponseDTO.class);
 
 
@@ -79,7 +76,6 @@ public class ImageServiceImpl implements ImageService {
                     .size(uploadImageResponseDTO.getSize())
                     .createdAt(LocalDateTime.now())
                     .build());
-            System.out.println(imageEntity);   //временно
 
             eventService.update(
                     eventResponseDTO.getId(),
@@ -90,9 +86,6 @@ public class ImageServiceImpl implements ImageService {
             return mapper.convertTo(imageEntity, ImageResponseDTO.class);
         }
 
-//        ImageEntity imageEntity = new ImageEntity(); // правильно?
-//        imageDAO.save(imageEntity);
-//        return imageMapper.convertEntityToDto(imageEntity);
         return mapper.convertTo(
                 imageDAO.save(mapper.convertTo(new ImageCreateDTO(), ImageEntity.class)), ImageResponseDTO.class);
     }
@@ -100,11 +93,22 @@ public class ImageServiceImpl implements ImageService {
 
     @Override
     public ImageResponseDTO update(Long id, ImageUpdateDTO imageUpdateDTO) {
-        ImageEntity imageEntity = imageMapper.convertDtoToEntity(imageUpdateDTO);
-        imageEntity.setId(id);
-        if (!imageDAO.existsById(id)) {
-            throw new NoSuchException("Image with ID = " + id + " not found in Database");
+        ImageEntity imageEntity = imageDAO.findById(id)
+                .orElseThrow(() -> new NoSuchException("Image with ID = " + id + " not found in Database"));
+
+        if (imageUpdateDTO.getImageName() != null) {
+            imageEntity.setImageName(imageUpdateDTO.getImageName());
         }
+        if (imageUpdateDTO.getExt() != null) {
+            imageEntity.setExt(imageUpdateDTO.getExt());
+        }
+        if (imageUpdateDTO.getSize() != null) {
+            imageEntity.setSize(imageUpdateDTO.getSize());
+        }
+        if (imageUpdateDTO.getAltText() != null) {
+            imageEntity.setAltText(imageUpdateDTO.getAltText());
+        }
+
         return imageMapper.convertEntityToDto(imageDAO.save(imageEntity));
     }
 
