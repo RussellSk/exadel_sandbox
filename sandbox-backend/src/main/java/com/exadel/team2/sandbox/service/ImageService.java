@@ -11,7 +11,7 @@ public interface ImageService {
 
     ImageResponseDTO getById (Long id);
     List<ImageResponseDTO> getAll();
-    ImageResponseDTO save(Long eventId, MultipartFile file);
+    ImageResponseDTO save(Long eventId, MultipartFile image);
     ImageResponseDTO update(Long id, ImageUpdateDTO imageUpdateDTO);
     Boolean delete(Long id);
 

@@ -60,7 +60,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public ImageResponseDTO save(Long eventId, MultipartFile file) {
+    public ImageResponseDTO save(Long eventId, MultipartFile image) {
 
         EventEntity eventEntity = eventDAO.findById(eventId)
                 .orElseThrow(() -> new NoSuchException("Not found event in Database"));
@@ -69,9 +69,9 @@ public class ImageServiceImpl implements ImageService {
         EventResponseDTO eventResponseDTO = mapper.convertTo(eventEntity, EventResponseDTO.class);
 
 
-        if (file != null) {
+        if (image != null) {
 
-            UploadImageResponseDTO uploadImageResponseDTO = imageUploadService.uploadImage(eventResponseDTO, file);
+            UploadImageResponseDTO uploadImageResponseDTO = imageUploadService.uploadImage(eventResponseDTO, image);
 
             ImageEntity imageEntity = imageDAO.save(ImageEntity.builder()
                     .imageName(uploadImageResponseDTO.getImageName())

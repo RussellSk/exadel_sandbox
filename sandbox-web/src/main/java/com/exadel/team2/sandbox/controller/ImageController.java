@@ -32,8 +32,8 @@ public class ImageController {
     @PostMapping
     public ImageResponseDTO saveImage(
             @RequestParam("id") Long eventId,
-            @RequestParam(value = "file", required = false) MultipartFile file) {
-        return imageService.save(eventId, file);
+            @RequestParam(value = "image", required = false) MultipartFile image) {
+        return imageService.save(eventId, image);
     }
 
 
