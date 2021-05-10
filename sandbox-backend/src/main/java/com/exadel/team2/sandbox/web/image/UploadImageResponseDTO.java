@@ -1,19 +1,16 @@
 package com.exadel.team2.sandbox.web.image;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
 
 @Data
-@NoArgsConstructor
+@Builder
 @AllArgsConstructor
-public class ImageUpdateDTO {
+public class UploadImageResponseDTO {
 
-    private Long id;       //тимчасово
-//    private String path;
     private String imageName;
     private String ext;
     private Long size;
-    private String altText;
+
 }

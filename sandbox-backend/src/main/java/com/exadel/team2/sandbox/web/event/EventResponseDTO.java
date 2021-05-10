@@ -19,9 +19,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EventResponseDTO {
-
+    @NotNull // забрати тотім
     private Long id;
-    private ImageResponseDTO image;
+//    private ImageResponseDTO image; //тимчасов закоменчу і поставлю лише ід
+    private Long imageId;
     private ResponseEmployeeDto employee;
     private EventTypeResponseDTO eventType;
     private ResponseEmployeeDto creatorEvent;

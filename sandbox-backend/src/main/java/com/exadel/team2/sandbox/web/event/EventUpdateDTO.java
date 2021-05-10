@@ -4,6 +4,7 @@ import com.exadel.team2.sandbox.entity.enums.EnglishLevel;
 import com.exadel.team2.sandbox.entity.enums.EventTab;
 import com.exadel.team2.sandbox.entity.enums.Format;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,9 +16,11 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class EventUpdateDTO {
+    private Long id; // letter del
 
-    private Long image;
+    private Long imageId;
     private Long employee;
     private Long eventType;
 

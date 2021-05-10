@@ -84,10 +84,10 @@ public class EventServiceImpl implements EventService {
         eventEntity.setCreatorEvent(creatorEvent);
 
 
-        ImageEntity imageEntity = imageDAO.findById(eventCreateDTO.getImage())
+        ImageEntity imageEntity = imageDAO.findById(eventCreateDTO.getImageId())
                 .orElseThrow(() -> new NoSuchException("Image not found"));
 
-        eventEntity.setImage(imageEntity);
+        eventEntity.setImageEntity(imageEntity);
 
         EventTypeEntity eventTypeEntity = eventTypeDAO.findById(eventCreateDTO.getEventType())
                 .orElseThrow(() -> new NoSuchException("Event Type not found"));
@@ -118,10 +118,10 @@ public class EventServiceImpl implements EventService {
 
         eventEntity.setCreatorEvent(creatorEvent);
 
-        ImageEntity imageEntity = imageDAO.findById(eventUpdateDTO.getImage())
+        ImageEntity imageEntity = imageDAO.findById(eventUpdateDTO.getImageId())
                 .orElseThrow(() -> new NoSuchException("Image not found"));
 
-        eventEntity.setImage(imageEntity);
+        eventEntity.setImageEntity(imageEntity);
 
         EventTypeEntity eventTypeEntity = eventTypeDAO.findById(eventUpdateDTO.getEventType())
                 .orElseThrow(() -> new NoSuchException("Event Type not found"));
