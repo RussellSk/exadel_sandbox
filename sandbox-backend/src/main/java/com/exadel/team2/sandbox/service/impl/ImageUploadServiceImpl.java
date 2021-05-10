@@ -59,11 +59,11 @@ public class ImageUploadServiceImpl implements ImageUploadService {
 
             fileExtension = ImageUploadServiceImpl.getExtensionByStringHandling(fileNameOriginal).get();
 
-            if ("txt".equals(fileExtension) || "docx".equals(fileExtension) || "pdf".equals(fileExtension)) {
+            if ("jpg".equals(fileExtension) || "gif".equals(fileExtension) || "png".equals(fileExtension)) {
 
-                newFileName = eventResponseDTO.getId().toString() + "_"
-                        + UUID.randomUUID().hashCode() + "_"
-                        + eventResponseDTO.getTechnologies() + "."
+                newFileName = "image_for_event_id_"
+                        + eventResponseDTO.getId().toString() + "_"
+                        + UUID.randomUUID().hashCode() + "."
                         + fileExtension;
 
                 StringUtils.cleanPath(file.getOriginalFilename());
@@ -75,7 +75,7 @@ public class ImageUploadServiceImpl implements ImageUploadService {
                 Files.move(targetLocation, targetLocation.resolveSibling(newFileName));
             } else {
                 throw new FileStorageException("The file " + fileNameOriginal + " doesn't have available extension. " +
-                        "Please upload file with extension '.txt', '.docx' or '.pdf'");
+                        "Please upload file with extension '.jpg', '.gif' or '.png'");
             }
 
         } catch (IOException ex) {

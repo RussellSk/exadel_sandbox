@@ -29,7 +29,7 @@ public class ImageController {
     }
 
 
-    @PostMapping
+    @PostMapping("/upload")
     public ImageResponseDTO saveImage(
             @RequestParam("id") Long eventId,
             @RequestParam(value = "image", required = false) MultipartFile image) {
