@@ -1,10 +1,10 @@
 package com.exadel.team2.sandbox.service.impl;
 
+import com.exadel.team2.sandbox.dao.CandidateDAO;
 import com.exadel.team2.sandbox.dao.ResumeDAO;
 import com.exadel.team2.sandbox.dao.rsql.CustomRsqlVisitor;
-import com.exadel.team2.sandbox.dto.ResumeCreateDTO;
-import com.exadel.team2.sandbox.dto.ResumeResponseDTO;
-import com.exadel.team2.sandbox.dto.ResumeUpdateDTO;
+import com.exadel.team2.sandbox.dto.*;
+import com.exadel.team2.sandbox.entity.CandidateEntity;
 import com.exadel.team2.sandbox.entity.ResumeEntity;
 import com.exadel.team2.sandbox.mapper.ModelMap;
 import com.exadel.team2.sandbox.service.ResumeService;
@@ -16,8 +16,10 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,15 +28,18 @@ import java.util.stream.Collectors;
 @Transactional
 public class ResumeServiceImpl implements ResumeService {
 
+    private final FileUploadServiceImpl fileUploadService;
+    private final CandidateServiceImpl candidateService;
     private final ResumeDAO resumeDAO;
-    private final ModelMap modelMap;
+    private final ModelMap mapper;
+    private final CandidateDAO candidateDAO;
 
     @Override
     public ResumeResponseDTO getById(Long id) {
         ResumeEntity resumeEntity = resumeDAO.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "The resume not found"));
 
-        return modelMap.convertTo(resumeEntity, ResumeResponseDTO.class);
+        return mapper.convertTo(resumeEntity, ResumeResponseDTO.class);
     }
 
     @Override
@@ -42,7 +47,7 @@ public class ResumeServiceImpl implements ResumeService {
 
         if (search.isEmpty()) {
             return resumeDAO.findAll(pageable).stream().map((ResumeEntity entity) ->
-                    (ResumeResponseDTO) modelMap.convertTo(entity, ResumeResponseDTO.class))
+                    (ResumeResponseDTO) mapper.convertTo(entity, ResumeResponseDTO.class))
                     .collect(Collectors.toList());
         }
 
@@ -50,15 +55,44 @@ public class ResumeServiceImpl implements ResumeService {
         Specification<ResumeEntity> specification = rootNode.accept(new CustomRsqlVisitor<>());
 
         return resumeDAO.findAll(specification, pageable).stream().map((ResumeEntity entity) ->
-                (ResumeResponseDTO) modelMap.convertTo(entity, ResumeResponseDTO.class))
+                (ResumeResponseDTO) mapper.convertTo(entity, ResumeResponseDTO.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public ResumeCreateDTO save(ResumeCreateDTO resumeCreateDTO) {
-        return modelMap.convertTo(
-                resumeDAO.save(modelMap.convertTo(resumeCreateDTO, ResumeEntity.class)),
-                        ResumeCreateDTO.class);
+    public ResumeResponseDTO save(Long candidateId,
+                                     MultipartFile file,
+                                     String link) {
+
+        CandidateEntity candidateEntity = candidateDAO.findById(candidateId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Candidate not found"));
+
+        CandidateResponseDTO candidateResponseDTO =  mapper.convertTo(candidateEntity, CandidateResponseDTO.class);
+
+        if (file != null) {
+
+            UploadFileResponseDTO uploadFileResponseDTO =
+                    fileUploadService.uploadFile(candidateResponseDTO, file);
+
+            ResumeEntity resumeEntity = resumeDAO.save(ResumeEntity.builder()
+                    .name(uploadFileResponseDTO.getFileName())
+                    .ext(uploadFileResponseDTO.getFileExtension())
+                    .size(uploadFileResponseDTO.getSize())
+                    .createdAt(LocalDateTime.now())
+                    .build());
+
+            candidateService.update(
+                    candidateResponseDTO.getId(),
+                    CandidateUpdateDTO.builder().rsmId(resumeEntity.getId()).build());
+
+            candidateResponseDTO.setRsmId(resumeEntity.getId());
+
+            return mapper.convertTo(resumeEntity, ResumeResponseDTO.class);
+        }
+
+        return mapper.convertTo(
+                resumeDAO.save(mapper.convertTo(new ResumeCreateDTO(link), ResumeEntity.class)),
+                        ResumeResponseDTO.class);
     }
 
     @Override
@@ -66,12 +100,8 @@ public class ResumeServiceImpl implements ResumeService {
         ResumeEntity resumeEntity = resumeDAO.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Resume not found"));
 
-        if (resumeUpdateDTO.getPath() != null) {
-            resumeEntity.setPath(resumeUpdateDTO.getPath());
-        }
-
         if (resumeUpdateDTO.getLink() != null) {
-            resumeEntity.setPath(resumeUpdateDTO.getLink());
+            resumeEntity.setLink(resumeUpdateDTO.getLink());
         }
 
         if (resumeUpdateDTO.getName() != null) {
@@ -86,8 +116,8 @@ public class ResumeServiceImpl implements ResumeService {
             resumeEntity.setSize(resumeUpdateDTO.getSize());
         }
 
-        return modelMap.convertTo(
-                resumeDAO.save(modelMap.convertTo(resumeUpdateDTO, ResumeEntity.class)),
+        return mapper.convertTo(
+                resumeDAO.save(mapper.convertTo(resumeUpdateDTO, ResumeEntity.class)),
                 ResumeUpdateDTO.class);
     }
 
