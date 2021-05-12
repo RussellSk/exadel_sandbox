@@ -11,6 +11,8 @@ import com.exadel.team2.sandbox.service.CandidateService;
 import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.Node;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
@@ -18,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Transactional
@@ -38,32 +39,33 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public List<CandidateResponseDTO> getAllPageable(Pageable pageable, String search) {
+    public Page<CandidateResponseDTO> getAllPageable(Pageable pageable, String search) {
 
         if (search.isEmpty()) {
-            return candidateDAO.findAll(pageable).stream()
+            return new PageImpl<>(candidateDAO.findAll(pageable).stream()
                     .map((CandidateEntity candidateEntity) ->
                             (CandidateResponseDTO) modelMap.convertTo(
                                     candidateEntity, CandidateResponseDTO.class))
-                    .collect(Collectors.toList());
+                    .collect(Collectors.toList()));
         }
 
 
         Node rootNode = new RSQLParser().parse(search);
         Specification<CandidateEntity> specification = rootNode.accept(new CustomRsqlVisitor<>());
 
-        return candidateDAO.findAll(specification, pageable).stream()
+        return new PageImpl<>(candidateDAO.findAll(specification, pageable).stream()
                 .map((CandidateEntity candidateEntity) ->
                         (CandidateResponseDTO) modelMap.convertTo(
                                 candidateEntity, CandidateResponseDTO.class))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 
     @Override
-    public CandidateCreateDTO save(CandidateCreateDTO candidateCreateDTO) {
-        return modelMap.convertTo(candidateDAO.save(
-                modelMap.convertTo(candidateCreateDTO, CandidateEntity.class)),
-                CandidateCreateDTO.class);
+    public CandidateResponseDTO save(CandidateCreateDTO candidateCreateDTO) {
+
+        return modelMap.convertTo(candidateDAO.save(candidateDAO.save(modelMap
+                        .convertTo(candidateCreateDTO, CandidateEntity.class))),
+                CandidateResponseDTO.class);
     }
 
     @Override

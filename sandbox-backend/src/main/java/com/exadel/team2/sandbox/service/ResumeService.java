@@ -1,9 +1,8 @@
 package com.exadel.team2.sandbox.service;
 
-import com.exadel.team2.sandbox.dto.ResumeCreateDTO;
-import com.exadel.team2.sandbox.dto.ResumeResponseDTO;
-import com.exadel.team2.sandbox.dto.ResumeUpdateDTO;
+import com.exadel.team2.sandbox.dto.*;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -13,7 +12,7 @@ public interface ResumeService {
 
     List<ResumeResponseDTO> getAllPageable(Pageable pageable, String search);
 
-    ResumeCreateDTO save(ResumeCreateDTO resumeCreateDTO);
+    ResumeResponseDTO save(Long candidateId, MultipartFile file, String link);
 
     ResumeUpdateDTO update(Long id, ResumeUpdateDTO resumeUpdateDTO);
 
