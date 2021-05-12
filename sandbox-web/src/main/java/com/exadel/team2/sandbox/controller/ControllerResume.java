@@ -1,8 +1,7 @@
 package com.exadel.team2.sandbox.controller;
 
-import com.exadel.team2.sandbox.dto.ResumeCreateDTO;
-import com.exadel.team2.sandbox.dto.ResumeResponseDTO;
-import com.exadel.team2.sandbox.dto.ResumeUpdateDTO;
+import com.exadel.team2.sandbox.dto.*;
+import com.exadel.team2.sandbox.service.impl.CandidateServiceImpl;
 import com.exadel.team2.sandbox.service.impl.ResumeServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -10,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -35,8 +35,11 @@ public class ControllerResume {
     }
 
     @PostMapping
-    public ResumeCreateDTO addResume(@RequestBody ResumeCreateDTO resumeCreateDTO) {
-        return resumeService.save(resumeCreateDTO);
+    public ResumeResponseDTO addResume(
+            @RequestParam("id") Long candidateId,
+            @RequestParam(value = "file", required = false) MultipartFile file,
+            @RequestParam(value = "link", required = false) String link) {
+        return resumeService.save(candidateId, file, link);
     }
 
     @PutMapping(value = "/{id}")
