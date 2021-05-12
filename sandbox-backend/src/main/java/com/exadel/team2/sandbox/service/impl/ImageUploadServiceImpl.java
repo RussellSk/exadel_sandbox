@@ -102,7 +102,7 @@ public class ImageUploadServiceImpl implements ImageUploadService {
             if (resource.exists() || resource.isReadable()) {
                 return resource;
             } else {
-                throw new FileNotFoundException("Could not read file: " + filename);
+                throw new FileNotFoundException("Image with name = " + filename + " not found!");
             }
         } catch (MalformedURLException ex) {
             throw new FileNotFoundException("Could not read file: " + filename + "\n" + ex);
