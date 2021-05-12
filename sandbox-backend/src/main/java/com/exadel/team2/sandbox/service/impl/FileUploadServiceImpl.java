@@ -32,7 +32,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@Qualifier("fileUploadServiceImpl")
 public class FileUploadServiceImpl implements FileUploadService {
 
     private Path fileStorageLocation;
