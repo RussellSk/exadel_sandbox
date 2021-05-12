@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface ImageService {
 
-    ImageResponseDTO getById (Long imgId);
+    ImageResponseDTO getById (Long id);
     List<ImageResponseDTO> getAll();
     ImageResponseDTO save(ImageCreateDTO imageCreateDTO);
     ImageResponseDTO update(Long id, ImageUpdateDTO imageUpdateDTO);
-    Boolean delete(Long imgId);
+    Boolean delete(Long id);
 
 }

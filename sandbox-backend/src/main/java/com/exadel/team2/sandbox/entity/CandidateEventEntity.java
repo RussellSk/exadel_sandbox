@@ -1,17 +1,15 @@
 package com.exadel.team2.sandbox.entity;
 
 
-import liquibase.pro.packaged.T;
-import lombok.*;
-
-import org.hibernate.annotations.GenericGenerator;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -27,14 +25,13 @@ public class CandidateEventEntity {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     @Column(name = "CNEV_ID")
-    private long id;
+    private Long id;
 
-    @OneToMany
-    @JoinTable(name = "CANDIDATE_EVENT", joinColumns = @JoinColumn(name = "EV_ID"),
-            inverseJoinColumns = @JoinColumn(name = "CN_ID"))
-    private List<CandidateEntity> candidates= new ArrayList();
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "CN_ID")
+    private  CandidateEntity candidate;
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "EV_ID")
     private EventEntity event;
 

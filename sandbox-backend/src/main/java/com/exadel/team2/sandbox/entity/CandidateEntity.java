@@ -1,10 +1,12 @@
 package com.exadel.team2.sandbox.entity;
 
+import com.exadel.team2.sandbox.entity.enums.CandidateStatus;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
@@ -55,17 +57,33 @@ public class CandidateEntity {
     @Column(name = "CN_ENGLISH_LEVEL", nullable = false)
     private String englishLevel;
 
-    @Column(name = "CN_EXPERTISE")
-    private String expertise;
+    @Column(name = "CN_MAIN_SKILL")
+    private String mainSkill;
 
-    @Column(name = "CN_EXPERIENCE")
-    private String experience;
+    @Column(name = "CN_OTHER_SKILLS")
+    private String otherSkills;
 
-    @Column(name = "CN_EDUCATION")
-    private String education;
+    @Column(name = "CN_INSTITUTION")
+    private String institution;
 
-    @Column(name = "CN_LOCATION")
-    private String location;
+    @Column(name = "CN_FACULTY")
+    private String faculty;
+
+    @Column(name = "CN_SPECIALITY")
+    private String speciality;
+
+    @Column(name = "CN_GRADUATION_DATE")
+    private LocalDate graduationDate;
+
+    @Column(name = "CN_COUNTRY")
+    private String country;
+
+    @Column(name = "CN_CITY")
+    private String city;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "CN_STATUS")
+    private CandidateStatus status;
 
     @CreationTimestamp
     @Column(name = "CN_CREATED_AT")

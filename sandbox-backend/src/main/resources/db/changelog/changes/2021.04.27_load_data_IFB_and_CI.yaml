@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2021.04.27_load_data_IFB_andC_CI
+      author: aleksei
+      changes:
+        - sqlFile:
+            path: db/changelog/data/2021.04.16_IFB_data.sql
+        - sqlFile:
+            path: db/changelog/data/2021.04.19_CE_data.sql

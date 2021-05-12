@@ -14,6 +14,12 @@ public class UpdateEmployeeDto implements GeneralDto {
     @Size(min = 1, max = 255, message = "lastName must be between 1 and 255 characters")
     private String lastName;
 
+    @Size(min = 1, max = 255, message = "primaryTechnology must be between 1 and 255 characters")
+    private String primaryTechnology;
+
+    @Size(min = 1, max = 100, message = "type must be between 1 and 255 characters")
+    private String type;
+
     @Size(min = 1, max = 255, message = "phone must be between 1 and 255 characters")
     private String phone;
 

@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2021.04.28_add_column_status_in_candidate
+      author: butenko
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          columnExists:
+            tableName: CANDIDATE
+            columnName: CN_STATUS
+      changes:
+        - addColumn:
+            tableName: CANDIDATE
+            columns:
+              name: CN_STATUS
+              type: TEXT
+              constraints:
+                nullable: true

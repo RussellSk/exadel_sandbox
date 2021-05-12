@@ -3,6 +3,7 @@ package com.exadel.team2.sandbox.dto;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
@@ -32,14 +33,29 @@ public class CandidateCreateDTO {
     private String englishLevel;
 
     @NotNull
-    private String expertise;
+    private String mainSkill;
 
     @NotNull
-    private String experience;
+    private String otherSkills;
 
     @NotNull
-    private String education;
+    private String institution;
 
     @NotNull
-    private String location;
+    private String faculty;
+
+    @NotNull
+    private String speciality;
+
+    @NotNull
+    private LocalDate graduationDate;
+
+    @NotNull
+    private String country;
+
+    @NotNull
+    private String city;
+
+    @NotNull
+    private String CandidateStatus;
 }

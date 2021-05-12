@@ -3,6 +3,7 @@ package com.exadel.team2.sandbox.mapper;
 import com.exadel.team2.sandbox.entity.CandidateEventEntity;
 import com.exadel.team2.sandbox.web.candidate_event.ResponseCandidateEventDto;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,6 +17,7 @@ public class CandidateEventMapper implements Mapper<CandidateEventEntity, Respon
 
     @Override
     public CandidateEventEntity convertDtoToEntity(Object dto) {
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
         return modelMapper.map(dto, CandidateEventEntity.class);
     }
 

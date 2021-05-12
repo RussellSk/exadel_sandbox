@@ -23,7 +23,7 @@ public class InterviewTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ITM_ID", nullable = false)
-    private Long itmId;
+    private Long id;
 
     @Column(name = "EV_ID")
     private Long evId;

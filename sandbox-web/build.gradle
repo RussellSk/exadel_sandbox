@@ -25,4 +25,10 @@ dependencies {
     implementation 'org.springframework.security:spring-security-core'
     implementation 'org.springframework.security:spring-security-web'
     implementation 'org.springframework.security:spring-security-config'
+    testImplementation group: 'org.hamcrest', name: 'hamcrest-core', version: '2.2'
+    testImplementation group: 'org.hamcrest', name: 'hamcrest-library', version: '2.2'
+
+
+
+
 }

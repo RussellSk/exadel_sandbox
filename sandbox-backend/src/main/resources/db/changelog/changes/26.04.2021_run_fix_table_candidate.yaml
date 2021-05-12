@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: run-fix-table-candidate
+      author: Saranchuk Vadim
+      changes:
+        - sqlFile:
+            dbms: mysql
+            stripComments: true
+            relativeToChangelogFile: true
+            path: sql/fix_table_candidate.sql

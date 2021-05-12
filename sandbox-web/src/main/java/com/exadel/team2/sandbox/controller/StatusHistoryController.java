@@ -8,6 +8,7 @@ import com.exadel.team2.sandbox.web.statushistory.UpdateStatusHistoryDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,10 +25,11 @@ public class StatusHistoryController {
     }
 
     @GetMapping("/all")
-    public Page<ResponseStatusHistoryDTO> findAllStatusHistoryPageable(@RequestParam(defaultValue = "0", name = "page") Integer page,
-                                                                       @RequestParam(defaultValue = "9", name = "size") Integer size,
-                                                                       @RequestParam(defaultValue = "",value = "search") String query) {
-        return historyService.findAllPageable(PageRequest.of(page, size), query);
+    public Page<ResponseStatusHistoryDTO> findAllStatusHistoryPageable(
+            @RequestParam(defaultValue = "", value = "search") String search,
+            @RequestParam(defaultValue = "0", name = "page") Integer page,
+            @RequestParam(defaultValue = "9", name = "itemsPerPage") Integer itemsPerPage) {
+        return historyService.findAllPageable(PageRequest.of(page, itemsPerPage), search);
     }
 
     @PostMapping
@@ -42,8 +44,14 @@ public class StatusHistoryController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteStatusHistoryById(@PathVariable("id") Long id) {
+    public ResponseEntity<?> deleteStatusHistoryById(@PathVariable("id") Long id) {
+        if (historyService.findById(id) == null) {
+            return ResponseEntity.notFound().build();
+        }
+
         historyService.deleteById(id);
+        return ResponseEntity.ok().build();
+
     }
 
 
