@@ -120,6 +120,8 @@ databaseChangeLog:
   - include:
       file: db/changelog/changes/20210427_load_data_into_employee.yaml
   - include:
+      file: db/changelog/changes/20210505_create_table_employee_availability_time.yaml
+  - include:
       file: db/changelog/changes/03.05.2021_modify_resume_table.yaml
   - include:
       file: db/changelog/changes/05.05.2021_modify_data_type_of_CN_PHONE_column_in_candidate_table.yaml
