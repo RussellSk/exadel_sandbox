@@ -1,9 +1,13 @@
 package com.exadel.team2.sandbox.controller;
 
+import com.exadel.team2.sandbox.service.EmployeeAvailabilityTimeService;
 import com.exadel.team2.sandbox.service.EmployeeService;
+import com.exadel.team2.sandbox.service.impl.EmployeeAvailabilityTimeServiceImpl;
 import com.exadel.team2.sandbox.web.employee.CreateEmployeeDto;
 import com.exadel.team2.sandbox.web.employee.ResponseEmployeeDto;
 import com.exadel.team2.sandbox.web.employee.UpdateEmployeeDto;
+import com.exadel.team2.sandbox.web.employee_availability_time.CreateEmployeeAvailabilityTimeDto;
+import com.exadel.team2.sandbox.web.employee_availability_time.ResponseEmployeeAvailabilityTimeDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 public class EmployeeController {
 
     private final EmployeeService employeeService;
+    private final EmployeeAvailabilityTimeService employeeAvailabilityTimeService;
 
     @GetMapping("/{id}")
     public ResponseEmployeeDto getEmployeeById(@PathVariable Long id) {
@@ -51,6 +56,22 @@ public class EmployeeController {
         }
 
         employeeService.delete(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{employeeId}/availability")
+    public ResponseEmployeeAvailabilityTimeDto getEmployeeAvailabilityTime(@PathVariable Long employeeId) {
+        return employeeAvailabilityTimeService.getByEmployeeId(employeeId);
+    }
+
+    @PostMapping("/availability")
+    public ResponseEmployeeAvailabilityTimeDto createEmployeeAvailabilityTime(@Validated @RequestBody CreateEmployeeAvailabilityTimeDto createEmployeeAvailabilityTimeDto) {
+        return employeeAvailabilityTimeService.save(createEmployeeAvailabilityTimeDto);
+    }
+
+    @DeleteMapping("/{employeeId}/availability")
+    public ResponseEntity<?> deleteEmployeeSlots(@PathVariable Long employeeId) {
+        employeeAvailabilityTimeService.deleteAllByEmployeeId(employeeId);
         return ResponseEntity.ok().build();
     }
 }
