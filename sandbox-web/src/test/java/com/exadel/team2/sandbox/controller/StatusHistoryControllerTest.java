@@ -8,6 +8,7 @@ import com.exadel.team2.sandbox.web.statushistory.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -21,6 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -32,7 +34,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(classes = {StatusHistoryController.class})
-@AutoConfigureMockMvc
 class StatusHistoryControllerTest {
 
     private static final Long STH_ID = 1L;
@@ -41,7 +42,6 @@ class StatusHistoryControllerTest {
     private static final Long EMP_ID = 4L;
     private static final String CHANGE = "change note";
 
-    @Autowired
     private MockMvc mockMvc;
 
     @MockBean
@@ -50,8 +50,10 @@ class StatusHistoryControllerTest {
 
     private static final ObjectMapper mapper = new ObjectMapper();
 
-    @BeforeAll
-    static void setUp() {
+    @BeforeEach
+    void setUp() {
+        statusHistoryService = mock(StatusHistoryService.class);
+        mockMvc = MockMvcBuilders.standaloneSetup(new StatusHistoryController(statusHistoryService)).build();
         mapper.registerModule(new JavaTimeModule());
     }
 
