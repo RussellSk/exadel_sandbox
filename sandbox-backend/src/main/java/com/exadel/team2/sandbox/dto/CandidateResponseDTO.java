@@ -1,12 +1,11 @@
 package com.exadel.team2.sandbox.dto;
 
-
+import lombok.Data;
 import com.exadel.team2.sandbox.entity.enums.CandidateStatus;
 import com.exadel.team2.sandbox.web.canidate_availability_time.CreateCandidateAvailabilityTimeDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
