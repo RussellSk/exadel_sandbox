@@ -1,5 +1,10 @@
 package com.exadel.team2.sandbox.dao.rsql;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,36 +33,78 @@ public class GenericRsqlSpecification<T> implements Specification<T> {
         Object argument = args.get(0);
         switch (RsqlSearchOperation.getSimpleOperator(operator)) {
             case EQUAL:
-                if (argument instanceof String)
-                    return builder.like(propertyExpression,
-                            argument.toString().replace('*', '%'));
-                else if (argument == null)
+                if (argument instanceof String) {
+                    return builder.like(propertyExpression, argument.toString().replace('*', '%'));
+                } else if (argument instanceof LocalDate) {
+                    return builder.equal(propertyExpression, argument);
+                } else if (argument instanceof LocalDateTime) {
+                    Expression<LocalDateTime> expr = root.get(this.property);
+                    Predicate dateFrom = builder.greaterThanOrEqualTo(expr, (LocalDateTime) argument);
+                    Predicate dateEnd = builder.lessThan(expr, ((LocalDateTime) argument).plusDays(1));
+                    return builder.and(dateFrom, dateEnd);
+                } else if (argument == null) {
                     return builder.isNull(propertyExpression);
-                else return builder.equal(propertyExpression, argument);
+                } else {
+                    return builder.equal(propertyExpression, argument);
+                }
 
             case NOT_EQUAL:
-                if (argument instanceof String)
-                    return builder.notLike(propertyExpression,
-                            argument.toString().replace('*', '%'));
-                else if (argument == null)
+                if (argument instanceof String) {
+                    return builder.notLike(propertyExpression, argument.toString().replace('*', '%'));
+                } else if (argument == null) {
                     return builder.isNotNull(propertyExpression);
-                else return builder.notEqual(propertyExpression, argument);
+                } else {
+                    return builder.notEqual(propertyExpression, argument);
+                }
 
             case GREATER_THAN:
-                return builder.greaterThan(propertyExpression,
-                        argument.toString());
+                if (argument instanceof LocalDate) {
+                    Expression<LocalDate> expr = root.get(this.property);
+                    return builder.greaterThan(expr, (LocalDate) argument);
+                } else if (argument instanceof LocalDateTime) {
+                    Expression<LocalDateTime> expr = root.get(this.property);
+                    return builder.greaterThan(expr, ((LocalDateTime) argument).plusDays(1));
+                } else {
+                    return builder.greaterThan(propertyExpression, argument.toString());
+                }
 
             case GREATER_THAN_OR_EQUAL:
-                return builder.greaterThanOrEqualTo(propertyExpression,
-                        argument.toString());
+                if (argument instanceof LocalDate) {
+                    Expression<LocalDate> expr = root.get(this.property);
+                    return builder.greaterThanOrEqualTo(expr, (LocalDate) argument);
+                } else if (argument instanceof LocalDateTime) {
+                    Expression<LocalDateTime> expr = root.get(this.property);
+                    return builder.greaterThanOrEqualTo(expr, (LocalDateTime) argument);
+                } else {
+                    return builder.greaterThanOrEqualTo(propertyExpression, argument.toString());
+                }
 
             case LESS_THAN:
-                return builder.lessThan(propertyExpression,
-                        argument.toString());
+                if (argument instanceof LocalDate) {
+                    Expression<LocalDate> expr = root.get(this.property);
+                    return builder.lessThan(expr, (LocalDate) argument);
+                } else if (argument instanceof LocalDateTime) {
+                    Expression<LocalDateTime> expr = root.get(this.property);
+                    return builder.lessThan(expr, (LocalDateTime) argument);
+                } else {
+                    return builder.lessThan(propertyExpression, argument.toString());
+                }
 
             case LESS_THAN_OR_EQUAL:
-                return builder.lessThanOrEqualTo(propertyExpression,
-                        argument.toString());
+                if (argument instanceof LocalDate) {
+                    Expression<LocalDate> expr = root.get(this.property);
+                    return builder.lessThanOrEqualTo(expr, (LocalDate) argument);
+                } else if (argument instanceof LocalDateTime) {
+                    Expression<LocalDateTime> expr = root.get(this.property);
+                    return builder.lessThanOrEqualTo(expr, ((LocalDateTime) argument)
+                            .plusHours(23)
+                            .plusMinutes(59)
+                            .plusSeconds(59)
+                    );
+                } else {
+                    return builder.lessThanOrEqualTo(propertyExpression, argument.toString());
+                }
+
             case IN:
                 return propertyExpression.in(args);
             case NOT_IN:
@@ -94,8 +141,19 @@ public class GenericRsqlSpecification<T> implements Specification<T> {
                 return Long.parseLong(arg);
             } else if (type.equals(Byte.class)) {
                 return Byte.parseByte(arg);
-            } else if(type.isEnum()) {
+            } else if (type.isEnum()) {
                 return Enum.valueOf((Class<Enum>) type, arg);
+            } else if (type.equals(LocalDate.class)) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                return LocalDate.parse(arg, formatter);
+            } else if (type.equals(LocalDateTime.class)) {
+                DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                        .appendPattern("yyyy-MM-dd[ [HH][:mm][:ss][.SSS]]")
+                        .parseDefaulting(ChronoField.HOUR_OF_DAY, 0)
+                        .parseDefaulting(ChronoField.MINUTE_OF_HOUR, 0)
+                        .parseDefaulting(ChronoField.SECOND_OF_MINUTE, 0)
+                        .toFormatter();
+                return LocalDateTime.parse(arg, formatter);
             } else {
                 return arg;
             }

@@ -25,20 +25,17 @@ public class ResumeEntity {
     @OneToOne(mappedBy = "resumeEntity")
     private CandidateEntity candidateEntity;
 
-    @Column(name = "RSM_PATH")
-    private String path;
-
     @Column(name = "RSM_LINK")
     private String link;
 
     @Column(name = "RSM_NAME")
     private String name;
 
-    @Column(name = "RSM_EXT", nullable = false)
+    @Column(name = "RSM_EXT")
     private String ext;
 
-    @Column(name = "RSM_SIZE", nullable = false)
-    private Integer size;
+    @Column(name = "RSM_SIZE")
+    private Long size;
 
     @CreationTimestamp
     @Column(name = "RSM_CREATED_AT", nullable = false)

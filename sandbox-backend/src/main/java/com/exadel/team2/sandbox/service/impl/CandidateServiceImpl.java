@@ -15,6 +15,8 @@ import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.Node;
 import freemarker.template.TemplateException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
@@ -46,30 +48,29 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public List<CandidateResponseDTO> getAllPageable(Pageable pageable, String search) {
+    public Page<CandidateResponseDTO> getAllPageable(Pageable pageable, String search) {
 
         if (search.isEmpty()) {
-            return candidateDAO.findAll(pageable).stream()
+            return new PageImpl<>(candidateDAO.findAll(pageable).stream()
                     .map((CandidateEntity candidateEntity) ->
                             (CandidateResponseDTO) modelMap.convertTo(
                                     candidateEntity, CandidateResponseDTO.class))
-                    .collect(Collectors.toList());
+                    .collect(Collectors.toList()));
         }
 
 
         Node rootNode = new RSQLParser().parse(search);
         Specification<CandidateEntity> specification = rootNode.accept(new CustomRsqlVisitor<>());
 
-        return candidateDAO.findAll(specification, pageable).stream()
+        return new PageImpl<>(candidateDAO.findAll(specification, pageable).stream()
                 .map((CandidateEntity candidateEntity) ->
                         (CandidateResponseDTO) modelMap.convertTo(
                                 candidateEntity, CandidateResponseDTO.class))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 
     @Override
-    public CandidateCreateDTO save(CandidateCreateDTO candidateCreateDTO) {
-
+    public CandidateResponseDTO save(CandidateCreateDTO candidateCreateDTO) {
         Map<String, Object> prop = new HashMap<>();
         prop.put("name", candidateCreateDTO.getFirstName());
 
@@ -83,9 +84,9 @@ public class CandidateServiceImpl implements CandidateService {
         } catch (TemplateException | IOException exception) {
             exception.printStackTrace();
         }
-        return modelMap.convertTo(candidateDAO.save(
-                modelMap.convertTo(candidateCreateDTO, CandidateEntity.class)),
-                CandidateCreateDTO.class);
+        return modelMap.convertTo(candidateDAO.save(candidateDAO.save(modelMap
+                        .convertTo(candidateCreateDTO, CandidateEntity.class))),
+                CandidateResponseDTO.class);
     }
 
     @Override
