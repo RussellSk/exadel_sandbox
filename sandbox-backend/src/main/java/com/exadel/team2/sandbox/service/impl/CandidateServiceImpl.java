@@ -1,5 +1,6 @@
 package com.exadel.team2.sandbox.service.impl;
 
+import com.exadel.team2.sandbox.configuration.constans.EmailConstant;
 import com.exadel.team2.sandbox.dao.CandidateDAO;
 import com.exadel.team2.sandbox.dao.rsql.CustomRsqlVisitor;
 import com.exadel.team2.sandbox.dto.CandidateCreateDTO;
@@ -8,8 +9,11 @@ import com.exadel.team2.sandbox.dto.CandidateUpdateDTO;
 import com.exadel.team2.sandbox.entity.CandidateEntity;
 import com.exadel.team2.sandbox.mapper.ModelMap;
 import com.exadel.team2.sandbox.service.CandidateService;
+import com.exadel.team2.sandbox.service.SendEmailService;
+import com.exadel.team2.sandbox.web.MessageDTO;
 import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.Node;
+import freemarker.template.TemplateException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -18,7 +22,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Transactional
@@ -26,6 +33,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CandidateServiceImpl implements CandidateService {
 
+    private final SendEmailService sendEmailService;
     private final CandidateDAO candidateDAO;
     private final ModelMap modelMap;
 
@@ -61,6 +69,20 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     public CandidateCreateDTO save(CandidateCreateDTO candidateCreateDTO) {
+
+        Map<String, Object> prop = new HashMap<>();
+        prop.put("name", candidateCreateDTO.getFirstName());
+
+        MessageDTO messageDTO = new MessageDTO();
+        messageDTO.setTo(candidateCreateDTO.getEmail());
+        messageDTO.setSubject(EmailConstant.SUBJECT_RECEIVED_RESUME);
+        messageDTO.setProperties(prop);
+        messageDTO.setTemplateName("receivingCandidateResume.ftl");
+        try {
+            sendEmailService.sendEmail(messageDTO);
+        } catch (TemplateException | IOException exception) {
+            exception.printStackTrace();
+        }
         return modelMap.convertTo(candidateDAO.save(
                 modelMap.convertTo(candidateCreateDTO, CandidateEntity.class)),
                 CandidateCreateDTO.class);
@@ -130,7 +152,7 @@ public class CandidateServiceImpl implements CandidateService {
         if (candidateUpdateDTO.getCity() != null) {
             candidateEntity.setCity(candidateUpdateDTO.getCity());
         }
-        if(candidateUpdateDTO.getStatus() != null){
+        if (candidateUpdateDTO.getStatus() != null) {
             candidateEntity.setStatus(candidateUpdateDTO.getStatus());
         }
 
