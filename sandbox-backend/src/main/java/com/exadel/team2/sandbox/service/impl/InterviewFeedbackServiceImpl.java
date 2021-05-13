@@ -8,6 +8,7 @@ import com.exadel.team2.sandbox.dao.rsql.CustomRsqlVisitor;
 import com.exadel.team2.sandbox.entity.CandidateEntity;
 import com.exadel.team2.sandbox.entity.EmployeeEntity;
 import com.exadel.team2.sandbox.entity.InterviewFeedbackEntity;
+import com.exadel.team2.sandbox.exceptions.NoSuchException;
 import com.exadel.team2.sandbox.mapper.InterviewFeedbackMapper;
 import com.exadel.team2.sandbox.service.InterviewFeedbackService;
 import com.exadel.team2.sandbox.web.interview_feedback.CreateInterviewFeedbackDto;
@@ -24,7 +25,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,22 +58,15 @@ public class InterviewFeedbackServiceImpl implements InterviewFeedbackService {
 
     @Override
     public ResponseInterviewFeedbackDto save(CreateInterviewFeedbackDto createInterviewFeedbackDTO) {
-
         InterviewFeedbackEntity interviewFeedbackEntity = interviewFeedbackMapper.convertDtoToEntity(createInterviewFeedbackDTO);
-
         EmployeeEntity employeeEntity = employeeDAO.findById(createInterviewFeedbackDTO.getIdEmployee())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found"));
         interviewFeedbackEntity.setEmployee(employeeEntity);
-
         CandidateEntity candidateEntity = candidateDAO.findById(createInterviewFeedbackDTO.getIdCandidate())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Candidate not found"));
         interviewFeedbackEntity.setCandidate(candidateEntity);
-
         interviewFeedbackEntity.setFeedback(createInterviewFeedbackDTO.getFeedback());
-        interviewFeedbackEntity.setDateOfCreate(LocalDateTime.now());
-
         interviewFeedbackDAO.save(interviewFeedbackEntity);
-
         return interviewFeedbackMapper.convertEntityToDto(interviewFeedbackEntity);
     }
 
@@ -81,23 +74,22 @@ public class InterviewFeedbackServiceImpl implements InterviewFeedbackService {
     public ResponseInterviewFeedbackDto update(Long id, UpdateInterviewFeedbackDto updateInterviewFeedbackDto) {
         InterviewFeedbackEntity interviewFeedbackEntity = interviewFeedbackDAO.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "InterviewFeedback not found"));
-
         EmployeeEntity employeeEntity = employeeDAO.findById(updateInterviewFeedbackDto.getIdEmployee())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Employee not found"));
         interviewFeedbackEntity.setEmployee(employeeEntity);
-
         CandidateEntity candidateEntity = candidateDAO.findById(updateInterviewFeedbackDto.getIdCandidate())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Candidate not found"));
         interviewFeedbackEntity.setCandidate(candidateEntity);
-
         interviewFeedbackEntity.setFeedback(updateInterviewFeedbackDto.getFeedback());
-        interviewFeedbackEntity.setDateOfUpdate(LocalDateTime.now());
-
         return interviewFeedbackMapper.convertEntityToDto(interviewFeedbackDAO.save(interviewFeedbackEntity));
     }
 
     @Override
     public void delete(Long id) {
+        if (!interviewFeedbackDAO.existsById(id)) {
+            throw new NoSuchException("interviewFeedback with ID = " + id + " not found in Database. " +
+                    "Unable to delete an feedback that does not exist.");
+        }
         interviewFeedbackDAO.deleteById(id);
     }
 

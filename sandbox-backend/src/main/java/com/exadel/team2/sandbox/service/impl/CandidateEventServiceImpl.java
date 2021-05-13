@@ -8,6 +8,7 @@ import com.exadel.team2.sandbox.dao.rsql.CustomRsqlVisitor;
 import com.exadel.team2.sandbox.entity.CandidateEntity;
 import com.exadel.team2.sandbox.entity.CandidateEventEntity;
 import com.exadel.team2.sandbox.entity.EventEntity;
+import com.exadel.team2.sandbox.exceptions.NoSuchException;
 import com.exadel.team2.sandbox.mapper.CandidateEventMapper;
 import com.exadel.team2.sandbox.service.CandidateEventService;
 import com.exadel.team2.sandbox.web.candidate_event.CreateCandidateEventDto;
@@ -43,6 +44,10 @@ public class CandidateEventServiceImpl implements CandidateEventService {
 
     @Override
     public void delete(Long id) {
+        if (!candidateEventDAO.existsById(id)) {
+            throw new NoSuchException("CandidateEvent with ID = " + id + " not found in Database. " +
+                    "Unable to delete an CandidateEvent that does not exist.");
+        }
         candidateEventDAO.deleteById(id);
     }
 
@@ -67,7 +72,6 @@ public class CandidateEventServiceImpl implements CandidateEventService {
         CandidateEntity candidateEntity = candidateDAO.findById(createCandidateEventDto.getIdCandidate())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Candidate not found"));
         candidateEventEntity.setCandidate(candidateEntity);
-        candidateEventEntity.setCreatedAt(LocalDateTime.now());
         candidateEventDAO.save(candidateEventEntity);
         return candidateEventMapper.convertEntityToDto(candidateEventEntity);
     }
