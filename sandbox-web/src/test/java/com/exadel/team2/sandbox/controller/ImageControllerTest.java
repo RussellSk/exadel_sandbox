@@ -12,6 +12,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import java.util.ArrayList;
@@ -69,9 +70,10 @@ class ImageControllerTest {
 
     @Test
     void save_imagesInDB_ok() throws Exception {
-        when(imageService.save(any())).thenReturn(responseDto());
+        MultipartFile image = any();
+        when(imageService.save(any(), image) ).thenReturn(responseDto());
 
-        mockMvc.perform(post("/image")
+        mockMvc.perform(post("/image/upload")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(responseDto())))
                 .andExpect(status().isOk())
@@ -111,8 +113,7 @@ class ImageControllerTest {
         imageDTO.setImageName("Java cover");
         imageDTO.setAltText("Short description about image");
         imageDTO.setExt("jpg");
-        imageDTO.setPath("local path");
-        imageDTO.setSize(5);
+        imageDTO.setSize(5L);
         return imageDTO;
     }
 
@@ -121,8 +122,7 @@ class ImageControllerTest {
         updateDTO.setImageName("Java cover");
         updateDTO.setAltText("Short description about image");
         updateDTO.setExt("jpg");
-        updateDTO.setPath("local path");
-        updateDTO.setSize(6);
+        updateDTO.setSize(6L);
         return updateDTO;
     }
 
