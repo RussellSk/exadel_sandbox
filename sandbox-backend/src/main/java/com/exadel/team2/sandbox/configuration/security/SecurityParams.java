@@ -29,7 +29,7 @@ public class SecurityParams {
     }
 
     public String getTokenPrefix() {
-        return TOKEN_PREFIX;
+        return TOKEN_PREFIX + " ";
     }
 
     public String getTokenIssuer() {
