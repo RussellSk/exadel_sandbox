@@ -125,3 +125,5 @@ databaseChangeLog:
       file: db/changelog/changes/03.05.2021_modify_resume_table.yaml
   - include:
       file: db/changelog/changes/05.05.2021_modify_data_type_of_CN_PHONE_column_in_candidate_table.yaml
+  - include:
+      file: db/changelog/changes/2021.05.14_change_column_in_event_max_varchar.yaml
