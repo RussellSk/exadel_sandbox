@@ -36,6 +36,12 @@ public class ImageServiceImplTest extends BaseTestClass {
     @MockBean
     private EventDAO eventDAO;
 
+    @MockBean
+    private EventServiceImpl eventServiceImpl;
+
+    @MockBean
+    private ImageUploadServiceImpl imageUploadServiceImpl;
+
     @Autowired
     private EventService eventService;
 
