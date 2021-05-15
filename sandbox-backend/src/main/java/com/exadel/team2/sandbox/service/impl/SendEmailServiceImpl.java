@@ -5,7 +5,9 @@ import com.exadel.team2.sandbox.web.MessageDTO;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,11 @@ import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.util.Map;
 
+@Slf4j
 @Service
+@ConditionalOnProperty(
+        name = "features.flag.emailsender",
+        havingValue = "true")
 @RequiredArgsConstructor
 public class SendEmailServiceImpl implements SendEmailService {
 
@@ -50,7 +56,7 @@ public class SendEmailServiceImpl implements SendEmailService {
             mimeMessageHelper.setSubject(messageDTO.getSubject());
             mimeMessageHelper.setText(messageDTO.getText(), true);
         } catch (MessagingException e) {
-            e.printStackTrace();
+            log.error("Error during email creating {}!", e.getMessage(), e);
         }
         return mimeMessageHelper;
     }
