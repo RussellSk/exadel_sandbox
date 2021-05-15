@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20210427_load_data_into_employee
+      author: skaldin
+      preCondition:
+        onFail: HALT
+        tableExists:
+          tableName: EMPLOYEE
+      changes:
+        - sqlFile:
+            path: db/changelog/data/20210427_insert_into_employee_admin.sql
