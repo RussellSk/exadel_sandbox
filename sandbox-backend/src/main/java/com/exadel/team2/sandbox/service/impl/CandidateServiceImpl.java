@@ -74,7 +74,7 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public CandidateCreateDTO save(CandidateCreateDTO candidateCreateDTO) {
+    public CandidateResponseDTO save(CandidateCreateDTO candidateCreateDTO) {
 
         Map<String, Object> prop = new HashMap<>();
         prop.put("name", candidateCreateDTO.getFirstName());
@@ -91,9 +91,9 @@ public class CandidateServiceImpl implements CandidateService {
         } catch (TemplateException | IOException e) {
             log.error("Error during email sending {}", e.getMessage(), e);
         }
-        return modelMap.convertTo(candidateDAO.save(
-                modelMap.convertTo(candidateCreateDTO, CandidateEntity.class)),
-                CandidateCreateDTO.class);
+        return modelMap.convertTo(candidateDAO.save(candidateDAO.save(modelMap
+                        .convertTo(candidateCreateDTO, CandidateEntity.class))),
+                CandidateResponseDTO.class);
     }
 
     @Override
