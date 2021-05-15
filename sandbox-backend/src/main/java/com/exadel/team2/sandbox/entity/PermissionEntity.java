@@ -16,6 +16,12 @@ public class PermissionEntity extends BaseEntity {
     @Column(name = "PMN_NAME")
     private String name;
 
+    @Column(name = "PMN_ROUTE")
+    private String route;
+
+    @Column(name = "PMN_HTTP_METHOD")
+    private String httpMethod;
+
     @Column(name = "PMN_CREATED_AT")
     private LocalDateTime createdAt;
 
