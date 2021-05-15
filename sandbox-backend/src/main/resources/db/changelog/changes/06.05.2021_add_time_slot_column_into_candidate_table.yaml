@@ -14,5 +14,5 @@ databaseChangeLog:
                   name: CN_INTERVIEW_TIME
                   afterColumn: CN_GRADUATION_DATE
                   type: DATETIME
-                  defaultValue: NULL
+                  defaultValue: NOW()
             tableName: CANDIDATE

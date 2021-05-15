@@ -28,12 +28,11 @@ public class CandidateAvailabilityTimeServiceImpl extends GeneralServiceImpl<Can
 
     private final CandidateDAO candidateDAO;
     private final CandidateAvailabilityTimeDAO candidateAvailabilityTimeDAO;
-    private final ModelMap mapper;
 
     @Override
     public ResponseCandidateAvailabilityTimeDto getByCandidateId(Long id) {
         List<CandidateAvailabilityTimeEntity> availabilityEntities =
-                ((CandidateAvailabilityTimeDAO)generalDAO).findAllByCandidateId(id);
+                candidateAvailabilityTimeDAO.findAllByCandidateId(id);
 
         ResponseCandidateAvailabilityTimeDto responseDto = new ResponseCandidateAvailabilityTimeDto();
 
@@ -49,7 +48,7 @@ public class CandidateAvailabilityTimeServiceImpl extends GeneralServiceImpl<Can
 
     @Override
     public void deleteAllByCandidateId(Long id) {
-        ((CandidateAvailabilityTimeDAO)generalDAO).deleteAllByCandidateId(id);
+        candidateAvailabilityTimeDAO.deleteAllByCandidateId(id);
     }
 
     @Override
