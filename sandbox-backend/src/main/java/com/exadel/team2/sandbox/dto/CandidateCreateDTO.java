@@ -1,9 +1,12 @@
 package com.exadel.team2.sandbox.dto;
 
+import com.exadel.team2.sandbox.web.canidate_availability_time.CreateCandidateAvailabilityTimeDto;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -12,6 +15,9 @@ public class CandidateCreateDTO {
 
     @NotNull
     private Long rsmId;
+
+    @NotNull
+    private List<CreateCandidateAvailabilityTimeDto> availabilityTimeSlots;
 
     @NotNull
     private String firstName;
@@ -54,6 +60,9 @@ public class CandidateCreateDTO {
 
     @NotNull
     private String city;
+
+    @NotNull
+    private LocalDateTime interviewTime;
 
     @NotNull
     private String CandidateStatus;

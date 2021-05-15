@@ -132,8 +132,13 @@ public class CandidateServiceImpl implements CandidateService {
         if (candidateUpdateDTO.getCity() != null) {
             candidateEntity.setCity(candidateUpdateDTO.getCity());
         }
+
         if(candidateUpdateDTO.getStatus() != null){
             candidateEntity.setStatus(candidateUpdateDTO.getStatus());
+        }
+
+        if(candidateUpdateDTO.getInterviewTime() != null){
+            candidateEntity.setInterviewTime(candidateUpdateDTO.getInterviewTime());
         }
 
         candidateEntity.setUpdatedAt(candidateUpdateDTO.getUpdatedAt());
