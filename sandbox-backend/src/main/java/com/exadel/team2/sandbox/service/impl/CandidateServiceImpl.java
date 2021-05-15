@@ -50,25 +50,25 @@ public class CandidateServiceImpl implements CandidateService {
     }
 
     @Override
-    public List<CandidateResponseDTO> getAllPageable(Pageable pageable, String search) {
+    public Page<CandidateResponseDTO> getAllPageable(Pageable pageable, String search) {
 
         if (search.isEmpty()) {
-            return candidateDAO.findAll(pageable).stream()
+            return new PageImpl<>(candidateDAO.findAll(pageable).stream()
                     .map((CandidateEntity candidateEntity) ->
                             (CandidateResponseDTO) modelMap.convertTo(
                                     candidateEntity, CandidateResponseDTO.class))
-                    .collect(Collectors.toList());
+                    .collect(Collectors.toList()));
         }
 
 
         Node rootNode = new RSQLParser().parse(search);
         Specification<CandidateEntity> specification = rootNode.accept(new CustomRsqlVisitor<>());
 
-        return candidateDAO.findAll(specification, pageable).stream()
+        return new PageImpl<>(candidateDAO.findAll(specification, pageable).stream()
                 .map((CandidateEntity candidateEntity) ->
                         (CandidateResponseDTO) modelMap.convertTo(
                                 candidateEntity, CandidateResponseDTO.class))
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 
     @Override
