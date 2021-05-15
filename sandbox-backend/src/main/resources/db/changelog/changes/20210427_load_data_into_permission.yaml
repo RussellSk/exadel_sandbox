@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20210427_load_data_into_permission
+      author: skaldin
+      preCondition:
+        onFail: HALT
+        tableExists:
+          tableName: PERMISSION
+      changes:
+        - sqlFile:
+            path: db/changelog/data/20210427_insert_permission_data.sql
