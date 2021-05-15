@@ -32,7 +32,7 @@ databaseChangeLog:
               - column:
                   name: CAT_UPDATED_AT
                   type: DATETIME
-                  defaultValue: NULL
+                  defaultValue: NOW()
         - addForeignKeyConstraint:
             baseColumnNames: CN_ID
             baseTableName: CANDIDATE_AVAILABILITY_TIME
