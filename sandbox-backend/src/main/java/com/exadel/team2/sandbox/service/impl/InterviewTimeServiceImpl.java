@@ -17,6 +17,7 @@ import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.Node;
 import freemarker.template.TemplateException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -83,7 +85,7 @@ public class InterviewTimeServiceImpl implements InterviewTimeService {
         try {
             sendEmailService.sendEmail(messageDTO);
         } catch (IOException | TemplateException e) {
-            e.printStackTrace();
+            log.error("Error during email sending {}", e.getMessage(), e);
         }
         return modelMap.convertTo(interviewTimeDAO
                         .save(modelMap.convertTo(interviewTimeCreateDTO, InterviewTimeEntity.class)),

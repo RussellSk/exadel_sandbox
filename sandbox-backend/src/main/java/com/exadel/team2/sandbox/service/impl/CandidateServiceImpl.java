@@ -7,6 +7,8 @@ import com.exadel.team2.sandbox.dto.CandidateCreateDTO;
 import com.exadel.team2.sandbox.dto.CandidateResponseDTO;
 import com.exadel.team2.sandbox.dto.CandidateUpdateDTO;
 import com.exadel.team2.sandbox.entity.CandidateEntity;
+import com.exadel.team2.sandbox.entity.enums.CandidateStatus;
+import com.exadel.team2.sandbox.exceptions.FlagDisabledException;
 import com.exadel.team2.sandbox.mapper.ModelMap;
 import com.exadel.team2.sandbox.service.CandidateService;
 import com.exadel.team2.sandbox.service.SendEmailService;
@@ -15,6 +17,7 @@ import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.Node;
 import freemarker.template.TemplateException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
@@ -28,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Transactional
 @Service
 @RequiredArgsConstructor
@@ -80,8 +84,10 @@ public class CandidateServiceImpl implements CandidateService {
         messageDTO.setTemplateName("receivingCandidateResume.ftl");
         try {
             sendEmailService.sendEmail(messageDTO);
-        } catch (TemplateException | IOException exception) {
-            exception.printStackTrace();
+        } catch (FlagDisabledException q) {
+            log.warn(q.getMessage(), q);
+        } catch (TemplateException | IOException e) {
+            log.error("Error during email sending {}", e.getMessage(), e);
         }
         return modelMap.convertTo(candidateDAO.save(
                 modelMap.convertTo(candidateCreateDTO, CandidateEntity.class)),
@@ -154,6 +160,14 @@ public class CandidateServiceImpl implements CandidateService {
         }
         if (candidateUpdateDTO.getStatus() != null) {
             candidateEntity.setStatus(candidateUpdateDTO.getStatus());
+            MessageDTO messageDTO = getMessageDTO(candidateUpdateDTO);
+            try {
+                sendEmailService.sendEmail(messageDTO);
+            } catch (FlagDisabledException q) {
+                log.warn(q.getMessage(), q);
+            } catch (IOException | TemplateException e) {
+                log.error("Error during email sending {}", e.getMessage(), e);
+            }
         }
 
         candidateEntity.setUpdatedAt(candidateUpdateDTO.getUpdatedAt());
@@ -164,5 +178,22 @@ public class CandidateServiceImpl implements CandidateService {
     @Override
     public void delete(Long id) {
         candidateDAO.deleteById(id);
+    }
+
+    private MessageDTO getMessageDTO(CandidateUpdateDTO candidateUpdateDTO) {
+        MessageDTO messageDTO = new MessageDTO();
+        messageDTO.setTo(candidateUpdateDTO.getEmail());
+        messageDTO.setSubject(EmailConstant.SUBJECT_STATUS_CANDIDATE);
+        if (candidateUpdateDTO.getStatus() == CandidateStatus.SUITABLE) {
+            messageDTO.setProperties(new HashMap<>());
+            messageDTO.setTemplateName("candidateHiring.ftl");
+        }
+        if (candidateUpdateDTO.getStatus() == CandidateStatus.NOT_SUITABLE) {
+            Map<String, Object> prop = new HashMap<>();
+            prop.put("name", candidateUpdateDTO.getFirstName());
+            messageDTO.setProperties(prop);
+            messageDTO.setTemplateName("candidateRejection.ftl");
+        }
+        return messageDTO;
     }
 }
