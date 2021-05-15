@@ -43,7 +43,7 @@ public class CandidateAvailabilityTimeServiceImpl extends GeneralServiceImpl<Can
         responseDto.setCandidateId(id);
         availabilityEntities.forEach(dateTime -> responseDto.getAvailabilityTimeSlots().add(new TimeId(dateTime.getId(), dateTime.getDateTime())));
 
-        return null;
+        return responseDto;
     }
 
     @Override
