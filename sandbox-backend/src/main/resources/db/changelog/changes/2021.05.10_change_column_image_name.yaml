@@ -4,8 +4,9 @@ databaseChangeLog:
       author:  vadblagiy@gmail.com
       preConditions:
         onFail: MARK_RAN
-        tableExists:
+        columnExists:
           tableName: IMAGE
+          columnName: IMG_NAME
       changes:
         - modifyDataType:
             columnName:  IMG_NAME
