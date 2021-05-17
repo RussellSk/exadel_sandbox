@@ -8,10 +8,12 @@ import com.exadel.team2.sandbox.web.status.UpdateStatusDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -19,8 +21,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -31,24 +35,24 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(StatusController.class)
-@AutoConfigureMockMvc
+@SpringBootTest(classes = {StatusController.class})
 class StatusControllerTest {
 
     private static final Long ST_ID = 1L;
     private static final String NAME = "name";
     private static final String DESCRIPTION = "desc";
 
-    @Autowired
     private MockMvc mockMvc;
+
     @MockBean
     private StatusService statusService;
 
-
     private static final ObjectMapper mapper = new ObjectMapper();
 
-    @BeforeAll
-    static void setUp() {
+    @BeforeEach
+    void setUp() {
+        statusService = mock(StatusService.class);
+        mockMvc = MockMvcBuilders.standaloneSetup(new StatusController(statusService)).build();
         mapper.registerModule(new JavaTimeModule());
     }
 

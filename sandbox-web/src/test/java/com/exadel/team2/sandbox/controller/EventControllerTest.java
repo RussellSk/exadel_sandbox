@@ -1,5 +1,7 @@
 package com.exadel.team2.sandbox.controller;
 
+import com.exadel.team2.sandbox.configuration.security.JwtTokenFilter;
+import com.exadel.team2.sandbox.configuration.security.SecurityConfig;
 import com.exadel.team2.sandbox.service.EventService;
 import com.exadel.team2.sandbox.web.event.EventResponseDTO;
 import com.exadel.team2.sandbox.web.event.EventUpdateDTO;
@@ -8,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -25,7 +28,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(EventController.class)
+@SpringBootTest(classes = {EventController.class})
 class EventControllerTest {
 
     private static final long EVENT_ID = 6L;

@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20210425_add_column_to_permission
+      author: skaldin
+      preCondition:
+        onFail: MARK_RAN
+        not:
+          columnExists:
+            tableName: PERMISSION
+            columnName: PMN_ROUTE
+      changes:
+        - addColumn:
+            tableName: PERMISSION
+            columns:
+              name: PMN_ROUTE
+              type: VARCHAR(255)
+              defaultValue: /**
+              afterColumn: PMN_NAME
+              constraints:
+                nullable: false

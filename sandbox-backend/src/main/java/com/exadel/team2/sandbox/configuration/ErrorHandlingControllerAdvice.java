@@ -7,6 +7,7 @@ import com.exadel.team2.sandbox.web.ValidationErrorResponse;
 import cz.jirutka.rsql.parser.RSQLParserException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -49,6 +50,13 @@ class ErrorHandlingControllerAdvice {
         ValidationErrorResponse error = new ValidationErrorResponse();
         error.getViolations().add(new ValidationError("search", e.getMessage()));
         return error;
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<IncorrectData> unauthorizedRequest(UsernameNotFoundException exception) {
+        IncorrectData incorrectData = new IncorrectData();
+        incorrectData.setInfo(exception.getMessage());
+        return new ResponseEntity<>(incorrectData, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler
