@@ -160,7 +160,8 @@ public class CandidateServiceImpl implements CandidateService {
         if (candidateUpdateDTO.getCity() != null) {
             candidateEntity.setCity(candidateUpdateDTO.getCity());
         }
-        if (candidateUpdateDTO.getStatus() != null) {
+      
+        if(candidateUpdateDTO.getStatus() != null){
             candidateEntity.setStatus(candidateUpdateDTO.getStatus());
             MessageDTO messageDTO = getMessageDTO(candidateUpdateDTO);
             try {
@@ -170,6 +171,10 @@ public class CandidateServiceImpl implements CandidateService {
             } catch (IOException | TemplateException e) {
                 log.error("Error during email sending {}", e.getMessage(), e);
             }
+        }
+
+        if(candidateUpdateDTO.getInterviewTime() != null){
+            candidateEntity.setInterviewTime(candidateUpdateDTO.getInterviewTime());
         }
 
         candidateEntity.setUpdatedAt(candidateUpdateDTO.getUpdatedAt());

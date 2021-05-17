@@ -1,11 +1,11 @@
 package com.exadel.team2.sandbox.service.impl;
 
-import com.exadel.team2.sandbox.configuration.FileStorageProperties;
-import com.exadel.team2.sandbox.dto.CandidateResponseDTO;
-import com.exadel.team2.sandbox.dto.UploadFileResponseDTO;
+import com.exadel.team2.sandbox.configuration.ImageStorageProperties;
 import com.exadel.team2.sandbox.exceptions.FileNotFoundException;
 import com.exadel.team2.sandbox.exceptions.FileStorageException;
-import com.exadel.team2.sandbox.service.FileUploadService;
+import com.exadel.team2.sandbox.service.ImageUploadService;
+import com.exadel.team2.sandbox.web.event.EventResponseDTO;
+import com.exadel.team2.sandbox.web.image.UploadImageResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.io.Resource;
@@ -16,22 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.FilterChain;
-import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -40,13 +24,13 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class FileUploadServiceImpl implements FileUploadService {
+public class ImageUploadServiceImpl implements ImageUploadService {
 
     private Path fileStorageLocation;
 
     @Autowired
-    public FileUploadServiceImpl(FileStorageProperties fileStorageProperties) {
-        this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir())
+    public ImageUploadServiceImpl(ImageStorageProperties imageStorageProperties) {
+        this.fileStorageLocation = Paths.get(imageStorageProperties.getUploadDir())
                 .toAbsolutePath().normalize();
 
         try {
@@ -63,7 +47,7 @@ public class FileUploadServiceImpl implements FileUploadService {
     }
 
     @Override
-    public UploadFileResponseDTO uploadFile(CandidateResponseDTO candidateResponseDTO, MultipartFile file) {
+    public UploadImageResponseDTO uploadImage(EventResponseDTO eventResponseDTO, MultipartFile file) {
 
         String fileNameOriginal = StringUtils.cleanPath(file.getOriginalFilename());
 
@@ -72,13 +56,13 @@ public class FileUploadServiceImpl implements FileUploadService {
 
         try {
 
-            fileExtension = FileUploadServiceImpl.getExtensionByStringHandling(fileNameOriginal).get();
+            fileExtension = ImageUploadServiceImpl.getExtensionByStringHandling(fileNameOriginal).get();
 
-            if ("txt".equals(fileExtension) || "docx".equals(fileExtension) || "pdf".equals(fileExtension)) {
+            if ("jpg".equals(fileExtension) || "gif".equals(fileExtension) || "png".equals(fileExtension)) {
 
-                newFileName = candidateResponseDTO.getId().toString() + "_"
-                        + UUID.randomUUID().hashCode() + "_"
-                        + candidateResponseDTO.getMainSkill() + "."
+                newFileName = "image_for_event_id_"
+                        + eventResponseDTO.getId().toString() + "_"
+                        + UUID.randomUUID().hashCode() + "."
                         + fileExtension;
 
                 StringUtils.cleanPath(file.getOriginalFilename());
@@ -89,15 +73,16 @@ public class FileUploadServiceImpl implements FileUploadService {
 
                 Files.move(targetLocation, targetLocation.resolveSibling(newFileName));
             } else {
-                throw new FileStorageException("The file " + fileNameOriginal + " doesn't have available extension. Please upload file with extension '.txt', '.docx' or '.pdf'");
+                throw new FileStorageException("The file " + fileNameOriginal + " doesn't have available extension. " +
+                        "Please upload file with extension '.jpg', '.gif' or '.png'");
             }
 
         } catch (IOException ex) {
             throw new FileStorageException("Could not store file " + fileNameOriginal + ". Please try again!" + ex);
         }
-        return UploadFileResponseDTO.builder()
-                .fileExtension(fileExtension)
-                .fileName(newFileName)
+        return UploadImageResponseDTO.builder()
+                .ext(fileExtension)
+                .imageName(newFileName)
                 .size(file.getSize())
                 .build();
     }
@@ -116,7 +101,7 @@ public class FileUploadServiceImpl implements FileUploadService {
             if (resource.exists() || resource.isReadable()) {
                 return resource;
             } else {
-                throw new FileNotFoundException("Could not read file: " + filename);
+                throw new FileNotFoundException("Image with name = " + filename + " not found!");
             }
         } catch (MalformedURLException ex) {
             throw new FileNotFoundException("Could not read file: " + filename + "\n" + ex);
