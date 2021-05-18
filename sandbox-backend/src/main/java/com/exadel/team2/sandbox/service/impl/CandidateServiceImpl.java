@@ -12,15 +12,12 @@ import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.Node;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -42,22 +39,16 @@ public class CandidateServiceImpl implements CandidateService {
     public Page<CandidateResponseDTO> getAllPageable(Pageable pageable, String search) {
 
         if (search.isEmpty()) {
-            return new PageImpl<>(candidateDAO.findAll(pageable).stream()
-                    .map((CandidateEntity candidateEntity) ->
-                            (CandidateResponseDTO) modelMap.convertTo(
-                                    candidateEntity, CandidateResponseDTO.class))
-                    .collect(Collectors.toList()));
+            return candidateDAO.findAll(pageable).map(candidateEntity -> modelMap.convertTo(
+                                    candidateEntity, CandidateResponseDTO.class));
         }
 
 
         Node rootNode = new RSQLParser().parse(search);
         Specification<CandidateEntity> specification = rootNode.accept(new CustomRsqlVisitor<>());
 
-        return new PageImpl<>(candidateDAO.findAll(specification, pageable).stream()
-                .map((CandidateEntity candidateEntity) ->
-                        (CandidateResponseDTO) modelMap.convertTo(
-                                candidateEntity, CandidateResponseDTO.class))
-                .collect(Collectors.toList()));
+        return candidateDAO.findAll(specification, pageable).map(candidateEntity -> modelMap.convertTo(
+                                candidateEntity, CandidateResponseDTO.class));
     }
 
     @Override
