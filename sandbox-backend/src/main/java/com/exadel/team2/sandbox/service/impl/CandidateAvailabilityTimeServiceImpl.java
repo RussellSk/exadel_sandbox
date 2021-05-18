@@ -34,8 +34,6 @@ public class CandidateAvailabilityTimeServiceImpl extends GeneralServiceImpl<Can
         List<CandidateAvailabilityTimeEntity> availabilityEntities =
                 candidateAvailabilityTimeDAO.findAllByCandidateId(id);
 
-        System.out.println(availabilityEntities);
-
         ResponseCandidateAvailabilityTimeDto responseDto = new ResponseCandidateAvailabilityTimeDto();
 
         if (availabilityEntities == null) {
