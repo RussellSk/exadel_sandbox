@@ -1,26 +1,23 @@
 package com.exadel.team2.sandbox.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.*;
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true)
 
 @Entity
 @Table(name = "STATUS")
-public class Status {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
-    @GenericGenerator(name = "native", strategy = "native")
-    @Column(name = "ST_ID", nullable = false)
-    private Long id;
+@AttributeOverride(name = "id", column = @Column(name = "ST_ID"))
+@EqualsAndHashCode(callSuper = true)
+public class Status extends BaseEntity {
 
     @Column(name = "ST_NAME", length = 55, nullable = false)
     private String name;
