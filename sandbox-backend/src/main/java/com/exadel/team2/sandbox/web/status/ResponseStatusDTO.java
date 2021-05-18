@@ -1,5 +1,6 @@
 package com.exadel.team2.sandbox.web.status;
 
+import com.exadel.team2.sandbox.web.GeneralDto;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -7,7 +8,7 @@ import java.time.LocalDateTime;
 
 
 @Data
-public class ResponseStatusDTO {
+public class ResponseStatusDTO implements GeneralDto {
 
     @NotNull
     private Long id;

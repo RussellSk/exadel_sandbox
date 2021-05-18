@@ -7,6 +7,7 @@ import com.exadel.team2.sandbox.web.image.ImageUpdateDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -27,13 +28,16 @@ public class ImageController {
         return imageService.getAll();
     }
 
-    @PostMapping
-    public ImageResponseDTO saveImage(@Validated @RequestBody ImageCreateDTO imageCreateDTO) {
-        return imageService.save(imageCreateDTO);
+    @PostMapping("/upload")
+    public ImageResponseDTO saveImage(
+            @RequestParam("id") Long eventId,
+            @RequestParam(value = "image", required = false) MultipartFile image) {
+        return imageService.save(eventId, image);
     }
 
     @PutMapping("/{id}")
-    public ImageResponseDTO updateImage(@Validated @PathVariable Long id, @RequestBody ImageUpdateDTO imageUpdateDTO) {
+    public ImageResponseDTO updateImage(@Validated @PathVariable Long id, @RequestBody ImageUpdateDTO
+            imageUpdateDTO) {
         return imageService.update(id, imageUpdateDTO);
     }
 

@@ -1,11 +1,15 @@
 package com.exadel.team2.sandbox.service.impl;
 
 import com.exadel.team2.sandbox.BaseTestClass;
+import com.exadel.team2.sandbox.dao.EventDAO;
 import com.exadel.team2.sandbox.dao.ImageDAO;
 import com.exadel.team2.sandbox.entity.ImageEntity;
 import com.exadel.team2.sandbox.exceptions.NoSuchException;
 import com.exadel.team2.sandbox.mapper.ImageMapper;
+import com.exadel.team2.sandbox.mapper.ModelMap;
+import com.exadel.team2.sandbox.service.EventService;
 import com.exadel.team2.sandbox.service.ImageService;
+import com.exadel.team2.sandbox.service.ImageUploadService;
 import com.exadel.team2.sandbox.web.image.ImageResponseDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -21,13 +25,28 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest(classes = {ImageServiceImpl.class, ImageMapper.class})
+@SpringBootTest(classes = {ImageServiceImpl.class, ImageMapper.class, ModelMap.class})
 public class ImageServiceImplTest extends BaseTestClass {
 
     private static final long IMAGE_ID = 3L;
 
     @MockBean
     private ImageDAO imageDAO;
+
+    @MockBean
+    private EventDAO eventDAO;
+
+    @MockBean
+    private EventServiceImpl eventServiceImpl;
+
+    @MockBean
+    private ImageUploadServiceImpl imageUploadServiceImpl;
+
+    @Autowired
+    private EventService eventService;
+
+    @Autowired
+    private ImageUploadService imageUploadService;
 
     @Autowired
     private ImageService imageService;
@@ -98,8 +117,7 @@ public class ImageServiceImplTest extends BaseTestClass {
         imageEntity.setImageName("Java cover");
         imageEntity.setAltText("Short description about image");
         imageEntity.setExt("jpg");
-        imageEntity.setPath("local path");
-        imageEntity.setSize(5);
+        imageEntity.setSize(5L);
         imageEntity.setCreatedAt(LocalDateTime.now());
 
         return Optional.of(imageEntity);
@@ -152,8 +170,7 @@ public class ImageServiceImplTest extends BaseTestClass {
         imageEntity.setImageName("Java cover");
         imageEntity.setAltText("Short description about image");
         imageEntity.setExt("jpg");
-        imageEntity.setPath("local path");
-        imageEntity.setSize(5);
+        imageEntity.setSize(5L);
 
         return imageEntity;
     }
@@ -164,8 +181,7 @@ public class ImageServiceImplTest extends BaseTestClass {
         imageDTO.setImageName("Java cover");
         imageDTO.setAltText("Short description about image");
         imageDTO.setExt("jpg");
-        imageDTO.setPath("local path");
-        imageDTO.setSize(5);
+        imageDTO.setSize(5L);
         imageDTO.setCreatedAt(LocalDateTime.now());
 
         return imageDTO;

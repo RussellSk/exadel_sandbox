@@ -26,7 +26,9 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class StatusServiceImpl implements StatusService {
+public class StatusServiceImpl extends GeneralServiceImpl<Status,
+        ResponseStatusDTO, CreateStatusDTO, UpdateStatusDTO> implements StatusService {
+
     private final StatusDAO dao;
     private final StatusMapperDTO statusMapper;
 
