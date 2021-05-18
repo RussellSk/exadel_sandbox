@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EmployeeDAO extends GeneralDAO<EmployeeEntity, Long> {
-    Page<EmployeeEntity> findAll(Specification<EmployeeEntity> specification, Pageable pageable);
+    EmployeeEntity findByEmail(String email);
 }

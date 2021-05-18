@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class EventCreateDTO {
 
-    private Long image;
+    private Long imageId;
     private Long employee;
     private Long eventType;
 

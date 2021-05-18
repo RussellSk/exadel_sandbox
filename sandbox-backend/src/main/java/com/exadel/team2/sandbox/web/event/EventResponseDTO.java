@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 public class EventResponseDTO {
 
     private Long id;
-    private ImageResponseDTO image;
+    private Long imageId;
     private ResponseEmployeeDto employee;
     private EventTypeResponseDTO eventType;
     private ResponseEmployeeDto creatorEvent;
