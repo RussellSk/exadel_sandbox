@@ -63,9 +63,11 @@ public class CandidateAvailabilityTimeServiceImpl extends GeneralServiceImpl<Can
             CandidateAvailabilityTimeEntity availabilityEntity = new CandidateAvailabilityTimeEntity();
             availabilityEntity.setId(null);
             availabilityEntity.setCandidate(candidateEntity);
+            availabilityEntity.setDateTime(dateTime);
             availabilityEntity.setCreatedAt(LocalDateTime.now());
             availabilityEntity.setUpdatedAt(LocalDateTime.now());
-            generalDAO.save(availabilityEntity);
+            Long id = candidateAvailabilityTimeDAO.save(availabilityEntity).getId();
+            responseDto.getAvailabilityTimeSlots().add(new TimeId(id, dateTime));
         });
 
         return responseDto;

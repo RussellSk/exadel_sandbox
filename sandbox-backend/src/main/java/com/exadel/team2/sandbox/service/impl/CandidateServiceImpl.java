@@ -18,7 +18,6 @@ import cz.jirutka.rsql.parser.ast.Node;
 import freemarker.template.TemplateException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
@@ -55,22 +54,16 @@ public class CandidateServiceImpl implements CandidateService {
     public Page<CandidateResponseDTO> getAllPageable(Pageable pageable, String search) {
 
         if (search.isEmpty()) {
-            return new PageImpl<>(candidateDAO.findAll(pageable).stream()
-                    .map((CandidateEntity candidateEntity) ->
-                            (CandidateResponseDTO) modelMap.convertTo(
-                                    candidateEntity, CandidateResponseDTO.class))
-                    .collect(Collectors.toList()));
+            return candidateDAO.findAll(pageable).map(candidateEntity -> modelMap.convertTo(
+                                    candidateEntity, CandidateResponseDTO.class));
         }
 
 
         Node rootNode = new RSQLParser().parse(search);
         Specification<CandidateEntity> specification = rootNode.accept(new CustomRsqlVisitor<>());
 
-        return new PageImpl<>(candidateDAO.findAll(specification, pageable).stream()
-                .map((CandidateEntity candidateEntity) ->
-                        (CandidateResponseDTO) modelMap.convertTo(
-                                candidateEntity, CandidateResponseDTO.class))
-                .collect(Collectors.toList()));
+        return candidateDAO.findAll(specification, pageable).map(candidateEntity -> modelMap.convertTo(
+                                candidateEntity, CandidateResponseDTO.class));
     }
 
     @Override
