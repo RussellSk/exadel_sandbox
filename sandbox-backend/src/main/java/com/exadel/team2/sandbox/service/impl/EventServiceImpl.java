@@ -93,7 +93,7 @@ public class EventServiceImpl implements EventService {
                 .orElseThrow(() -> new NoSuchException("Event Type not found"));
 
         eventEntity.setEventType(eventTypeEntity);
-
+        eventEntity.setId(null);
         eventEntity.setCreatedAt(LocalDateTime.now());
         eventDAO.save(eventEntity);
 
