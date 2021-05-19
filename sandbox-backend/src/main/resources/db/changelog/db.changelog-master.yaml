@@ -129,7 +129,9 @@ databaseChangeLog:
       file: db/changelog/changes/06.05.2021_add_time_slot_column_into_candidate_table.yaml
   - include:
       file: db/changelog/changes/07.05.2021_create_candidate_availability_time_table.yaml
-  - include:    
+  - include:
       file: db/changelog/changes/2021.05.10_drop_column_path_image.yaml
   - include:
-      file: db/changelog/changes/2021.05.10_change_column_image_name.yaml      
+      file: db/changelog/changes/2021.05.10_change_column_image_name.yaml
+  - include:
+      file: db/changelog/changes/2021.05.14_change_column_in_event_max_varchar.yaml

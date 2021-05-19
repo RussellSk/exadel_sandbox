@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2021.05.14_change_column_description_max
+      author: vadblagiy@gmail.com
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          columnExists:
+            tableName: EVENT
+      changes:
+        - modifyDataType:
+            columnName:  EV_DESCRIPTION
+            newDataType:  VARCHAR(8000)
+            schemaName:  sandbox
+            tableName:  EVENT
