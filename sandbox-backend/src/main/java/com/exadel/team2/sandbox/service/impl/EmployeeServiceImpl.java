@@ -21,9 +21,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -129,19 +127,19 @@ public class EmployeeServiceImpl extends GeneralServiceImpl<EmployeeEntity,
             throw new UsernameNotFoundException("Incorrect login");
         }
 
-        UserDetails userDetails = new User(employeeEntity.getEmail(), employeeEntity.getPassword(),
+        return new User(employeeEntity.getEmail(), employeeEntity.getPassword(),
                 true, true, true, true,
                 getAuthorities(employeeEntity.getRole()));
-        return userDetails;
     }
 
-    private Collection<? extends GrantedAuthority> getAuthorities(RoleEntity role) {
-        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+    public Collection<? extends GrantedAuthority> getAuthorities(RoleEntity role) {
+        Set<GrantedAuthority> authorities = new HashSet<>();
         authorities.add(new SimpleGrantedAuthority(role.getName()));
         authorities.addAll(role.getPermissions()
                 .stream()
                 .map(p -> new SimpleGrantedAuthority(p.getName()))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toSet()));
+
         return authorities;
     }
 }

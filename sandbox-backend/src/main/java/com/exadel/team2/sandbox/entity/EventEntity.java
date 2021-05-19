@@ -4,7 +4,10 @@ package com.exadel.team2.sandbox.entity;
 import com.exadel.team2.sandbox.entity.enums.EnglishLevel;
 import com.exadel.team2.sandbox.entity.enums.EventTab;
 import com.exadel.team2.sandbox.entity.enums.Format;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -14,6 +17,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+
 @Entity
 @Table(name = "EVENT")
 public class EventEntity {
@@ -24,19 +31,22 @@ public class EventEntity {
     @Column(name = "EV_ID")
     private Long id;
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH} )
-    @JoinColumn(name = "IMG_ID", referencedColumnName = "IMG_ID")
-    private ImageEntity image;
+    @Column(name = "IMG_ID", nullable = false)
+    private Long imageId;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH} )
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "IMG_ID", referencedColumnName = "IMG_ID", insertable = false, updatable = false)
+    private ImageEntity imageEntity;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "EMP_ID")
     private EmployeeEntity employee;
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH} )
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "EV_CREATOR", referencedColumnName = "EMP_ID")
     private EmployeeEntity creatorEvent;
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH } )
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "EVT_ID", referencedColumnName = "EVT_ID")
     private EventTypeEntity eventType;
 
