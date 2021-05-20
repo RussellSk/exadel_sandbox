@@ -51,8 +51,7 @@ public class EmployeeServiceImpl extends GeneralServiceImpl<EmployeeEntity,
         employeeEntity.setRole(roleEntity);
         employeeEntity.setCreatedAt(LocalDateTime.now());
         employeeEntity.setUpdatedAt(LocalDateTime.now());
-        generalDAO.save(employeeEntity);
-        return generalMapper.convertEntityToDto(employeeEntity);
+        return generalMapper.convertEntityToDto(generalDAO.save(employeeEntity));
     }
 
 
