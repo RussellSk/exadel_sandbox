@@ -12,9 +12,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -82,6 +85,29 @@ public class EmployeeServiceImplTest extends BaseTestClass {
         assertEquals(EMP_EMAIL, responseEmployeeDto.getEmail());
     }
 
+    @Test
+    void loadUserByEmail() {
+        EmployeeEntity employeeEntity = createEmployeeEntity();
+        lenient().when(employeeMapper.convertDtoToEntity(createEmployeeDto())).thenReturn(employeeEntity);
+        lenient().when(employeeMapper.convertEntityToDto(employeeEntity)).thenReturn(createResponseEmployeeDto());
+        lenient().when(employeeDAO.findByEmail(employeeEntity.getEmail())).thenReturn(employeeEntity);
+
+        UserDetails user = employeeService.loadUserByUsername(employeeEntity.getEmail());
+
+        assertNotNull(user);
+        assertEquals(user.getUsername(), employeeEntity.getEmail());
+    }
+
+    @Test
+    void getAllEmployees() {
+        EmployeeEntity employeeEntity = createEmployeeEntity();
+        lenient().when(employeeDAO.findAll()).thenReturn(Collections.singletonList(employeeEntity));
+
+        List<ResponseEmployeeDto> employeeEntities = employeeService.getAll();
+
+        assertNotNull(employeeEntities);
+        assertNotEquals(employeeEntities.size(), 0);
+    }
 
     private EmployeeEntity createEmployeeEntity() {
         EmployeeEntity employeeEntity = new EmployeeEntity();
