@@ -74,4 +74,10 @@ public class EmployeeController {
         employeeAvailabilityTimeService.deleteAllByEmployeeId(employeeId);
         return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping("/{slotId}/slot")
+    public ResponseEntity<?> deleteSlotById(@PathVariable Long slotId) {
+        employeeAvailabilityTimeService.delete(slotId);
+        return ResponseEntity.ok().build();
+    }
 }
