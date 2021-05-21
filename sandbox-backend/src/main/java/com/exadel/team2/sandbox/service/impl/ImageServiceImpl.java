@@ -71,7 +71,7 @@ public class ImageServiceImpl implements ImageService {
             UploadImageResponseDTO uploadImageResponseDTO = imageUploadService.uploadImage(eventResponseDTO, image);
 
             ImageEntity imageEntity = imageDAO.save(ImageEntity.builder()
-                    .imageName(uploadImageResponseDTO.getImageName())
+                    .name(uploadImageResponseDTO.getName())
                     .ext(uploadImageResponseDTO.getExt())
                     .size(uploadImageResponseDTO.getSize())
                     .createdAt(LocalDateTime.now())
@@ -96,8 +96,8 @@ public class ImageServiceImpl implements ImageService {
         ImageEntity imageEntity = imageDAO.findById(id)
                 .orElseThrow(() -> new NoSuchException("Image with ID = " + id + " not found in Database"));
 
-        if (imageUpdateDTO.getImageName() != null) {
-            imageEntity.setImageName(imageUpdateDTO.getImageName());
+        if (imageUpdateDTO.getName() != null) {
+            imageEntity.setName(imageUpdateDTO.getName());
         }
         if (imageUpdateDTO.getExt() != null) {
             imageEntity.setExt(imageUpdateDTO.getExt());

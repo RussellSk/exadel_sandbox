@@ -58,7 +58,8 @@ public class ImageUploadServiceImpl implements ImageUploadService {
 
             fileExtension = ImageUploadServiceImpl.getExtensionByStringHandling(fileNameOriginal).get();
 
-            if ("jpg".equals(fileExtension) || "gif".equals(fileExtension) || "png".equals(fileExtension)) {
+            if ("jpg".equals(fileExtension) || "gif".equals(fileExtension) || "png".equals(fileExtension)
+                    || "jpeg".equals(fileExtension) || "ico".equals(fileExtension) || "svg".equals(fileExtension)) {
 
                 newFileName = "image_for_event_id_"
                         + eventResponseDTO.getId().toString() + "_"
@@ -74,7 +75,7 @@ public class ImageUploadServiceImpl implements ImageUploadService {
                 Files.move(targetLocation, targetLocation.resolveSibling(newFileName));
             } else {
                 throw new FileStorageException("The file " + fileNameOriginal + " doesn't have available extension. " +
-                        "Please upload file with extension '.jpg', '.gif' or '.png'");
+                        "Please upload file with extension '.jpg', '.jpeg', '.ico', '.svg', '.gif' or '.png'");
             }
 
         } catch (IOException ex) {
@@ -82,7 +83,7 @@ public class ImageUploadServiceImpl implements ImageUploadService {
         }
         return UploadImageResponseDTO.builder()
                 .ext(fileExtension)
-                .imageName(newFileName)
+                .name(newFileName)
                 .size(file.getSize())
                 .build();
     }

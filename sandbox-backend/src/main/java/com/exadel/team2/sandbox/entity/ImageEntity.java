@@ -27,7 +27,7 @@ public class ImageEntity {
     private Long id;
 
     @Column(name = "IMG_NAME")
-    private String imageName;
+    private String name;
 
     @Column(name = "IMG_EXT")
     private String ext;

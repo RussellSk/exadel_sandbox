@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class ImageResponseDTO {
 
     private Long id;
-    private String imageName;
+    private String name;
     private String ext;
     private Long size;
     private String altText;
