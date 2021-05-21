@@ -9,7 +9,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class UploadImageResponseDTO {
 
-    private String imageName;
+    private String name;
     private String ext;
     private Long size;
 
