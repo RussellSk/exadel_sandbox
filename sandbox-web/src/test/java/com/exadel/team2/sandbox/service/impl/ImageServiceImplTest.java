@@ -114,7 +114,7 @@ public class ImageServiceImplTest extends BaseTestClass {
     private Optional<ImageEntity> getImageResponseEntity() {
         ImageEntity imageEntity = new ImageEntity();
         imageEntity.setId(IMAGE_ID);
-        imageEntity.setImageName("Java cover");
+        imageEntity.setName("Java cover");
         imageEntity.setAltText("Short description about image");
         imageEntity.setExt("jpg");
         imageEntity.setSize(5L);
@@ -167,7 +167,7 @@ public class ImageServiceImplTest extends BaseTestClass {
 
     private ImageEntity saveImageEntity() {
         ImageEntity imageEntity = new ImageEntity();
-        imageEntity.setImageName("Java cover");
+        imageEntity.setName("Java cover");
         imageEntity.setAltText("Short description about image");
         imageEntity.setExt("jpg");
         imageEntity.setSize(5L);
@@ -178,7 +178,7 @@ public class ImageServiceImplTest extends BaseTestClass {
     private ImageResponseDTO responseDto() {
         ImageResponseDTO imageDTO = new ImageResponseDTO();
         imageDTO.setId(IMAGE_ID);
-        imageDTO.setImageName("Java cover");
+        imageDTO.setName("Java cover");
         imageDTO.setAltText("Short description about image");
         imageDTO.setExt("jpg");
         imageDTO.setSize(5L);
