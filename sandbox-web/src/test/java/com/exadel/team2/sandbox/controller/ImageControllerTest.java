@@ -111,7 +111,7 @@ class ImageControllerTest {
     private ImageResponseDTO responseDto() {
         ImageResponseDTO imageDTO = new ImageResponseDTO();
         imageDTO.setId(IMAGE_ID);
-        imageDTO.setImageName("Java cover");
+        imageDTO.setName("Java cover");
         imageDTO.setAltText("Short description about image");
         imageDTO.setExt("jpg");
         imageDTO.setSize(5L);
@@ -120,7 +120,7 @@ class ImageControllerTest {
 
     private ImageUpdateDTO updateDto() {
         ImageUpdateDTO updateDTO = new ImageUpdateDTO();
-        updateDTO.setImageName("Java cover");
+        updateDTO.setName("Java cover");
         updateDTO.setAltText("Short description about image");
         updateDTO.setExt("jpg");
         updateDTO.setSize(6L);
