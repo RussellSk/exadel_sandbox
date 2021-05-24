@@ -7,6 +7,7 @@ import com.exadel.team2.sandbox.web.employee.CreateEmployeeDto;
 import com.exadel.team2.sandbox.web.employee.ResponseEmployeeDto;
 import com.exadel.team2.sandbox.web.employee.UpdateEmployeeDto;
 import com.exadel.team2.sandbox.web.employee_availability_time.CreateEmployeeAvailabilityTimeDto;
+import com.exadel.team2.sandbox.web.employee_availability_time.ResponseCrossedTimeSlots;
 import com.exadel.team2.sandbox.web.employee_availability_time.ResponseEmployeeAvailabilityTimeDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -73,5 +74,11 @@ public class EmployeeController {
     public ResponseEntity<?> deleteEmployeeSlots(@PathVariable Long employeeId) {
         employeeAvailabilityTimeService.deleteAllByEmployeeId(employeeId);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{employeeId}/crossing/{candidateId}")
+    public ResponseCrossedTimeSlots getCrossing(@PathVariable Long employeeId,
+                                                @PathVariable Long candidateId) {
+        return employeeService.getCandidateTime(employeeId, candidateId);
     }
 }

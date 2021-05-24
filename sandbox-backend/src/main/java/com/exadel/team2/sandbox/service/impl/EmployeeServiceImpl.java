@@ -9,13 +9,20 @@ import com.exadel.team2.sandbox.service.EmployeeService;
 import com.exadel.team2.sandbox.web.employee.CreateEmployeeDto;
 import com.exadel.team2.sandbox.web.employee.ResponseEmployeeDto;
 import com.exadel.team2.sandbox.web.employee.UpdateEmployeeDto;
+import com.exadel.team2.sandbox.web.employee_availability_time.ResponseCrossedTimeSlots;
+import com.exadel.team2.sandbox.web.employee_availability_time.TimeId;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -23,11 +30,17 @@ public class EmployeeServiceImpl extends GeneralServiceImpl<EmployeeEntity,
         ResponseEmployeeDto, CreateEmployeeDto, UpdateEmployeeDto> implements EmployeeService {
 
     private final RoleDAO roleDAO;
+    private final CandidateAvailabilityTimeServiceImpl candidateTimeService;
+    private final EmployeeAvailabilityTimeServiceImpl employeeTimeService;
 
-    public EmployeeServiceImpl(EmployeeDAO employeeDAO, RoleDAO roleDAO, EmployeeMapper employeeMapper) {
+    public EmployeeServiceImpl(EmployeeDAO employeeDAO, RoleDAO roleDAO, EmployeeMapper employeeMapper,
+                               CandidateAvailabilityTimeServiceImpl candidateTimeService,
+                               EmployeeAvailabilityTimeServiceImpl employeeTimeService) {
         this.generalDAO = employeeDAO;
         this.roleDAO = roleDAO;
         this.generalMapper = employeeMapper;
+        this.candidateTimeService = candidateTimeService;
+        this.employeeTimeService = employeeTimeService;
     }
 
     @Override
@@ -103,5 +116,34 @@ public class EmployeeServiceImpl extends GeneralServiceImpl<EmployeeEntity,
     @Override
     public void delete(Long id) {
         generalDAO.deleteById(id);
+    }
+
+    private LocalDateTime findLatestData(List<LocalDateTime> listTime) {
+        Collections.sort(listTime);
+        return listTime.get(listTime.size() - 1);
+    }
+
+    @Override
+    public ResponseCrossedTimeSlots getCandidateTime(Long employeeId, Long candidateId) {
+        List<LocalDateTime> employeeTime = employeeTimeService.getByEmployeeId(employeeId).getAvailableTimeSlots().stream()
+                .map(time -> time.getDateTime()).collect(Collectors.toList());
+
+        LocalDateTime latestEmployeeTime = findLatestData(employeeTime);
+
+        List<TimeId> suitableTime = new LinkedList<>();
+
+        for (TimeId timeDto : candidateTimeService.getByCandidateId(candidateId).getAvailabilityTimeSlots()) {
+            int compareValue = latestEmployeeTime.compareTo(timeDto.getDateTime());
+
+            if (compareValue == 0 || compareValue == 1) {
+                suitableTime.add(timeDto);
+            }
+        }
+
+        return ResponseCrossedTimeSlots.builder()
+                .suitableTimeSlots(suitableTime)
+                .candidateId(candidateId)
+                .employeeId(employeeId)
+                .build();
     }
 }
