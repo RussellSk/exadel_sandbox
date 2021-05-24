@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id:  dropColumn-path-in-image-table
+      author:  vadblagiy@gmail.com
+      preConditions:
+        onFail: MARK_RAN
+        not:
+        columnExists:
+          tableName: IMAGE
+          columnName: IMG_PATH
+      changes:
+        - dropColumn:
+            columnName:  IMG_PATH
+            schemaName:  sandbox
+            tableName:  IMAGE

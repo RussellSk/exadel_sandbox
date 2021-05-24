@@ -54,11 +54,16 @@ public class EventTypeServiceImpl implements EventTypeService {
 
     @Override
     public EventTypeResponseDTO update(Long id, EventTypeUpdateDTO eventTypeUpdateDTO) {
-        EventTypeEntity eventTypeEntity = eventTypeMapper.convertDtoToEntity(eventTypeUpdateDTO);
-        eventTypeEntity.setId(id);
-        if (!eventTypeDAO.existsById(id)) {
-            throw new NoSuchException("Event type with ID = " + id + " not found in Database");
-        }
+
+        EventTypeEntity eventTypeEntity = eventTypeDAO.findById(id)
+                .orElseThrow(() -> new NoSuchException("Event type with ID = " + id + " not found in Database"));
+
+        if (eventTypeUpdateDTO.getName() != null)
+            eventTypeEntity.setName(eventTypeUpdateDTO.getName());
+
+        if (eventTypeUpdateDTO.getDescription() != null)
+            eventTypeEntity.setDescription(eventTypeUpdateDTO.getDescription());
+
         eventTypeEntity.setUpdatedAt(LocalDateTime.now());
 
         return eventTypeMapper.convertEntityToDto(eventTypeDAO.save(eventTypeEntity));

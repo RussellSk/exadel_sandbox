@@ -21,7 +21,6 @@ public class ControllerCandidate {
     private final CandidateServiceImpl candidateService;
     private final CandidateAvailabilityTimeService candidateAvailabilityTimeService;
 
-
     @GetMapping(value = "/{id}")
     public CandidateResponseDTO getCandidate(@PathVariable Long id) {
         return candidateService.findById(id);

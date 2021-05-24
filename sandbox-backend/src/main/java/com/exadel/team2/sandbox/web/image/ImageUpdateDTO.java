@@ -10,9 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ImageUpdateDTO {
 
-    private String path;
-    private String imageName;
+    private String name;
     private String ext;
-    private Integer size;
+    private Long size;
     private String altText;
 }

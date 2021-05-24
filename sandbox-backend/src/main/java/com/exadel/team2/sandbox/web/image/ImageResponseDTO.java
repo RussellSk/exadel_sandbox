@@ -1,6 +1,7 @@
 package com.exadel.team2.sandbox.web.image;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,13 +10,13 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class ImageResponseDTO {
 
     private Long id;
-    private String path;
-    private String imageName;
+    private String name;
     private String ext;
-    private Integer size;
+    private Long size;
     private String altText;
     private LocalDateTime createdAt;
 

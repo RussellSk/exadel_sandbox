@@ -81,4 +81,10 @@ public class EmployeeController {
                                                 @PathVariable Long candidateId) {
         return employeeService.getCandidateTime(employeeId, candidateId);
     }
+
+    @DeleteMapping("/{slotId}/slot")
+    public ResponseEntity<?> deleteSlotById(@PathVariable Long slotId) {
+        employeeAvailabilityTimeService.delete(slotId);
+        return ResponseEntity.ok().build();
+    }
 }

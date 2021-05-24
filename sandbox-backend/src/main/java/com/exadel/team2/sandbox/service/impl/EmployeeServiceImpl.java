@@ -13,7 +13,14 @@ import com.exadel.team2.sandbox.web.employee_availability_time.ResponseCrossedTi
 import com.exadel.team2.sandbox.web.employee_availability_time.TimeId;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -22,6 +29,7 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,31 +38,34 @@ public class EmployeeServiceImpl extends GeneralServiceImpl<EmployeeEntity,
         ResponseEmployeeDto, CreateEmployeeDto, UpdateEmployeeDto> implements EmployeeService {
 
     private final RoleDAO roleDAO;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final CandidateAvailabilityTimeServiceImpl candidateTimeService;
     private final EmployeeAvailabilityTimeServiceImpl employeeTimeService;
 
     public EmployeeServiceImpl(EmployeeDAO employeeDAO, RoleDAO roleDAO, EmployeeMapper employeeMapper,
                                CandidateAvailabilityTimeServiceImpl candidateTimeService,
-                               EmployeeAvailabilityTimeServiceImpl employeeTimeService) {
+                               EmployeeAvailabilityTimeServiceImpl employeeTimeService,
+                               BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.generalDAO = employeeDAO;
         this.roleDAO = roleDAO;
         this.generalMapper = employeeMapper;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.candidateTimeService = candidateTimeService;
         this.employeeTimeService = employeeTimeService;
     }
 
     @Override
     public ResponseEmployeeDto save(CreateEmployeeDto createEmployeeDTO) {
-
         EmployeeEntity employeeEntity = generalMapper.convertDtoToEntity(createEmployeeDTO);
         RoleEntity roleEntity = roleDAO.findById(createEmployeeDTO.getRoleId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Role Not Found"));
 
+        employeeEntity.setId(null);
+        employeeEntity.setPassword(bCryptPasswordEncoder.encode(createEmployeeDTO.getPassword()));
         employeeEntity.setRole(roleEntity);
         employeeEntity.setCreatedAt(LocalDateTime.now());
         employeeEntity.setUpdatedAt(LocalDateTime.now());
-        generalDAO.save(employeeEntity);
-        return generalMapper.convertEntityToDto(employeeEntity);
+        return generalMapper.convertEntityToDto(generalDAO.save(employeeEntity));
     }
 
 
@@ -67,6 +78,10 @@ public class EmployeeServiceImpl extends GeneralServiceImpl<EmployeeEntity,
             RoleEntity roleEntity = roleDAO.findById(updateEmployeeDto.getRoleId())
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Role Not Found"));
             employeeEntity.setRole(roleEntity);
+        }
+
+        if (updateEmployeeDto.getPassword() != null) {
+            employeeEntity.setPassword(bCryptPasswordEncoder.encode(updateEmployeeDto.getPassword()));
         }
 
         if (updateEmployeeDto.getLastName() != null) {
@@ -145,5 +160,28 @@ public class EmployeeServiceImpl extends GeneralServiceImpl<EmployeeEntity,
                 .candidateId(candidateId)
                 .employeeId(employeeId)
                 .build();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        EmployeeEntity employeeEntity = ((EmployeeDAO)generalDAO).findByEmail(email);
+        if (employeeEntity == null) {
+            throw new UsernameNotFoundException("Incorrect login");
+        }
+
+        return new User(employeeEntity.getEmail(), employeeEntity.getPassword(),
+                true, true, true, true,
+                getAuthorities(employeeEntity.getRole()));
+    }
+
+    public Collection<? extends GrantedAuthority> getAuthorities(RoleEntity role) {
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        authorities.add(new SimpleGrantedAuthority(role.getName()));
+        authorities.addAll(role.getPermissions()
+                .stream()
+                .map(p -> new SimpleGrantedAuthority(p.getName()))
+                .collect(Collectors.toSet()));
+
+        return authorities;
     }
 }
