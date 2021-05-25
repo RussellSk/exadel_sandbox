@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @Transactional
 public class EmployeeServiceImpl extends GeneralServiceImpl<EmployeeEntity,
@@ -133,30 +134,33 @@ public class EmployeeServiceImpl extends GeneralServiceImpl<EmployeeEntity,
         generalDAO.deleteById(id);
     }
 
-    private LocalDateTime findLatestData(List<LocalDateTime> listTime) {
-        Collections.sort(listTime);
-        return listTime.get(listTime.size() - 1);
+    private List<LocalDateTime> getEmployeeListTime(Long employeeId) {
+        return employeeTimeService.getByEmployeeId(employeeId).getAvailableTimeSlots().stream()
+                .map(time -> time.getDateTime()).collect(Collectors.toList());
+    }
+
+    private List<TimeId> getCandidateListTime(Long candidateId) {
+        return candidateTimeService.getByCandidateId(candidateId).getAvailabilityTimeSlots();
+    }
+
+    private TimeId findSuitableTime(List<LocalDateTime> employeeTime, TimeId candidateTime) {
+
+        if (employeeTime.contains(candidateTime.getDateTime())) {
+            return candidateTime;
+        }
+
+        return null;
     }
 
     @Override
-    public ResponseCrossedTimeSlots getCandidateTime(Long employeeId, Long candidateId) {
-        List<LocalDateTime> employeeTime = employeeTimeService.getByEmployeeId(employeeId).getAvailableTimeSlots().stream()
-                .map(time -> time.getDateTime()).collect(Collectors.toList());
+    public ResponseCrossedTimeSlots getCrossedTime(Long employeeId, Long candidateId) {
 
-        LocalDateTime latestEmployeeTime = findLatestData(employeeTime);
+        List<LocalDateTime> employeeTime = getEmployeeListTime(employeeId);
 
-        List<TimeId> suitableTime = new LinkedList<>();
-
-        for (TimeId timeDto : candidateTimeService.getByCandidateId(candidateId).getAvailabilityTimeSlots()) {
-            int compareValue = latestEmployeeTime.compareTo(timeDto.getDateTime());
-
-            if (compareValue == 0 || compareValue == 1) {
-                suitableTime.add(timeDto);
-            }
-        }
-
-        return ResponseCrossedTimeSlots.builder()
-                .suitableTimeSlots(suitableTime)
+        return ResponseCrossedTimeSlots.builder().suitableTimeSlots(getCandidateListTime(candidateId).stream()
+                .map(time -> findSuitableTime(employeeTime, time))
+                .filter(time -> time != null)
+                .collect(Collectors.toList()))
                 .candidateId(candidateId)
                 .employeeId(employeeId)
                 .build();
