@@ -17,5 +17,6 @@ public class ResponseCrossedTimeSlots {
     private Long candidateId;
 
     @NotNull
+    @Builder.Default
     private List<TimeId> suitableTimeSlots = new ArrayList<>();
 }
