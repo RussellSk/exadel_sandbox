@@ -134,13 +134,6 @@ public class EmployeeServiceImpl extends GeneralServiceImpl<EmployeeEntity,
         generalDAO.deleteById(id);
     }
 
-
-
-    private LocalDateTime findLatestData(List<LocalDateTime> listTime) {
-        Collections.sort(listTime);
-        return listTime.get(listTime.size() - 1);
-    }
-
     private List<LocalDateTime> getEmployeeListTime(Long employeeId) {
         return employeeTimeService.getByEmployeeId(employeeId).getAvailableTimeSlots().stream()
                 .map(time -> time.getDateTime()).collect(Collectors.toList());
@@ -150,48 +143,24 @@ public class EmployeeServiceImpl extends GeneralServiceImpl<EmployeeEntity,
         return candidateTimeService.getByCandidateId(candidateId).getAvailabilityTimeSlots();
     }
 
-    private TimeId findSuitableTime(Long employeeId, TimeId candidateTime) {
-        List<LocalDateTime> employeeTime = getEmployeeListTime(employeeId);
+    private TimeId findSuitableTime(List<LocalDateTime> employeeTime, TimeId candidateTime) {
 
-        if (employeeTime.contains(candidateTime)) {
-            log.info(candidateTime + "");
+        if (employeeTime.contains(candidateTime.getDateTime())) {
             return candidateTime;
         }
-
-        log.info("null");
 
         return null;
     }
 
     @Override
     public ResponseCrossedTimeSlots getCrossedTime(Long employeeId, Long candidateId) {
-        log.info(getCandidateListTime(candidateId) + "");
+
+        List<LocalDateTime> employeeTime = getEmployeeListTime(employeeId);
+
         return ResponseCrossedTimeSlots.builder().suitableTimeSlots(getCandidateListTime(candidateId).stream()
-                .map(time -> findSuitableTime(employeeId, time))
+                .map(time -> findSuitableTime(employeeTime, time))
                 .filter(time -> time != null)
                 .collect(Collectors.toList()))
-                .build();
-    }
-
-    @Override
-    public ResponseCrossedTimeSlots getCandidateTime(Long employeeId, Long candidateId) {
-        List<LocalDateTime> employeeTime = employeeTimeService.getByEmployeeId(employeeId).getAvailableTimeSlots().stream()
-                .map(time -> time.getDateTime()).collect(Collectors.toList());
-
-        LocalDateTime latestEmployeeTime = findLatestData(employeeTime);
-
-        List<TimeId> suitableTime = new LinkedList<>();
-
-        for (TimeId timeDto : candidateTimeService.getByCandidateId(candidateId).getAvailabilityTimeSlots()) {
-            int compareValue = latestEmployeeTime.compareTo(timeDto.getDateTime());
-
-            if (compareValue == 0 || compareValue == 1) {
-                suitableTime.add(timeDto);
-            }
-        }
-
-        return ResponseCrossedTimeSlots.builder()
-                .suitableTimeSlots(suitableTime)
                 .candidateId(candidateId)
                 .employeeId(employeeId)
                 .build();
