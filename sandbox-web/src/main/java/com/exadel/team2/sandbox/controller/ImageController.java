@@ -31,8 +31,9 @@ public class ImageController {
     @PostMapping("/upload")
     public ImageResponseDTO saveImage(
             @RequestParam("id") Long eventId,
+            @RequestParam(value = "altText", required = false) ImageCreateDTO imageCreateDTO,
             @RequestParam(value = "image", required = false) MultipartFile image) {
-        return imageService.save(eventId, image);
+        return imageService.save(eventId, imageCreateDTO, image);
     }
 
     @PutMapping("/{id}")
