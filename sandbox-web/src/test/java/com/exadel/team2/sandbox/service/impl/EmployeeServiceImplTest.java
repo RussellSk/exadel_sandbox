@@ -6,10 +6,13 @@ import com.exadel.team2.sandbox.dao.RoleDAO;
 import com.exadel.team2.sandbox.entity.EmployeeEntity;
 import com.exadel.team2.sandbox.entity.RoleEntity;
 import com.exadel.team2.sandbox.mapper.EmployeeMapper;
+import com.exadel.team2.sandbox.service.CandidateAvailabilityTimeService;
+import com.exadel.team2.sandbox.service.EmployeeAvailabilityTimeService;
 import com.exadel.team2.sandbox.web.employee.CreateEmployeeDto;
 import com.exadel.team2.sandbox.web.employee.ResponseEmployeeDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -42,6 +45,12 @@ public class EmployeeServiceImplTest extends BaseTestClass {
     @MockBean
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @MockBean
+    private CandidateAvailabilityTimeServiceImpl candidateAvailabilityTimeService;
+
+    @MockBean
+    private EmployeeAvailabilityTimeServiceImpl employeeAvailabilityTimeService;
+
     private EmployeeServiceImpl employeeService;
 
     @BeforeEach
@@ -50,7 +59,10 @@ public class EmployeeServiceImplTest extends BaseTestClass {
         roleDAO = mock(RoleDAO.class);
         bCryptPasswordEncoder = mock(BCryptPasswordEncoder.class);
         employeeMapper = mock(EmployeeMapper.class);
-        employeeService = new EmployeeServiceImpl(employeeDAO, roleDAO, employeeMapper, bCryptPasswordEncoder);
+        candidateAvailabilityTimeService = mock(CandidateAvailabilityTimeServiceImpl.class);
+        employeeAvailabilityTimeService = mock(EmployeeAvailabilityTimeServiceImpl.class);
+        employeeService = new EmployeeServiceImpl(employeeDAO, roleDAO, employeeMapper,
+                candidateAvailabilityTimeService, employeeAvailabilityTimeService, bCryptPasswordEncoder);
     }
 
     @Test
