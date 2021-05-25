@@ -40,6 +40,12 @@ public class EmployeeServiceImplTest extends BaseTestClass {
     private EmployeeMapper employeeMapper;
 
     @MockBean
+    private CandidateAvailabilityTimeServiceImpl candidateTimeService;
+
+    @MockBean
+    private EmployeeAvailabilityTimeServiceImpl employeeTimeService;
+
+    @MockBean
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     private EmployeeServiceImpl employeeService;
@@ -49,8 +55,11 @@ public class EmployeeServiceImplTest extends BaseTestClass {
         employeeDAO = mock(EmployeeDAO.class);
         roleDAO = mock(RoleDAO.class);
         bCryptPasswordEncoder = mock(BCryptPasswordEncoder.class);
+        candidateTimeService = mock(CandidateAvailabilityTimeServiceImpl.class);
+        employeeTimeService = mock(EmployeeAvailabilityTimeServiceImpl.class);
         employeeMapper = mock(EmployeeMapper.class);
-        employeeService = new EmployeeServiceImpl(employeeDAO, roleDAO, employeeMapper, bCryptPasswordEncoder);
+        employeeService = new EmployeeServiceImpl(employeeDAO, roleDAO, employeeMapper,
+                candidateTimeService, employeeTimeService, bCryptPasswordEncoder);
     }
 
     @Test

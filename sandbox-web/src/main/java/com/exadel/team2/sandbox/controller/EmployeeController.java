@@ -79,7 +79,7 @@ public class EmployeeController {
     @GetMapping("/{employeeId}/crossing/{candidateId}")
     public ResponseCrossedTimeSlots getCrossing(@PathVariable Long employeeId,
                                                 @PathVariable Long candidateId) {
-        return employeeService.getCandidateTime(employeeId, candidateId);
+        return employeeService.getCrossedTime(employeeId, candidateId);
     }
 
     @DeleteMapping("/{slotId}/slot")

@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @Transactional
 public class EmployeeServiceImpl extends GeneralServiceImpl<EmployeeEntity,
@@ -133,9 +134,43 @@ public class EmployeeServiceImpl extends GeneralServiceImpl<EmployeeEntity,
         generalDAO.deleteById(id);
     }
 
+
+
     private LocalDateTime findLatestData(List<LocalDateTime> listTime) {
         Collections.sort(listTime);
         return listTime.get(listTime.size() - 1);
+    }
+
+    private List<LocalDateTime> getEmployeeListTime(Long employeeId) {
+        return employeeTimeService.getByEmployeeId(employeeId).getAvailableTimeSlots().stream()
+                .map(time -> time.getDateTime()).collect(Collectors.toList());
+    }
+
+    private List<TimeId> getCandidateListTime(Long candidateId) {
+        return candidateTimeService.getByCandidateId(candidateId).getAvailabilityTimeSlots();
+    }
+
+    private TimeId findSuitableTime(Long employeeId, TimeId candidateTime) {
+        List<LocalDateTime> employeeTime = getEmployeeListTime(employeeId);
+
+        if (employeeTime.contains(candidateTime)) {
+            log.info(candidateTime + "");
+            return candidateTime;
+        }
+
+        log.info("null");
+
+        return null;
+    }
+
+    @Override
+    public ResponseCrossedTimeSlots getCrossedTime(Long employeeId, Long candidateId) {
+        log.info(getCandidateListTime(candidateId) + "");
+        return ResponseCrossedTimeSlots.builder().suitableTimeSlots(getCandidateListTime(candidateId).stream()
+                .map(time -> findSuitableTime(employeeId, time))
+                .filter(time -> time != null)
+                .collect(Collectors.toList()))
+                .build();
     }
 
     @Override
