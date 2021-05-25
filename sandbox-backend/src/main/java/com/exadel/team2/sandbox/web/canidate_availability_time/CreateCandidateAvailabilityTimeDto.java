@@ -19,5 +19,5 @@ public class CreateCandidateAvailabilityTimeDto implements GeneralDto {
     @NotNull(message = "availabilityTimeSlots can't be null")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-    private List<LocalDateTime> availabilityTimeSlots;
+    private List<LocalDateTime> availableTimeSlots;
 }
