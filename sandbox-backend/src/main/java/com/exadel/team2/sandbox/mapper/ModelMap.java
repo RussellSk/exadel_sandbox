@@ -1,10 +1,10 @@
 package com.exadel.team2.sandbox.mapper;
 
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
-//@RequiredArgsConstructor
 @Component
 @NoArgsConstructor
 public class ModelMap implements Convertor {

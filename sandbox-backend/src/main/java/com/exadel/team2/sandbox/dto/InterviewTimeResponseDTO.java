@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class InterviewTimeResponseDTO {
 
     @NotNull
-    private Long id;
+    private Long itmId;
 
     @NotNull
     private Long evId;
