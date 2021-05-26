@@ -1,32 +1,44 @@
 package com.exadel.team2.sandbox.service.impl;
 
+import com.exadel.team2.sandbox.configuration.constans.EmailConstant;
 import com.exadel.team2.sandbox.dao.CandidateDAO;
 import com.exadel.team2.sandbox.dao.rsql.CustomRsqlVisitor;
 import com.exadel.team2.sandbox.dto.CandidateCreateDTO;
 import com.exadel.team2.sandbox.dto.CandidateResponseDTO;
 import com.exadel.team2.sandbox.dto.CandidateUpdateDTO;
 import com.exadel.team2.sandbox.entity.CandidateEntity;
+import com.exadel.team2.sandbox.entity.enums.CandidateStatus;
+import com.exadel.team2.sandbox.exceptions.FlagDisabledException;
 import com.exadel.team2.sandbox.mapper.ModelMap;
 import com.exadel.team2.sandbox.service.CandidateService;
+import com.exadel.team2.sandbox.service.SendEmailService;
+import com.exadel.team2.sandbox.web.MessageDTO;
 import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.Node;
+import freemarker.template.TemplateException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Transactional
 @Service
 @RequiredArgsConstructor
 public class CandidateServiceImpl implements CandidateService {
 
+    private final SendEmailService sendEmailService;
     private final CandidateDAO candidateDAO;
     private final ModelMap modelMap;
 
@@ -42,27 +54,36 @@ public class CandidateServiceImpl implements CandidateService {
     public Page<CandidateResponseDTO> getAllPageable(Pageable pageable, String search) {
 
         if (search.isEmpty()) {
-            return new PageImpl<>(candidateDAO.findAll(pageable).stream()
-                    .map((CandidateEntity candidateEntity) ->
-                            (CandidateResponseDTO) modelMap.convertTo(
-                                    candidateEntity, CandidateResponseDTO.class))
-                    .collect(Collectors.toList()));
+            return candidateDAO.findAll(pageable).map(candidateEntity -> modelMap.convertTo(
+                                    candidateEntity, CandidateResponseDTO.class));
         }
 
 
         Node rootNode = new RSQLParser().parse(search);
         Specification<CandidateEntity> specification = rootNode.accept(new CustomRsqlVisitor<>());
 
-        return new PageImpl<>(candidateDAO.findAll(specification, pageable).stream()
-                .map((CandidateEntity candidateEntity) ->
-                        (CandidateResponseDTO) modelMap.convertTo(
-                                candidateEntity, CandidateResponseDTO.class))
-                .collect(Collectors.toList()));
+        return candidateDAO.findAll(specification, pageable).map(candidateEntity -> modelMap.convertTo(
+                                candidateEntity, CandidateResponseDTO.class));
     }
 
     @Override
     public CandidateResponseDTO save(CandidateCreateDTO candidateCreateDTO) {
 
+        Map<String, Object> prop = new HashMap<>();
+        prop.put("name", candidateCreateDTO.getFirstName());
+
+        MessageDTO messageDTO = new MessageDTO();
+        messageDTO.setTo(candidateCreateDTO.getEmail());
+        messageDTO.setSubject(EmailConstant.SUBJECT_RECEIVED_RESUME);
+        messageDTO.setProperties(prop);
+        messageDTO.setTemplateName("receivingCandidateResume.ftl");
+        try {
+            sendEmailService.sendEmail(messageDTO);
+        } catch (FlagDisabledException q) {
+            log.warn(q.getMessage(), q);
+        } catch (TemplateException | IOException e) {
+            log.error("Error during email sending {}", e.getMessage(), e);
+        }
         return modelMap.convertTo(candidateDAO.save(candidateDAO.save(modelMap
                         .convertTo(candidateCreateDTO, CandidateEntity.class))),
                 CandidateResponseDTO.class);
@@ -132,8 +153,21 @@ public class CandidateServiceImpl implements CandidateService {
         if (candidateUpdateDTO.getCity() != null) {
             candidateEntity.setCity(candidateUpdateDTO.getCity());
         }
+      
         if(candidateUpdateDTO.getStatus() != null){
             candidateEntity.setStatus(candidateUpdateDTO.getStatus());
+            MessageDTO messageDTO = getMessageDTO(candidateUpdateDTO);
+            try {
+                sendEmailService.sendEmail(messageDTO);
+            } catch (FlagDisabledException q) {
+                log.warn(q.getMessage(), q);
+            } catch (IOException | TemplateException e) {
+                log.error("Error during email sending {}", e.getMessage(), e);
+            }
+        }
+
+        if(candidateUpdateDTO.getInterviewTime() != null){
+            candidateEntity.setInterviewTime(candidateUpdateDTO.getInterviewTime());
         }
 
         candidateEntity.setUpdatedAt(candidateUpdateDTO.getUpdatedAt());
@@ -144,5 +178,22 @@ public class CandidateServiceImpl implements CandidateService {
     @Override
     public void delete(Long id) {
         candidateDAO.deleteById(id);
+    }
+
+    private MessageDTO getMessageDTO(CandidateUpdateDTO candidateUpdateDTO) {
+        MessageDTO messageDTO = new MessageDTO();
+        messageDTO.setTo(candidateUpdateDTO.getEmail());
+        messageDTO.setSubject(EmailConstant.SUBJECT_STATUS_CANDIDATE);
+        if (candidateUpdateDTO.getStatus() == CandidateStatus.SUITABLE) {
+            messageDTO.setProperties(new HashMap<>());
+            messageDTO.setTemplateName("candidateHiring.ftl");
+        }
+        if (candidateUpdateDTO.getStatus() == CandidateStatus.NOT_SUITABLE) {
+            Map<String, Object> prop = new HashMap<>();
+            prop.put("name", candidateUpdateDTO.getFirstName());
+            messageDTO.setProperties(prop);
+            messageDTO.setTemplateName("candidateRejection.ftl");
+        }
+        return messageDTO;
     }
 }

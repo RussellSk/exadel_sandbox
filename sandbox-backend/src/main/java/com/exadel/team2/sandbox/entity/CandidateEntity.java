@@ -8,7 +8,6 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Collection;
 
 @Data
 @NoArgsConstructor
@@ -28,9 +27,6 @@ public class CandidateEntity {
     @ToString.Exclude
     @JoinColumn(name = "CN_ID", insertable = false, updatable = false)
     private InterviewTimeEntity interviewTimeEntity;
-
-//    @OneToMany(mappedBy = "candidateEntity", fetch = FetchType.EAGER)
-//    private Collection<EventEntity> eventEntities;
 
     @Column(name = "RSM_ID", nullable = false)
     private Long rsmId;
@@ -80,6 +76,9 @@ public class CandidateEntity {
 
     @Column(name = "CN_CITY")
     private String city;
+
+    @Column(name = "CN_INTERVIEW_TIME")
+    private LocalDateTime interviewTime;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "CN_STATUS")

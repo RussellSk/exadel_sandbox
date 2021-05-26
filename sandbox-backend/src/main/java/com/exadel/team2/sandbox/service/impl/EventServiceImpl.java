@@ -84,16 +84,16 @@ public class EventServiceImpl implements EventService {
         eventEntity.setCreatorEvent(creatorEvent);
 
 
-        ImageEntity imageEntity = imageDAO.findById(eventCreateDTO.getImage())
+        ImageEntity imageEntity = imageDAO.findById(eventCreateDTO.getImageId())
                 .orElseThrow(() -> new NoSuchException("Image not found"));
 
-        eventEntity.setImage(imageEntity);
+        eventEntity.setImageEntity(imageEntity);
 
         EventTypeEntity eventTypeEntity = eventTypeDAO.findById(eventCreateDTO.getEventType())
                 .orElseThrow(() -> new NoSuchException("Event Type not found"));
 
         eventEntity.setEventType(eventTypeEntity);
-
+        eventEntity.setId(null);
         eventEntity.setCreatedAt(LocalDateTime.now());
         eventDAO.save(eventEntity);
 
@@ -102,31 +102,78 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public EventResponseDTO update(Long id, EventUpdateDTO eventUpdateDTO) {
-        EventEntity eventEntity = eventMapper.convertDtoToEntity(eventUpdateDTO);
-        eventEntity.setId(id);
-        if (!eventDAO.existsById(id)) {
-            throw new NoSuchException("Event with ID = " + id + " not found in Database");
+        EventEntity eventEntity = eventDAO.findById(id)
+                .orElseThrow(() -> new NoSuchException("Event with ID = " + id + " not found in Database"));
+
+        if (eventUpdateDTO.getImageId() != null) {
+            eventEntity.setImageId(eventUpdateDTO.getImageId());
         }
 
-        EmployeeEntity employeeEntity = employeeDAO.findById(eventUpdateDTO.getEmployee())
-                .orElseThrow(() -> new NoSuchException("Employee not found"));
+        if (eventUpdateDTO.getEmployee() != null) {
+            EmployeeEntity employeeEntity = employeeDAO.findById(eventUpdateDTO.getEmployee())
+                    .orElseThrow(() -> new NoSuchException("Employee with ID = " + id + " not found in Database"));
+            eventEntity.setEmployee(employeeEntity);
+        }
 
-        eventEntity.setEmployee(employeeEntity);
+        if (eventUpdateDTO.getEventType() != null) {
+            EventTypeEntity eventTypeEntity = eventTypeDAO.findById(eventUpdateDTO.getEventType())
+                    .orElseThrow(() -> new NoSuchException("Event type with ID = " + id + " not found in Database"));
+            eventEntity.setEventType(eventTypeEntity);
+        }
 
-        EmployeeEntity creatorEvent = employeeDAO.findById(eventUpdateDTO.getCreatorEvent())
-                .orElseThrow(() -> new NoSuchException("Creator not found"));
+        if(eventUpdateDTO.getCreatorEvent() != null) {
+            EmployeeEntity creatorEvent = employeeDAO.findById(eventUpdateDTO.getCreatorEvent())
+                    .orElseThrow(() -> new NoSuchException("Creator event with ID = " + id + " not found in Database"));
+            eventEntity.setCreatorEvent(creatorEvent);
+        }
 
-        eventEntity.setCreatorEvent(creatorEvent);
+        if (eventUpdateDTO.getStartDate() != null) {
+            eventEntity.setStartDate(eventUpdateDTO.getStartDate());
+        }
 
-        ImageEntity imageEntity = imageDAO.findById(eventUpdateDTO.getImage())
-                .orElseThrow(() -> new NoSuchException("Image not found"));
+        if (eventUpdateDTO.getDuration() != null) {
+            eventUpdateDTO.setDuration(eventUpdateDTO.getDuration());
+        }
 
-        eventEntity.setImage(imageEntity);
+        if (eventUpdateDTO.getDeadline() != null) {
+            eventEntity.setDeadline(eventUpdateDTO.getDeadline());
+        }
 
-        EventTypeEntity eventTypeEntity = eventTypeDAO.findById(eventUpdateDTO.getEventType())
-                .orElseThrow(() -> new NoSuchException("Event Type not found"));
+        if (eventUpdateDTO.getDateOfEndAccept() != null) {
+            eventEntity.setDateOfEndAccept(eventUpdateDTO.getDateOfEndAccept());
+        }
 
-        eventEntity.setEventType(eventTypeEntity);
+        if (eventUpdateDTO.getFormat() != null) {
+            eventEntity.setFormat(eventUpdateDTO.getFormat());
+        }
+
+        if (eventUpdateDTO.getCountry() != null) {
+            eventEntity.setCountry(eventUpdateDTO.getCountry());
+        }
+
+        if (eventUpdateDTO.getCity() != null) {
+            eventEntity.setCity(eventUpdateDTO.getCity());
+        }
+
+        if (eventUpdateDTO.getTechnologies() != null) {
+            eventEntity.setTechnologies(eventUpdateDTO.getTechnologies());
+        }
+
+        if (eventUpdateDTO.getTitle() != null) {
+            eventEntity.setTitle(eventUpdateDTO.getTitle());
+        }
+
+        if (eventUpdateDTO.getDescription() != null) {
+            eventEntity.setDescription(eventUpdateDTO.getDescription());
+        }
+
+        if (eventUpdateDTO.getEventTab() != null) {
+            eventEntity.setEventTab(eventUpdateDTO.getEventTab());
+        }
+
+        if (eventUpdateDTO.getEnglishLevel() != null) {
+            eventEntity.setEnglishLevel(eventUpdateDTO.getEnglishLevel());
+        }
 
         eventEntity.setUpdatedAt(LocalDateTime.now());
         return eventMapper.convertEntityToDto(eventDAO.save(eventEntity));

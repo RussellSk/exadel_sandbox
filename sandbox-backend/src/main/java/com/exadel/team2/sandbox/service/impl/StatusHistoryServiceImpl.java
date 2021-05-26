@@ -32,7 +32,8 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class StatusHistoryServiceImpl implements StatusHistoryService {
+public class StatusHistoryServiceImpl extends GeneralServiceImpl<StatusHistory,
+        ResponseStatusHistoryDTO,CreateStatusHistoryDTO,UpdateStatusHistoryDTO> implements StatusHistoryService{
 
     private final StatusHistoryDAO historyDAO;
     private final StatusDAO statusDAO;

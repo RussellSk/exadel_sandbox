@@ -3,10 +3,14 @@ package com.exadel.team2.sandbox.controller;
 import com.exadel.team2.sandbox.dto.CandidateCreateDTO;
 import com.exadel.team2.sandbox.dto.CandidateResponseDTO;
 import com.exadel.team2.sandbox.dto.CandidateUpdateDTO;
+import com.exadel.team2.sandbox.service.CandidateAvailabilityTimeService;
 import com.exadel.team2.sandbox.service.impl.CandidateServiceImpl;
+import com.exadel.team2.sandbox.web.canidate_availability_time.CreateCandidateAvailabilityTimeDto;
+import com.exadel.team2.sandbox.web.canidate_availability_time.ResponseCandidateAvailabilityTimeDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class ControllerCandidate {
 
     private final CandidateServiceImpl candidateService;
+    private final CandidateAvailabilityTimeService candidateAvailabilityTimeService;
 
     @GetMapping(value = "/{id}")
     public CandidateResponseDTO getCandidate(@PathVariable Long id) {
@@ -51,5 +56,21 @@ public class ControllerCandidate {
         candidateService.delete(id);
     }
 
+    @GetMapping("/{candidateId}/availability")
+    public ResponseCandidateAvailabilityTimeDto getCandidateAvailabilityTime(@PathVariable Long candidateId) {
+        return candidateAvailabilityTimeService.getByCandidateId(candidateId);
+    }
+
+    @PostMapping("/availability")
+    public ResponseCandidateAvailabilityTimeDto createCandidateAvailabilityTime(
+            @RequestBody CreateCandidateAvailabilityTimeDto candidateAvailabilityTimeDto) {
+        return candidateAvailabilityTimeService.save(candidateAvailabilityTimeDto);
+    }
+
+    @DeleteMapping("/{candidateId}/availability")
+    public ResponseEntity<?> deleteCandidateSlots(@PathVariable Long candidateId) {
+        candidateAvailabilityTimeService.deleteAllByCandidateId(candidateId);
+        return ResponseEntity.ok().build();
+    }
 
 }
