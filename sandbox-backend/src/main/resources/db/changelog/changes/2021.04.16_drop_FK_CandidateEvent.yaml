@@ -1,6 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id:  dropForeignKeyConstraint-candidate
+      validCheckSum: 8:79a595e9cd954cd550d24c285b176d7f
       author:  Alexei
       preConditions:
         - onFail: MARK_RAN
@@ -9,11 +10,11 @@ databaseChangeLog:
       changes:
         - dropForeignKeyConstraint:
             baseTableName:  CANDIDATE_EVENT
-            baseTableSchemaName:  sandbox
             constraintName:  fk_CANDIDATE_EVENT_contact_CANDIDATE
 
   - changeSet:
       id: dropForeignKeyConstraint-event
+      validCheckSum: 8:d989cd46d2ed7817e1bd798c48355055
       author: Alexei
       preConditions:
         - onFail: MARK_RAN
@@ -22,5 +23,4 @@ databaseChangeLog:
       changes:
         - dropForeignKeyConstraint:
             baseTableName: CANDIDATE_EVENT
-            baseTableSchemaName: sandbox
             constraintName: fk_CANDIDATE_EVENT_contact_EVENT

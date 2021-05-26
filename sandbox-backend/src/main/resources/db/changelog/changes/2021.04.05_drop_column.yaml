@@ -1,6 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id:  dropColumn-short-description
+      validCheckSum: 8:f34cd3b84905893235171fbd6b757520
       author:  vadblagiy@gmail.com
       preConditions:
         onFail: MARK_RAN
@@ -11,10 +12,10 @@ databaseChangeLog:
       changes:
         - dropColumn:
             columnName:  EV_SHORT_DESCRIPTION
-            schemaName:  sandbox
             tableName:  EVENT
   - changeSet:
       id:  dropColumn-full-description
+      validCheckSum: 8:f40fb0251fbac8a577c98bc3e02dd47a
       author:  vadblagiy@gmail.com
       preConditions:
         onFail: MARK_RAN
@@ -25,5 +26,4 @@ databaseChangeLog:
       changes:
         - dropColumn:
             columnName:  EV_FULL_DESCRIPTION
-            schemaName:  sandbox
             tableName:  EVENT

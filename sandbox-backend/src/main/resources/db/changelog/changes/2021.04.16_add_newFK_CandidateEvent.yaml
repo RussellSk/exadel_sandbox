@@ -1,6 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: fk_CANDIDATE_EVENT_contact_CANDIDATE
+      validCheckSum: 8:e3fcaa0a2109ebf8c95e16cf2fa5a4d7
       author: Alexei
       preConditions:
         - onFail: MARK_RAN
@@ -14,10 +15,10 @@ databaseChangeLog:
             constraintName: FK_CANDIDATE
             referencedColumnNames: CN_ID
             referencedTableName: CANDIDATE
-            referencedTableSchemaName: sandbox
 
   - changeSet:
       id: fk_CANDIDATE_EVENT_contact_EVENT
+      validCheckSum: 8:f1f87433c9f8d7e1a426f0a27912d950
       author: Alexei
       preConditions:
         - onFail: MARK_RAN
@@ -31,4 +32,3 @@ databaseChangeLog:
             constraintName: FK_EVENT
             referencedColumnNames: EV_ID
             referencedTableName: EVENT
-            referencedTableSchemaName: sandbox

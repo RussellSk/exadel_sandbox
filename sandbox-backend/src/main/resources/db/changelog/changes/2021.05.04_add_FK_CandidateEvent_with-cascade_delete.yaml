@@ -1,6 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: fk_CANDIDATE_EVENT_WITH_CASCADE_DELETE_EVENT
+      validCheckSum: 8:f3a397cffa5421511292be9539886bc2
       author: vadblagiy@gmail.com
       preConditions:
         - onFail: MARK_RAN
@@ -14,5 +15,4 @@ databaseChangeLog:
             constraintName: FK_EVENT_CASCADE
             referencedColumnNames: EV_ID
             referencedTableName: EVENT
-            referencedTableSchemaName: sandbox
             onDelete: CASCADE

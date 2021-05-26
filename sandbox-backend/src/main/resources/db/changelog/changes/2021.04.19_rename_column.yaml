@@ -1,6 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id:  rename_column_requirements_technologies
+      validCheckSum: 8:9b334a80451edcf753e7da949511bc39
       author:  vadblagiy@gmail.com
       preConditions:
         onFail: MARK_RAN
@@ -12,10 +13,10 @@ databaseChangeLog:
             newColumnName:  EV_TECHNOLOGIES
             oldColumnName:  EV_CANDIDATE_REQUIREMENTS
             remarks:  A_String
-            schemaName:  sandbox
             tableName:  EVENT
   - changeSet:
       id:  rename_column_location_format
+      validCheckSum: 8:e776b893185160e2b8406edf4c77e3bd
       author:  vadblagiy@gmail.com
       preConditions:
         onFail: MARK_RAN
@@ -27,5 +28,4 @@ databaseChangeLog:
             newColumnName:  EV_FORMAT
             oldColumnName:  EV_LOCATION
             remarks:  A_String
-            schemaName:  sandbox
             tableName:  EVENT

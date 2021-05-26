@@ -1,6 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id:  dropColumn-path-in-image-table
+      validCheckSum: 8:4b8c0aee3e47d1f7d28773b8c3f08c7e
       author:  vadblagiy@gmail.com
       preConditions:
         onFail: MARK_RAN
@@ -11,5 +12,4 @@ databaseChangeLog:
       changes:
         - dropColumn:
             columnName:  IMG_PATH
-            schemaName:  sandbox
             tableName:  IMAGE

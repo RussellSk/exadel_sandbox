@@ -1,6 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 20210401_add_constraint_interview_feedback
+      validCheckSum: 8:37d005f60a3c67b8d4203813aa103516
       author: skaldin
       preConditions:
         - onFail: MARK_RAN
@@ -10,14 +11,10 @@ databaseChangeLog:
       changes:
         - addForeignKeyConstraint:
             baseColumnNames: EMP_ID
-            baseTableCatalogName: sandbox
             baseTableName: INTERVIEW_FEEDBACK
-            baseTableSchemaName: sandbox
             constraintName: fk_INTERVIEW_FEEDBACK_contact_EMPLOYEE
             onDelete: cascade
             onUpdate: cascade
             referencedColumnNames: EMP_ID
-            referencedTableCatalogName: sandbox
             referencedTableName: EMPLOYEE
-            referencedTableSchemaName: sandbox
             validate: true

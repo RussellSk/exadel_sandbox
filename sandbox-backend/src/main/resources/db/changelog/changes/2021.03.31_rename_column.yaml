@@ -1,6 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id:  rename_column_requirements
+      validCheckSum: 8:8176dfa57bcd52905487efca0b98eb1d
       author:  vadblagiy@gmail.com
       preConditions:
         onFail: CONTINUE
@@ -12,5 +13,4 @@ databaseChangeLog:
             newColumnName:  EV_CANDIDATE_REQUIREMENTS
             oldColumnName:  EV_CANDIDATE_REQUIREMENT
             remarks:  A_String
-            schemaName:  sandbox
             tableName:  EVENT

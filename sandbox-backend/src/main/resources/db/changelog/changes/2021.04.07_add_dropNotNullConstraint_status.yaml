@@ -1,11 +1,11 @@
 databaseChangeLog:
   - changeSet:
       id: add_dropNotNullConstraint_status
+      validCheckSum: 8:ef0dc0a30924ca3e67308bb136eacfd1
       author: butenko
       changes:
         - dropNotNullConstraint:
             catalogName:
             columnDataType: datetime
             columnName: ST_CREATED_AT
-            schemaName: sandbox
             tableName: STATUS

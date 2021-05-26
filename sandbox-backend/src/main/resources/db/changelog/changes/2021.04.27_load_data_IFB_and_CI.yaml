@@ -1,6 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 2021.04.27_load_data_IFB_andC_CI
+      validCheckSum: 8:897cb3f5eff50b841b7c9dcbbae9bae7
       author: aleksei
       changes:
         - sqlFile:

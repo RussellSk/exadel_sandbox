@@ -1,6 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: addForeignKeyConstraint-event-image
+      validCheckSum: 8:96d3de99d98c2adbd9a47d9ca4d431ac
       author: vadblagiy@gmail.com
       preConditions:
         - onFail: MARK_RAN
@@ -14,9 +15,9 @@ databaseChangeLog:
             constraintName: FK_IMAGE
             referencedColumnNames: IMG_ID
             referencedTableName: IMAGE
-            referencedTableSchemaName: sandbox
   - changeSet:
         id: addForeignKeyConstraint-event-eventType
+        validCheckSum: 8:c27079f083445ba75fe3ad7b14ff024c
         author: vadblagiy@gmail.com
         preConditions:
             - onFail: MARK_RAN
@@ -30,9 +31,9 @@ databaseChangeLog:
                   constraintName: FK_EVENT_TYPE
                   referencedColumnNames: EVT_ID
                   referencedTableName: EVENT_TYPE
-                  referencedTableSchemaName: sandbox
   - changeSet:
         id: addForeignKeyConstraint-event-employee
+        validCheckSum: 8:74968a1d1511b5863b0881fee8a1befb
         author: vadblagiy@gmail.com
         preConditions:
             - onFail: MARK_RAN
@@ -46,4 +47,3 @@ databaseChangeLog:
                   constraintName: FK_EMPLOYEE
                   referencedColumnNames: EMP_ID
                   referencedTableName: EMPLOYEE
-                  referencedTableSchemaName: sandbox

@@ -1,6 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: dropForeignKeyConstraint_candidate
+      validCheckSum: 8:687f4f732f5cbf4dca4a8c3f589e8d1d
       author: butenko
       preConditions:
         - onFail: MARK_RAN
@@ -9,10 +10,10 @@ databaseChangeLog:
       changes:
         - dropForeignKeyConstraint:
             baseTableName: STATUS_HISTORY
-            baseTableSchemaName: sandbox
             constraintName: fk_STATUS_HISTORY_contact_CANDITATE
   - changeSet:
       id: dropForeignKeyConstraint-employee
+      validCheckSum: 8:1f07813cf25e049cf37716381ce12cc0
       author: butenko
       preConditions:
         - onFail: MARK_RAN
@@ -21,10 +22,10 @@ databaseChangeLog:
       changes:
         - dropForeignKeyConstraint:
             baseTableName: STATUS_HISTORY
-            baseTableSchemaName: sandbox
             constraintName: fk_STATUS_HISTORY_contact_EMPLOYEE
   - changeSet:
       id: dropForeignKeyConstraint-status
+      validCheckSum: 8:01341cb36c7b1e9215de4978ad7d1578
       author: butenko
       preConditions:
         - onFail: MARK_RAN
@@ -33,5 +34,4 @@ databaseChangeLog:
       changes:
         - dropForeignKeyConstraint:
             baseTableName: STATUS_HISTORY
-            baseTableSchemaName: sandbox
             constraintName: fk_STATUS_HISTORY_contact_STATUS

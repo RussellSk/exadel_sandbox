@@ -1,6 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id:  change_column_image_name
+      validCheckSum: 8:16b04f8d5aa1b27e667143d21932f08b
       author:  vadblagiy@gmail.com
       preConditions:
         onFail: MARK_RAN
@@ -11,5 +12,4 @@ databaseChangeLog:
         - modifyDataType:
             columnName:  IMG_NAME
             newDataType:  VARCHAR(150)
-            schemaName:  sandbox
             tableName:  IMAGE

@@ -1,6 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id:  modifyDataType_05042021
+      validCheckSum: 8:7a132bcfebca567f0e27fd64cb8375a8
       author:  vadblagiy@gmail.com
       preConditions:
         onFail: CONTINUE
@@ -10,5 +11,4 @@ databaseChangeLog:
         - modifyDataType:
             columnName:  EV_DURATION
             newDataType:  VARCHAR(50)
-            schemaName:  sandbox
             tableName:  EVENT

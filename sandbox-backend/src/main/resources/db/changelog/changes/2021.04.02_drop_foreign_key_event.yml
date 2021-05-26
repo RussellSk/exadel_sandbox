@@ -1,6 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id:  dropForeignKeyConstraint-image
+      validCheckSum: 8:b8541eafafa7da30e591a24f7238aef9
       author:  vadblagiy@gmail.com
       preConditions:
         - onFail: MARK_RAN
@@ -9,10 +10,10 @@ databaseChangeLog:
       changes:
       - dropForeignKeyConstraint:
           baseTableName:  EVENT
-          baseTableSchemaName:  sandbox
           constraintName:  fk_EVENT_contact_IMAGE
   - changeSet:
       id:  dropForeignKeyConstraint-eventType
+      validCheckSum: 8:06d66571209c737138dee80995a1f03c
       author:  vadblagiy@gmail.com
       preConditions:
         - onFail: MARK_RAN
@@ -21,10 +22,10 @@ databaseChangeLog:
       changes:
         - dropForeignKeyConstraint:
             baseTableName:  EVENT
-            baseTableSchemaName:  sandbox
             constraintName:  fk_EVENT_contact_EVENT_TYPE
   - changeSet:
       id:  dropForeignKeyConstraint-employee
+      validCheckSum: 8:52bbb1835b7b1feedd7d986755231e23
       author:  vadblagiy@gmail.com
       preConditions:
         - onFail: MARK_RAN
@@ -33,5 +34,4 @@ databaseChangeLog:
       changes:
         - dropForeignKeyConstraint:
             baseTableName:  EVENT
-            baseTableSchemaName:  sandbox
             constraintName:  fk_EVENT_contact_EMPLOYEE

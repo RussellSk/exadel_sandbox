@@ -1,6 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: 2021.05.14_change_column_description_max
+      validCheckSum: 8:4b9fcfb0dbcde40defb29f6c0c0e7641
       author: vadblagiy@gmail.com
       preConditions:
         onFail: MARK_RAN
@@ -11,5 +12,4 @@ databaseChangeLog:
         - modifyDataType:
             columnName:  EV_DESCRIPTION
             newDataType:  VARCHAR(8000)
-            schemaName:  sandbox
             tableName:  EVENT

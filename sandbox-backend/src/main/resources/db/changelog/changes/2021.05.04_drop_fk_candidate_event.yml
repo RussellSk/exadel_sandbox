@@ -1,6 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id:  04052021dropForeignKey
+      validCheckSum: 8:60e19625af9419618737e50d59025c16
       author:  vadblagiy@gmail.com
       preConditions:
         - onFail: MARK_RAN
@@ -9,5 +10,4 @@ databaseChangeLog:
       changes:
       - dropForeignKeyConstraint:
           baseTableName:  CANDIDATE_EVENT
-          baseTableSchemaName:  sandbox
           constraintName:  FK_EVENT

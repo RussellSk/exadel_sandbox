@@ -1,6 +1,7 @@
 databaseChangeLog:
   - changeSet:
       id: addForeignKeyConstraint-candidate
+      validCheckSum: 8:7eeda0f128bcb3cf14c9b2dbecd96ef3
       author: butenko
       preConditions:
         - onFail: MARK_RAN
@@ -14,9 +15,9 @@ databaseChangeLog:
             constraintName: fk_STATUS_HISTORY_contact_CANDITATE
             referencedColumnNames: CN_ID
             referencedTableName: CANDIDATE
-            referencedTableSchemaName: sandbox
   - changeSet:
       id: addForeignKeyConstraint-employee
+      validCheckSum: 8:a30813e7fe72957ad569bfe17251b75e
       author: butenko
       preConditions:
         - onFail: MARK_RAN
@@ -30,9 +31,9 @@ databaseChangeLog:
             constraintName: fk_STATUS_HISTORY_contact_EMPLOYEE
             referencedColumnNames: EMP_ID
             referencedTableName: EMPLOYEE
-            referencedTableSchemaName: sandbox
   - changeSet:
       id: addForeignKeyConstraint-status
+      validCheckSum: 8:a013602fcc296f0cf363d31b6e90fdfa
       author: butenko
       preConditions:
         - onFail: MARK_RAN
@@ -46,4 +47,3 @@ databaseChangeLog:
             constraintName: fk_STATUS_HISTORY_contact_STATUS
             referencedColumnNames: ST_ID
             referencedTableName: STATUS
-            referencedTableSchemaName: sandbox
